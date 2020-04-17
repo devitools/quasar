@@ -1,6 +1,6 @@
-import { SCOPES } from 'src/app/Agnostic/enum'
-import { unique } from 'src/app/Util/general'
-import Dialog from 'src/app/Components/Schema/Contracts/Dialog'
+import { SCOPES } from '../../../Agnostic/enum'
+import { unique } from '../../../Util/general'
+import Dialog from '../../Schema/Contracts/Dialog'
 
 /**
  */

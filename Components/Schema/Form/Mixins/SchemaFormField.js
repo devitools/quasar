@@ -1,6 +1,6 @@
-import SchemaFieldComponent from 'src/app/Components/Schema/Form/Mixins/SchemaFormFieldComponent'
-import SchemaFieldLabel from 'src/app/Components/Schema/Form/Mixins/SchemaFormFieldLabel'
-import SchemaFieldError from 'src/app/Components/Schema/Form/Mixins/SchemaFormFieldError'
+import SchemaFieldComponent from './SchemaFormFieldComponent'
+import SchemaFieldLabel from './SchemaFormFieldLabel'
+import SchemaFieldError from './SchemaFormFieldError'
 
 /**
  * @mixin {SchemaFormField}

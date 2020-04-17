@@ -1,4 +1,4 @@
-import { dateFormatter } from 'src/app/Util/formatter'
+import { dateFormatter } from '../../Util/formatter'
 
 /**
  * @typedef {Object} AppDateMixin

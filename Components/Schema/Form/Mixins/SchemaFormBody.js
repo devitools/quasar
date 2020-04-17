@@ -1,7 +1,7 @@
 // noinspection ES6CheckImport
 import { QIcon, QTab, QTabPanel, QTabs, QTabPanels, QSeparator } from 'quasar'
 
-import SchemaComponents from 'src/app/Components/Schema/Form/SchemaFormComponents'
+import SchemaComponents from '../SchemaFormComponents'
 
 let counter = 0
 

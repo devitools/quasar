@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import AppDateMixinProps from 'src/app/Components/Date/MixinPropsDate'
-import { now } from 'src/app/Util/date'
+import AppDateMixinProps from './MixinPropsDate'
+import { now } from '../../Util/date'
 
 export default {
   /**

@@ -1,5 +1,5 @@
-import SchemaForm from 'src/app/Components/Schema/SchemaForm'
-import { SCOPES } from 'src/app/Agnostic/enum'
+import { SCOPES } from '../../Agnostic/enum'
+import SchemaForm from '../Schema/SchemaForm'
 
 /**
  * @component {AppEmbedForm}

@@ -1,4 +1,4 @@
-import SchemaTable from 'src/app/Components/Schema/SchemaTable'
+import SchemaTable from '../Schema/SchemaTable'
 
 /**
  * @component {AppEmbedTable}

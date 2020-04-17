@@ -1,15 +1,16 @@
 // noinspection ES6CheckImport
 import { QPage } from 'quasar'
 
-import Dynamic from 'src/app/Components/Schema/Contracts/Dynamic'
-import Form from 'src/app/Components/Schema/Contracts/Form'
-import Group from 'src/app/Components/Schema/Contracts/Group'
-// mixins
-import SchemaBody from 'src/app/Components/Schema/Form/Mixins/SchemaFormBody'
-// components
-import SchemaDebugger from 'src/app/Components/Schema/Debugger/SchemaDebugger'
 // app
-import { POSITIONS } from 'src/app/Agnostic/enum'
+import { POSITIONS } from '../../Agnostic/enum'
+// contracts
+import Dynamic from './Contracts/Dynamic'
+import Form from './Contracts/Form'
+import Group from './Contracts/Group'
+// mixins
+import SchemaBody from './Form/Mixins/SchemaFormBody'
+// components
+import SchemaDebugger from './Debugger/SchemaDebugger'
 
 /**
  * @component {SchemaForm}

@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import MixinPropsDatetime from 'src/app/Components/Date/MixinPropsDatetime'
-import MixinBehaviour from 'src/app/Components/Date/MixinBehaviour'
-import DateWidgetDate from 'src/app/Components/Date/DateWidgetDate'
-import DateWidgetDatetime from 'src/app/Components/Date/DateWidgetDatetime'
+import MixinPropsDatetime from './MixinPropsDatetime'
+import MixinBehaviour from './MixinBehaviour'
+import DateWidgetDate from './DateWidgetDate'
+import DateWidgetDatetime from './DateWidgetDatetime'
 
 export default {
   /**

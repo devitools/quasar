@@ -1,17 +1,18 @@
 // noinspection ES6CheckImport
 import { QPage } from 'quasar'
-
-import Dynamic from 'src/app/Components/Schema/Contracts/Dynamic'
-import Table from 'src/app/Components/Schema/Contracts/Table'
-// mixins
-import SchemaTableSlots from 'src/app/Components/Schema/Table/Mixins/SchemaTableSlots'
-// components
-import SchemaDebugger from 'src/app/Components/Schema/Debugger/SchemaDebugger'
-import SchemaTableWhere from 'src/app/Components/Schema/Table/Where/SchemaTableWhere'
-// app
-import { POSITIONS, SCOPES } from 'src/app/Agnostic/enum'
 // settings
 import { searchKey } from 'src/settings/schema'
+
+// app
+import { POSITIONS, SCOPES } from '../../Agnostic/enum'
+// contracts
+import Dynamic from './Contracts/Dynamic'
+import Table from './Contracts/Table'
+// mixins
+import SchemaTableSlots from './Table/Mixins/SchemaTableSlots'
+// components
+import SchemaDebugger from './Debugger/SchemaDebugger'
+import SchemaTableWhere from './Table/Where/SchemaTableWhere'
 
 /**
  * @component {SchemaTable}

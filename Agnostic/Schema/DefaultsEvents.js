@@ -1,5 +1,5 @@
-import { reject } from 'src/app/Util/general'
-import { SCOPES } from 'src/app/Agnostic/enum'
+import { reject } from '../../Util/general'
+import { SCOPES } from '../enum'
 
 /**
  */

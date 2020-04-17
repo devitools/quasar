@@ -1,8 +1,9 @@
-import Base from 'src/app/Agnostic/Base'
 import field from 'src/settings/field'
 import { searchKey } from 'src/settings/schema'
-import { unique, set, clone } from 'src/app/Util/general'
 import action from 'src/settings/action'
+
+import Base from './Base'
+import { unique, set, clone } from '../Util/general'
 
 /**
  * @class {Skeleton}

@@ -1,4 +1,4 @@
-import { fieldsReorder } from 'src/app/Agnostic/Helper'
+import { fieldsReorder } from '../Helper'
 
 export default {
   /**

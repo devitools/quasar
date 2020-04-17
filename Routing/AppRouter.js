@@ -1,7 +1,7 @@
 // noinspection NpmUsedModulesInstalled
 import VueRouter from 'vue-router'
-import { crud, group, redirect, route } from 'src/app/Util/routing'
-import { clone } from 'src/app/Util/general'
+import { crud, group, redirect, route } from '../Util/routing'
+import { clone } from '../Util/general'
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push (location, onResolve, onReject) {
@@ -113,7 +113,7 @@ export default class AppRouter extends VueRouter {
       table = resource.table
       form = resource.form
     }
-    const component = () => import('src/app/Components/Group/Group.vue')
+    const component = () => import('../Components/Group/Group.vue')
     const children = crud(domain, path, table, form)
     const meta = { prefix: domain }
 

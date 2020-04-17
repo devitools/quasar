@@ -1,7 +1,7 @@
-<template src="src/app/Components/SelectRemote/appSelectRemote.html" />
+<template src="./appSelectRemote.html" />
 
 <script type="text/javascript">
-import AppSelectRemote from './appSelectRemote'
+import AppSelectRemote from './AppSelectRemoteMixin'
 
 export default {
   /**

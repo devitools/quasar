@@ -1,6 +1,6 @@
 // noinspection ES6CheckImport
 import { QCheckbox, QTable } from 'quasar'
-import { get } from 'src/app/Util/general'
+import { get } from '../../Util/general'
 
 /**
  * @component {AppTable}

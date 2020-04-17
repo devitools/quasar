@@ -1,4 +1,4 @@
-import SchemaField from 'src/app/Components/Schema/Form/Mixins/SchemaFormField'
+import SchemaField from './Mixins/SchemaFormField'
 
 /**
  * @component {SchemaFormComponents}

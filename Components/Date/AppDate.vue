@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import MixinPropsDate from 'src/app/Components/Date/MixinPropsDate'
-import MixinBehaviour from 'src/app/Components/Date/MixinBehaviour'
-import DateWidgetDate from 'src/app/Components/Date/DateWidgetDate'
+import MixinPropsDate from './MixinPropsDate'
+import MixinBehaviour from './MixinBehaviour'
+import DateWidgetDate from './DateWidgetDate'
 
 export default {
   /**

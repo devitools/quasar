@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import File from 'src/app/Components/File/Uploader'
+import File from '../File/Uploader'
 
 export default {
   /**

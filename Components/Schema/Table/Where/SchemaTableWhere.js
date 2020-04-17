@@ -1,16 +1,18 @@
 // noinspection ES6CheckImport
 import { QIcon } from 'quasar'
 
-// mixin
-import Button from 'src/app/Components/Schema/Contracts/Button'
-// component
-import SchemaTableWhereForm from 'src/app/Components/Schema/Table/Where/SchemaTableWhereForm'
-import SchemaButtons from 'src/app/Components/Schema/Buttons/SchemaButtons'
-// app
-import { POSITIONS } from 'src/app/Agnostic/enum'
-import { is, isObject, withoutSeparator, withSeparator } from 'src/app/Util/general'
 // settings
 import { serializeSearch, unSerializeSearch } from 'src/settings/schema'
+
+// app
+import { POSITIONS } from '../../../../Agnostic/enum'
+import { is, isObject, withoutSeparator, withSeparator } from '../../../../Util/general'
+
+// mixin
+import Button from '../../Contracts/Button'
+// component
+import SchemaTableWhereForm from './SchemaTableWhereForm'
+import SchemaButtons from '../../Buttons/SchemaButtons'
 
 /**
  * @component {SchemaTableWhere}

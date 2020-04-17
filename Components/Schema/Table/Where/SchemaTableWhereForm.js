@@ -1,6 +1,6 @@
-import FormComponent from 'src/app/Components/Schema/Contracts/Form/FormComponent'
-import SchemaFieldLabel from 'src/app/Components/Schema/Form/Mixins/SchemaFormFieldLabel'
-import SchemaFieldComponent from 'src/app/Components/Schema/Form/Mixins/SchemaFormFieldComponent'
+import FormComponent from '../../Contracts/Form/FormComponent'
+import SchemaFieldLabel from '../../Form/Mixins/SchemaFormFieldLabel'
+import SchemaFieldComponent from '../../Form/Mixins/SchemaFormFieldComponent'
 
 /**
  * @component {SchemaTableWhereForm}

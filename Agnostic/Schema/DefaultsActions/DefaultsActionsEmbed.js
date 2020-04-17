@@ -1,5 +1,5 @@
-import { POSITIONS, SCOPES } from 'src/app/Agnostic/enum'
-import { unique } from 'src/app/Util/general'
+import { POSITIONS, SCOPES } from '../../enum'
+import { unique } from '../../../Util/general'
 
 /**
  */

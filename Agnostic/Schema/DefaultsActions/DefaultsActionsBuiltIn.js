@@ -1,4 +1,4 @@
-import { POSITIONS, SCOPES } from 'src/app/Agnostic/enum'
+import { POSITIONS, SCOPES } from '../../enum'
 
 export default {
   /**

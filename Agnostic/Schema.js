@@ -1,15 +1,15 @@
 import Skeleton from './Skeleton'
 
-import DefaultsEvents from 'src/app/Agnostic/Schema/DefaultsEvents'
-import DefaultsActions from 'src/app/Agnostic/Schema/DefaultsActions'
+import DefaultsEvents from './Schema/DefaultsEvents'
+import DefaultsActions from './Schema/DefaultsActions'
 
-import Action from 'src/app/Agnostic/Schema/Action'
+import Action from './Schema/Action'
 
-import Field from 'src/app/Agnostic/Schema/Field'
-import FieldForm from 'src/app/Agnostic/Schema/FieldForm'
-import FieldTable from 'src/app/Agnostic/Schema/FieldTable'
-import FieldIs from 'src/app/Agnostic/Schema/FieldIs'
-import FieldValidation from 'src/app/Agnostic/Schema/FieldValidation'
+import Field from './Schema/Field'
+import FieldForm from './Schema/FieldForm'
+import FieldTable from './Schema/FieldTable'
+import FieldIs from './Schema/FieldIs'
+import FieldValidation from './Schema/FieldValidation'
 
 /**
  * @class {Schema}

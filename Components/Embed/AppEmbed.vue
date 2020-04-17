@@ -18,9 +18,10 @@
 </template>
 
 <script lang="js">
-import AppEmbedTable from 'src/app/Components/Embed/AppEmbedTable'
-import AppEmbedForm from 'src/app/Components/Embed/AppEmbedForm'
-import { SCOPES } from 'src/app/Agnostic/enum'
+import { SCOPES } from '../../Agnostic/enum'
+
+import AppEmbedTable from './AppEmbedTable'
+import AppEmbedForm from './AppEmbedForm'
 
 export default {
   /**

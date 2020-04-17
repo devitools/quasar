@@ -1,4 +1,4 @@
-import SchemaError from 'src/app/Components/Schema/Form/SchemaFormError'
+import SchemaError from '../SchemaFormError'
 
 /**
  * @mixin {SchemaFormFieldError}

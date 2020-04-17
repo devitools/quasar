@@ -1,5 +1,5 @@
-import TableColumns from 'src/app/Components/Schema/Contracts/Table/TableColumns'
-import TableFetch from 'src/app/Components/Schema/Contracts/Table/TableFetch'
+import TableColumns from './Table/TableColumns'
+import TableFetch from './Table/TableFetch'
 import { filterKey, searchKey } from 'src/settings/schema'
 import { tableMinRowsPerPage, tableOuterHeight, tableSelection } from 'src/settings/table'
 

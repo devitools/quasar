@@ -1,5 +1,5 @@
-import { parseValidations } from 'src/app/Components/Schema/Contracts/Helper/validation'
-import { is } from 'src/app/Util/general'
+import { parseValidations } from '../Helper/validation'
+import { is } from '../../../../Util/general'
 
 /**
  * @mixin {FormValidation}

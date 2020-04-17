@@ -1,10 +1,11 @@
 // noinspection ES6CheckImport
 import { QSpace, QIcon, QSelect, QInput, QTd, QBtn } from 'quasar'
 
-import { POSITIONS } from 'src/app/Agnostic/enum'
 import { counter, filterKey, renderField } from 'src/settings/schema'
 import { attrs as defaultAttrs } from 'src/settings/components'
 import { tableShowColumnsSelector, tableShowFilters, tableShowSearch } from 'src/settings/table'
+
+import { POSITIONS } from '../../../../Agnostic/enum'
 
 /**
  * @mixin {SchemaTableSlots}

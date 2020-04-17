@@ -1,15 +1,15 @@
 // noinspection ES6CheckImport
 import { QPage } from 'quasar'
-
-import Dynamic from 'src/app/Components/Schema/Contracts/Dynamic'
-import Form from 'src/app/Components/Schema/Contracts/Form'
-// mixins
-import SchemaBody from 'src/app/Components/Schema/Form/Mixins/SchemaFormBody'
-// app
-import { POSITIONS } from 'src/app/Agnostic/enum'
 import { primaryKey } from 'src/settings/schema'
-import { $store } from 'src/store'
 import { reportAction, reportContext, reportLoading, reportMethod } from 'src/settings/report'
+
+// app
+import { POSITIONS } from '../../Agnostic/enum'
+
+// mixins
+import Dynamic from './Contracts/Dynamic'
+import Form from './Contracts/Form'
+import SchemaBody from './Form/Mixins/SchemaFormBody'
 
 /**
  * @component {SchemaReport}
@@ -59,7 +59,7 @@ export default {
      * @returns {*}
      */
     renderReportBody (h) {
-      const token = $store.getters['auth/getToken']
+      const token = this.$store.getters['auth/getToken']
       const data = {
         ref: 'form',
         class: 'app-form-body',

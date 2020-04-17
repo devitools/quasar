@@ -1,4 +1,4 @@
-import { clone } from 'src/app/Util'
+import { clone } from '../Util/general'
 
 /**
  * @type {Queueable}

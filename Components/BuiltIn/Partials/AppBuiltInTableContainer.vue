@@ -17,10 +17,11 @@
 </template>
 
 <script type="text/javascript">
-import Props from 'src/app/Components/Schema/Contracts/Props'
-import AppBuiltInTable from 'src/app/Components/BuiltIn/Partials/AppBuiltInTable'
-import { SCOPES } from 'src/app/Agnostic/enum'
-import { APP_BUILT_IN_DEFAULT_TABLE_HEIGHT } from 'src/app/Components/BuiltIn/settings'
+import { SCOPES } from '../../../Agnostic/enum'
+
+import Props from '../../Schema/Contracts/Props'
+import AppBuiltInTable from './AppBuiltInTable'
+import { APP_BUILT_IN_DEFAULT_TABLE_HEIGHT } from '../settings'
 
 export default {
   /**

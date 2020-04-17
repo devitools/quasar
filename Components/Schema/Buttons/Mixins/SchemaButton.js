@@ -1,9 +1,9 @@
 // noinspection ES6CheckImport
 import { QTooltip } from 'quasar'
 
-import SchemaButtonDropdown from 'src/app/Components/Schema/Buttons/Renders/SchemaButtonDropdown'
-import SchemaButtonFloating from 'src/app/Components/Schema/Buttons/Renders/SchemaButtonFloating'
-import SchemaButtonSingle from 'src/app/Components/Schema/Buttons/Renders/SchemaButtonSingle'
+import SchemaButtonDropdown from '../Renders/SchemaButtonDropdown'
+import SchemaButtonFloating from '../Renders/SchemaButtonFloating'
+import SchemaButtonSingle from '../Renders/SchemaButtonSingle'
 
 /**
  * @mixin {SchemaButton}

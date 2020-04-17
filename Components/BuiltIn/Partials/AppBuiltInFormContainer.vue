@@ -28,10 +28,10 @@
 </template>
 
 <script>
-import Props from 'src/app/Components/Schema/Contracts/Props'
-import AppBuiltInForm from 'src/app/Components/BuiltIn/Partials/AppBuiltInForm'
+import Props from '../../Schema/Contracts/Props'
+import AppBuiltInForm from './AppBuiltInForm'
 
-import { APP_BUILT_IN_DEFAULT_TABLE_HEIGHT, references } from 'src/app/Components/BuiltIn/settings'
+import { APP_BUILT_IN_DEFAULT_TABLE_HEIGHT, references } from '../settings'
 
 export default {
   /**

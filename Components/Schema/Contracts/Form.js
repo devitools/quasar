@@ -1,10 +1,11 @@
-import FormComponents from 'src/app/Components/Schema/Contracts/Form/FormComponents'
-import FormError from 'src/app/Components/Schema/Contracts/Form/FormError'
-import FormFetch from 'src/app/Components/Schema/Contracts/Form/FormFetch'
-import FormField from 'src/app/Components/Schema/Contracts/Form/FormField'
-import FormRecord from 'src/app/Components/Schema/Contracts/Form/FormRecord'
-import FormValidation from 'src/app/Components/Schema/Contracts/Form/FormValidation'
-import { fieldsReorder } from 'src/app/Agnostic/Helper'
+import { fieldsReorder } from '../../../Agnostic/Helper'
+
+import FormComponents from './Form/FormComponents'
+import FormError from './Form/FormError'
+import FormFetch from './Form/FormFetch'
+import FormField from './Form/FormField'
+import FormRecord from './Form/FormRecord'
+import FormValidation from './Form/FormValidation'
 
 /**
  * @typedef {Object} Form

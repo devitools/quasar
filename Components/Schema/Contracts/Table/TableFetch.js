@@ -1,6 +1,7 @@
 import { filterKey, searchKey } from 'src/settings/schema'
-import { is } from 'src/app/Util/general'
 import { delayLoading } from 'src/settings/rest'
+
+import { is } from '../../../../Util/general'
 
 /**
  * @mixin {TableFetch}

@@ -1,5 +1,5 @@
-import FormComponent from 'src/app/Components/Schema/Contracts/Form/FormComponent'
-import { is } from 'src/app/Util/general'
+import { is } from '../../../../Util/general'
+import FormComponent from './FormComponent'
 
 /**
  * @mixin {FormComponents}

@@ -1,11 +1,11 @@
 // noinspection ES6CheckImport
 import { QFab, QPageSticky } from 'quasar'
 
-// mixins
-import SchemaButton from 'src/app/Components/Schema/Buttons/Mixins/SchemaButton'
-import SchemaButtonParse from 'src/app/Components/Schema/Buttons/Mixins/SchemaButtonParse'
 // app
-import { POSITIONS } from 'src/app/Agnostic/enum'
+import { POSITIONS } from '../../../Agnostic/enum'
+// mixins
+import SchemaButton from './Mixins/SchemaButton'
+import SchemaButtonParse from './Mixins/SchemaButtonParse'
 
 /**
  * @component {SchemaButtons}

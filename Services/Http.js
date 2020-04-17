@@ -1,7 +1,7 @@
 import http from 'src/settings/http'
-
-import { is, serialize } from 'src/app/Util/general'
 import { searchKey } from 'src/settings/schema'
+
+import { is, serialize } from '../Util/general'
 
 /**
  * @class {Http}

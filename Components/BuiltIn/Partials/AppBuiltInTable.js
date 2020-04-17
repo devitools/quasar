@@ -1,5 +1,5 @@
-import { SchemaTable } from 'src/app/Components/index'
-import { POSITIONS, SCOPES } from 'src/app/Agnostic/enum'
+import { SchemaTable } from '../../index'
+import { POSITIONS, SCOPES } from '../../../Agnostic/enum'
 
 /**
  * @component {AppBuiltInTable}

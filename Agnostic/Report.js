@@ -1,11 +1,11 @@
-import Schema from 'src/app/Agnostic/Schema'
-import Action from 'src/app/Agnostic/Schema/Action'
-import Field from 'src/app/Agnostic/Schema/Field'
-import FieldForm from 'src/app/Agnostic/Schema/FieldForm'
-import FieldTable from 'src/app/Agnostic/Schema/FieldTable'
-import FieldIs from 'src/app/Agnostic/Schema/FieldIs'
-import FieldValidation from 'src/app/Agnostic/Schema/FieldValidation'
-import { POSITIONS } from 'src/app/Agnostic/enum'
+import Schema from './Schema'
+import Action from './Schema/Action'
+import Field from './Schema/Field'
+import FieldForm from './Schema/FieldForm'
+import FieldTable from './Schema/FieldTable'
+import FieldIs from './Schema/FieldIs'
+import FieldValidation from './Schema/FieldValidation'
+import { POSITIONS } from './enum'
 
 /**
  * @class {Report}

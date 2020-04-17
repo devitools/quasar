@@ -1,10 +1,10 @@
-import Trigger from 'src/app/Components/Schema/Contracts/Hook'
-import Button from 'src/app/Components/Schema/Contracts/Button'
-import Dialog from 'src/app/Components/Schema/Contracts/Dialog'
-import Field from 'src/app/Components/Schema/Contracts/Field'
-import Action from 'src/app/Components/Schema/Contracts/Action'
-import Operation from 'src/app/Components/Schema/Contracts/Operation'
-import SchemaButtons from 'src/app/Components/Schema/Buttons/SchemaButtons'
+import Trigger from './Hook'
+import Button from './Button'
+import Dialog from './Dialog'
+import Field from './Field'
+import Action from './Action'
+import Operation from './Operation'
+import SchemaButtons from '../Buttons/SchemaButtons'
 
 /**
  * @typedef {Object} Basic

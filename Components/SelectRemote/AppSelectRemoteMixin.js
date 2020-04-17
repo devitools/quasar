@@ -1,9 +1,10 @@
+import Popup from 'src/modules/General/Mixins/Popup'
+
+import { withSeparator } from '../../Util/general'
+
 /**
  * @mixin {AppSelectRemote}
  */
-import { withSeparator } from 'src/app/Util/general'
-import Popup from 'src/modules/General/Mixins/Popup'
-
 export default {
   /**
    */

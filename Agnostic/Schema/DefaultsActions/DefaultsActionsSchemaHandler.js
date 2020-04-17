@@ -1,5 +1,5 @@
-import { SCOPES } from 'src/app/Agnostic/enum'
-import { reject } from 'src/app/Util/general'
+import { SCOPES } from '../../enum'
+import { reject } from '../../../Util/general'
 import { primaryKey } from 'src/settings/schema'
 import { createAction, updateAction, destroyAction } from 'src/settings/executors'
 

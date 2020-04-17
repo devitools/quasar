@@ -1,8 +1,8 @@
-import { SchemaForm } from 'src/app/Components/index'
+import { SchemaForm } from '../../index'
 import {
   APP_BUILT_IN_DEFAULT_TABLE_HEIGHT,
   APP_BUILT_IN_FORM_HEIGHT_COMPENSATION
-} from 'src/app/Components/BuiltIn/settings'
+} from '../settings'
 
 /**
  * @component {AppBuiltInForm}

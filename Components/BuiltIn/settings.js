@@ -1,4 +1,4 @@
-import { SCOPES } from 'src/app/Agnostic/enum'
+import { SCOPES } from '../../Agnostic/enum'
 
 export const references = {
   [SCOPES.SCOPE_ADD]: 'add',

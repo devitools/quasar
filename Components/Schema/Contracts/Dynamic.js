@@ -1,5 +1,5 @@
-import Basic from 'src/app/Components/Schema/Contracts/Basic'
-import Props from 'src/app/Components/Schema/Contracts/Props'
+import Basic from './Basic'
+import Props from './Props'
 
 /**
  * @mixin {Dynamic}

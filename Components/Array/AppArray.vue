@@ -96,10 +96,10 @@
 </template>
 
 <script type="text/javascript">
-import { AppArrayProps, AppArrayEmpty, AppArrayItems, AppArrayComponents } from 'src/app/Components/Array/Mixins'
-
-import { uuid } from 'src/app/Util/general'
 import { currencyParseInput } from 'src/settings/components'
+
+import { AppArrayProps, AppArrayEmpty, AppArrayItems, AppArrayComponents } from './Mixins'
+import { uuid } from '../../Util/general'
 
 export default {
   /**

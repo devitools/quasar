@@ -1,4 +1,4 @@
-import Basic from 'src/app/Components/Schema/Contracts/Basic'
+import Basic from './Basic'
 
 /**
  * @typedef {Object} Static

@@ -33,15 +33,15 @@
 </template>
 
 <script type="text/javascript">
-import Props from 'src/app/Components/Schema/Contracts/Props'
+import Props from '../Schema/Contracts/Props'
+import { SCOPES } from '../../Agnostic/enum'
 
-import Handler from 'src/app/Components/BuiltIn/Mixin/AppBuiltInActionHandler'
+import Handler from './Mixin/AppBuiltInActionHandler'
 
-import AppBuiltInTableContainer from 'src/app/Components/BuiltIn/Partials/AppBuiltInTableContainer'
-import AppBuiltInFormContainer from 'src/app/Components/BuiltIn/Partials/AppBuiltInFormContainer'
+import AppBuiltInTableContainer from './Partials/AppBuiltInTableContainer'
+import AppBuiltInFormContainer from './Partials/AppBuiltInFormContainer'
 
-import { APP_BUILT_IN_DEFAULT_TABLE_HEIGHT } from 'src/app/Components/BuiltIn/settings'
-import { SCOPES } from 'src/app/Agnostic/enum'
+import { APP_BUILT_IN_DEFAULT_TABLE_HEIGHT } from './settings'
 
 export default {
   /**

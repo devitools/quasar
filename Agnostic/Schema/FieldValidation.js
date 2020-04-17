@@ -1,5 +1,6 @@
 import { helpers } from 'vuelidate/lib/validators'
-import { withValidation } from 'src/app/index'
+
+import { withValidation } from '../../Util/validation'
 
 /**
  */

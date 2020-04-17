@@ -1,8 +1,9 @@
 import components from 'src/settings/components'
 import { displayKey, primaryKey } from 'src/settings/schema'
-import { clone } from 'src/app/Util/general'
-import { SCOPES, scopes } from 'src/app/Agnostic/enum'
 import $lang from 'src/lang'
+
+import { clone } from '../Util/general'
+import { SCOPES, scopes } from './enum'
 
 /**
  * @class {Base}

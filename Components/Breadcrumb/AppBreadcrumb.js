@@ -1,7 +1,7 @@
-import { $router } from 'src/router'
 import $lang from 'src/lang'
-import { browse } from 'src/app/Util/general'
 import { home } from 'src/settings/components'
+
+import { browse } from '../../Util/general'
 
 /**
  * @type {string}
@@ -12,13 +12,14 @@ const block = 'app-breadcrumb'
  * @param {CreateElement} h
  * @param {Record<string, any>} data
  * @param {Array<RouteRecord>} routes
+ * @param {string} currentRoute
  * @returns {VNode}
  */
-const ul = (h, data, routes) => {
+const ul = (h, data, routes, currentRoute = '') => {
   data = { ...data, class: block }
 
   const children = routes
-    .map((route) => li(h, route))
+    .map((route) => li(h, route, currentRoute))
     .filter((li) => li !== undefined)
 
   children.unshift(root(h))
@@ -41,9 +42,10 @@ const root = (h) => {
 /**
  * @param {CreateElement} h
  * @param {RouteRecord} route
+ * @param currentRoute
  * @returns {VNode|undefined}
  */
-const li = (h, route) => {
+const li = (h, route, currentRoute = '') => {
   const namespace = route.meta.prefix || 'common'
   const scope = route.meta.scope || 'index'
   const scenario = route.meta.scenario || 'undefined'
@@ -58,7 +60,7 @@ const li = (h, route) => {
   }
 
   if (typeof expression === 'function') {
-    expression = expression({ route: $router.currentRoute })
+    expression = expression({ route: currentRoute })
   }
   const crumb = String(expression)
   if (!crumb) {
@@ -109,8 +111,9 @@ export default {
    */
   render (h, context) {
     const { parent, props } = context
-    const routes = parent.$route ? parent.$route.matched : props.routes
     const data = context.data ? context.data : {}
-    return ul(h, data, routes)
+    const routes = parent.$route ? parent.$route.matched : props.routes
+    const currentRoute = parent.$router ? parent.$router.currentRoute : ''
+    return ul(h, data, routes, currentRoute)
   }
 }

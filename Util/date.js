@@ -1,4 +1,4 @@
-import DateTime from 'src/app/Support/DateTime'
+import DateTime from '../Support/DateTime'
 
 /**
  * @returns {string}
