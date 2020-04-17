@@ -1,5 +1,6 @@
-import { SCOPES } from 'src/app/Agnostic/enum'
 import { primaryKey } from 'src/settings/schema'
+
+import { SCOPES } from '../Agnostic/enum'
 
 /**
  * @param {string} path

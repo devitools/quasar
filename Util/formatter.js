@@ -1,5 +1,5 @@
-import DateTime from 'src/app/Support/DateTime'
-import { replacement } from 'src/app/Util/string'
+import DateTime from '../Support/DateTime'
+import { replacement } from './string'
 
 /**
  * @param {string} value
