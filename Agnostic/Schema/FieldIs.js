@@ -429,5 +429,15 @@ export default {
     this.setComponent('file')
     this.setAttrs(attrs)
     return this
+  },
+
+  /**
+   * @param {Object} attrs
+   * @returns {Schema|Skeleton}
+   */
+  fieldIsFileSync (attrs = {}) {
+    this.setComponent('fileSync')
+    this.setAttrs(attrs)
+    return this
   }
 }

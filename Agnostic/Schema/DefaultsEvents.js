@@ -43,13 +43,14 @@ export default {
 
       const watches = this.watches()
       Object.keys(watches).forEach((key) => {
-        this.$watch(key, function (current, previous) {
-          const watching = watches[key]
+        const watching = watches[key]
+        const handler = (current, previous) => {
           if (!Array.isArray(watching)) {
             throw new Error('Field watch must be an array')
           }
           watching.forEach((watch) => watch.bind(this)(current, previous))
-        })
+        }
+        this.$watch(key, handler, options)
       })
     })
   },

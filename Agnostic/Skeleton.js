@@ -3,7 +3,7 @@ import { searchKey } from 'src/settings/schema'
 import action from 'src/settings/action'
 
 import Base from './Base'
-import { unique, set, clone } from '../Util/general'
+import { unique, set, clone, objectToFormData } from '../Util/general'
 
 /**
  * @class {Skeleton}
@@ -282,25 +282,44 @@ export default class Skeleton extends Base {
    * @return {Object}
    */
   prepareRecord (record, creating = false) {
-    const payload = clone(record)
+    let data = clone(record)
 
     if (creating && !this.constructor.useUuid) {
-      delete payload[this.primaryKey]
+      delete data[this.primaryKey]
     }
 
-    const removeAvoids = (carry, avoid) => {
-      if (carry[avoid]) {
-        delete carry[avoid]
+    let useDotNotation = false
+    let useFormData = false
+
+    const reducer = (accumulator, entry) => {
+      const [field, value] = entry
+      if (field.indexOf('.') !== -1) {
+        useDotNotation = true
       }
-      return carry
-    }
-    const avoided = this.__avoids.reduce(removeAvoids, payload)
-
-    const applyDotNotation = (accumulator, key) => {
-      accumulator = set(accumulator, key, avoided[key])
+      if (value instanceof File) {
+        useFormData = true
+      }
+      if (!this.__avoids.includes(field)) {
+        accumulator[field] = value
+      }
       return accumulator
     }
-    return Object.keys(avoided).reduce(applyDotNotation, {})
+    data = Object.entries(data).reduce(reducer, {})
+
+    if (useDotNotation) {
+      const applyDotNotation = (accumulator, entry) => {
+        const [field, value] = entry
+        accumulator = set(accumulator, field, value)
+        return accumulator
+      }
+      data = Object.entries(data).reduce(applyDotNotation, {})
+    }
+
+    if (useFormData) {
+      data = objectToFormData(data)
+    }
+
+    return data
   }
 
   /**
