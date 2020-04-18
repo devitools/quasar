@@ -324,6 +324,18 @@ export default {
   },
 
   /**
+   * @param {number} maxlength
+   * @param {Object} attrs
+   * @returns {Schema|Skeleton}
+   */
+  fieldIsUrl (maxlength = 255, attrs = {}) {
+    this.setComponent('plan')
+    this.setAttrs({ placeholder: 'ex.: https://google.com', ...attrs, maxlength })
+    this.setType('string')
+    return this
+  },
+
+  /**
    * @param {Object} attrs
    * @returns {Schema|Skeleton}
    */

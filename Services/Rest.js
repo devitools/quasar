@@ -91,11 +91,11 @@ export default class Rest extends Http {
     }
     const id = this.getId(record)
     const resource = this.getResource()
+    const url = `${resource}/${id}`
+
     if (record instanceof FormData) {
-      const url = `${resource}/${id}/update`
       return this.post(url, record, config)
     }
-    const url = `${resource}/${id}`
     return this.patch(url, record, config)
   }
 
