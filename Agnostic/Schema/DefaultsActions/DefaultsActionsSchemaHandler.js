@@ -70,7 +70,7 @@ export default {
     }
 
     const action = (data, success, fail) => {
-      const record = schema.prepareRecord(data)
+      const record = schema.prepareRecord(data, true)
       if (executor) {
         return executor(record)
           .then(success)
@@ -113,7 +113,7 @@ export default {
     }
 
     const action = (data, success, fail) => {
-      const record = schema.prepareRecord((data))
+      const record = schema.prepareRecord(data, false)
       if (executor) {
         return executor(record)
           .then(success)

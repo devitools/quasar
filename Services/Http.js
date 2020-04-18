@@ -59,7 +59,7 @@ export default class Http {
 
   /**
    * @param {string} url
-   * @param {Record<any, string>} data
+   * @param {FormData} data
    * @param {Record<string, any>} config
    * @returns {Promise<*>}
    */

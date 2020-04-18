@@ -48,7 +48,7 @@ export default class Rest extends Http {
   filterable = []
 
   /**
-   * @param {Record<string, any>} record
+   * @param {Record<string, any>|FormData} record
    * @param {Record<string, any>} config
    * @returns {Promise}
    */
@@ -81,7 +81,7 @@ export default class Rest extends Http {
   }
 
   /**
-   * @param {Record<string, any>} record
+   * @param {Record<string, any>|FormData} record
    * @param {Record<string, any>} config
    * @returns {Promise}
    */
@@ -89,7 +89,13 @@ export default class Rest extends Http {
     if ($store.getters['app/getOffline'] || this.offline) {
       return this.updateOffline(record)
     }
-    const url = `${this.getResource()}/${this.getId(record)}`
+    const id = this.getId(record)
+    const resource = this.getResource()
+    if (record instanceof FormData) {
+      const url = `${resource}/${id}/update`
+      return this.post(url, record, config)
+    }
+    const url = `${resource}/${id}`
     return this.patch(url, record, config)
   }
 
@@ -236,10 +242,13 @@ export default class Rest extends Http {
    * @returns {string}
    */
   getId (record) {
-    if (typeof record === 'object') {
-      return record[this.primaryKey]
+    if (typeof record === 'string') {
+      return record
     }
-    return String(record)
+    if (record instanceof FormData) {
+      return record.get(this.primaryKey)
+    }
+    return record[this.primaryKey]
   }
 
   /**
