@@ -1,4 +1,5 @@
 import { dateFormatDefault } from 'src/settings/date'
+import NamedRegExp from 'named-regexp-groups'
 
 /**
  * @type {DateTime}
@@ -43,7 +44,7 @@ export default class DateTime extends Date {
         continue
       }
       let pattern = formats[index].replaceWith(formatters)
-      let regex = new RegExp(pattern)
+      let regex = new NamedRegExp(pattern)
       let match = regex.exec(string)
       if (match) {
         return match
