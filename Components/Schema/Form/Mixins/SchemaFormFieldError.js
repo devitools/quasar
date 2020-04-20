@@ -1,4 +1,5 @@
 import SchemaError from '../SchemaFormError'
+import { replacement } from '../../../../Util/string'
 
 /**
  * @mixin {SchemaFormFieldError}
@@ -21,38 +22,57 @@ export default {
    */
   methods: {
     /**
-     * @param {string} key
+     * @param {string} field
      * @returns {string}
      */
-    errorContent (key) {
+    errorContent (field) {
       const errorMessages = []
-      const forEach = (validation) => {
-        if (!validations[validation]) {
+      const domain = String(this.domain).replace(/\//g, '.')
+      const validations = this.$util.get(this.validations, `record.${field}`)
+
+      if (validations) {
+        for (let validation in validations.$params) {
+          if (!validations.$params.hasOwnProperty(validation)) {
+            continue
+          }
+          let status
+          try {
+            status = validations[validation]
+          } catch (e) {
+            status = true
+          }
+          if (status) {
+            continue
+          }
+          let replaces = Object.assign(
+            validations.$params[validation] || {},
+            { domain, field, validation }
+          )
+          let preference = `domains.${domain}.validation.${field}.${validation}`
           let paths = [
-            `domains.${this.domain}.validations.${validation}`.replace(/\//g, '.'),
+            preference,
             `validation.${validation}`
           ]
-          // validations.$params[validation]
-          errorMessages.push(this.$lang(paths))
+          let message = replacement(this.$lang(paths, preference), replaces) || preference
+          errorMessages.push(message)
         }
       }
 
-      const validations = this.$util.get(this.validations, `record.${key}`)
-      if (validations) {
-        Object.keys(validations.$params).forEach(forEach)
-      }
-      if (this.errors[key]) {
+      if (this.errors[field]) {
+        const validation = this.errors[field]
         const paths = [
-          `domains.${this.domain}.validations.${this.errors[key]}`,
-          `validation.${this.errors[key]}`,
-          this.errors[key]
+          `domains.${domain}.validation.${field}.${validation}`,
+          `validation.${validation}`,
+          this.errors[field]
         ]
-        errorMessages.push(this.$lang(paths) || this.errors[key])
+        const message = this.$lang(paths) || this.errors[field]
+        errorMessages.push(message)
       }
+
       return errorMessages.join(' / ')
     },
     /**
-     * @param {function} h
+     * @param {Function} h
      * @param {string} key
      * @param {boolean} error
      * @returns {*}

@@ -203,6 +203,23 @@ export default {
   validationUrl () {
     return this.validationAdd('url', true)
   },
+
+  /**
+   * @param {number} size "Size in mb (20 * 1024 = 20mb)"
+   * @return {Schema|Skeleton}
+   */
+  validationMaxFileSize (size) {
+    const handler =  helpers.withParams({ size }, value => {
+      if (!value) {
+        return true
+      }
+      const fileSizeInKb = value.size / 1024
+      const valueSize = Math.round(fileSizeInKb * 100) / 100
+      return valueSize <= size
+    })
+    return this.validationAs('maxFileSize',  handler)
+  },
+
   // /**
   //  * Passes when at least one of provided validators passes.
   //  * @params validators...
