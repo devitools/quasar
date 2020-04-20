@@ -50,7 +50,7 @@ export default {
           }
           watching.forEach((watch) => watch.bind(this)(current, previous))
         }
-        this.$watch(key, handler, options)
+        this.$watch(key, handler)
       })
     })
   },
