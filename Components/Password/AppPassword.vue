@@ -8,24 +8,29 @@
       v-slot:prepend
       v-if="generator"
     >
-      <q-icon
+      <QIcon
         name="vpn_key"
         class="cursor-pointer"
         @click="generate"
-      />
+      >
+        <QTooltip>{{ generatorTooltip }}</QTooltip>
+      </QIcon>
     </template>
     <template v-slot:append>
-      <q-icon
+      <QIcon
         :name="visible ? 'no_encryption' : 'lock'"
         class="cursor-pointer"
         @click="visible = !visible"
-      />
+      >
+        <QTooltip>{{ visibleTooltip }}</QTooltip>
+      </QIcon>
     </template>
   </QInput>
 </template>
 
 <script>
-import { QInput, copyToClipboard } from 'quasar'
+import { QInput, QTooltip, QIcon, copyToClipboard } from 'quasar'
+import { replacement } from 'src/app/Util/string'
 
 export default {
   /**
@@ -33,7 +38,7 @@ export default {
   name: 'AppPassword',
   /**
    */
-  components: { QInput },
+  components: { QInput, QTooltip, QIcon },
   /**
    */
   props: {
@@ -47,6 +52,14 @@ export default {
     length: {
       type: Number,
       default: 8
+    },
+    generatorTitle: {
+      type: String,
+      default: undefined
+    },
+    visibleTitle: {
+      type: String,
+      default: undefined
     }
   },
   /**
@@ -54,6 +67,13 @@ export default {
   computed: {
     bind () {
       return { ...this.$attrs, ...this.$props }
+    },
+    generatorTooltip () {
+      const template = this.generatorTitle || this.$lang(`agnostic.components.password.generator.tooltip`)
+      return replacement(template, { length: this.length })
+    },
+    visibleTooltip () {
+      return this.visibleTitle || this.$lang(`agnostic.components.password.visible.tooltip`)
     }
   },
   /**
