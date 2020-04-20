@@ -109,7 +109,7 @@ export default {
 
       const reduce = (accumulator, key) => {
         const field = this.components[key]
-        if (field.section === section) {
+        if (field.section === section || section === '') {
           accumulator[key] = field
         }
         return accumulator
