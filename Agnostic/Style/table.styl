@@ -233,6 +233,12 @@
       & > .SchemaTableWhere__backdrop
         height calc(100vh - 1px)
 
+@media (max-width $break)
+  .SchemaTable
+    > .q-table__top
+      > .app-form-buttons
+        display none
+
 @keyframes toggle-pulse {
   0% {
     box-shadow 0 0 10px 2px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 0, 0, 0.24), 0 0 0 0 rgba(204, 169, 44, 0.4)

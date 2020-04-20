@@ -30,7 +30,7 @@
 
 <script>
 import { QInput, QTooltip, QIcon, copyToClipboard } from 'quasar'
-import { replacement } from 'src/app/Util/string'
+import { replacement } from '../../Util/string'
 
 export default {
   /**
