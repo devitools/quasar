@@ -226,15 +226,20 @@ export default class Base {
     this.setParseOutput(properties.parseOutput)
     this.setParseInput(properties.parseInput)
     const attrs = typeof properties.attrs === 'function' ? properties.attrs() : properties.attrs
-    let hint = this.$lang(`domains.${this.constructor.domain}.fields.${this.__currentField}.hint`, undefined)
+    let hint = this.$lang(`domains.${this.constructor.domain}.fields.${this.__currentField}.hint`)
+    let placeholder = this.$lang(`domains.${this.constructor.domain}.fields.${this.__currentField}.placeholder`)
+    let tooltip = this.$lang(`domains.${this.constructor.domain}.fields.${this.__currentField}.tooltip`)
+    let info = this.$lang(`domains.${this.constructor.domain}.fields.${this.__currentField}.info`)
     if (!hint) {
       hint = undefined
     }
-    let tooltip = this.$lang(`domains.${this.constructor.domain}.fields.${this.__currentField}.tooltip`, undefined)
     if (!tooltip) {
       tooltip = undefined
     }
-    this.setAttrs({ hint, tooltip, ...attrs })
+    if (!info) {
+      info = undefined
+    }
+    this.setAttrs({ label: info, hint, tooltip, placeholder, ...attrs })
     this.setListeners(properties.listeners)
     return this
   }

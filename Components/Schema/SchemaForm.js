@@ -54,6 +54,7 @@ export default {
       if (this.$scopedSlots['form-body']) {
         return this.$scopedSlots['form-body']({ components: this.getComponents(''), record: this.record })
       }
+
       const data = { class: this.renderFormBodyClassNames(), style: this.renderFormBodyStyles() }
 
       const children = [

@@ -32,6 +32,10 @@ export default {
     open: {
       type: Array,
       default: () => []
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   /**
@@ -42,7 +46,8 @@ export default {
         ...this.$attrs,
         ...this.$props,
         ticked: this.ticked,
-        expanded: this.expanded
+        expanded: this.expanded,
+        nodes: this.parseNodes()
       }
     }
   },
@@ -66,6 +71,26 @@ export default {
         return
       }
       this.$emit('input', ticked)
+    },
+    /**
+     * @return {Array}
+     */
+    parseNodes () {
+      if (!this.readonly) {
+        return this.nodes
+      }
+      const reducer = (accumulator, node) => {
+        const newest = { ...node }
+        if (!newest.children || (Array.isArray(newest.children) && !newest.children.length)) {
+          newest.disabled = true
+          accumulator.push(newest)
+          return accumulator
+        }
+        newest.children = newest.children.reduce(reducer, [])
+        accumulator.push(newest)
+        return accumulator
+      }
+      return this.nodes.reduce(reducer, [])
     }
   },
   /**
@@ -78,6 +103,7 @@ export default {
         }
         if (this.valueKey) {
           this.ticked = value.map((item) => item[this.valueKey])
+          return
         }
         this.ticked = value
       },

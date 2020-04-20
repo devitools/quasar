@@ -1,3 +1,5 @@
+import $lang from 'src/lang'
+
 import DateTime from '../Support/DateTime'
 import { replacement } from './string'
 
@@ -83,13 +85,17 @@ export const optionsFormatter = (options) => {
  */
 export const optionFormatter = (keyLabel) => {
   return (value) => {
+    let label
     try {
-      const label = value[keyLabel]
+      label = value[keyLabel]
       if (label) {
         return label
       }
     } catch (e) {
       // silent
+    }
+    if (value === undefined || label === null) {
+      return $lang('agnostic.components.appSelectRemote.notFound')
     }
     return value
   }

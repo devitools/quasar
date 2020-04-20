@@ -161,9 +161,6 @@ export default {
    */
   fieldIsCheckbox (attrs = {}) {
     this.setComponent('checkbox')
-    if (!attrs.label) {
-      attrs.label = this.$lang(`domains.${this.constructor.domain}.fields.${this.__currentField}.info`)
-    }
     this.setAttrs({ ...attrs })
     this.setLayout({ tableFormat: booleanFormatter })
     this.setType('boolean')
@@ -198,16 +195,17 @@ export default {
     if (!options) {
       options = this.$lang(`domains.${this.constructor.domain}.fields.${this.__currentField}.options`)
     }
-    this.setComponent('select')
     this.setAttrs({
       mapOptions: true,
       emitValue: true,
       useChips: false,
-      clearable: true,
       ...attrs,
       options,
       original: options
     })
+
+    this.setComponent('select')
+
     if (attrs.allowNew) {
       this.setAttrs({ useInput: true, useChips: true })
       this.setOn('filter', function ({ $event, field, parameters }) {
@@ -330,7 +328,7 @@ export default {
    */
   fieldIsUrl (maxlength = 255, attrs = {}) {
     this.setComponent('plan')
-    this.setAttrs({ placeholder: 'ex.: https://google.com', ...attrs, maxlength })
+    this.setAttrs({ placeholder: 'ex.: https://quasar.dev', ...attrs, maxlength })
     this.setType('string')
     return this
   },

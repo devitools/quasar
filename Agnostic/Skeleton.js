@@ -431,13 +431,14 @@ export default class Skeleton extends Base {
   }
 
   /**
-   * @returns {Object}
+   * @param {Object} attrs
+   * @return {Object}
    */
-  provideBuiltIn () {
+  provideBuiltIn (attrs = {}) {
     if (!this.constructor.activateBuiltIn) {
       throw new Error(`BuiltIn is not active on this schema (${this.constructor.domain})`)
     }
-    return this.provide()
+    return { ...this.provide(), ...attrs }
   }
 
   /**
