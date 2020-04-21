@@ -1,6 +1,8 @@
 /**
  * @mixin {Button}
  */
+import { ignored } from '../../../../settings/action'
+
 export default {
   /**
    */
@@ -23,7 +25,13 @@ export default {
      * @returns {boolean}
      */
     buttonFilter (action) {
-      return action.scopes && action.scopes.includes(this.scope)
+      if (!action.scopes && action.scopes.includes(this.scope)) {
+        return false
+      }
+      if (!Array.isArray(ignored)) {
+        return true
+      }
+      return !ignored.includes(action.$key)
     },
     /**
      * @param {Object} a
