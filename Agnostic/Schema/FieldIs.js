@@ -206,7 +206,8 @@ export default {
 
     this.setComponent('select')
 
-    if (attrs.allowNew) {
+    const { allowNew } = attrs
+    if (allowNew) {
       this.setAttrs({ useInput: true, useChips: true })
       this.setOn('filter', function ({ $event, field, parameters }) {
         const original = field.attrs.original

@@ -1,8 +1,8 @@
+import { ignored } from '../../../../settings/action'
+
 /**
  * @mixin {Button}
  */
-import { ignored } from '../../../../settings/action'
-
 export default {
   /**
    */
@@ -60,17 +60,25 @@ export default {
         })
       }
 
-      let paths = [
-        `domains.${this.domain}.actions.${button.$key}.label`,
-        `agnostic.actions.${button.$key}.label`
-      ]
-      button.attrs.label = this.$lang(paths, button.attrs.label)
+      if (!button.attrs.label) {
+        const paths = [
+          `domains.${this.domain}.actions.${button.$key}.label`,
+          `agnostic.actions.${button.$key}.label`,
+          `agnostic.components.embed.actions.${button.$key}.label`,
+          `agnostic.components.builtIn.actions.${button.$key}.label`
+        ]
+        button.attrs.label = this.$lang(paths, button.attrs.label)
+      }
 
-      paths = [
-        `domains.${this.domain}.actions.${button.$key}.tooltip`,
-        `agnostic.actions.${button.$key}.tooltip`
-      ]
-      button.attrs.tooltip = this.$lang(paths, button.attrs.tooltip)
+      if (!button.attrs.tooltip) {
+        const paths = [
+          `domains.${this.domain}.actions.${button.$key}.tooltip`,
+          `agnostic.actions.${button.$key}.tooltip`,
+          `agnostic.components.embed.actions.${button.$key}.tooltip`,
+          `agnostic.components.builtIn.actions.${button.$key}.tooltip`
+        ]
+        button.attrs.tooltip = this.$lang(paths, button.attrs.tooltip)
+      }
 
       buttons[button.$key] = button
       return buttons

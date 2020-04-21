@@ -183,7 +183,7 @@ export default class Base {
 
   /**
    * @param {String|Array} key
-   * @param {string} [fallback]
+   * @param {string|Array} [fallback]
    * @returns {String|Object}
    */
   $lang (key, fallback = '') {
