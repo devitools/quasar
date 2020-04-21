@@ -1,7 +1,15 @@
 @import '~src/css/quasar.variables.styl'
 
 .SchemaTable
-  height calc(100vh - 105px)
+  height calc(100vh - 125px)
+
+  &.q-table__container
+    .q-table__middle.scroll
+      height calc(100vh - 235px)
+
+    &.fullscreen
+      .q-table__middle.scroll
+        height calc(100vh - 235px)
 
   &.q-table--loading
     thead > tr:nth-child(1) > th
@@ -25,14 +33,6 @@
 
     .q-table__bottom
       min-height 40px
-
-  &.q-table__container
-    .q-table__middle.scroll
-      height calc(100vh - 215px)
-
-    &.fullscreen
-      .q-table__middle.scroll
-        height calc(100vh - 105px)
 
     > .q-table__top
       border-style solid
@@ -97,17 +97,9 @@
       .q-icon
         color #767676
 
-
   .q-table__top > .q-field
-    width 100%
+    width 40%
     transition width 0.3s
-
-  @media (min-width 768px)
-    .q-table__top > .q-field
-      width 40%
-      &.q-field--focused
-        width 50%
-
 
 .SchemaTableSide__absolute
   position absolute
@@ -210,17 +202,6 @@
     & > #arrow
       transform scale(0)
 
-
-.DashboardLayout--modal
-  .SchemaTable
-    &.q-table__container.q-table--horizontal-separator
-      .q-table__middle.scroll
-        height calc(100vh - 150px)
-
-      &.fullscreen
-        .q-table__middle.scroll
-          height calc(100vh - 55px)
-
   .SchemaTableWhere
     & > .SchemaTableWhere__side
       height 100vh
@@ -233,11 +214,26 @@
       & > .SchemaTableWhere__backdrop
         height calc(100vh - 1px)
 
-@media (max-width $break)
+.DashboardLayout--modal
   .SchemaTable
-    > .q-table__top
-      > .app-form-buttons
-        display none
+    height calc(100vh - 70px)
+    &.q-table__container
+      .q-table__middle.scroll
+        height calc(100vh - 180px)
+
+      &.fullscreen
+        .q-table__middle.scroll
+          height calc(100vh - 180px)
+
+@media (max-width 768px)
+  .SchemaTable
+    .q-table__top
+      & > .q-field
+        width 100%
+        &.q-field--focused
+          width 50%
+    .app-form-buttons
+      display none
 
 @keyframes toggle-pulse {
   0% {

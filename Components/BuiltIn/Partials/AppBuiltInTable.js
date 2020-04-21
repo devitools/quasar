@@ -84,7 +84,9 @@ export default {
    */
   render (h) {
     const data = { class: ['AppBuiltInTable'] }
-    const children = [this.renderTable(h)]
+    const children = [
+      this.renderTable(h)
+    ]
 
     return h('div', data, children)
   }

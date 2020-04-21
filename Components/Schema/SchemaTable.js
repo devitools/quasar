@@ -1,5 +1,3 @@
-// noinspection ES6CheckImport
-import { QPage } from 'quasar'
 // settings
 import { searchKey } from 'src/settings/schema'
 
@@ -34,6 +32,15 @@ export default {
      * @return {VNode}
      */
     renderTable (h, classes = ['SchemaTable'], embed = false) {
+      if (this.$scopedSlots['table-body']) {
+        return this.$scopedSlots['table-body']({
+          domain: this.domain,
+          scope: this.scope,
+          components: this.getComponents(''),
+          records: this.data
+        })
+      }
+
       if (this.scope === SCOPES.SCOPE_TRASH) {
         classes.push('trash')
       }
@@ -135,9 +142,7 @@ export default {
    * @return {VNode}
    */
   render (h) {
-    const data = {
-      attrs: { padding: true }
-    }
+    const data = {}
     const children = [
       this.renderTable(h),
       this.renderWhere(h),
@@ -147,6 +152,6 @@ export default {
       children.push(this.renderTableDebuggers(h))
     }
 
-    return h(QPage, data, children)
+    return h('div', data, children)
   }
 }

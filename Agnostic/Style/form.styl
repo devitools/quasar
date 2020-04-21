@@ -8,7 +8,7 @@
     background-color $primary
 
   .app-form-wrapper
-    height calc(100vh - 105px)
+    height calc(100vh - 125px)
     overflow auto
     background #ffffff
     border-radius 4px
@@ -34,7 +34,7 @@
 
     .app-form-body
       padding 10px
-      height calc(100vh - 165px)
+      height calc(100vh - 185px)
       border-bottom 1px solid #ddd
       overflow auto
 
@@ -110,11 +110,11 @@
 .DashboardLayout--modal
   .SchemaForm
     .app-form-wrapper
-      height calc(100vh - 35px)
+      height calc(100vh - 70px)
 
     .app-form-body
       /*padding 10px*/
-      height calc(100vh - 95px)
+      height calc(100vh - 130px)
 
 .SchemaForm.SchemaForm--with-tabs
   .app-form-wrapper
@@ -123,3 +123,11 @@
 
       .form
         padding 0
+
+.q-layout-padding
+  @media (max-width: $breakpoint-xs-max)
+    padding-bottom: 0
+  @media (min-width: $breakpoint-sm-min) and (max-width: $breakpoint-md-max)
+    padding-bottom: 0
+  @media (min-width: $breakpoint-lg-min)
+    padding-bottom: 0

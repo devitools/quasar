@@ -16,9 +16,6 @@ export default {
   name: 'AppBuiltInForm',
   /**
    */
-  component: 'div',
-  /**
-   */
   props: {
     height: {
       type: String,

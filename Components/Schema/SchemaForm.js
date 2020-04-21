@@ -1,6 +1,3 @@
-// noinspection ES6CheckImport
-import { QPage } from 'quasar'
-
 // app
 import { POSITIONS } from '../../Agnostic/enum'
 // contracts
@@ -19,9 +16,6 @@ export default {
   /**
    */
   name: 'SchemaForm',
-  /**
-   */
-  component: QPage,
   /**
    */
   mixins: [Dynamic, Form, Group, SchemaBody],
@@ -52,7 +46,12 @@ export default {
      */
     renderFormBody (h) {
       if (this.$scopedSlots['form-body']) {
-        return this.$scopedSlots['form-body']({ components: this.getComponents(''), record: this.record })
+        return this.$scopedSlots['form-body']({
+          domain: this.domain,
+          scope: this.scope,
+          components: this.getComponents(''),
+          record: this.record
+        })
       }
 
       const data = { class: this.renderFormBodyClassNames(), style: this.renderFormBodyStyles() }
@@ -112,7 +111,7 @@ export default {
      * @return {Object}
      */
     renderFormAttributes () {
-      return { padding: true }
+      return {}
     },
     /**
      * @return {string|Array|Object}
@@ -148,11 +147,13 @@ export default {
       style: this.renderFormStyles(),
       attrs: this.renderFormAttributes()
     }
-    const children = [this.renderForm(h)]
+    const children = [
+      this.renderForm(h)
+    ]
     if (this.debuggerAllowed) {
       children.push(this.renderFormDebuggers(h))
     }
 
-    return h(this.$options.component, data, children)
+    return h('div', data, children)
   }
 }
