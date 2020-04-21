@@ -1,7 +1,8 @@
-import { $router } from 'src/router'
-import { replacement } from './string'
 import * as uuidV1 from 'uuid/v1'
+
+import { $router } from 'src/router'
 import { SEPARATION_OPERATOR } from 'src/settings/schema'
+import { replacement } from './string'
 
 /**
  * @param {Object} element
@@ -483,4 +484,37 @@ export const objectToFormData = (object, formData = undefined, prefix = '', opti
 
   formData.append(prefix, object)
   return formData
+}
+
+/**
+ * @param {number} length
+ * @return {string}
+ */
+export const generatePassword = (length) => {
+  // noinspection SpellCheckingInspection
+  const letters = 'abcdefghijklmnopqrstuvwxyz'
+  const numbers = '123456789'
+  const specials = '!@#_'
+
+  const lengthSpecials = Math.ceil(Math.random() * (length * 0.10))
+  const lengthNumbers = Math.ceil(Math.random() * (length * 0.30))
+  const lengthUppers = Math.ceil(Math.random() * (length * 0.30))
+  const lengthLowers = length - (lengthSpecials + lengthNumbers + lengthUppers)
+
+  const chars = []
+
+  for (let i = 0; i < lengthSpecials; i++) {
+    chars.push(specials.charAt(Math.floor(Math.random() * specials.length)))
+  }
+  for (let i = 0; i < lengthNumbers; i++) {
+    chars.push(numbers.charAt(Math.floor(Math.random() * numbers.length)))
+  }
+  for (let i = 0; i < lengthUppers; i++) {
+    chars.push(letters.charAt(Math.floor(Math.random() * letters.length)).toUpperCase())
+  }
+  for (let i = 0; i < lengthLowers; i++) {
+    chars.push(letters.charAt(Math.floor(Math.random() * letters.length)))
+  }
+
+  return chars.sort(() =>  0.5 - Math.random()).join('')
 }

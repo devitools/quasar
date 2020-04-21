@@ -30,7 +30,10 @@
 
 <script>
 import { QInput, QTooltip, QIcon, copyToClipboard } from 'quasar'
+
+import { toast } from '../../message'
 import { replacement } from '../../Util/string'
+import { generatePassword } from '../../Util/general'
 
 export default {
   /**
@@ -88,20 +91,12 @@ export default {
      */
     generate () {
       this.visible = true
-      // noinspection SpellCheckingInspection
-      const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
-      const value = Array(this.length)
-        .fill(chars)
-        .map((item) => item[Math.floor(Math.random() * item.length)])
-        .join('')
-      copyToClipboard(value)
+      const password = generatePassword(this.length)
+      copyToClipboard(password)
         .then(() => {
-          this.$q.notify({
-            message: 'A new password was created and has been copied to clipboard',
-            caption: value
-          })
-          this.$emit('generate', value)
-          this.$emit('input', value)
+          toast(this.$lang(`agnostic.components.password.copied`), { caption: password })
+          this.$emit('generate', password)
+          this.$emit('input', password)
         })
     }
   }

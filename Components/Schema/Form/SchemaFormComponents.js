@@ -18,6 +18,10 @@ export default {
     fields: {
       type: Object,
       default: () => ({})
+    },
+    domain: {
+      type: String,
+      default: ''
     }
   },
   /**
