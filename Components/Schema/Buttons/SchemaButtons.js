@@ -54,6 +54,7 @@ export default {
     actions () {
       return Object.values(this.buttons)
         .filter(this.filterButton)
+        .sort(this.sortButton)
         .map(this.parseButton)
     }
   },
@@ -64,6 +65,14 @@ export default {
      */
     filterButton (button) {
       return button.scopes && button.scopes.includes(this.scope) && button.positions && button.positions.includes(this.position)
+    },
+    /**
+     * @param {Object} a
+     * @param {Object} b
+     * @returns {number}
+     */
+    sortButton (a, b) {
+      return a.order - b.order
     },
     /**
      * @param {function} h

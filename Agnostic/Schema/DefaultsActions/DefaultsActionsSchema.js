@@ -73,6 +73,15 @@ export default {
         return schema.actionUpdate.call(this, { $event, schema, ...context })
       })
 
+    this.addAction('add')
+      .actionScopes(readonly ? [] : [SCOPES.SCOPE_INDEX])
+      .actionPositions([POSITIONS.POSITION_TABLE_TOP, POSITIONS.POSITION_TABLE_FLOAT])
+      .actionIcon('add')
+      .actionColor('primary')
+      .actionOn('click', function ({ context, $event }) {
+        return schema.actionAdd.call(this, { $event, schema, ...context })
+      })
+
     this.addAction('view')
       .actionScopes([SCOPES.SCOPE_INDEX, SCOPES.SCOPE_TRASH])
       .actionPositions([POSITIONS.POSITION_TABLE_TOP, POSITIONS.POSITION_TABLE_FLOAT, POSITIONS.POSITION_TABLE_CELL])
@@ -175,15 +184,6 @@ export default {
       .actionNoMinWidth()
       .actionOn('click', function ({ context, $event }) {
         return schema.actionRefresh.call(this, { $event, schema, ...context })
-      })
-
-    this.addAction('add')
-      .actionScopes(readonly ? [] : [SCOPES.SCOPE_INDEX])
-      .actionPositions([POSITIONS.POSITION_TABLE_TOP, POSITIONS.POSITION_TABLE_FLOAT])
-      .actionIcon('add')
-      .actionColor('primary')
-      .actionOn('click', function ({ context, $event }) {
-        return schema.actionAdd.call(this, { $event, schema, ...context })
       })
 
     this.addAction('search')

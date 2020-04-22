@@ -15,31 +15,7 @@ export default {
     /**
      */
     renderButtons () {
-      this.buttons = this.actions()
-        .filter(this.buttonFilter)
-        .sort(this.buttonSort)
-        .reduce(this.buttonReduce, {})
-    },
-    /**
-     * @param {Object} action
-     * @returns {boolean}
-     */
-    buttonFilter (action) {
-      if (!action.scopes && action.scopes.includes(this.scope)) {
-        return false
-      }
-      if (!Array.isArray(ignored)) {
-        return true
-      }
-      return !ignored.includes(action.$key)
-    },
-    /**
-     * @param {Object} a
-     * @param {Object} b
-     * @returns {number}
-     */
-    buttonSort (a, b) {
-      return a.order - b.order
+      this.buttons = this.actions().reduce(this.buttonReduce, {})
     },
     /**
      * @param {Object} buttons
