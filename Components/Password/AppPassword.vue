@@ -9,6 +9,7 @@
       v-if="generator"
     >
       <QIcon
+        v-if="enabled"
         name="vpn_key"
         class="cursor-pointer"
         @click="generate"
@@ -63,6 +64,14 @@ export default {
     visibleTitle: {
       type: String,
       default: undefined
+    },
+    disable: {
+      type: Boolean,
+      default: false
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   /**
@@ -77,6 +86,9 @@ export default {
     },
     visibleTooltip () {
       return this.visibleTitle || this.$lang(`agnostic.components.password.visible.tooltip`)
+    },
+    enabled () {
+      return !this.readOnly && !this.disable
     }
   },
   /**
@@ -103,6 +115,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
