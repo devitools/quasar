@@ -1,14 +1,8 @@
 @import '~src/css/quasar.variables.styl'
 
 .SchemaForm
-  .q-tab__label
-    color #777777
 
-  .q-tab__indicator
-    background-color $primary
-
-  .app-form-wrapper
-    height calc(100vh - 125px)
+  & > .app-form-wrapper
     overflow auto
     background #ffffff
     border-radius 4px
@@ -32,9 +26,8 @@
       .form.form-grid
         padding 5px 5px 0 5px
 
-    .app-form-body
+    & > .app-form-body
       padding 10px
-      height calc(100vh - 185px)
       border-bottom 1px solid #ddd
       overflow auto
 
@@ -85,36 +78,25 @@
             font-size 12px
             color $errorForeground
 
-
-    .app-form-buttons
+    & > .app-form-buttons
       padding 10px
 
-.app-form-buttons
-  button
-    margin-right 10px
-    height 36px
-    font-size 0.8rem
+      & > button
+        margin-right 10px
+        height 36px
+        font-size 0.8rem
 
-    &:not(.button-no-min-width)
-      min-width 140px
+        &:not(.button-no-min-width)
+          min-width 140px
 
-    &.button-position-right
-      float right
+        &.button-position-right
+          float right
 
-    &.button-position-left
-      float left
+        &.button-position-left
+          float left
 
-    &.button-position-none
-      float none
-
-.DashboardLayout--modal
-  .SchemaForm
-    .app-form-wrapper
-      height calc(100vh - 70px)
-
-    .app-form-body
-      /*padding 10px*/
-      height calc(100vh - 130px)
+        &.button-position-none
+          float none
 
 .SchemaForm.SchemaForm--with-tabs
   .app-form-wrapper
@@ -124,10 +106,44 @@
       .form
         padding 0
 
-.q-layout-padding
-  @media (max-width: $breakpoint-xs-max)
-    padding-bottom: 0
-  @media (min-width: $breakpoint-sm-min) and (max-width: $breakpoint-md-max)
-    padding-bottom: 0
-  @media (min-width: $breakpoint-lg-min)
-    padding-bottom: 0
+/* ####################### HEIGHT MANAGEMENT ####################### */
+
+.SchemaForm
+
+  & > .app-form-wrapper
+    height calc(100vh - 135px)
+
+    & > .app-form-body
+      height calc(100vh - 195px)
+
+.DashboardLayout--modal
+  .SchemaForm
+    .app-form-wrapper
+      height calc(100vh - 80px)
+
+    .app-form-body
+      /*padding 10px*/
+      height calc(100vh - 140px)
+
+@media (max-width 768px)
+  .SchemaForm
+
+    & > .app-form-wrapper
+      height calc(100vh - 115px)
+
+      & > .app-form-body
+        height calc(100vh - 175px)
+
+      & > .app-form-buttons
+        & > button
+          & > .q-btn__wrapper > .q-btn__content > div
+            display none
+
+  .DashboardLayout--modal
+    .SchemaForm
+      .app-form-wrapper
+        height calc(100vh - 70px)
+
+      .app-form-body
+        /*padding 10px*/
+        height calc(100vh - 130px)

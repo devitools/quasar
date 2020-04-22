@@ -1,8 +1,6 @@
 // noinspection ES6CheckImport
 import { QFab, QPageSticky } from 'quasar'
-
 // app
-import { POSITIONS } from '../../../Agnostic/enum'
 // mixins
 import SchemaButton from './Mixins/SchemaButton'
 import SchemaButtonParse from './Mixins/SchemaButtonParse'
@@ -20,6 +18,10 @@ export default {
   /**
    */
   props: {
+    type: {
+      type: String,
+      default: 'default'
+    },
     buttons: {
       type: [Array, Object],
       default: () => ([])
@@ -62,35 +64,80 @@ export default {
      */
     filterButton (button) {
       return button.scopes && button.scopes.includes(this.scope) && button.positions && button.positions.includes(this.position)
+    },
+    /**
+     * @param {function} h
+     * @param {Object} attrs
+     * @return {VNode[]}
+     */
+    getSchemaButtonsActions (h, attrs = {}) {
+      return Object
+        .values(this.actions)
+        .map((button) => this.renderButton(h, { ...button, ...attrs }))
+    },
+    /**
+     * @param {function} h
+     * @return {VNode}
+     */
+    produceSchemaButtonsDefault (h) {
+      const data = { class: 'app-form-buttons' }
+      const children = this.getSchemaButtonsActions(h)
+      return h('div', data, children)
+    },
+    /**
+     * @param {function} h
+     * @return {VNode}
+     */
+    produceSchemaButtonsFabInline (h) {
+      return h(
+        QFab, {
+          class: 'q-fab-cell',
+          attrs: {
+            direction: 'right',
+            icon: 'add'
+          }
+        },
+        this.getSchemaButtonsActions(h, { __floating: true })
+      )
+    },
+    /**
+     * @param {function} h
+     * @return {VNode}
+     */
+    produceSchemaButtonsFabBottom (h) {
+      const data = {
+        attrs: {
+          position: 'bottom-right',
+          offset: [20, 60]
+        }
+      }
+      const children = [
+        h(
+          QFab, {
+            attrs: {
+              direction: 'up',
+              icon: 'apps',
+              color: 'primary'
+            }
+          },
+          this.getSchemaButtonsActions(h, { __floating: true })
+        )
+      ]
+      return h(QPageSticky, data, children)
     }
   },
   /**
    * @param {function} h
    */
   render (h) {
-    if (this.position !== POSITIONS.POSITION_TABLE_FLOAT) {
-      const data = {
-        class: 'app-form-buttons'
-      }
-      const children = Object.values(this.actions).map((button) => this.renderButton(h, button))
-
-      return h('div', data, children)
+    if (this.type === 'fab-cell') {
+      return this.produceSchemaButtonsFabInline(h)
     }
 
-    const settings = { attrs: { direction: 'up', icon: 'apps', color: 'primary' } }
-    const buttons = Object
-      .values(this.actions)
-      .map((button) => this.renderButton(h, { ...button, __floating: true }))
-
-    const children = [
-      h(QFab, settings, buttons)
-    ]
-    const data = {
-      attrs: {
-        position: 'bottom-right',
-        offset: [20, 60]
-      }
+    if (this.type === 'fab-bottom') {
+      return this.produceSchemaButtonsFabBottom(h)
     }
-    return h(QPageSticky, data, children)
+
+    return this.produceSchemaButtonsDefault(h)
   }
 }

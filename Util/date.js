@@ -11,6 +11,15 @@ export const now = () => dateCurrent('YYYY-MM-DD HH:mm')
 export const today = () => dateCurrent('YYYY-MM-DD')
 
 /**
+ * @returns {string}
+ */
+export const lastSunday = () => {
+  const now = new Date()
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  return new DateTime(today.setDate(today.getDate() - today.getDay())).format('YYYY-MM-DD')
+}
+
+/**
  * @param {string} output
  */
 export const dateCurrent = (output) => {

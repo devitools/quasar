@@ -118,7 +118,8 @@ export default {
         h,
         POSITIONS.POSITION_TABLE_FLOAT,
         { floating: true, record: this.record, records: this.selected },
-        { label: '' }
+        { label: '' },
+        'fab-bottom'
       )
     },
     /**

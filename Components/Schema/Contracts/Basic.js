@@ -52,10 +52,12 @@ export default {
      * @param {string} position
      * @param {Object} context
      * @param {Object} override
+     * @param {string} type
      * @returns {*}
      */
-    renderSchemaButtons (h, position, context, override = {}) {
+    renderSchemaButtons (h, position, context, override = {}, type = 'default') {
       const attrs = {
+        type: type,
         scope: this.scope,
         locked: this.locked,
         buttons: this.buttons,
@@ -77,6 +79,16 @@ export default {
     renderSchemaButtonsCompact (h, position, context) {
       const override = { dense: true, label: '', flat: true }
       return this.renderSchemaButtons(h, position, context, override)
+    },
+    /**
+     * @param {function} h
+     * @param {string} position
+     * @param {Object} context
+     * @returns {*}
+     */
+    renderSchemaButtonsFabInline (h, position, context) {
+      const override = { dense: true, label: '' }
+      return this.renderSchemaButtons(h, position, context, override, 'fab-cell')
     },
     /**
      * @param {Object} field
