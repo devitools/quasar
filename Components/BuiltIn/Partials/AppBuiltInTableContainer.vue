@@ -98,18 +98,21 @@ export default {
 </script>
 
 <style lang="stylus">
-  .AppBuiltInTableContainer
+.AppBuiltInTableContainer
+  min-height 300px
 
-    .q-table__top
+  > .q-table__container
+    min-height 300px
+
+    .q-table__middle
+      height auto
+
+    > .q-table__top
       height 50px
       min-height 50px
       max-height 50px
 
       & > .app-form-buttons
-        padding 0
-    /*
-    .q-table__container.q-table--horizontal-separator
-      .q-table__middle.scroll
-        height auto
-    */
+        display flex
+
 </style>

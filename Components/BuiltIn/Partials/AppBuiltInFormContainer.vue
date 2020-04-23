@@ -109,34 +109,48 @@ export default {
 }
 </script>
 
-<style
-  scoped
-  lang="stylus"
->
-  .AppBuiltInFormContainer
+<style lang="stylus">
+.AppBuiltInFormContainer
+  min-height 300px
 
-    > .AppBuiltInFormContainer__bar
-      height 50px
-      min-height 50px
-      max-height 50px
-      padding 10px
-      border-width 0 0 1px 0
-      border-style solid
-      border-color #ddd
-      display flex
-      justify-content center
-      flex-wrap wrap
-      align-items center
-      background linear-gradient(180deg, #f7f7f7 0, #f1f1f1 20px, #ecebeb 50px, #e0e0e0 52px);
+  > .AppBuiltInFormContainer__bar
+    height 50px
+    min-height 50px
+    max-height 50px
+    padding 10px
+    border-width 0 0 1px 0
+    border-style solid
+    border-color #ddd
+    display flex
+    justify-content center
+    flex-wrap wrap
+    align-items center
+    background linear-gradient(180deg, #f7f7f7 0, #f1f1f1 20px, #ecebeb 50px, #e0e0e0 52px);
 
-    & >>> .AppBuiltInForm__wrapper
-      height auto
+  > .AppBuiltInForm
+    > .AppBuiltInForm__wrapper
+      min-height 250px
 
       > .AppBuiltInForm__body
         overflow auto
+        min-height 190px
 
       > .app-form-buttons
+        padding 10px
         border-width 1px 0 0 0
         border-style solid
         border-color #ddd
+
+        > button
+          margin 0 10px 0 0
+          min-width 140px
+
+@media (max-width 768px)
+  .AppBuiltInFormContainer
+    > .AppBuiltInForm
+      > .AppBuiltInForm__wrapper
+        > .app-form-buttons
+          > button
+            > .q-btn__wrapper > .q-btn__content > div
+              display none
 </style>

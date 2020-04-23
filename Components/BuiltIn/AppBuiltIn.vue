@@ -123,6 +123,7 @@ export default {
     border-radius 4px
     position relative
     overflow-x hidden
+    min-height 300px
 
     .AppBuiltInTable__container
       position relative

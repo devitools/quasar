@@ -18,7 +18,12 @@ export default {
    */
   props: {
     value: {
-      type: [Array, Object],
+      validator (value) {
+        if (value === undefined || value === null) {
+          return true
+        }
+        return Array.isArray(value)
+      },
       required: true
     },
     nodes: {
