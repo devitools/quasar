@@ -72,7 +72,9 @@ export const classNameFormatter = (options, classNames) => {
  */
 export const optionsFormatter = (options) => {
   return (value) => {
-    const element = options.find((option) => String(option.value) === String(value))
+    const element = options.find((option) => {
+      return String(option.value).trim() === String(value).trim()
+    })
     if (element && element.label) {
       return element.label
     }

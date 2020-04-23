@@ -68,7 +68,7 @@ export default {
      */
     filterButton (button) {
       if (
-        !button.position ||
+        !button.scopes ||
         !button.positions ||
         !button.scopes.includes(this.scope) ||
         !button.positions.includes(this.position)

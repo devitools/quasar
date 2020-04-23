@@ -192,37 +192,73 @@ export default {
    * @returns {Schema|Skeleton}
    */
   fieldIsSelect (options = undefined, attrs = {}) {
+    const currentField = this.__currentField
+
     if (!options) {
-      options = this.$lang(`domains.${this.constructor.domain}.fields.${this.__currentField}.options`)
+      options = this.$lang(`domains.${this.constructor.domain}.fields.${currentField}.options`)
     }
+
     this.setAttrs({
       mapOptions: true,
       emitValue: true,
       useChips: false,
       ...attrs,
-      options,
-      original: options
+      options
     })
 
     this.setComponent('select')
 
-    const { allowNew } = attrs
-    if (allowNew) {
-      this.setAttrs({ useInput: true, useChips: true })
-      this.setOn('filter', function ({ $event, field, parameters }) {
-        const original = field.attrs.original
-        const update = parameters[0]
-        update(() => {
-          if ($event === '') {
-            field.attrs.options = original
-            return
+    this.setOn('filter', function ({ $event, parameters }) {
+      const field = this.components[currentField]
+
+      if (!field.attrs.__options) {
+        field.attrs.__options = field.attrs.options
+      }
+      const original = field.attrs.__options
+
+      const update = parameters[0]
+      update(() => {
+        if ($event === '') {
+          field.attrs.options =original
+          return
+        }
+
+        const needle = String($event).toLowerCase()
+        const compare = (term) => {
+          return String(term)
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .indexOf(needle) > -1
+        }
+
+        field.attrs.options = original.filter((candidate) => {
+          if (typeof candidate === 'string') {
+            return compare(candidate)
           }
-          const needle = $event.toLowerCase()
-          field.attrs.options = original.filter(
-            (candidate) => candidate.toLowerCase().indexOf(needle) > -1
-          )
+          if (candidate && candidate.label) {
+            return compare(candidate.label)
+          }
+          return false
         })
       })
+    })
+
+    this.addWatch(`record.${currentField}`, function (value) {
+      const field = this.components[currentField]
+      if (!field.attrs.__placeholder) {
+        field.attrs.__placeholder = field.attrs.placeholder
+      }
+      if (value) {
+        field.attrs.placeholder = ''
+        return
+      }
+      field.attrs.placeholder = field.attrs.__placeholder
+    })
+
+    const { allowNew } = attrs
+    if (allowNew) {
+      this.setAttrs({ useChips: true })
       this.setOn('new-value', function ({ $event, field, parameters }) {
         const done = parameters[0]
         if ($event.length > 2) {
@@ -232,6 +268,7 @@ export default {
         }
       })
     }
+
     this.setLayout({ tableFormat: optionsFormatter(options), tableWhere: 'eq' })
     this.setType('select')
     return this
