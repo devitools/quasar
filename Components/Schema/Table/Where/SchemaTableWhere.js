@@ -96,7 +96,7 @@ export default {
      * @return {*}
      */
     route () {
-      return this.$store.getters['dashboard/getRoute']
+      return this.$store.getters['app/getRoute']
     }
   },
   /**
