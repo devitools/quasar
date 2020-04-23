@@ -72,6 +72,7 @@ export default {
       components: components,
       record: record,
       activeSearching: false,
+      ready: false,
       errors: {}
     }
   },
@@ -86,7 +87,16 @@ export default {
       if (this.open) {
         classNames.push('SchemaTableWhere--open')
       }
+      if (this.ready) {
+        classNames.push('SchemaTableWhere--ready')
+      }
       return classNames
+    },
+    /**
+     * @return {*}
+     */
+    transition () {
+      return this.$store.getters['dashboard/getTransition']
     }
   },
   /**
@@ -313,6 +323,9 @@ export default {
       handler (value) {
         this.hydrateRecord(value)
       }
+    },
+    transition () {
+      this.ready = false
     }
   },
   /**
@@ -322,6 +335,7 @@ export default {
     if (is(this.buttons)) {
       return
     }
+
     this.buttons = {
       search: {
         positions: [POSITIONS.POSITION_TABLE_SEARCH],
@@ -345,6 +359,14 @@ export default {
         listeners: { click: this.searchCancel }
       }
     }
+  },
+  /**
+   */
+  mounted () {
+    const ready = () => {
+      this.ready = true
+    }
+    window.setTimeout(ready, 500)
   },
   /**
    * @param {function} h
