@@ -95,8 +95,8 @@ export default {
     /**
      * @return {*}
      */
-    transition () {
-      return this.$store.getters['dashboard/getTransition']
+    route () {
+      return this.$store.getters['dashboard/getRoute']
     }
   },
   /**
@@ -324,7 +324,7 @@ export default {
         this.hydrateRecord(value)
       }
     },
-    transition () {
+    route () {
       this.ready = false
     }
   },
