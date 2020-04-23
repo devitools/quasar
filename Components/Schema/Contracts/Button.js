@@ -1,5 +1,3 @@
-import { ignored } from '../../../../settings/action'
-
 /**
  * @mixin {Button}
  */

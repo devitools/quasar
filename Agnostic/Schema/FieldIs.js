@@ -116,7 +116,7 @@ export default {
   fieldIsNumber (attrs = {}) {
     this.setComponent('number')
     this.setAttrs({ ...attrs })
-    this.setLayout({ tableWhereOperator: 'eq' })
+    this.setLayout({ tableWhere: 'eq' })
     this.setType('number')
     return this
   },
@@ -232,7 +232,7 @@ export default {
         }
       })
     }
-    this.setLayout({ tableFormat: optionsFormatter(options), tableWhereOperator: 'eq' })
+    this.setLayout({ tableFormat: optionsFormatter(options), tableWhere: 'eq' })
     this.setType('select')
     return this
   },
@@ -244,7 +244,7 @@ export default {
   fieldIsSelectRemote (attrs = {}) {
     this.setComponent('remote')
     this.setAttrs(attrs)
-    this.setLayout({ tableFormat: optionFormatter(attrs.keyLabel), tableWhereOperator: 'eq' })
+    this.setLayout({ tableFormat: optionFormatter(attrs.keyLabel), tableWhere: 'eq' })
     this.setType('select')
     return this
   },

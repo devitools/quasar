@@ -1,5 +1,8 @@
 // noinspection ES6CheckImport
 import { QFab, QPageSticky } from 'quasar'
+
+import { ignored } from 'src/settings/action'
+
 // app
 // mixins
 import SchemaButton from './Mixins/SchemaButton'
@@ -64,7 +67,18 @@ export default {
      * @returns {boolean}
      */
     filterButton (button) {
-      return button.scopes && button.scopes.includes(this.scope) && button.positions && button.positions.includes(this.position)
+      if (
+        !button.position ||
+        !button.positions ||
+        !button.scopes.includes(this.scope) ||
+        !button.positions.includes(this.position)
+      ) {
+        return false
+      }
+      if (!Array.isArray(ignored)) {
+        return true
+      }
+      return !ignored.includes(button.$key)
     },
     /**
      * @param {Object} a

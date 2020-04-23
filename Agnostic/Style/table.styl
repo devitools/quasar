@@ -150,14 +150,14 @@
     @extend .SchemaTableSide__absolute, .SchemaTableSide__shadow
     z-index 1998
     background-color #ffffff
-    height calc(100vh - 62px)
+    height calc(100vh - 60px)
     width 300px
     transform translateX(320px)
     transition transform .3s
 
     .SchemaTableWhere__form
       padding-top 10px
-      height calc(100vh - 118px)
+      height calc(100vh - 120px)
       overflow auto
 
       > .SchemaTableWhere__component
@@ -174,16 +174,17 @@
           padding-bottom 4px
 
     .app-form-buttons
-      display flex
+      display grid
+      grid-template-columns repeat(2, 1fr)
+      grid-gap 10px
       height 58px
-      padding 10px 0 10px 10px
-      border-top 1px solid #bebebe
-      box-shadow 4px 0 6px 1px rgba(0, 0, 0, 0.3)
+      padding 10px
+      border-top 1px solid #ddd
 
       button
         font-size 0.8rem
         min-width auto
-        flex 1
+        grid-row auto/span 1
 
   & > .SchemaTableWhere__toggle
     @extend .SchemaTableSide__absolute
