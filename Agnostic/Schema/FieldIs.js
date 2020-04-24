@@ -2,7 +2,7 @@ import { primaryKey } from 'src/settings/schema'
 import { currencyParseInput } from 'src/settings/components'
 
 import { yesNo } from '../options'
-import { booleanFormatter, dateFormatter, optionFormatter, optionsFormatter, format } from '../../Util/formatter'
+import { booleanFormatter, dateFormatter, format, optionFormatter, optionsFormatter } from '../../Util/formatter'
 
 /**
  * @typedef {Object} FieldIs
@@ -419,9 +419,8 @@ export default {
   fieldIsButton (click, options = {}) {
     this.setIs('AppButton')
     if (!options.label) {
-      options.label = `buttons.${this.__currentField}.label`
+      options.label = this.$lang(`fields.${this.__currentField}.caption`)
     }
-    options.label = this.$lang(options.label)
     const attrs = { ...options, click }
     this.setAttrs(attrs)
     return this
