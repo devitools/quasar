@@ -1,17 +1,24 @@
 <template>
-  <q-btn
+  <QBtn
     :class="classNames"
     :color="color"
-    v-bind="$attrs"
+    v-bind="bind"
     @click="click"
   />
 </template>
 
 <script>
+import { QBtn } from 'quasar'
+
 export default {
   /**
    */
   name: 'AppButton',
+  /**
+   */
+  components: {
+    QBtn
+  },
   /**
    */
   props: {
@@ -32,16 +39,42 @@ export default {
     color: {
       type: String,
       default: 'primary'
+    },
+    /**
+     */
+    fullwidth: {
+      type: Boolean,
+      default: true
+    },
+    /**
+     */
+    link: {
+      type: Boolean,
+      default: true
     }
   },
   /**
    */
   computed: {
     /**
+     * @return {*}
+     */
+    bind () {
+      const flat = this.link
+      return { flat, ...this.$attrs, ...this.$props }
+    },
+    /**
      * @returns {Array}
      */
     classNames () {
-      const classNames = ['AppButton full-width']
+      const classNames = ['AppButton']
+      if (this.link) {
+        classNames.push('AppButton--link')
+        return classNames
+      }
+      if (this.fullwidth) {
+        classNames.push('full-width')
+      }
       if (typeof this.classes === 'string') {
         classNames.push(this.classes)
         return classNames
@@ -59,5 +92,10 @@ export default {
 .AppButton {
   margin-top: 19px;
   min-height: 38px;
+}
+
+.AppButton--link {
+  text-decoration: underline;
+  text-transform: none;
 }
 </style>

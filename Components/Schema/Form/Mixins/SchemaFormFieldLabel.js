@@ -15,6 +15,10 @@ export default {
      */
     renderFieldLabel (h, field) {
       const data = {}
+      if (typeof field.label !== 'string') {
+        return undefined
+      }
+
       const children = [field.label]
       const required = this.labelRequired(h, field)
       if (required) {
