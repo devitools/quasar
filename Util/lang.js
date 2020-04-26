@@ -1,4 +1,4 @@
-import $lang from 'src/lang'
+import $lang from '../Lang'
 
 /**
  * @param {string} domain
