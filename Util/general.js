@@ -1,4 +1,4 @@
-import * as uuidV1 from 'uuid/v1'
+import { v1 as uuidV1 } from 'uuid'
 
 import { $router } from 'src/router'
 import { SEPARATION_OPERATOR } from 'src/settings/schema'

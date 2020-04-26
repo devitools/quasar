@@ -147,3 +147,11 @@
       .app-form-body
         /*padding 10px*/
         height calc(100vh - 130px)
+
+@media (max-width 1200px)
+  .SchemaForm
+
+    & > .app-form-wrapper
+      & > .app-form-buttons
+        & > button:not(.button-no-min-width)
+          min-width auto

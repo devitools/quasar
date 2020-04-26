@@ -132,7 +132,7 @@ export default class AppRouter extends VueRouter {
   /**
    * @param {string} path
    * @param {function} component
-   * @param {function(AppRouter, string):Object} handler called when done
+   * @param {function(AppRouter, string):void} handler called when done
    * @param {Object} meta
    * @returns {AppRouter}
    */

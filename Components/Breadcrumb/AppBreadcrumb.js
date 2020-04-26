@@ -1,6 +1,6 @@
-import $lang from 'src/lang'
 import { home } from 'src/settings/components'
 
+import $lang from '../../Lang'
 import { browse } from '../../Util/general'
 
 /**

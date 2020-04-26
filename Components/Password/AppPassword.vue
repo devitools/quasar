@@ -6,7 +6,7 @@
   >
     <template
       v-slot:prepend
-      v-if="generator"
+      v-if="generator && enabled"
     >
       <QIcon
         v-if="enabled"

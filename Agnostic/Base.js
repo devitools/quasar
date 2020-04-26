@@ -1,7 +1,7 @@
 import components from 'src/settings/components'
 import { displayKey, primaryKey } from 'src/settings/schema'
-import $lang from 'src/lang'
 
+import $lang from '../Lang'
 import { clone } from '../Util/general'
 import { SCOPES, scopes } from './enum'
 

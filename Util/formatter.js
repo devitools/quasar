@@ -1,5 +1,4 @@
-import $lang from 'src/lang'
-
+import $lang from '../Lang'
 import DateTime from '../Support/DateTime'
 import { replacement } from './string'
 
