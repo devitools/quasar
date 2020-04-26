@@ -9,7 +9,6 @@
       v-if="generator && enabled"
     >
       <QIcon
-        v-if="enabled"
         name="vpn_key"
         class="cursor-pointer"
         @click="generate"
@@ -88,7 +87,7 @@ export default {
       return this.visibleTitle || this.$lang(`agnostic.components.password.visible.tooltip`)
     },
     enabled () {
-      return !this.readOnly && !this.disable
+      return !this.readonly && !this.disable
     }
   },
   /**
