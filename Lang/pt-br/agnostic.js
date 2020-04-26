@@ -1,52 +1,45 @@
 import { primaryKey } from 'src/settings/schema'
 
+import { agnostic } from '../en-us'
 import actions from './actions'
 
 /**
  * @type {Object}
  */
 export default {
+  ...agnostic,
   table: {
-    search: 'Search...',
-    columns: 'Columns'
+    search: 'Pesquisar...',
+    columns: 'Colunas'
   },
   filter: {
-    select: 'Select a correct filter'
+    select: 'Selecione o filtro corretamente'
   },
   fields: {
     [primaryKey]: 'Id',
-    createdAt: 'Created at',
-    updatedAt: 'Updated at',
-    deletedAt: 'Deleted at',
-    createdBy: 'Created by',
-    updatedBy: 'Updated by',
-    deletedBy: 'Deleted by'
+    createdAt: 'Criado em',
+    updatedAt: 'Atualizado em',
+    deletedAt: 'Apagado em',
+    createdBy: 'Criado por',
+    updatedBy: 'Atualizado por',
+    deletedBy: 'Apagado por'
   },
   components: {
     array: {
-      empty: 'Use the button {button} to add items',
+      empty: 'Use o botão {button} abaixo para adicionar itens',
       options: 'Opções'
     },
     appSelectRemote: {
-      noResults: 'The collection is empty',
-      searching: 'Searching...',
-      confirm: 'Confirm',
-      cancel: 'Cancel',
-      clear: 'Clear Selection',
-      search: 'Search',
-      notFound: 'Not applicable'
-    },
-    password: {
-      copied: 'A new password was created and has been copied to clipboard',
-      generator: {
-        tooltip: 'Create a new password with {length} characters'
-      },
-      visible: {
-        tooltip: 'Make the password temporally visible'
-      }
+      notFound: 'Não se aplica',
+      noResults: 'A coleção está vazia',
+      searching: 'Pesquisando...',
+      confirm: 'Confirmar',
+      cancel: 'Cancelar',
+      clear: 'Limpar Seleção',
+      search: 'Pesquisar'
     },
     image: {
-      button: 'Select an image'
+      button: 'Selecione uma imagem'
     },
     embed: {
       actions: {
@@ -111,23 +104,23 @@ export default {
   },
   dialog: {
     alert: {
-      title: 'Warning'
+      title: 'Atenção'
     },
     confirm: {
-      title: 'Confirm'
+      title: 'Confirmação'
     },
     prompt: {
-      title: 'Prompt'
+      title: 'Informe'
     }
   },
   options: {
     gender: {
-      male: 'Male',
-      female: 'Female'
+      male: 'Masculino',
+      female: 'Feminino'
     },
     yesNo: {
-      yes: 'Yes',
-      no: 'No'
+      yes: 'Sim',
+      no: 'Não'
     }
   },
   actions: actions

@@ -1,3 +1,6 @@
+/**
+ * @type {Object}
+ */
 export default {
   ready: {
     message: 'The app is ready'

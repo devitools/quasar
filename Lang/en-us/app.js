@@ -1,6 +1,7 @@
-// the app built-in texts
+/**
+ * @type {Object}
+ */
 export default {
-  components: {},
   version: {
     notify: 'A new version is available!' +
       'Your current version is {version} and the new version is {new} .' +

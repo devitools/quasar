@@ -1,5 +1,6 @@
 /**
-*/
+ * @type {Object}
+ */
 export default {
   required: 'Required field',
   minLength: 'Minimum {min} characters',
@@ -19,11 +20,11 @@ export default {
   url: 'Value must be a valid URL',
   notFound: 'Record not found',
 
-  requiredIf: 'domains.{domain}.{field}.requiredIf',
-  requiredUnless: 'domains.{domain}.{field}.requiredUnless',
-  sameAs: 'domains.{domain}.{field}.sameAs',
-  or: 'domains.{domain}.{field}.or',
-  and: 'domains.{domain}.{field}.and',
-  not: 'domains.{domain}.{field}.not',
-  withParams: 'domains.{domain}.{field}.withParams'
+  requiredIf: 'configure [validations.{field}.requiredIf] on i18n schema file',
+  requiredUnless: 'configure [validations.{field}.requiredUnless] on i18n schema file',
+  sameAs: 'configure [validations.{field}.sameAs] on i18n schema file',
+  or: 'configure [validations.{field}.or] on i18n schema file',
+  and: 'configure [validations.{field}.and] on i18n schema file',
+  not: 'configure [validations.{field}.not] on i18n schema file',
+  withParams: 'configure [validations.{field}.withParams] on i18n schema file'
 }

@@ -1,3 +1,6 @@
+/**
+ * @type {Object}
+ */
 export const countries = [
   { label: 'Afghanistan', value: 'AF' },
   { label: 'Aland Islands', value: 'AX' },
