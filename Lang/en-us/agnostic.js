@@ -1,9 +1,9 @@
 import { primaryKey } from 'src/settings/schema'
 
+/**
+ * @type {Object}
+ */
 export default {
-  /**
-   * @type {Object}
-   */
   scope: {
   },
   table: {
@@ -88,7 +88,6 @@ export default {
     },
     add: {
       label: 'New',
-      // tooltip: 'Abre a tela de criação de um novo registro'
       tooltip: 'Opens the new record creation screen'
     },
     trash: {
