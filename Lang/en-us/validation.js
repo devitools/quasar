@@ -19,6 +19,7 @@ export default {
   password: 'Password must have letters, numbers and at least six chars',
   url: 'Value must be a valid URL',
   notFound: 'Record not found',
+  maxFileSize: 'The file must not be larger than {size}kb',
 
   requiredIf: 'configure [validations.{field}.requiredIf] on i18n schema file',
   requiredUnless: 'configure [validations.{field}.requiredUnless] on i18n schema file',

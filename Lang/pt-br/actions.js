@@ -47,6 +47,15 @@ export default {
     fail: 'Whoops, não foi possível realizar a operação',
     tooltip: 'Restaura um registro que estava na lixeira'
   },
+  erase: {
+    label: 'Eliminar',
+    success: 'Registro(s) eliminado com sucesso',
+    confirm: 'Deseja eliminar definitivamente este(s) registro(s)?',
+    noItems: 'Esta operação precisa de um item selecionado ou um contexto',
+    fail: 'Whoops, não foi possível realizar a operação',
+    warn: 'Não foi possível eliminar este(s) registro(s), verifique as dependências',
+    tooltip: 'Elimina permanentemente o(s) registro(s) (apagar da lixeira)'
+  },
   view: {
     label: 'Visualizar',
     tooManySelected: 'Esta operação não pode ser feita para vários registros',

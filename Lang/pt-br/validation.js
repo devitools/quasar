@@ -19,5 +19,6 @@ export default {
   ipAddress: 'O valor deve ser um IP válido',
   macAddress: 'O valor deve ser um MAC address válido',
   password: 'Password must have letters, numbers and at least six chars',
-  notFound: 'Registro não encontrado'
+  notFound: 'Registro não encontrado',
+  maxFileSize: 'O arquivo não deve ser maior que {size}kb'
 }
