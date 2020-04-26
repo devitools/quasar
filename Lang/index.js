@@ -1,5 +1,6 @@
-import { get } from '../Util/general'
 import i18n from 'src/i18n'
+
+import { get } from '../Util/general'
 
 /**
  * Set the current locale
