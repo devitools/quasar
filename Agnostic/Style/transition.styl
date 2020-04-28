@@ -12,19 +12,18 @@ html, body
 .slide-right-enter-active,
 .slide-right-leave-active
   transition-duration 0.3s
-  transition-property height, opacity, transform
-  /*transition-timing-function cubic-bezier(0.55, 0, 0.1, 1)*/
+  transition-property opacity, transform
   overflow hidden
 
 .slide-left-enter,
 .slide-right-leave-active
   opacity 0
-  transform translate(5em, 0)
+  transform translate(15em, 0)
 
 .slide-left-leave-active,
 .slide-right-enter
   opacity 0
-  transform translate(-5em, 0)
+  transform translate(-15em, 0)
 
 @keyframes toggle-pulse {
   0% {
