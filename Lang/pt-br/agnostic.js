@@ -30,7 +30,7 @@ export default {
       options: 'Opções'
     },
     appSelectRemote: {
-      notFound: 'Não se aplica',
+      notFound: '-',
       noResults: 'A coleção está vazia',
       searching: 'Pesquisando...',
       confirm: 'Confirmar',

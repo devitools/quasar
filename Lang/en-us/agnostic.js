@@ -34,7 +34,7 @@ export default {
       cancel: 'Cancel',
       clear: 'Clear Selection',
       search: 'Search',
-      notFound: 'Not applicable'
+      notFound: '-'
     },
     password: {
       copied: 'A new password was created and has been copied to clipboard',
