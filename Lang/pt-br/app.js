@@ -8,7 +8,8 @@ export default {
   version: {
     notify: `Uma nova versão está disponível!` +
       ` A sua versão atual é a {version} e a nova é a {new}.` +
-      ` Deseja aplicar a atualização agora?`
+      ` Deseja aplicar a atualização agora?`,
+    label: 'versão'
   },
   greetings: {
     morning: 'Bom dia',

@@ -12,7 +12,7 @@ export default {
   },
   update: {
     label: 'Save',
-    success: 'Record successfully created',
+    success: 'Record successfully updated',
     fail: 'Ops, can not execute the operation',
     validation: 'Check highlighted fields',
     warn: 'Check highlighted fields',
