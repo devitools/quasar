@@ -13,7 +13,6 @@ import Button from '../../Contracts/Button'
 // component
 import SchemaTableWhereForm from './SchemaTableWhereForm'
 import SchemaButtons from '../../Buttons/SchemaButtons'
-import de from 'quasar/lang/de'
 
 /**
  * @component {SchemaTableWhere}

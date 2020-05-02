@@ -34,10 +34,13 @@ export default {
     renderTable (h, classes = ['SchemaTable'], embed = false) {
       if (this.$scopedSlots['table-body']) {
         return this.$scopedSlots['table-body']({
+          fields: this.fields,
+          actions: this.actions,
           domain: this.domain,
           scope: this.scope,
-          components: this.getComponents(''),
-          records: this.data
+          components: this.columns,
+          records: this.data,
+          buttons: this.buttons
         })
       }
 
