@@ -48,9 +48,10 @@ export default {
             validations.$params[validation] || {},
             { domain, field, validation }
           )
-          let preference = `domains.${domain}.validation.${field}.${validation}`
+          let preference = `domains.${domain}.validations.${field}.${validation}`
           let paths = [
             preference,
+            `domains.${domain}.validation.${field}.${validation}`
             `validation.${validation}`
           ]
           let message = replacement(this.$lang(paths, preference), replaces) || preference
@@ -61,6 +62,7 @@ export default {
       if (this.errors[field]) {
         const validation = this.errors[field]
         const paths = [
+          `domains.${domain}.validations.${field}.${validation}`,
           `domains.${domain}.validation.${field}.${validation}`,
           `validation.${validation}`,
           this.errors[field]
