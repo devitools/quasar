@@ -51,7 +51,7 @@ export default {
           let preference = `domains.${domain}.validations.${field}.${validation}`
           let paths = [
             preference,
-            `domains.${domain}.validation.${field}.${validation}`
+            `domains.${domain}.validation.${field}.${validation}`,
             `validation.${validation}`
           ]
           let message = replacement(this.$lang(paths, preference), replaces) || preference
