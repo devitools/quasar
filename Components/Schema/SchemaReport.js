@@ -1,5 +1,4 @@
 // noinspection ES6CheckImport
-import { QPage } from 'quasar'
 import { primaryKey } from 'src/settings/schema'
 import { reportAction, reportContext, reportLoading, reportMethod } from 'src/settings/report'
 
@@ -168,8 +167,12 @@ export default {
     /**
      */
     reportPrint () {
-      window.frames['report'].focus()
-      window.frames['report'].print()
+      try {
+        window.frames['report'].focus()
+        window.frames['report'].print()
+      } catch (e) {
+        window.alert(e.message)
+      }
     }
   },
   /**
@@ -186,6 +189,6 @@ export default {
       this.renderReport(h)
     ]
 
-    return h(QPage, data, children)
+    return h('div', data, children)
   }
 }

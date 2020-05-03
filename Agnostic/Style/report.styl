@@ -5,7 +5,7 @@
   iframe
     display none
     padding 0
-    height calc(100vh - 165px)
+    height calc(100vh - 195px)
     border-width 0 0 1px 0
     border-style solid
     border-color #ddd
@@ -15,16 +15,16 @@
   .app-form-buttons
     display flex
 
-  button#submit
+  button[name="submit"]
     display block
 
-  button#printing
+  button[name="printing"]
     display block
 
-  button#return
+  button[name="return"]
     display none
 
-  button#printer
+  button[name="printer"]
     display none
 
   &.submitting
@@ -34,16 +34,16 @@
     iframe
       display block
 
-    button#submit
+    button[name="submit"]
       display none
 
-    button#printing
+    button[name="printing"]
       display none
 
-    button#return
+    button[name="return"]
       display block
 
-    button#printer
+    button[name="printer"]
       display block
 
 .DashboardLayout--modal

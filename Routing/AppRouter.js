@@ -1,7 +1,7 @@
 // noinspection NpmUsedModulesInstalled
 import VueRouter from 'vue-router'
-import { crud, group, redirect, route } from '../Util/routing'
-import { clone } from '../Util/general'
+import {  group, redirect, resource, route } from '../Util/routing'
+import AppRouterGroup from './AppRouterGroup'
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push (location, onResolve, onReject) {
@@ -20,23 +20,6 @@ export default class AppRouter extends VueRouter {
    * @type {RouteConfig[]}
    */
   __routes = []
-
-  /**
-   * @type {RouteConfig[]}
-   */
-  grouping = []
-
-  /**
-   * @param {string} path
-   * @param {function} component
-   * @param {Object} [options]
-   * @returns {AppRouter}
-   */
-  addRoute (path, component, options = {}) {
-    const { name } = options
-    this.addRoutes([route(path, component, name, options)])
-    return this
-  }
 
   /**
    * @param {RouteConfig[]} routes
@@ -86,7 +69,8 @@ export default class AppRouter extends VueRouter {
    */
   route (path, component, options = {}) {
     const { name } = options
-    return this.routes([route(path, component, name, options)])
+    this.routes([route(path, component, name, options)])
+    return this
   }
 
   /**
@@ -95,29 +79,19 @@ export default class AppRouter extends VueRouter {
    * @returns {AppRouter}
    */
   redirect (source, target) {
-    return this.routes([redirect(source, target)])
+    this.routes([redirect(source, target)])
+    return this
   }
 
   /**
-   * @param {string|Object} resource
+   * @param {string|Object} route
    * @param {string} domain
    * @param {function} table
    * @param {function} form
    * @returns {AppRouter}
    */
-  resource (resource, domain = undefined, table = undefined, form = undefined) {
-    let path = resource
-    if (typeof resource === 'object') {
-      path = resource.path
-      domain = resource.domain
-      table = resource.table
-      form = resource.form
-    }
-    const component = () => import('../Components/Group/Group.vue')
-    const children = crud(domain, path, table, form)
-    const meta = { prefix: domain }
-
-    return this.routes([group(path, component, children, meta)])
+  resource (route, domain = undefined, table = undefined, form = undefined) {
+    return this.routes([resource(route, domain, table, form)])
   }
 
   /**
@@ -125,32 +99,33 @@ export default class AppRouter extends VueRouter {
    * @returns {AppRouter}
    */
   routes (routes) {
-    this.grouping.push(...routes)
+    this.addRoutes(routes)
     return this
   }
 
   /**
    * @param {string} path
    * @param {function} component
-   * @param {function(AppRouter, string):void} handler called when done
+   * @param {function(AppRouterGroup, string):void} handler called when done
    * @param {Object} meta
    * @returns {AppRouter}
    */
   group (path, component, handler, meta = {}) {
-    this.grouping = []
-    const options = handler(this, path)
+    const appRouterGroup = AppRouterGroup.build()
+
+    const options = handler(appRouterGroup, path)
     if (typeof options === 'object') {
       meta = { ...meta, ...options }
     }
-    const children = clone(this.grouping)
+    const children = appRouterGroup.getRoutes()
     const namespace = path.replace(/\//g, '.')
 
     const __routes = [
       group(path, component, children, { namespace, ...meta })
     ]
 
-    this.addRoutes(__routes)
-    return this
+    // noinspection JSCheckFunctionSignatures
+    return this.routes(__routes)
   }
 
   /**

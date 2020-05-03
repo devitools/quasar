@@ -518,3 +518,18 @@ export const generatePassword = (length) => {
 
   return chars.sort(() =>  0.5 - Math.random()).join('')
 }
+
+/**
+ * @param {number} length
+ * @returns {string}
+ */
+export const secret = (length = 32) => {
+  const result = []
+  // noinspection SpellCheckingInspection
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  const charactersLength = characters.length
+  for (let i = 0; i < length; i++) {
+    result.push(characters.charAt(Math.floor(Math.random() * charactersLength)))
+  }
+  return result.join('')
+}

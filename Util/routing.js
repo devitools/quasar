@@ -87,3 +87,25 @@ export const crud = (
     creator(`:${key}/edit`, form, 'edit', SCOPES.SCOPE_EDIT)
   ]
 }
+
+/**
+ * @param {string|Object} resource
+ * @param {string} domain
+ * @param {function} table
+ * @param {function} form
+ * @return {RouteConfig}
+ */
+export const resource = (resource, domain = undefined, table = undefined, form = undefined) => {
+  let path = resource
+  if (typeof resource === 'object') {
+    path = resource.path
+    domain = resource.domain
+    table = resource.table
+    form = resource.form
+  }
+  const component = () => import('../Components/Group/Group.vue')
+  const children = crud(domain, path, table, form)
+  const meta = { prefix: domain }
+
+  return group(path, component, children, meta)
+}
