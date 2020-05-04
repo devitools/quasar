@@ -37,6 +37,7 @@ export default {
         key: button.$key,
         ref: button.reference ? this.buttonRef(button.reference) : undefined,
         class: button.class,
+        domProps: { name: button.$key },
         attrs: { ...button.attrs },
         on: { ...button.listeners },
         style: button.style
