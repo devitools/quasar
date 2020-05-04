@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import { QInput } from 'quasar'
+
 import MixinPropsDate from './MixinPropsDate'
 import MixinBehaviour from './MixinBehaviour'
 import DateWidgetDate from './DateWidgetDate'
@@ -26,7 +28,7 @@ export default {
   name: 'AppDate',
   /**
    */
-  components: { DateWidgetDate },
+  components: { QInput, DateWidgetDate },
   /**
    */
   mixins: [MixinPropsDate, MixinBehaviour]

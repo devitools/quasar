@@ -1,25 +1,26 @@
 <template>
-  <q-icon
+  <QIcon
     class="cursor-pointer"
     name="access_time"
   >
-    <q-popup-proxy
+    <QPopupProxy
       ref="qDatetimeProxy"
       transition-hide="scale"
       transition-show="scale"
       @before-show="datetimeBeforeShow"
     >
-      <q-time
+      <QTime
         :mask="format"
         :value="datetimeValue"
         @input="datetimeInput"
         format24h
       />
-    </q-popup-proxy>
-  </q-icon>
+    </QPopupProxy>
+  </QIcon>
 </template>
 
 <script>
+import { QIcon, QPopupProxy, QTime } from 'quasar'
 import AppDateMixinProps from './MixinPropsDate'
 import { now } from '../../Util/date'
 
@@ -30,6 +31,9 @@ export default {
   /**
    */
   mixins: [AppDateMixinProps],
+  /**
+   */
+  components: { QIcon, QPopupProxy, QTime },
   /**
    */
   data: () => ({

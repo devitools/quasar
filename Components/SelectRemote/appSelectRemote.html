@@ -22,23 +22,23 @@
     </template>
 
     <template v-slot:no-option>
-      <q-item>
-        <q-item-section class="text-grey">
+      <QItem>
+        <QItemSection class="text-grey">
           {{ noResults }}
-        </q-item-section>
-      </q-item>
+        </QItemSection>
+      </QItem>
     </template>
 
     <template
       v-if="widget || path"
       v-slot:append
     >
-      <q-icon
+      <QIcon
         class="cursor-pointer"
         name="open_in_new"
         @click="widgetOpen"
       />
-      <q-dialog
+      <QDialog
         v-if="widget"
         v-model="openDialog"
         persistent
@@ -47,28 +47,28 @@
         transition-show="slide-up"
         transition-hide="slide-down"
       >
-        <q-card
+        <QCard
           class="AppSelectRemote__widget bg-white"
           style="overflow: hidden"
         >
-          <q-bar class="bg-primary shadow-1">
-            <q-space />
+          <QBar class="bg-primary shadow-1">
+            <QSpace />
 
-            <q-btn
+            <QBtn
               dense
               flat
               icon="crop_square"
               @click="maximizedToggle = !maximizedToggle"
             />
-            <q-btn
+            <QBtn
               dense
               flat
               icon="close"
               v-close-popup
             />
-          </q-bar>
+          </QBar>
 
-          <q-card-section style="padding: 0 16px">
+          <QCardSection style="padding: 0 16px">
             <SelectRemoteWidgetTable
               :value="value"
               :columns="columns"
@@ -87,9 +87,9 @@
               :value="widgetSearchPhrase"
               @input="widgetSearch"
             />
-          </q-card-section>
-        </q-card>
-      </q-dialog>
+          </QCardSection>
+        </QCard>
+      </QDialog>
     </template>
   </AppSelect>
 </div>

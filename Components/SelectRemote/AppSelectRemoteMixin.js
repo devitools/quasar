@@ -1,3 +1,14 @@
+import {
+  QItem,
+  QItemSection,
+  QIcon,
+  QDialog,
+  QCard,
+  QBar,
+  QSpace,
+  QBtn,
+  QCardSection
+} from 'quasar'
 import Popup from 'src/modules/General/Mixins/Popup'
 
 import { withSeparator } from '../../Util/general'
@@ -12,6 +23,19 @@ export default {
   /**
    */
   mixins: [Popup],
+  /**
+   */
+  components: {
+    QItem,
+    QItemSection,
+    QIcon,
+    QDialog,
+    QCard,
+    QBar,
+    QSpace,
+    QBtn,
+    QCardSection
+  },
   /**
    */
   props: {
@@ -95,9 +119,9 @@ export default {
      * @return {String|Object}
      */
     noResults () {
-      let path = 'agnostic.components.remote.noResults'
+      let path = 'agnostic.components.appSelectRemote.noResults'
       if (this.loading) {
-        path = 'agnostic.components.remote.searching'
+        path = 'agnostic.components.appSelectRemote.searching'
       }
       return this.$lang(path)
     }
