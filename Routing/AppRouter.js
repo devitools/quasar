@@ -123,9 +123,11 @@ export default class AppRouter extends VueRouter {
     const __routes = [
       group(path, component, children, { namespace, ...meta })
     ]
-
     // noinspection JSCheckFunctionSignatures
-    return this.routes(__routes)
+    this.routes(__routes)
+
+    appRouterGroup.getBefore().forEach((before) => this.beforeEach(before))
+    return this
   }
 
   /**

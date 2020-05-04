@@ -11,6 +11,11 @@ export default class AppRouterGroup {
   grouping = []
 
   /**
+   * @type {function[]}
+   */
+  before = []
+
+  /**
    * @return {AppRouterGroup}
    */
   static build () {
@@ -62,7 +67,7 @@ export default class AppRouterGroup {
     const children = local.getRoutes()
     const namespace = path.replace(/\//g, '.')
 
-    return this.routes( [
+    return this.routes([
       group(path, component, children, { namespace, ...meta })
     ])
   }
@@ -81,5 +86,30 @@ export default class AppRouterGroup {
    */
   getRoutes () {
     return this.grouping
+  }
+
+  /**
+   * @param {string} path
+   * @param {function} callable
+   */
+  beforeThis (path, callable) {
+    if (typeof callable !== 'function') {
+      throw new Error('AppRouter.match: callable must be a function')
+    }
+    const middleware = (to, from, next) => {
+      if (to.path === path) {
+        callable(to, from, next)
+        return
+      }
+      next()
+    }
+    this.before.push(middleware)
+  }
+
+  /**
+   * @return {function[]}
+   */
+  getBefore () {
+    return this.before
   }
 }
