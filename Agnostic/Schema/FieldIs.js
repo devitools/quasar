@@ -388,7 +388,7 @@ export default {
    */
   fieldIsBuiltIn (attrs = {}) {
     this.setIs('AppBuiltIn')
-    this.setAttrs({ ...attrs })
+    this.setAttrs({ ...attrs, uppercase: false })
     this.setType('array')
     return this
   },

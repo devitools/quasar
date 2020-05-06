@@ -70,5 +70,11 @@ export default {
     actionBuiltInDestroy (record) {
       this.$emit('actionBuiltInDestroy', record)
     }
+  },
+  watch: {
+    value (value) {
+      console.log('~> value', value)
+      this.record = value
+    }
   }
 }

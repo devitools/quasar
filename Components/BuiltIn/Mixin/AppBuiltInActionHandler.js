@@ -1,3 +1,5 @@
+import { primaryKey } from 'src/settings/schema'
+
 import { SCOPES } from '../../../Agnostic/enum'
 import { unique } from '../../../Util/general'
 import Dialog from '../../Schema/Contracts/Dialog'
@@ -115,12 +117,7 @@ export default {
      * @param {Array} items
      */
     updateValue (items) {
-      const mapper = (item) => {
-        delete item.__id
-        return item
-      }
-      const value = this.$util.clone(items.map(mapper))
-      this.$emit('input', value)
+      this.$emit('input', items)
     },
     /**
      * @param {Object} record
@@ -135,10 +132,29 @@ export default {
   watch: {
     value: {
       handler (value) {
+        let update
         const __unique = unique()
-        this.items = value.map((item, index) => ({ ...item, __id: `${__unique}__${index}` }))
+
+        this.items = value.map((item, index) => {
+          const __id = item.__id || item[primaryKey] || `${__unique}__${index}`
+          if (this.item.__id === __id) {
+            update = { ...this.$util.clone(item), __id }
+          }
+          return { ...item, __id }
+        })
+
+        if (!update) {
+          return
+        }
+        this.item = update
       },
       immediate: true
+    },
+    defaults (defaults) {
+      if (this.scope !== SCOPES.SCOPE_ADD) {
+        return
+      }
+      this.item = this.$util.clone(defaults)
     }
   }
 }
