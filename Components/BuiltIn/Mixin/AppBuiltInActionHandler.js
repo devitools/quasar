@@ -21,7 +21,7 @@ export default {
     /**
      */
     actionAdd () {
-      this.item = {}
+      this.item = this.$util.clone(this.defaults)
       this.scope = SCOPES.SCOPE_ADD
       this.formActive = true
     },

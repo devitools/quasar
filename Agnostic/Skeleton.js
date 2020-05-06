@@ -270,6 +270,14 @@ export default class Skeleton extends Base {
   }
 
   /**
+   * @returns {Schema|Skeleton}
+   */
+  fieldAvoid () {
+    this.__avoids.push(this.__currentField)
+    return this
+  }
+
+  /**
    * @return {Array}
    */
   getAvoids () {
@@ -438,7 +446,7 @@ export default class Skeleton extends Base {
     if (!this.constructor.activateBuiltIn) {
       throw new Error(`BuiltIn is not active on this schema (${this.constructor.domain})`)
     }
-    return { ...this.provide(), ...attrs }
+    return { ...this.provide(), defaults: {}, ...attrs }
   }
 
   /**

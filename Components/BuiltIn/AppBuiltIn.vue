@@ -71,6 +71,10 @@ export default {
     size: {
       type: Number,
       default: 10
+    },
+    defaults: {
+      type: Object,
+      default: () => ({})
     }
   },
   /**

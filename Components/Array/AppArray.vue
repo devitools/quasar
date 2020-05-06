@@ -9,7 +9,7 @@
     >
       <thead>
         <tr>
-          <th v-if="!disable">
+          <th v-if="!static && !disable">
             <div style="width: 45px;">
               *
             </div>
@@ -41,7 +41,7 @@
         <template v-for="(item, index) in items">
           <tr :key="item[primaryKey]">
             <td
-              v-if="!disable"
+              v-if="!static && !disable"
               style="width: 45px; padding: 0 0 0 6px;"
             >
               <q-btn
@@ -81,7 +81,7 @@
     </q-markup-table>
     <div style="padding: 0 0 0 6px;">
       <q-btn
-        v-if="!disable"
+        v-if="!static && !disable"
         icon="add"
         dense
         flat
@@ -108,6 +108,13 @@ export default {
   /**
    */
   mixins: [AppArrayProps, AppArrayEmpty, AppArrayItems, AppArrayComponents],
+  /**
+   */
+  props: {
+    static: {
+      default: false
+    }
+  },
   /**
    */
   data: () => ({
