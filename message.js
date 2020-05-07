@@ -1,4 +1,3 @@
-// noinspection ES6CheckImport
 import { Notify } from 'quasar'
 
 /**
@@ -51,4 +50,16 @@ export const success = (message, options = {}) => {
  */
 export const error = (message, options = {}) => {
   Notify.create(base({ message, ...options, color: 'negative' }))
+}
+
+/**
+ * @param {string} message
+ * @param options
+ */
+export const warning = (message, options = {}) => {
+  const opts = base(
+    { message, ...options, textColor: 'black', color: 'yellow-14' },
+    { textColor: 'black' }
+  )
+  Notify.create(opts)
 }

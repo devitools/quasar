@@ -41,17 +41,22 @@ export default {
        */
       schema.createdHook.call(this, schema)
 
-      const watches = this.watches()
-      Object.keys(watches).forEach((key) => {
-        const watching = watches[key]
-        const handler = (current, previous) => {
-          if (!Array.isArray(watching)) {
-            throw new Error('Field watch must be an array')
-          }
-          watching.forEach((watch) => watch.bind(this)(current, previous))
+      // get the watches from provided watches
+      const entries = Object.entries(this.watches())
+      // walk on entries
+      for (const entry of entries) {
+        // get the key and watches from entry
+        const [key, watches] = entry
+        // walk on watches
+        for (const watch of watches) {
+          // get the props that they have
+          const { handler, options } = watch
+          // get the options
+          const { immediate, deep } = options
+          // register the watch
+          this.$watch(key, handler.bind(this), { immediate, deep })
         }
-        this.$watch(key, handler)
-      })
+      }
     })
   },
 

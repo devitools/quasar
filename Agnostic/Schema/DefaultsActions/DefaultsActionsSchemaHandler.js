@@ -1,7 +1,7 @@
-import { SCOPES } from '../../enum'
-import { reject } from '../../../Util/general'
 import { primaryKey } from 'src/settings/schema'
 import { createAction, updateAction, destroyAction } from 'src/settings/executors'
+import { SCOPES } from '../../enum'
+import { reject } from '../../../Util/general'
 
 /**
  */

@@ -216,14 +216,15 @@ export default class Skeleton extends Base {
   /**
    * @param {string} name
    * @param {function} handler
+   * @param {Options} options
    * @returns {Schema|Skeleton}
    */
-  addWatch (name, handler) {
+  addWatch (name, handler, options = {}) {
     if (!this.__watches[name]) {
       this.__watches[name] = []
     }
 
-    this.__watches[name].push(handler)
+    this.__watches[name].push({ handler, options })
     return this
   }
 

@@ -73,10 +73,11 @@ export default {
 
   /**
    * @param {function} callable
+   * @param {Object} options
    * @return {Schema}
    */
-  fieldWatch (callable) {
-    this.addWatch(`record.${this.__currentField}`, callable)
+  fieldWatch (callable, options = {}) {
+    this.addWatch(`record.${this.__currentField}`, callable, options)
     return this
   },
 

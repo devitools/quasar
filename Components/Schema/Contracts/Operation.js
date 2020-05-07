@@ -1,4 +1,4 @@
-import { actionFailMessage, actionSuccessMessage } from 'src/settings/schema'
+import { actionFailMessage, actionSuccessMessage, actionFailErrors } from 'src/settings/schema'
 
 /**
  * @mixin Operation
@@ -80,16 +80,42 @@ export default {
       if (!error.response) {
         return Promise.reject(error)
       }
+      const status = this.$util.get(error, 'response.status')
       const message = actionFailMessage(error)
+      if (status !== 400) {
+        if (message) {
+          this.$message.error(message)
+          return
+        }
+        if (error.type) {
+          this.$message.error(this.$lang(`validation.${error.type}`))
+          return
+        }
+        this.$message.error(this.$lang(fail))
+        return
+      }
+
+      const errors = actionFailErrors(error)
+      if (Array.isArray(errors)) {
+        this.errors = errors.reduce((accumulator, error) => {
+          if (!this.components[error['property_path']]) {
+            this.triggerHook('validate:error', { error })
+            return accumulator
+          }
+          accumulator[error['property_path']] = error['message']
+          return accumulator
+        }, {})
+      }
+
       if (message) {
-        this.$message.error(message)
+        this.$message.warning(message)
         return
       }
       if (error.type) {
-        this.$message.error(this.$lang(`validation.${error.type}`))
+        this.$message.warning(this.$lang(`validation.${error.type}`))
         return
       }
-      this.$message.error(this.$lang(fail))
+      this.$message.warning(this.$lang(fail))
     },
     /**
      * @param {Object} payload
