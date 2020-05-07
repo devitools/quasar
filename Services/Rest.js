@@ -111,8 +111,8 @@ export default class Rest extends Http {
       })
     }
     const { erase } = config
-    const _erase = `erase=${erase ? 1 : 0}`
-    const url = `${this.getResource()}/${this.getId(record)}?${_erase}`
+    const _erase = erase ? '/erase' : ''
+    const url = `${this.getResource()}/${this.getId(record)}${_erase}`
     return this.delete(url, config)
   }
 
@@ -123,7 +123,7 @@ export default class Rest extends Http {
    */
   restore (record, config = {}) {
     const url = `${this.getResource()}/${this.getId(record)}/restore`
-    return this.patch(url, record, config)
+    return this.put(url, null, config)
   }
 
   /**
@@ -207,11 +207,11 @@ export default class Rest extends Http {
     const callback = (record) => this.getId(record)
     const remove = records.map(callback).join(',')
     const { erase } = config
-    const _erase = `erase=${erase ? 1 : 0}`
+    const _erase = erase ? '/erase' : ''
     if (records.length === 1) {
-      return this.delete(`${this.getResource()}/${remove}?${_erase}`)
+      return this.delete(`${this.getResource()}/${remove}${_erase}`)
     }
-    return this.delete(`${this.getResource()}/[${remove}]?${_erase}`)
+    return this.delete(`${this.getResource()}/[${remove}]${_erase}`)
   }
 
   /**
