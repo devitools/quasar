@@ -142,7 +142,7 @@ export default {
       ])
       .actionConfigure(function (action, { context: { record, records }, position }) {
         if ([POSITIONS.POSITION_TABLE_CELL, POSITIONS.POSITION_FORM_FOOTER].includes(position)) {
-          action.hidden = record['deletedAt']
+          action.hidden = record.deletedAt
         }
         if (this.locked) {
           action.hidden = true

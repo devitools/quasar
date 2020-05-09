@@ -1,30 +1,30 @@
 <template>
-    <QFile
-      ref="file"
-      v-bind="bind"
-      :value="input"
-      @input="updateValue"
+  <QFile
+    ref="file"
+    v-bind="bind"
+    :value="input"
+    @input="updateValue"
+  >
+    <template v-slot:prepend>
+      <q-btn
+        round
+        dense
+        flat
+        icon="attach_file"
+        @click="pickFiles"
+      />
+    </template>
+    <template
+      v-slot:append
+      v-if="typeof value === 'string'"
     >
-        <template v-slot:prepend>
-            <q-btn
-              round
-              dense
-              flat
-              icon="attach_file"
-              @click="pickFiles"
-            />
-        </template>
-        <template
-          v-slot:append
-          v-if="typeof value === 'string'"
-        >
-            <q-icon
-              name="cloud_download"
-              class="cursor-pointer"
-              @click="download"
-            />
-        </template>
-    </QFile>
+      <q-icon
+        name="cloud_download"
+        class="cursor-pointer"
+        @click="download"
+      />
+    </template>
+  </QFile>
 </template>
 
 <script>
@@ -65,7 +65,7 @@ export default {
   /**
    */
   data: () => ({
-    model: null,
+    model: null
   }),
   /**
    */

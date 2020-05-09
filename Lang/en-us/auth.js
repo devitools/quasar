@@ -9,7 +9,7 @@ export default {
     button: 'Sign In',
     error: 'Incorrect username or password',
     goToRegister: 'I want sign up',
-    forgotPassword: 'I forgot my password',
+    forgotPassword: 'I forgot my password'
   },
   register: {
     title: 'Come on! Enter your information ',

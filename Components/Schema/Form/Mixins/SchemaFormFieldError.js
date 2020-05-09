@@ -31,7 +31,7 @@ export default {
       const validations = this.$util.get(this.validations, `record.${field}`)
 
       if (validations) {
-        for (let validation in validations.$params) {
+        for (const validation in validations.$params) {
           if (!validations.$params.hasOwnProperty(validation)) {
             continue
           }
@@ -44,17 +44,17 @@ export default {
           if (status) {
             continue
           }
-          let replaces = Object.assign(
+          const replaces = Object.assign(
             validations.$params[validation] || {},
             { domain, field, validation }
           )
-          let preference = `domains.${domain}.validations.${field}.${validation}`
-          let paths = [
+          const preference = `domains.${domain}.validations.${field}.${validation}`
+          const paths = [
             preference,
             `domains.${domain}.validation.${field}.${validation}`,
             `validation.${validation}`
           ]
-          let message = replacement(this.$lang(paths, preference), replaces) || preference
+          const message = replacement(this.$lang(paths, preference), replaces) || preference
           errorMessages.push(message)
         }
       }

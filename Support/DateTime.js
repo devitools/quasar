@@ -39,13 +39,13 @@ export default class DateTime extends Date {
     if (!Array.isArray(formats)) {
       formats = [formats]
     }
-    for (let index in formats) {
+    for (const index in formats) {
       if (!formats.hasOwnProperty(index)) {
         continue
       }
-      let pattern = formats[index].replaceWith(formatters)
-      let regex = new NamedRegExp(pattern)
-      let match = regex.exec(string)
+      const pattern = formats[index].replaceWith(formatters)
+      const regex = new NamedRegExp(pattern)
+      const match = regex.exec(string)
       if (match) {
         return match
       }

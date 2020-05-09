@@ -85,7 +85,7 @@ export default {
      * @param {Object} response
      */
     finishFileUpload (response) {
-      const { 'secure_url': value } = response
+      const { secure_url: value } = response
       return value
     }
   }

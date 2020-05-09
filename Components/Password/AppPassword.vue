@@ -46,6 +46,7 @@ export default {
    */
   props: {
     value: {
+      type: [String],
       default: null
     },
     generator: {
@@ -80,11 +81,11 @@ export default {
       return { ...this.$attrs, ...this.$props }
     },
     generatorTooltip () {
-      const template = this.generatorTitle || this.$lang(`agnostic.components.password.generator.tooltip`)
+      const template = this.generatorTitle || this.$lang('agnostic.components.password.generator.tooltip')
       return replacement(template, { length: this.length })
     },
     visibleTooltip () {
-      return this.visibleTitle || this.$lang(`agnostic.components.password.visible.tooltip`)
+      return this.visibleTitle || this.$lang('agnostic.components.password.visible.tooltip')
     },
     enabled () {
       return !this.readonly && !this.disable
@@ -105,7 +106,7 @@ export default {
       const password = generatePassword(this.length)
       copyToClipboard(password)
         .then(() => {
-          toast(this.$lang(`agnostic.components.password.copied`), { caption: password })
+          toast(this.$lang('agnostic.components.password.copied'), { caption: password })
           this.$emit('generate', password)
           this.$emit('input', password)
         })
@@ -113,4 +114,3 @@ export default {
   }
 }
 </script>
-

@@ -16,12 +16,12 @@ export default {
     withRecord (payload, success, noItems = undefined, tooManySelected = undefined) {
       let { record, records } = payload
       if (!record && !(Array.isArray(records) && records.length)) {
-        noItems ? noItems() : this.$alert(this.$lang(`agnostic.actions.view.noItems`))
+        noItems ? noItems() : this.$alert(this.$lang('agnostic.actions.view.noItems'))
         return
       }
       if (Array.isArray(records) && records.length) {
         if (records.length > 1) {
-          tooManySelected ? tooManySelected() : this.$alert(this.$lang(`agnostic.actions.view.tooManySelected`))
+          tooManySelected ? tooManySelected() : this.$alert(this.$lang('agnostic.actions.view.tooManySelected'))
           return
         }
         record = records[0]
@@ -34,9 +34,9 @@ export default {
      * @param {function} noItems
      */
     withRecords (payload, success, noItems = undefined) {
-      let { record, records } = payload
+      const { record, records } = payload
       if (!record && !(Array.isArray(records) && records.length)) {
-        noItems ? noItems() : this.$alert(this.$lang(`agnostic.actions.view.noItems`))
+        noItems ? noItems() : this.$alert(this.$lang('agnostic.actions.view.noItems'))
         return
       }
       if (record) {

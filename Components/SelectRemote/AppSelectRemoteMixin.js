@@ -98,9 +98,9 @@ export default {
       return {
         'use-input': true,
         'map-options': true,
-        'clearable': true,
+        clearable: true,
         'use-chips': this.$options.multiple,
-        'multiple': this.$options.multiple,
+        multiple: this.$options.multiple,
         'popup-content-class': 'uppercase',
         loading: this.loading,
         ...attrs

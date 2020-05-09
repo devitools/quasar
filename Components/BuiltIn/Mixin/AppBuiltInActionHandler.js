@@ -43,7 +43,7 @@ export default {
     actionApply () {
       if (!this.$refs.form.isValidForm()) {
         const message = this.$lang([
-          `agnostic.components.builtIn.actions.builtinApply.validation`,
+          'agnostic.components.builtIn.actions.builtinApply.validation',
           `domains.${this.domain}.components.builtIn.actions.builtinApply.validation`
         ])
         this.$message.error(message)
@@ -84,11 +84,11 @@ export default {
      */
     async actionDestroy (record) {
       const message = this.$lang([
-        `agnostic.components.builtIn.actions.builtinDestroy.message`,
+        'agnostic.components.builtIn.actions.builtinDestroy.message',
         `domains.${this.domain}.components.builtIn.actions.builtinDestroy.message`
       ])
       const title = this.$lang([
-        `agnostic.components.builtIn.actions.builtinDestroy.title`,
+        'agnostic.components.builtIn.actions.builtinDestroy.title',
         `domains.${this.domain}.components.builtIn.actions.builtinDestroy.title`
       ])
       try {

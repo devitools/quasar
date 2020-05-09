@@ -103,7 +103,7 @@ export default {
      * @return {Vue}
      */
     form () {
-      for (let key in this.$children) {
+      for (const key in this.$children) {
         if (!this.$children.hasOwnProperty(key)) {
           continue
         }

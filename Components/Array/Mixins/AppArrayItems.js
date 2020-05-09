@@ -13,7 +13,7 @@ export default {
         if (this.optimize) {
           let diff = false
           const references = this.items.map((item) => item[this.primaryKey])
-          for (let element of value) {
+          for (const element of value) {
             if (references.includes(element[this.primaryKey])) {
               continue
             }

@@ -1,6 +1,6 @@
 // noinspection NpmUsedModulesInstalled
 import VueRouter from 'vue-router'
-import {  group, redirect, resource, route } from '../Util/routing'
+import { group, redirect, resource, route } from '../Util/routing'
 import AppRouterGroup from './AppRouterGroup'
 
 const originalPush = VueRouter.prototype.push

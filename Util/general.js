@@ -228,12 +228,12 @@ export const mergeDeep = (target, ...sources) => {
  */
 export const serialize = (object, prefix = '') => {
   const string = []
-  for (let property in object) {
+  for (const property in object) {
     if (!object.hasOwnProperty(property)) {
       continue
     }
-    let key = prefix ? `${prefix}[${property}]` : property
-    let value = object[property]
+    const key = prefix ? `${prefix}[${property}]` : property
+    const value = object[property]
     if (value === undefined) {
       continue
     }
@@ -472,7 +472,7 @@ export const objectToFormData = (object, formData = undefined, prefix = '', opti
     Object.keys(object).forEach(prop => {
       const value = object[prop]
       if (isArray(value)) {
-        while (prop.length > 2 && prop.lastIndexOf('[]') === prop.length - 2) {
+        while (prop.length > 2 && prop.endsWith('[]')) {
           prop = prop.substring(0, prop.length - 2)
         }
       }
@@ -516,7 +516,7 @@ export const generatePassword = (length) => {
     chars.push(letters.charAt(Math.floor(Math.random() * letters.length)))
   }
 
-  return chars.sort(() =>  0.5 - Math.random()).join('')
+  return chars.sort(() => 0.5 - Math.random()).join('')
 }
 
 /**

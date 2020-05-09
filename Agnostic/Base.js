@@ -173,7 +173,7 @@ export default class Base {
     if (typeof mixin !== 'object') {
       return
     }
-    for (let fragment in mixin) {
+    for (const fragment in mixin) {
       if (this[fragment]) {
         continue
       }
@@ -227,7 +227,7 @@ export default class Base {
     this.setParseInput(properties.parseInput)
     const attrs = typeof properties.attrs === 'function' ? properties.attrs() : properties.attrs
     let hint = this.$lang(`domains.${this.constructor.domain}.fields.${this.__currentField}.hint`)
-    let placeholder = this.$lang(`domains.${this.constructor.domain}.fields.${this.__currentField}.placeholder`)
+    const placeholder = this.$lang(`domains.${this.constructor.domain}.fields.${this.__currentField}.placeholder`)
     let tooltip = this.$lang(`domains.${this.constructor.domain}.fields.${this.__currentField}.tooltip`)
     let info = this.$lang(`domains.${this.constructor.domain}.fields.${this.__currentField}.info`)
     if (!hint) {

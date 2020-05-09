@@ -252,7 +252,7 @@ export default {
       // if user don't confirm the action
       const ignore = () => '// silent is gold'
 
-      return this.$confirm(this.$lang(`agnostic.actions.restore.confirm`))
+      return this.$confirm(this.$lang('agnostic.actions.restore.confirm'))
         .then(confirm)
         .catch(ignore)
     }

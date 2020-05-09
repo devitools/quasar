@@ -14,8 +14,8 @@ export default {
         if (!(this.columns[key].$configure && typeof this.columns[key].$configure === 'function')) {
           return
         }
-        let field = this.columns[key].$configure.call(this, this.columns[key], this.scope)
-        if (!field || field['$key'] !== this.components[key]['$key']) {
+        const field = this.columns[key].$configure.call(this, this.columns[key], this.scope)
+        if (!field || field.$key !== this.components[key].$key) {
           throw Error('The configure return must be the field')
         }
         this.columns[key] = field

@@ -111,5 +111,12 @@ export default {
       }
       return this
     }
+  },
+  watch: {
+    /**
+     */
+    domain () {
+      this.triggerHook('created:default')
+    }
   }
 }

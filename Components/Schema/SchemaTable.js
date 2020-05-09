@@ -3,11 +3,14 @@ import { searchKey } from 'src/settings/schema'
 
 // app
 import { POSITIONS, SCOPES } from '../../Agnostic/enum'
+
 // contracts
 import Dynamic from './Contracts/Dynamic'
 import Table from './Contracts/Table'
+
 // mixins
 import SchemaTableSlots from './Table/Mixins/SchemaTableSlots'
+
 // components
 import SchemaDebugger from './Debugger/SchemaDebugger'
 import SchemaTableWhere from './Table/Where/SchemaTableWhere'
@@ -33,6 +36,7 @@ export default {
      */
     renderTable (h, classes = ['SchemaTable'], embed = false) {
       if (this.$scopedSlots['table-body']) {
+        // noinspection JSValidateTypes
         return this.$scopedSlots['table-body']({
           fields: this.fields,
           actions: this.actions,
@@ -93,7 +97,7 @@ export default {
       return {
         'update:pagination': (pagination) => { this.pagination = pagination },
         'update:selected': (selected) => { this.selected = selected },
-        'request': (parameters) => this.requestState(parameters)
+        request: (parameters) => this.requestState(parameters)
       }
     },
     /**

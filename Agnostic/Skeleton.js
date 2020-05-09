@@ -31,7 +31,7 @@ export default class Skeleton extends Base {
     }
     this.__currentField = $key
 
-    let is = this.is
+    const is = this.is
     const attrs = { value: undefined, disable: false }
 
     const keydown = function ({ $event, field }) {

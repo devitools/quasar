@@ -209,7 +209,7 @@ export default {
    * @return {Schema|Skeleton}
    */
   validationMaxFileSize (size) {
-    const handler =  helpers.withParams({ size }, value => {
+    const handler = helpers.withParams({ size }, value => {
       if (!value) {
         return true
       }
@@ -217,7 +217,7 @@ export default {
       const valueSize = Math.round(fileSizeInKb * 100) / 100
       return valueSize <= size
     })
-    return this.validationAs('maxFileSize',  handler)
+    return this.validationAs('maxFileSize', handler)
   },
 
   // /**

@@ -112,6 +112,7 @@ export default {
    */
   props: {
     static: {
+      type: Boolean,
       default: false
     }
   },

@@ -60,7 +60,7 @@ export const classNameFormatter = (options, classNames) => {
     if (element && element.label) {
       answer = element.label
     }
-    const template = `<div class="{className}">{answer}</div>`
+    const template = '<div class="{className}">{answer}</div>'
     const className = classNames[value]
     return replacement(template, { className, answer })
   }

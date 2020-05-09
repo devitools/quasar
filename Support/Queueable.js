@@ -104,7 +104,7 @@ export default class Queueable {
       this.abort('start')
       return
     }
-    // noinspection JSIgnoredPromiseFromCall
+    // noinspection JSIgnoredPromiseFromCall,ES6MissingAwait
     this.walk()
   }
 

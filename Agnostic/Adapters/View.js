@@ -1,14 +1,32 @@
+import provided from './provided'
+
 /**
  * @mixin {View}
  */
 export default {
   /**
    */
-  data: () => ({
-    bind: {
-      columns: []
+  data () {
+    return {
+      bind: {
+        key: this.$util.uuid(),
+        scope: this.$route.meta.scope,
+        groupType: '',
+        path: '',
+        domain: '',
+        primaryKey: '',
+        displayKey: '',
+        settings: {},
+        table: {},
+        form: {},
+        hooks: () => ({}),
+        groups: () => ({}),
+        fields: () => ({}),
+        actions: () => ([]),
+        watches: () => ([])
+      }
     }
-  }),
+  },
   /**
    */
   methods: {
@@ -16,24 +34,24 @@ export default {
      * @param provide
      */
     updateBind (provide) {
-      this.bind = {
-        key: this.$util.uuid(),
-        scope: this.$route.meta.scope,
-        ...provide
-      }
+      this.bind = { key: this.bind.key, scope: this.$route.meta.scope, ...provide }
     },
     /**
      */
-    init () {
-      if (this.$options.schema) {
-        this.updateBind(this.$options.schema.build().provide())
+    provideBind () {
+      if (!this.$options.schema) {
+        throw new Error(`No schema defined to ${this.$options.name}`)
+      }
+
+      const schema = this.$options.schema.name
+      if (provided[schema]) {
+        this.updateBind(provided[schema])
         return
       }
-      if (this.$route.meta.schema) {
-        this.updateBind(this.$route.meta.schema.build().provide())
-        return
-      }
-      throw new Error(`No schema defined to ${this.$options.name}`)
+
+      const provide = this.$options.schema.build().provide()
+      provided[schema] = provide
+      this.updateBind(provide)
     }
   },
   /**
@@ -48,6 +66,13 @@ export default {
   /**
    */
   created () {
-    this.init()
+    this.$q.loading.show({ delay: 0 })
+    window.setTimeout(() => {
+      try {
+        this.provideBind()
+      } catch (e) {
+      }
+      this.$q.loading.hide()
+    }, 100)
   }
 }

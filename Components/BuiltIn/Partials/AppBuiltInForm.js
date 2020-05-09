@@ -73,7 +73,6 @@ export default {
   },
   watch: {
     value (value) {
-      console.log('~> value', value)
       this.record = value
     }
   }

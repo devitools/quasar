@@ -109,7 +109,7 @@ export default {
       ])
       .actionConfigure(function (action, { context: { record }, position }) {
         if ([POSITIONS.POSITION_TABLE_CELL, POSITIONS.POSITION_FORM_FOOTER].includes(position)) {
-          action.hidden = record['deletedAt']
+          action.hidden = record.deletedAt
         }
         return action
       })
@@ -138,7 +138,7 @@ export default {
       ])
       .actionConfigure(function (action, { context: { record }, position }) {
         if ([POSITIONS.POSITION_TABLE_CELL, POSITIONS.POSITION_FORM_FOOTER].includes(position)) {
-          action.hidden = !record['deletedAt']
+          action.hidden = !record.deletedAt
         }
         return action
       })
@@ -160,7 +160,7 @@ export default {
       .actionIcon('clear')
       .actionConfigure(function (action, { context: { record }, position }) {
         if ([POSITIONS.POSITION_TABLE_CELL, POSITIONS.POSITION_FORM_FOOTER].includes(position)) {
-          action.hidden = !record['deletedAt']
+          action.hidden = !record.deletedAt
         }
         return action
       })

@@ -219,7 +219,7 @@ export default {
       const update = parameters[0]
       update(() => {
         if ($event === '') {
-          field.attrs.options =original
+          field.attrs.options = original
           return
         }
 
@@ -229,7 +229,7 @@ export default {
             .normalize('NFD')
             .replace(/[\u0300-\u036f]/g, '')
             .toLowerCase()
-            .indexOf(needle) > -1
+            .includes(needle)
         }
 
         field.attrs.options = original.filter((candidate) => {

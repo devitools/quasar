@@ -168,8 +168,8 @@ export default {
      */
     reportPrint () {
       try {
-        window.frames['report'].focus()
-        window.frames['report'].print()
+        window.frames.report.focus()
+        window.frames.report.print()
       } catch (e) {
         window.alert(e.message)
       }

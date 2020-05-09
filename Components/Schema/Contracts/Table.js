@@ -144,6 +144,11 @@ export default {
       handler () {
         this.fetchRecords()
       }
+    },
+    /**
+     */
+    domain () {
+      this.triggerHook('created:default')
     }
   }
 }

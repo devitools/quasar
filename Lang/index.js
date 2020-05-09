@@ -31,11 +31,8 @@ export default (path, fallback = '') => {
   const messages = i18n.messages[locale]
 
   if (Array.isArray(path)) {
-    for (const candidate in path) {
-      if (!path.hasOwnProperty(candidate)) {
-        continue
-      }
-      const answer = get(messages, path[candidate])
+    for (const candidate of path) {
+      const answer = get(messages, candidate)
       if (answer) {
         return answer
       }

@@ -6,9 +6,9 @@ import { app } from '../en-us'
 export default {
   ...app,
   version: {
-    notify: `Uma nova versão está disponível!` +
-      ` A sua versão atual é a {version} e a nova é a {new}.` +
-      ` Deseja aplicar a atualização agora?`,
+    notify: 'Uma nova versão está disponível!' +
+      ' A sua versão atual é a {version} e a nova é a {new}.' +
+      ' Deseja aplicar a atualização agora?',
     label: 'versão'
   },
   greetings: {

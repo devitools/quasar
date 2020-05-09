@@ -1,5 +1,5 @@
 // noinspection ES6CheckImport
-import { QSpace, QIcon, QSelect, QInput, QTd, QBtn, QFab, QFabAction } from 'quasar'
+import { QSpace, QIcon, QSelect, QInput, QTd, QBtn } from 'quasar'
 
 import { counter, filterKey, renderField } from 'src/settings/schema'
 import { attrs as defaultAttrs } from 'src/settings/components'
@@ -26,14 +26,14 @@ export default {
     renderTableSlots (h) {
       this.counter = 0
       return {
-        'top': (props) => {
+        top: (props) => {
           return this.renderTableTop(h, props)
         },
         /** @counter */
         [`body-cell-${counter.name}`]: (props) => {
           return this.renderTableCellButtons(h, props)
         },
-        'pagination': (props) => {
+        pagination: (props) => {
           return this.renderTablePagination(h, props)
         }
       }
@@ -72,13 +72,13 @@ export default {
     renderTableColumnsSelector (h) {
       const attrs = {
         'display-value': this.$lang('agnostic.table.columns'),
-        'multiple': true,
-        'borderless': true,
-        'dense': true,
+        multiple: true,
+        borderless: true,
+        dense: true,
         'options-dense': true,
         'emit-value': true,
         'map-options': true,
-        'options': this.columns,
+        options: this.columns,
         'option-value': 'name',
         'transition-show': 'jump-up',
         'transition-hide': 'flip-down',
@@ -159,21 +159,6 @@ export default {
         children.push(this.renderSchemaButtonsFabInline(h, POSITIONS.POSITION_TABLE_CELL, { record: props.row }))
       }
       return h(QTd, data, children)
-      /**
-       *<q-fab
-       label="Actions"
-       label-position="top"
-       label-class="bg-grey-3 text-purple"
-       external-label
-       color="purple"
-       direction="right"
-       >
-       <q-fab-action label-class="bg-grey-3 text-grey-8" external-label label-position="top" color="primary" @click="onClick" icon="mail" label="Email"></q-fab-action>
-       <q-fab-action label-class="bg-grey-3 text-grey-8" external-label label-position="top" color="secondary" @click="onClick" icon="alarm" label="Alarm"></q-fab-action>
-       <q-fab-action label-class="bg-grey-3 text-grey-8" external-label label-position="top" color="orange" @click="onClick" icon="airplay" label="Airplay"></q-fab-action>
-       <q-fab-action label-class="bg-grey-3 text-grey-8" external-label label-position="top" color="accent" @click="onClick" icon="room" label="Map"></q-fab-action>
-       </q-fab>
-       */
     },
     /**
      * @param {function} h

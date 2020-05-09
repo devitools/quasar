@@ -5,7 +5,7 @@ import * as Validators from 'vuelidate/lib/validators'
  * @returns {Object}
  */
 export const parseValidations = (validations) => {
-  for (let validator in validations) {
+  for (const validator in validations) {
     if (!validations[validator]) {
       continue
     }
@@ -15,6 +15,7 @@ export const parseValidations = (validations) => {
     if (Validators[validator]) {
       let action = Validators[validator]
       if (Array.isArray(validations[validator])) {
+        // eslint-disable-next-line prefer-spread
         action = action.apply(null, validations[validator])
       }
       validations[validator] = action

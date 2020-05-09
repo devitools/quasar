@@ -14,7 +14,7 @@ export default {
        */
       this.$alert = (message, options = { title: '' }) => {
         if (!options.title) {
-          options.title = this.$lang(`agnostic.dialog.alert.title`)
+          options.title = this.$lang('agnostic.dialog.alert.title')
         }
         const _options = {
           message: this.$lang(message),
@@ -36,16 +36,16 @@ export default {
        */
       this.$confirm = (message, options = { title: '' }) => {
         if (!options.title) {
-          options.title = this.$lang(`agnostic.dialog.confirm.title`)
+          options.title = this.$lang('agnostic.dialog.confirm.title')
         }
         const _options = {
           persistent: true,
           ok: {
-            label: this.$lang(`agnostic.options.yesNo.yes`),
+            label: this.$lang('agnostic.options.yesNo.yes'),
             flat: true
           },
           cancel: {
-            label: this.$lang(`agnostic.options.yesNo.no`),
+            label: this.$lang('agnostic.options.yesNo.no'),
             flat: true
           },
           message: this.$lang(message),
@@ -67,7 +67,7 @@ export default {
        */
       this.$prompt = (message, options = { title: '' }) => {
         if (!options.title) {
-          options.title = this.$lang(`agnostic.dialog.prompt.title`)
+          options.title = this.$lang('agnostic.dialog.prompt.title')
         }
         const _options = {
           cancel: true,

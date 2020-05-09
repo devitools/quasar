@@ -330,12 +330,12 @@ export default class Rest extends Http {
    */
   searchOfflineWhere (record, where) {
     const unSerialized = unSerialize(where, searchKey)
-    for (let key in unSerialized) {
+    for (const key in unSerialized) {
       if (!unSerialized.hasOwnProperty(key)) {
         continue
       }
-      let value = withoutSeparator(unSerialized[key])
-      if (String(record[key]).toLowerCase().indexOf(String(value).toLowerCase()) === -1) {
+      const value = withoutSeparator(unSerialized[key])
+      if (!String(record[key]).toLowerCase().includes(String(value).toLowerCase())) {
         return false
       }
     }
@@ -348,14 +348,14 @@ export default class Rest extends Http {
    * @returns {boolean}
    */
   searchOfflineFilter (record, filter) {
-    for (let field in record) {
+    for (const field in record) {
       if (!record.hasOwnProperty(field)) {
         continue
       }
       if (!this.filterable.includes(field)) {
         continue
       }
-      if (String(record[field]).toLowerCase().indexOf(String(filter).toLowerCase()) !== -1) {
+      if (String(record[field]).toLowerCase().includes(String(filter).toLowerCase())) {
         return true
       }
     }

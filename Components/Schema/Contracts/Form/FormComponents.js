@@ -35,7 +35,7 @@ export default {
       Object.keys(this.components).forEach(key => {
         if (this.components[key].$configure && typeof this.components[key].$configure === 'function') {
           const field = this.components[key].$configure.call(this, this.components[key], this.scope)
-          if (!field || field['$key'] !== this.components[key]['$key']) {
+          if (!field || field.$key !== this.components[key].$key) {
             throw Error('The configure return must be the field')
           }
           this.components[key] = field
