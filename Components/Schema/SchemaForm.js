@@ -1,12 +1,16 @@
 // app
 import { POSITIONS } from '../../Agnostic/enum'
+
 // contracts
 import Dynamic from './Contracts/Dynamic'
 import Form from './Contracts/Form'
 import Group from './Contracts/Group'
+
 // mixins
 import SchemaBody from './Form/Mixins/SchemaFormBody'
+
 // components
+import SkeletonSchemaForm from './SkeletonSchemaForm'
 import SchemaDebugger from './Debugger/SchemaDebugger'
 
 /**
@@ -46,6 +50,7 @@ export default {
      */
     renderFormBody (h) {
       if (this.$scopedSlots['form-body']) {
+        // noinspection JSValidateTypes
         return this.$scopedSlots['form-body']({
           domain: this.domain,
           scope: this.scope,
@@ -142,6 +147,10 @@ export default {
    * @param {function} h
    */
   render (h) {
+    if (!this.domain) {
+      return h(SkeletonSchemaForm)
+    }
+
     const data = {
       class: this.renderFormClassNames(),
       style: this.renderFormStyles(),

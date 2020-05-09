@@ -34,16 +34,19 @@ export default {
      * @param provide
      */
     updateBind (provide) {
-      this.bind = { key: this.bind.key, scope: this.$route.meta.scope, ...provide }
+      this.bind = {
+        key: this.$util.uuid(),
+        scope: this.$route.meta.scope,
+        ...provide
+      }
     },
     /**
      */
-    provideBind () {
+    provideBind (schema) {
       if (!this.$options.schema) {
         throw new Error(`No schema defined to ${this.$options.name}`)
       }
 
-      const schema = this.$options.schema.name
       if (provided[schema]) {
         this.updateBind(provided[schema])
         return
@@ -66,13 +69,14 @@ export default {
   /**
    */
   created () {
-    this.$q.loading.show({ delay: 0 })
-    window.setTimeout(() => {
+    const schema = this.$options.schema.name
+    const timeout = provided[schema] ? 100 : 300
+    const handler = () => {
       try {
-        this.provideBind()
+        this.provideBind(schema)
       } catch (e) {
       }
-      this.$q.loading.hide()
-    }, 100)
+    }
+    window.setTimeout(handler, timeout)
   }
 }

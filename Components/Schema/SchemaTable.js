@@ -13,6 +13,7 @@ import SchemaTableSlots from './Table/Mixins/SchemaTableSlots'
 
 // components
 import SchemaDebugger from './Debugger/SchemaDebugger'
+import SkeletonSchemaTable from './SkeletonSchemaTable'
 import SchemaTableWhere from './Table/Where/SchemaTableWhere'
 
 /**
@@ -60,7 +61,14 @@ export default {
 
       const scopedSlots = this.renderTableSlots(h)
 
-      return h('AppTable', { class: classes, props, attrs, on, scopedSlots })
+      const data = {
+        class: classes,
+        props,
+        attrs,
+        on,
+        scopedSlots
+      }
+      return h('AppTable', data)
     },
     /**
      * @return {*}
@@ -114,7 +122,10 @@ export default {
         scope: this.scope
       }
       const on = { input: (value) => this.applySearch(value) }
-      return h(SchemaTableWhere, { attrs, on })
+      return h(SchemaTableWhere, {
+        attrs,
+        on
+      })
     },
     /**
      * @param {function} h
@@ -124,7 +135,11 @@ export default {
       return this.renderSchemaButtons(
         h,
         POSITIONS.POSITION_TABLE_FLOAT,
-        { floating: true, record: this.record, records: this.selected },
+        {
+          floating: true,
+          record: this.record,
+          records: this.selected
+        },
         { label: '' },
         'fab-bottom'
       )
@@ -139,9 +154,24 @@ export default {
       }
 
       return h('div', [
-        h(SchemaDebugger, { attrs: { label: 'Data', inspect: this.data } }),
-        h(SchemaDebugger, { attrs: { label: 'Columns', inspect: this.columns } }),
-        h(SchemaDebugger, { attrs: { label: 'Buttons', inspect: this.buttons } })
+        h(SchemaDebugger, {
+          attrs: {
+            label: 'Data',
+            inspect: this.data
+          }
+        }),
+        h(SchemaDebugger, {
+          attrs: {
+            label: 'Columns',
+            inspect: this.columns
+          }
+        }),
+        h(SchemaDebugger, {
+          attrs: {
+            label: 'Buttons',
+            inspect: this.buttons
+          }
+        })
       ])
     }
   },
@@ -150,6 +180,10 @@ export default {
    * @return {VNode}
    */
   render (h) {
+    if (!this.domain) {
+      return h(SkeletonSchemaTable)
+    }
+
     const data = {}
     const children = [
       this.renderTable(h),

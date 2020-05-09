@@ -26,14 +26,16 @@ html, body
   transform translate(-15em, 0)
 
 .fade-enter-active,
-.fade-leave-active,
-  transition-duration 0.2s
-  transition-property opacity
-  overflow hidden
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
 
 .fade-enter,
-.fade-leave-active
-  opacity 0
+.fade-leave-active {
+  opacity: 0
+}
 
 
 @keyframes toggle-pulse {
