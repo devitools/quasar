@@ -141,6 +141,17 @@ export default {
      */
     renderFormBodyStyles () {
       return ''
+    },
+    /**
+     * @param {function} h
+     * @return {VNode}
+     */
+    renderLoading (h) {
+      if (this.$scopedSlots['loading']) {
+        // noinspection JSValidateTypes
+        return this.$scopedSlots['loading']({ scope: this.scope })
+      }
+      return h(SkeletonSchemaForm)
     }
   },
   /**
@@ -148,7 +159,7 @@ export default {
    */
   render (h) {
     if (!this.domain) {
-      return h(SkeletonSchemaForm)
+      return this.renderLoading(h)
     }
 
     const data = {

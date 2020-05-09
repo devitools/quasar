@@ -173,6 +173,17 @@ export default {
           }
         })
       ])
+    },
+    /**
+     * @param {function} h
+     * @return {VNode}
+     */
+    renderLoading (h) {
+      if (this.$scopedSlots['loading']) {
+        // noinspection JSValidateTypes
+        return this.$scopedSlots['loading']({ scope: this.scope })
+      }
+      return h(SkeletonSchemaTable)
     }
   },
   /**
@@ -181,7 +192,7 @@ export default {
    */
   render (h) {
     if (!this.domain) {
-      return h(SkeletonSchemaTable)
+      return this.renderLoading(h)
     }
 
     const data = {}
