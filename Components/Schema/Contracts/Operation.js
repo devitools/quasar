@@ -98,11 +98,11 @@ export default {
       const errors = actionFailErrors(error)
       if (Array.isArray(errors)) {
         this.errors = errors.reduce((accumulator, error) => {
-          if (!this.components[error['property_path']]) {
+          if (!this.components[error.property_path]) {
             this.triggerHook('validate:error', { error })
             return accumulator
           }
-          accumulator[error['property_path']] = error['message']
+          accumulator[error.property_path] = error.message
           return accumulator
         }, {})
       }

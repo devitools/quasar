@@ -41,7 +41,7 @@ export const toast = (message, options = {}) => {
  * @param options
  */
 export const success = (message, options = {}) => {
-  Notify.create(base({ message, ...options, color: 'positive' }))
+  Notify.create(base({ message, icon: 'done', ...options, color: 'positive' }))
 }
 
 /**
@@ -49,7 +49,7 @@ export const success = (message, options = {}) => {
  * @param options
  */
 export const error = (message, options = {}) => {
-  Notify.create(base({ message, ...options, color: 'negative' }))
+  Notify.create(base({ message, icon: 'error_outline', ...options, color: 'negative' }))
 }
 
 /**
@@ -57,9 +57,5 @@ export const error = (message, options = {}) => {
  * @param options
  */
 export const warning = (message, options = {}) => {
-  const opts = base(
-    { message, ...options, textColor: 'black', color: 'yellow-14' },
-    { textColor: 'black' }
-  )
-  Notify.create(opts)
+  Notify.create(base({ message, icon: 'warning', ...options, color: 'warning' }))
 }
