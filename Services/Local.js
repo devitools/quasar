@@ -10,6 +10,6 @@ export default class Local extends Http {
    * @param {AxiosInstance} client
    */
   constructor (client = undefined) {
-    super(client || typeof http === 'function' ? http() : http)
+    super(false, client || http)
   }
 }
