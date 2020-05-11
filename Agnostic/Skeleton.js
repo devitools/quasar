@@ -32,7 +32,10 @@ export default class Skeleton extends Base {
     this.__currentField = $key
 
     const is = this.is
-    const attrs = { value: undefined, disable: false }
+    const attrs = {
+      value: undefined,
+      disable: false
+    }
 
     const keydown = function ({ $event, field }) {
       if (!field.chars) {
@@ -54,7 +57,12 @@ export default class Skeleton extends Base {
       keydown: [keydown]
     }
     const order = Object.keys(this.__fields).length
-    const options = { label, order, type, scopes: this.scopes }
+    const options = {
+      label,
+      order,
+      type,
+      scopes: this.scopes
+    }
 
     this.__fields[$key] = field($key, options, attrs, on)
     this.setComponent(is)
@@ -107,7 +115,11 @@ export default class Skeleton extends Base {
     const scopes = this.scopes
     const positions = []
     const classNames = []
-    const attrs = { label, color: this.constructor.buttons.color, textColor: this.constructor.buttons.textColor }
+    const attrs = {
+      label,
+      color: this.constructor.buttons.color,
+      textColor: this.constructor.buttons.textColor
+    }
 
     this.__actions[id] = action(id, handler, order, scopes, positions, attrs, classNames)
     return this
@@ -224,7 +236,10 @@ export default class Skeleton extends Base {
       this.__watches[name] = []
     }
 
-    this.__watches[name].push({ handler, options })
+    this.__watches[name].push({
+      handler,
+      options
+    })
     return this
   }
 
@@ -370,6 +385,7 @@ export default class Skeleton extends Base {
   provideArray (options = {}) {
     const fields = this.arrayFields ? this.arrayFields(this.getFields()) : this.$clone(this.getFields())
     return {
+      schema: this.constructor.name,
       domain: this.constructor.domain,
       primaryKey: this.primaryKey,
       displayKey: this.displayKey,
@@ -380,7 +396,7 @@ export default class Skeleton extends Base {
 
   /**
    * @param {Object} options
-   * @returns {Object}
+   * @returns {*}
    */
   provideRemote (options = {}) {
     const fields = this.remoteFields ? this.remoteFields(this.getFields()) : this.$clone(this.getFields())
@@ -392,6 +408,7 @@ export default class Skeleton extends Base {
       path = ''
     }
     return {
+      schema: this.constructor.name,
       widget: widget,
       path: path,
       query: query,
@@ -403,10 +420,17 @@ export default class Skeleton extends Base {
       remote: (filter, pagination = undefined, query = {}) => {
         if (pagination) {
           return this.$service()
-            .paginate({ filter, pagination, [searchKey]: query })
+            .paginate({
+              filter,
+              pagination,
+              [searchKey]: query
+            })
         }
         return this.$service()
-          .paginate({ filter, [searchKey]: query })
+          .paginate({
+            filter,
+            [searchKey]: query
+          })
           .then((response) => response.rows)
       }
     }
@@ -414,7 +438,7 @@ export default class Skeleton extends Base {
 
   /**
    * @param {string} masterKey
-   * @returns {Object}
+   * @returns {*}
    */
   provideDetail (masterKey) {
     if (!this.constructor.activateEmbed) {
@@ -422,6 +446,7 @@ export default class Skeleton extends Base {
     }
 
     return {
+      schema: this.constructor.name,
       masterKey: masterKey,
       groupType: this.groupType,
       domain: this.constructor.domain,
@@ -447,7 +472,11 @@ export default class Skeleton extends Base {
     if (!this.constructor.activateBuiltIn) {
       throw new Error(`BuiltIn is not active on this schema (${this.constructor.domain})`)
     }
-    return { ...this.provide(), defaults: {}, ...attrs }
+    return {
+      ...this.provide(),
+      defaults: {},
+      ...attrs
+    }
   }
 
   /**
@@ -463,6 +492,7 @@ export default class Skeleton extends Base {
       on: this.formEvents()
     }
     return {
+      schema: this.constructor.name,
       groupType: this.groupType,
       path: this.constructor.path,
       domain: this.constructor.domain,
