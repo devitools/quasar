@@ -92,6 +92,7 @@ export default {
      */
     value: {
       deep: true,
+      immediate: true,
       handler (value) {
         this.updateRecord(value)
       }
@@ -101,6 +102,5 @@ export default {
    */
   created () {
     this.counter = 1
-    this.updateRecord(this.value)
   }
 }

@@ -19,23 +19,23 @@ export default {
   props: {
     domain: {
       type: String,
-      default: () => ''
+      required: true
     },
-    fields: {
-      type: [Function, Object],
-      default: () => ({})
+    components: {
+      type: Object,
+      required: true
+    },
+    dataset: {
+      type: Object,
+      required: true
     }
   },
   /**
+   * @return {*}
    */
   data () {
-    const fields = this.$util.run(this.fields)
-    const record = {}
-    Object.keys(fields).forEach((key) => {
-      record[key] = undefined
-    })
     return {
-      record: record,
+      record: this.dataset,
       errors: {}
     }
   },
@@ -87,9 +87,7 @@ export default {
    */
   render (h) {
     const data = { class: 'SchemaTableWhere__form' }
-    const fields = this.$util.run(this.fields)
-    const children = Object.values(fields)
-      .filter((field) => field.$layout.tableWhere)
+    const children = Object.values(this.components)
       .map((field) => this.renderWhereFormComponent(h, field))
     return [h('div', data, children)]
   }

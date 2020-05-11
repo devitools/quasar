@@ -29,23 +29,27 @@ export default {
   /**
    */
   props: {
+    domain: {
+      type: String,
+      required: true
+    },
+    schema: {
+      type: String,
+      required: true
+    },
+    scope: {
+      type: String,
+      required: true
+    },
     primaryKey: {
       type: String,
-      default: () => 'id'
+      required: true
     },
     displayKey: {
       type: String,
-      default: () => ''
+      required: true
     },
     value: {
-      type: String,
-      default: () => ''
-    },
-    domain: {
-      type: String,
-      default: () => ''
-    },
-    scope: {
       type: String,
       default: () => ''
     },
@@ -61,15 +65,31 @@ export default {
   /**
    */
   data () {
-    const components = this.$util.run(this.fields)
-    const record = {}
-    Object.keys(components).forEach((key) => {
-      record[key] = undefined
-    })
+    const key = `${this.schema}.where`
+    let components = this.$memory.get(key, true)
+    if (!components) {
+      const fields = this.$util.run(this.fields)
+
+      components = Object.values(fields)
+        .filter((field) => field.$layout.tableWhere)
+        .reduce((accumulator, field) => {
+          accumulator[field.$key] = field
+          return accumulator
+        }, {})
+      this.$memory.set(key, components, true)
+    }
+
+    const record = Object.keys(components)
+      .reduce((accumulator, key) => {
+        accumulator[key] = undefined
+        return accumulator
+      }, {})
+
     return {
+      components,
+      record,
+
       open: false,
-      components: components,
-      record: record,
       activeSearching: false,
       ready: false,
       errors: {}
@@ -124,8 +144,22 @@ export default {
       const color = 'white'
       const size = '1.4rem'
       return [
-        h(QIcon, { domProps: { id: 'search' }, attrs: { color, size, name: 'search' } }),
-        h(QIcon, { domProps: { id: 'arrow' }, attrs: { color, size, name: 'arrow_back' } })
+        h(QIcon, {
+          domProps: { id: 'search' },
+          attrs: {
+            color,
+            size,
+            name: 'search'
+          }
+        }),
+        h(QIcon, {
+          domProps: { id: 'arrow' },
+          attrs: {
+            color,
+            size,
+            name: 'arrow_back'
+          }
+        })
       ]
     },
     /**
@@ -160,10 +194,17 @@ export default {
      */
     renderSideForm (h) {
       const data = {
-        attrs: { domain: this.domain, fields: this.fields },
+        attrs: {
+          domain: this.domain,
+          components: this.$util.clone(this.components),
+          dataset: this.$util.clone(this.record)
+        },
         domProps: { value: this.record },
         props: { value: this.record },
-        on: { input: this.receiveInput, submit: this.searchApply }
+        on: {
+          input: this.receiveInput,
+          submit: this.searchApply
+        }
       }
       return h(SchemaTableWhereForm, data)
     },
@@ -372,6 +413,10 @@ export default {
    * @returns {*}
    */
   render (h) {
+    if (!Object.keys(this.components).length) {
+      return undefined
+    }
+
     const data = { class: this.classNames }
     const children = [
       this.renderSideBackdrop(h),
