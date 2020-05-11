@@ -44,24 +44,38 @@ export default {
     },
     /**
      */
+    renderGroups () {
+      const key = `${this.schema}.groups`
+      let groups = this.$memory.get(key, true)
+      if (!groups) {
+        groups = this.groups()
+        this.$memory.set(key, this.$util.clone(groups))
+      }
+      this.grouping = groups
+    },
+    /**
+     */
     renderComponents () {
-      this.grouping = this.groups()
-      const fields = this.$util.clone(this.fields())
-      this.components = this.performRenderComponents(fields)
-      this.renderedComponents = this.$util.clone(this.components)
+      const key = `${this.schema}.components`
+      let components = this.$memory.get(key, true)
+      if (!components) {
+        components = this.performRenderComponents(this.fields())
+        this.$memory.set(key, components, true)
+      }
+      this.components = components
     },
     /**
      * @param {Object} fields
      */
     performRenderComponents (fields) {
       return Object.values(fields)
-        .sort(this.sortComponents)
-        .reduce(this.reduceComponents, {})
+        .sort((a, b) => this.sortComponents(a, b))
+        .reduce((components, field) => this.reduceComponents(components, field), {})
     },
     /**
      */
     reloadComponents () {
-      this.components = this.$util.clone(this.renderedComponents)
+      this.components = this.$memory.get(`${this.schema}.components`, true)
     },
     /**
      * @param {Object} a

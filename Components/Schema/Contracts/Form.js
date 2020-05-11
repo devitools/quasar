@@ -42,6 +42,7 @@ export default {
       this.record = {}
       this.components = {}
 
+      this.renderGroups()
       this.renderComponents()
       this.renderErrors()
       this.renderRecord()

@@ -12,6 +12,7 @@ import Table from './Contracts/Table'
 import SchemaTableSlots from './Table/Mixins/SchemaTableSlots'
 
 // components
+import { AppTable } from 'src/app/Components/index'
 import SchemaDebugger from './Debugger/SchemaDebugger'
 import SkeletonSchemaTable from './SkeletonSchemaTable'
 import SchemaTableWhere from './Table/Where/SchemaTableWhere'
@@ -68,7 +69,7 @@ export default {
         on,
         scopedSlots
       }
-      return h('AppTable', data)
+      return h(AppTable, data)
     },
     /**
      * @return {*}

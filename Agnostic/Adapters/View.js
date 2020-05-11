@@ -1,5 +1,3 @@
-import provided from './provided'
-
 /**
  * @mixin {View}
  */
@@ -51,13 +49,13 @@ export default {
         throw new Error(`No schema defined to ${this.$options.name}`)
       }
 
-      if (provided[schema]) {
-        this.updateBind(provided[schema])
+      if (this.$memory.get(schema)) {
+        this.updateBind(this.$memory.get(schema))
         return
       }
 
       const provide = this.$options.schema.build().provide()
-      provided[schema] = provide
+      this.$memory.set(schema, provide)
       this.updateBind(provide)
     }
   },
@@ -74,7 +72,7 @@ export default {
    */
   created () {
     const schema = this.$options.schema.name
-    if (provided[schema]) {
+    if (this.$memory.get(schema)) {
       this.provideBind(schema)
       return
     }
