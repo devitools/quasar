@@ -21,7 +21,11 @@ export default {
     },
     domain: {
       type: String,
-      default: ''
+      required: true
+    },
+    schema: {
+      type: String,
+      required: true
     }
   },
   /**

@@ -21,7 +21,7 @@ export default {
       const data = {
         ref: `formBody-${counter++}`,
         domProps: { value: this.record },
-        props: { value: this.record, domain: this.domain },
+        props: { value: this.record, domain: this.domain, schema: this.schema },
         attrs: { fields: fields, errors: this.errors, validations: this.$v },
         on: { input: this.receiveInput }
       }

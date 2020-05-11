@@ -39,7 +39,7 @@ export default {
         key: this.$util.uuid(),
         scope: this.$route.meta.scope,
         ...provide,
-        schema: this.$options.schema.name
+        schema: this.$options.name
       }
     },
     /**
@@ -71,7 +71,7 @@ export default {
   /**
    */
   created () {
-    const schema = this.$options.schema.name
+    const schema = this.$options.name
     if (this.$memory.get(schema)) {
       this.provideBind(schema)
       return
