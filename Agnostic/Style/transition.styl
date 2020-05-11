@@ -25,6 +25,11 @@ html, body
   opacity 0
   transform translate(-15em, 0)
 
+
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition-duration: 0.3s;
@@ -33,8 +38,9 @@ html, body
 }
 
 .fade-enter,
+.fade-enter-active,
 .fade-leave-active {
-  opacity: 0.25
+  opacity: 0.25;
 }
 
 
