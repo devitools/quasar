@@ -48,7 +48,7 @@ export default {
      * @param {string} ignore
      * @return {boolean}
      */
-    columnsFilter(field, ignore) {
+    columnsFilter (field, ignore) {
       if (field.$layout.tableFilter) {
         return false
       }
