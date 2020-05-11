@@ -11,6 +11,7 @@ export default {
       bind: {
         key: this.$util.uuid(),
         scope: this.$route.meta.scope,
+        schema: undefined,
         groupType: '',
         path: '',
         domain: '',
@@ -34,10 +35,13 @@ export default {
      * @param provide
      */
     updateBind (provide) {
+      const bind = this.bind
       this.bind = {
+        ...bind,
         key: this.$util.uuid(),
         scope: this.$route.meta.scope,
-        ...provide
+        ...provide,
+        schema: this.$options.schema.name
       }
     },
     /**
@@ -70,13 +74,11 @@ export default {
    */
   created () {
     const schema = this.$options.schema.name
-    const timeout = provided[schema] ? 100 : 300
-    const handler = () => {
-      try {
-        this.provideBind(schema)
-      } catch (e) {
-      }
+    if (provided[schema]) {
+      this.provideBind(schema)
+      return
     }
-    window.setTimeout(handler, timeout)
+
+    window.setTimeout(() => this.provideBind(schema), 300)
   }
 }

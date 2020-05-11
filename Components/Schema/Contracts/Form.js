@@ -46,6 +46,7 @@ export default {
       this.renderErrors()
       this.renderRecord()
       this.renderButtons()
+      this.renderWatches()
     },
     /**
      * @param {Schema} schema
