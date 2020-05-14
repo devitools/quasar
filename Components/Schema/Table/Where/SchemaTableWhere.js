@@ -65,19 +65,28 @@ export default {
   /**
    */
   data () {
-    const key = `${this.schema}.where`
-    let components = this.$memory.get(key, true)
-    if (!components) {
-      const fields = this.$util.run(this.fields)
+    // const key = `${this.schema}.where`
+    // let components = this.$memory.get(key, true)
+    // if (!components) {
+    //   const fields = this.$util.run(this.fields)
+    //
+    //   components = Object.values(fields)
+    //     .filter((field) => field.$layout.tableWhere)
+    //     .reduce((accumulator, field) => {
+    //       accumulator[field.$key] = field
+    //       return accumulator
+    //     }, {})
+    //   this.$memory.set(key, components, true)
+    // }
 
-      components = Object.values(fields)
-        .filter((field) => field.$layout.tableWhere)
-        .reduce((accumulator, field) => {
-          accumulator[field.$key] = field
-          return accumulator
-        }, {})
-      this.$memory.set(key, components, true)
-    }
+    const fields = this.$util.run(this.fields)
+
+    const components = Object.values(fields)
+      .filter((field) => field.$layout.tableWhere)
+      .reduce((accumulator, field) => {
+        accumulator[field.$key] = field
+        return accumulator
+      }, {})
 
     const record = Object.keys(components)
       .reduce((accumulator, key) => {

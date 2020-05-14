@@ -13,18 +13,15 @@ export default {
     /**
      */
     renderButtons () {
-      if (!this.schema) {
-        this.buttons = this.actions().reduce(this.buttonReduce, {})
-        return
-      }
+      this.buttons = this.actions().reduce(this.buttonReduce, {})
 
-      const key = `${this.schema}.buttons`
-      let buttons = this.$memory.get(key, true)
-      if (!buttons) {
-        buttons = this.actions().reduce(this.buttonReduce, {})
-        this.$memory.set(key, buttons, true)
-      }
-      this.buttons = buttons
+      // const key = `${this.schema}.buttons`
+      // let buttons = this.$memory.get(key, true)
+      // if (!buttons) {
+      //   buttons = this.actions().reduce(this.buttonReduce, {})
+      //   this.$memory.set(key, buttons, true)
+      // }
+      // this.buttons = buttons
     },
     /**
      * @param {Object} buttons

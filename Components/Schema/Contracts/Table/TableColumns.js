@@ -26,20 +26,30 @@ export default {
      * @param {boolean} primaryKeyLast
      */
     renderColumns (ignore = undefined, primaryKeyLast = false) {
-      const key = `${this.schema}.columns`
-      let columns = this.$memory.get(key, true)
-      if (!columns) {
-        const fields = this.fields()
-        columns = Object
-          .values(fields)
-          .filter((field) => this.columnsFilter(field, ignore))
-          .reduce((accumulator, field) => this.columnsReduce(accumulator, field), [])
-          .sort((a, b) => this.columnsSort(a, b, primaryKeyLast))
+      // const key = `${this.schema}.columns`
+      // let columns = this.$memory.get(key, true)
+      // if (!columns) {
+      //   const fields = this.fields()
+      //   columns = Object
+      //     .values(fields)
+      //     .filter((field) => this.columnsFilter(field, ignore))
+      //     .reduce((accumulator, field) => this.columnsReduce(accumulator, field), [])
+      //     .sort((a, b) => this.columnsSort(a, b, primaryKeyLast))
+      //
+      //   /** @counter */
+      //   columns.unshift(counter)
+      //   this.$memory.set(key, columns, true)
+      // }
+      // this.columns = columns
+      const fields = this.fields()
+      const columns = Object
+        .values(fields)
+        .filter((field) => this.columnsFilter(field, ignore))
+        .reduce((accumulator, field) => this.columnsReduce(accumulator, field), [])
+        .sort((a, b) => this.columnsSort(a, b, primaryKeyLast))
 
-        /** @counter */
-        columns.unshift(counter)
-        this.$memory.set(key, columns, true)
-      }
+      /** @counter */
+      columns.unshift(counter)
       this.columns = columns
       this.visibleColumns = this.columns.filter(column => !column.hidden).map(column => column.name)
     },

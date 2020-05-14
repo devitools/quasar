@@ -242,7 +242,7 @@ export default class Rest extends Http {
    * @returns {string}
    */
   getId (record) {
-    if (typeof record === 'string') {
+    if (typeof record === 'string' || typeof record === 'number') {
       return record
     }
     if (record instanceof FormData) {
