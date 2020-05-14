@@ -13,6 +13,11 @@ export default {
     /**
      */
     renderButtons () {
+      if (!this.schema) {
+        this.buttons = this.actions().reduce(this.buttonReduce, {})
+        return
+      }
+
       const key = `${this.schema}.buttons`
       let buttons = this.$memory.get(key, true)
       if (!buttons) {

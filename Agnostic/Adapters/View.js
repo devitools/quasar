@@ -77,6 +77,6 @@ export default {
       return
     }
 
-    window.setTimeout(() => this.provideBind(schema), 300)
+    window.setTimeout(() => this.provideBind(schema), 100)
   }
 }

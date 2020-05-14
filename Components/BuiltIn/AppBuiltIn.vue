@@ -52,7 +52,10 @@ export default {
   mixins: [Props, Handler],
   /**
    */
-  components: { AppBuiltInFormContainer, AppBuiltInTableContainer },
+  components: {
+    AppBuiltInFormContainer,
+    AppBuiltInTableContainer
+  },
   /**
    */
   props: {
@@ -91,7 +94,13 @@ export default {
      * @return {*}
      */
     attributes () {
-      return { ...this.$attrs, ...this.$props, debuggerAllowed: false, actions: this.createActions }
+      return {
+        ...this.$attrs,
+        ...this.$props,
+        schema: '',
+        debuggerAllowed: false,
+        actions: this.createActions
+      }
     }
   },
   /**
@@ -120,34 +129,34 @@ export default {
   scoped
   lang="stylus"
 >
-  .AppBuiltIn
-    border-width 1px
-    border-style solid
-    border-color #ddd
-    border-radius 4px
+.AppBuiltIn
+  border-width 1px
+  border-style solid
+  border-color #ddd
+  border-radius 4px
+  position relative
+  overflow-x hidden
+  min-height 300px
+
+  .AppBuiltInTable__container
     position relative
-    overflow-x hidden
-    min-height 300px
+    overflow hidden
 
-    .AppBuiltInTable__container
-      position relative
-      overflow hidden
+  .AppBuiltInForm__container
+    position absolute
+    top 0
+    height 100%
+    bottom 0
+    left 0
+    right 0
+    z-index 9000
+    overflow auto
 
-    .AppBuiltInForm__container
-      position absolute
-      top 0
-      height 100%
-      bottom 0
-      left 0
-      right 0
-      z-index 9000
-      overflow auto
+    background #fff
+    box-shadow 0 0 4px 2px #ddd
+    transform translateX(100vw)
+    transition transform 0.250s
 
-      background #fff
-      box-shadow 0 0 4px 2px #ddd
-      transform translateX(100vw)
-      transition transform 0.250s
-
-      &.AppBuiltInForm__container--active
-        transform translateX(0)
+    &.AppBuiltInForm__container--active
+      transform translateX(0)
 </style>

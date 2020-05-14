@@ -1,13 +1,13 @@
 <template>
   <div class="AppEmbed">
-    <transition name="slide-right">
+    <transition name="fade">
       <AppEmbedForm
         v-if="form"
         v-bind="bind"
         @change="change"
       />
     </transition>
-    <transition name="slide-left">
+    <transition name="fade">
       <AppEmbedTable
         v-if="table"
         v-bind="bind"
@@ -64,7 +64,7 @@ export default {
    */
   computed: {
     /**
-     * @return {Object}
+     * @return {*}
      */
     bind () {
       const attrs = this.$attrs
@@ -72,6 +72,7 @@ export default {
       return {
         ...attrs,
         ...props,
+        schema: '',
         embed: true,
         readonly: this.readonly,
         disable: this.disable,

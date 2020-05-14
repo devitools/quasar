@@ -71,7 +71,7 @@ export default {
       const input = ($event) => this.componentInput($event, field)
       const ref = this.componentRef(field)
       const tabIndex = this.componentTabIndex()
-      const attrs = { domain: this.domain, schema: this.schema }
+      const attrs = { domain: this.domain }
       return renderField(h, field, input, value, ref, tabIndex, attrs)
     },
     /**
