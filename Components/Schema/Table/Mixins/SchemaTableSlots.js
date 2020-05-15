@@ -1,5 +1,5 @@
 // noinspection ES6CheckImport
-import { QSpace, QIcon, QSelect, QInput, QTd, QBtn } from 'quasar'
+import { QBtn, QIcon, QInput, QSelect, QSpace, QTd } from 'quasar'
 
 import { counter, filterKey, renderField } from 'src/settings/schema'
 import { attrs as defaultAttrs } from 'src/settings/components'
@@ -24,7 +24,6 @@ export default {
      * @returns {*}
      */
     renderTableSlots (h) {
-      this.counter = 0
       return {
         top: (props) => {
           return this.renderTableTop(h, props)
@@ -154,6 +153,9 @@ export default {
           counter.generate(this.pagination.page, this.pagination.rowsPerPage, this.counter++),
           this.renderSchemaButtonsCompact(h, POSITIONS.POSITION_TABLE_CELL, { record: props.row })
         )
+        if (this.counter >= this.data.length) {
+          this.counter = 0
+        }
       }
       if (this.$q.platform.is.mobile) {
         children.push(this.renderSchemaButtonsFabInline(h, POSITIONS.POSITION_TABLE_CELL, { record: props.row }))
