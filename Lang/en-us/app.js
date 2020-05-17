@@ -19,8 +19,8 @@ export default {
       caption: 'End current session and redirect to home screen'
     },
     profile: {
-      label: 'Profile',
-      caption: 'Displays and manages logged-in user data'
+      label: 'My Profile',
+      caption: 'Displays and manages your data'
     }
   },
   http: {

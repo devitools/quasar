@@ -1,3 +1,5 @@
+import { OPERATORS } from 'src/app/Agnostic/enum'
+
 export default {
   /**
    * @param {Number|String} tableWidth
@@ -16,10 +18,10 @@ export default {
   },
 
   /**
-   * @param {string} tableWhere
+   * @param {string|null} tableWhere
    * @returns {Schema|Skeleton}
    */
-  fieldTableWhere (tableWhere = 'automatic') {
+  fieldTableWhere (tableWhere = OPERATORS.AUTOMATIC) {
     return this.setLayout({ tableWhere })
   },
 

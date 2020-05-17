@@ -36,7 +36,8 @@ export default {
       confirm: 'Confirmar',
       cancel: 'Cancelar',
       clear: 'Limpar Seleção',
-      search: 'Pesquisar'
+      search: 'Pesquisar',
+      placeholder: 'Digite para pesquisar...'
     },
     image: {
       button: 'Selecione uma imagem'

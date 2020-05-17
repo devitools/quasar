@@ -25,7 +25,7 @@ export default {
   components: {
     array: {
       empty: 'Use the button {button} to add items',
-      options: 'Opções'
+      options: 'Options'
     },
     appSelectRemote: {
       noResults: 'The collection is empty',
@@ -34,7 +34,8 @@ export default {
       cancel: 'Cancel',
       clear: 'Clear Selection',
       search: 'Search',
-      notFound: '-'
+      notFound: '-',
+      placeholder: 'Type to search...'
     },
     password: {
       copied: 'A new password was created and has been copied to clipboard',

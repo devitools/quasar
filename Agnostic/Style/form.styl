@@ -1,157 +1,206 @@
 @import '~src/css/quasar.variables.styl'
 
-.SchemaForm
+.SchemaForm {
+  & > .app-form-wrapper {
+    overflow: auto;
+    background: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
 
-  & > .app-form-wrapper
-    overflow auto
-    background #ffffff
-    border-radius 4px
-    box-shadow 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)
+    .app-form-section {
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      margin: 10px 5px 10px 5px;
 
-    .app-form-section
-      border 1px solid #ddd
-      border-radius 3px
-      margin 10px 5px 10px 5px
+      .app-form-section-title {
+        padding: 5px 10px;
+        color: #a8a8a8;
+        border-bottom: 1px solid #ddd;
+        background-color: #f5f5f5;
 
-      .app-form-section-title
-        padding 5px 10px
-        color #a8a8a8
-        border-bottom 1px solid #ddd
-        background-color #f5f5f5
+        span {
+          font-size: 12px;
+          margin: 0 6px;
+        }
+      }
 
-        span
-          font-size 12px
-          margin 0 6px
+      .form.form-grid {
+        padding: 5px 5px 0 5px;
+      }
+    }
 
-      .form.form-grid
-        padding 5px 5px 0 5px
+    & > .app-form-body {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      overflow: auto;
 
-    & > .app-form-body
-      padding 10px
-      border-bottom 1px solid #ddd
-      overflow auto
+      &.with-section {
+        height: auto;
+        border-bottom: 0;
+        padding: 0 5px;
+      }
 
-      &.with-section
-        height auto
-        border-bottom 0
-        padding 0 5px
+      .form {
+        padding: 10px 10px 0 10px;
 
-      .form
-        padding 10px 10px 0 10px
+        .field {
+          padding: 2px 5px;
 
-        .field
-          padding 2px 5px
+          label {
+            color: #3c3c3c;
+            font-size: 0.8rem;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            cursor: help;
+          }
 
-          label
-            color #3c3c3c
-            font-size 0.8rem
-            text-shadow 0 1px 3px rgba(0, 0, 0, 0.08)
-            cursor help
+          &.has-error {
+            label {
+              color: $errorForeground;
+            }
 
-          &.has-error
-            label
-              color $errorForeground
+            & .q-field__control {
+              color: darken($errorBackground, 25%);
+            }
 
-            & .q-field__control
-              color darken($errorBackground, 25%)
+            & .q-field__control:before {
+              border-color: $errorBackground;
+            }
 
-            & .q-field__control:before
-              border-color $errorBackground
+            & .q-field__control:after {
+              background: $errorBackground;
+            }
+          }
 
-            & .q-field__control:after
-              background $errorBackground
+          .is-required {
+            position: relative;
 
-          .is-required
-            position relative
+            &:after {
+              position: absolute;
+              content: '*';
+              color: #e0534f;
+              margin: 0 0 0 5px;
+              font-weight: bold;
+              font-size: 0.9rem;
+            }
+          }
 
-            &:after
-              position absolute
-              content '*'
-              color #e0534f
-              margin 0 0 0 5px
-              font-weight bold
-              font-size 0.9rem
+          .field-error {
+            min-height: 22px;
+            padding: 4px 0 0 0;
+            font-size: 12px;
+            color: $errorForeground;
+          }
+        }
+      }
+    }
 
-          .field-error
-            min-height 22px
-            padding 4px 0 0 0
-            font-size 12px
-            color $errorForeground
+    & > .app-form-buttons {
+      padding: 10px;
 
-    & > .app-form-buttons
-      padding 10px
+      & > button {
+        margin-right: 10px;
+        height: 36px;
+        font-size: 0.8rem;
 
-      & > button
-        margin-right 10px
-        height 36px
-        font-size 0.8rem
+        &:not(.button-no-min-width) {
+          min-width: 140px;
+        }
 
-        &:not(.button-no-min-width)
-          min-width 140px
+        &.button-position-right {
+          float: right;
+        }
 
-        &.button-position-right
-          float right
+        &.button-position-left {
+          float: left;
+        }
 
-        &.button-position-left
-          float left
+        &.button-position-none {
+          float: none;
+        }
+      }
+    }
 
-        &.button-position-none
-          float none
+  }
+}
 
-.SchemaForm.SchemaForm--with-tabs
-  .app-form-wrapper
-    .app-form-body
-      padding 0
+.SchemaForm.SchemaForm--with-tabs {
+  .app-form-wrapper {
+    .app-form-body {
+      padding: 0;
 
-      .form
-        padding 0
+      .form {
+        padding: 0;
+      }
+    }
+  }
+}
 
 /* ####################### HEIGHT MANAGEMENT ####################### */
 
-.SchemaForm
+.SchemaForm {
+  & > .app-form-wrapper {
+    height: calc(100vh - 135px);
 
-  & > .app-form-wrapper
-    height calc(100vh - 135px)
+    & > .app-form-body {
+      height: calc(100vh - 195px);
+    }
+  }
+}
 
-    & > .app-form-body
-      height calc(100vh - 195px)
+.DashboardLayout--modal {
+  .SchemaForm {
+    .app-form-wrapper {
+      height: calc(100vh - 80px);
+    }
 
-.DashboardLayout--modal
-  .SchemaForm
-    .app-form-wrapper
-      height calc(100vh - 80px)
-
-    .app-form-body
+    .app-form-body {
       /*padding 10px*/
-      height calc(100vh - 140px)
+      height: calc(100vh - 140px);
+    }
+  }
+}
 
-@media (max-width 768px)
-  .SchemaForm
+@media (max-width 768px) {
+  .SchemaForm {
+    & > .app-form-wrapper {
+      height: calc(100vh - 115px);
 
-    & > .app-form-wrapper
-      height calc(100vh - 115px)
+      & > .app-form-body {
+        height: calc(100vh - 175px);
+      }
 
-      & > .app-form-body
-        height calc(100vh - 175px)
+      & > .app-form-buttons {
+        & > button {
+          & > .q-btn__wrapper > .q-btn__content > span {
+            display: none !important;
+          }
+        }
+      }
+    }
+  }
 
-      & > .app-form-buttons
-        & > button
-          & > .q-btn__wrapper > .q-btn__content > div
-            display none
+  .DashboardLayout--modal {
+    .SchemaForm {
+      .app-form-wrapper {
+        height: calc(100vh - 70px);
+      }
 
-  .DashboardLayout--modal
-    .SchemaForm
-      .app-form-wrapper
-        height calc(100vh - 70px)
-
-      .app-form-body
+      .app-form-body {
         /*padding 10px*/
-        height calc(100vh - 130px)
+        height: calc(100vh - 130px);
+      }
+    }
+  }
+}
 
-@media (max-width 1200px)
-  .SchemaForm
-
-    & > .app-form-wrapper
-      & > .app-form-buttons
-        & > button:not(.button-no-min-width)
-          min-width auto
+@media (max-width 1200px) {
+  .SchemaForm {
+    & > .app-form-wrapper {
+      & > .app-form-buttons {
+        & > button:not(.button-no-min-width) {
+          min-width: auto;
+        }
+      }
+    }
+  }
+}

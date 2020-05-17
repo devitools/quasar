@@ -75,6 +75,7 @@ export default {
     widgetRequest (options = {}) {
       const { filter, done, page, rowsPerPage, rowsNumber, sortBy, descending } = options
 
+      // noinspection JSCheckFunctionSignatures
       this.remote(filter, { page, rowsPerPage, rowsNumber, sortBy, descending }, this.widgetQuery)
         .then((response) => {
           let data = []
@@ -86,6 +87,7 @@ export default {
           const pagesNumber = response.pagesNumber
           const page = response.page
           const rowsNumber = response.rowsNumber
+          // noinspection JSValidateTypes
           done({ rowsPerPage, pagesNumber, page, rowsNumber, sortBy, descending })
         })
     },

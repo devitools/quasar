@@ -17,7 +17,7 @@
     >
       <template v-slot:top-left>
         <div class="SelectRemoteWidgetTable__buttons">
-          <q-btn
+          <QBtn
             icon="done"
             text-color="grey-9"
             color="white"
@@ -25,9 +25,9 @@
             dense
             @click="onConfirm"
           >
-            <q-tooltip>{{ $lang('agnostic.components.remote.confirm') }}</q-tooltip>
-          </q-btn>
-          <q-btn
+            <QTooltip>{{ $lang('agnostic.components.remote.confirm') }}</QTooltip>
+          </QBtn>
+          <QBtn
             icon="clear_all"
             text-color="grey-9"
             color="white"
@@ -35,9 +35,9 @@
             dense
             @click="onClear"
           >
-            <q-tooltip>{{ $lang('agnostic.components.remote.clear') }}</q-tooltip>
-          </q-btn>
-          <q-btn
+            <QTooltip>{{ $lang('agnostic.components.remote.clear') }}</QTooltip>
+          </QBtn>
+          <QBtn
             icon="clear"
             text-color="grey-9"
             color="white"
@@ -45,21 +45,21 @@
             dense
             @click="onCancel"
           >
-            <q-tooltip>{{ $lang('agnostic.components.remote.cancel') }}</q-tooltip>
-          </q-btn>
+            <QTooltip>{{ $lang('agnostic.components.remote.cancel') }}</QTooltip>
+          </QBtn>
         </div>
       </template>
       <template v-slot:top-right>
-        <q-input
+        <QInput
           :placeholder="$lang('agnostic.components.remote.search')"
           debounce="300"
           v-model="filter"
           v-bind="defaultAttrs"
         >
           <template v-slot:append>
-            <q-icon name="search" />
+            <QIcon name="search" />
           </template>
-        </q-input>
+        </QInput>
       </template>
     </AppTable>
   </div>

@@ -2,6 +2,7 @@ import TableColumns from './Table/TableColumns'
 import TableFetch from './Table/TableFetch'
 import { filterKey, searchKey } from 'src/settings/schema'
 import { tableMinRowsPerPage, tableOuterHeight, tableSelection } from 'src/settings/table'
+import { OPERATORS } from 'src/app/Agnostic/enum'
 
 /**
  * @mixin {Table}
@@ -130,7 +131,7 @@ export default {
      * @param {string} tableWhere
      * @return {this}
      */
-    $fieldTableWhere (tableWhere = 'automatic') {
+    $fieldTableWhere (tableWhere = OPERATORS.AUTOMATIC) {
       return this.$setLayout('tableWhere', tableWhere)
     }
   },

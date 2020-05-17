@@ -1,7 +1,7 @@
 /**
  * @type {Object}
  */
-export const SCOPES = {
+export const SCOPES = Object.freeze({
   SCOPE_INDEX: 'scope-index',
   SCOPE_ADD: 'scope-add',
   SCOPE_VIEW: 'scope-view',
@@ -14,7 +14,7 @@ export const SCOPES = {
   SCOPE_MASTER_DETAIL_EDIT: 'scope-master-detail-edit',
   SCOPE_MASTER_DETAIL_REMOVE: 'scope-master-detail-remove',
   SCOPE_MASTER_DETAIL_TRASH: 'scope-master-detail-trash'
-}
+})
 
 /**
  * @return {Array}
@@ -24,15 +24,28 @@ export const scopes = () => Object.values(SCOPES)
 /**
  * @type {Object}
  */
-export const POSITIONS = {
+export const POSITIONS = Object.freeze({
   POSITION_TABLE_TOP: 'table-top',
   POSITION_TABLE_CELL: 'table-cell',
   POSITION_TABLE_FLOAT: 'table-float',
   POSITION_TABLE_SEARCH: 'table-search',
   POSITION_FORM_FOOTER: 'form-footer'
-}
+})
 
 /**
  * @return {array}
  */
 export const positions = () => Object.values(POSITIONS)
+
+/**
+ * @type {Readonly<{Object}>}
+ */
+export const OPERATORS = Object.freeze({
+  EQUAL: 'eq',
+  NOT_EQUAL: 'neq',
+  LIKE: 'like',
+  IN: 'in',
+  NIN: 'nin',
+  CURRENCY: 'currency',
+  AUTOMATIC: 'automatic'
+})

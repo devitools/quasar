@@ -3,6 +3,7 @@ import { currencyParseInput } from 'src/settings/components'
 
 import { yesNo } from '../options'
 import { booleanFormatter, dateFormatter, format, optionFormatter, optionsFormatter } from '../../Util/formatter'
+import { OPERATORS } from 'src/app/Agnostic/enum'
 
 /**
  * @typedef {Object} FieldIs
@@ -116,7 +117,7 @@ export default {
   fieldIsNumber (attrs = {}) {
     this.setComponent('number')
     this.setAttrs({ ...attrs })
-    this.setLayout({ tableWhere: 'eq' })
+    this.setLayout({ tableWhere: OPERATORS.EQUAL })
     this.setType('number')
     return this
   },
@@ -181,7 +182,7 @@ export default {
     }
     this.setComponent('radio')
     this.setAttrs({ ...attrs, options })
-    this.setLayout({ tableWhere: 'eq', tableFormat: optionsFormatter(options) })
+    this.setLayout({ tableWhere: OPERATORS.EQUAL, tableFormat: optionsFormatter(options) })
     this.setType('select')
     return this
   },
@@ -269,7 +270,7 @@ export default {
       })
     }
 
-    this.setLayout({ tableFormat: optionsFormatter(options), tableWhere: 'eq' })
+    this.setLayout({ tableFormat: optionsFormatter(options), tableWhere: OPERATORS.EQUAL })
     this.setType('select')
     return this
   },
@@ -281,7 +282,7 @@ export default {
   fieldIsSelectRemote (attrs = {}) {
     this.setComponent('remote')
     this.setAttrs(attrs)
-    this.setLayout({ tableFormat: optionFormatter(attrs.keyLabel), tableWhere: 'eq' })
+    this.setLayout({ tableFormat: optionFormatter(attrs.keyLabel), tableWhere: OPERATORS.EQUAL })
     this.setType('select')
     return this
   },
@@ -405,7 +406,7 @@ export default {
     this.setLayout({
       tableFormat: previousTableFormat || currencyParseInput,
       tableAlign: 'right',
-      tableWhere: 'currency'
+      tableWhere: OPERATORS.CURRENCY
     })
     this.setType('currency')
     return this
@@ -484,6 +485,16 @@ export default {
    */
   fieldIsFileSync (attrs = {}) {
     this.setComponent('fileSync')
+    this.setAttrs(attrs)
+    return this
+  },
+
+  /**
+   * @param {Object} attrs
+   * @returns {Schema|Skeleton}
+   */
+  fieldIsInternationalPhone (attrs = {}) {
+    this.setComponent('phoneInternational')
     this.setAttrs(attrs)
     return this
   }

@@ -3,7 +3,8 @@ import { searchKey } from 'src/settings/schema'
 import action from 'src/settings/action'
 
 import Base from './Base'
-import { unique, set, clone, objectToFormData } from '../Util/general'
+import { clone, objectToFormData, set, unique, withSeparator } from '../Util/general'
+import { OPERATORS } from 'src/app/Agnostic/enum'
 
 /**
  * @class {Skeleton}
@@ -418,19 +419,20 @@ export default class Skeleton extends Base {
       format: (row, value) => value,
       fields: fields,
       remote: (filter, pagination = undefined, query = {}) => {
+        const where = {
+          ...query,
+          [this.displayKey]: withSeparator(filter, OPERATORS.LIKE)
+        }
+        const parameters = { [searchKey]: where }
+
         if (pagination) {
           return this.$service()
-            .paginate({
-              filter,
-              pagination,
-              [searchKey]: query
-            })
+            .paginate({ ...parameters, pagination })
         }
+
+        // noinspection JSCheckFunctionSignatures
         return this.$service()
-          .paginate({
-            filter,
-            [searchKey]: query
-          })
+          .paginate(parameters)
           .then((response) => response.rows)
       }
     }

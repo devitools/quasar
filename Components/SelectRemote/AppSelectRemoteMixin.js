@@ -1,16 +1,17 @@
 import {
+  QBar,
+  QBtn,
+  QCard,
+  QCardSection,
+  QDialog,
+  QIcon,
   QItem,
   QItemSection,
-  QIcon,
-  QDialog,
-  QCard,
-  QBar,
   QSpace,
-  QBtn,
-  QCardSection
+  QTooltip
 } from 'quasar'
-import Popup from 'src/modules/General/Mixins/Popup'
 
+import Popup from '../../Mixins/Popup'
 import { withSeparator } from '../../Util/general'
 
 /**
@@ -26,15 +27,16 @@ export default {
   /**
    */
   components: {
+    QBar,
+    QBtn,
+    QCard,
+    QCardSection,
+    QDialog,
+    QIcon,
     QItem,
     QItemSection,
-    QIcon,
-    QDialog,
-    QCard,
-    QBar,
     QSpace,
-    QBtn,
-    QCardSection
+    QTooltip
   },
   /**
    */
@@ -91,11 +93,7 @@ export default {
     },
     bind () {
       const attrs = { ...this.$attrs }
-      delete attrs.value
-      if (this.value) {
-        delete attrs.placeholder
-      }
-      return {
+      const bind = {
         'use-input': true,
         'map-options': true,
         clearable: true,
@@ -105,6 +103,9 @@ export default {
         loading: this.loading,
         ...attrs
       }
+      delete bind.value
+      delete bind.placeholder
+      return bind
     },
     /**
      * @return {boolean}
@@ -124,6 +125,15 @@ export default {
         path = 'agnostic.components.appSelectRemote.searching'
       }
       return this.$lang(path)
+    },
+    /**
+     * @return {String|Object|string}
+     */
+    placeholder () {
+      if (this.value) {
+        return ''
+      }
+      return this.$lang('agnostic.components.appSelectRemote.placeholder')
     }
   },
   /**

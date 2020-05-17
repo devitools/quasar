@@ -41,7 +41,11 @@ export default {
       //   this.$memory.set(key, columns, true)
       // }
       // this.columns = columns
-      const fields = this.fields()
+
+      let fields = this.fields
+      if (typeof this.fields === 'function') {
+        fields = this.fields()
+      }
       const columns = Object
         .values(fields)
         .filter((field) => this.columnsFilter(field, ignore))

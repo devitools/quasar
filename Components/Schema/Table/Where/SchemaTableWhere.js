@@ -5,7 +5,7 @@ import { QIcon } from 'quasar'
 import { serializeSearch, unSerializeSearch } from 'src/settings/schema'
 
 // app
-import { POSITIONS } from '../../../../Agnostic/enum'
+import { OPERATORS, POSITIONS } from '../../../../Agnostic/enum'
 import { is, isObject, withoutSeparator, withSeparator } from '../../../../Util/general'
 
 // mixin
@@ -291,7 +291,7 @@ export default {
           value = value ? 1 : 0
         }
         let operator
-        if (component.$layout.tableWhere !== 'automatic') {
+        if (component.$layout.tableWhere !== OPERATORS.AUTOMATIC) {
           operator = component.$layout.tableWhere
         }
         query[field] = withSeparator(value, operator)
