@@ -46,12 +46,13 @@ const root = (h) => {
  * @returns {VNode|undefined}
  */
 const li = (h, route, currentRoute = '') => {
-  const namespace = route.meta.domain || 'common'
+  const domain = route.meta.domain || 'common'
   const scope = route.meta.scope || 'index'
   const scenario = route.meta.scenario || 'undefined'
+
   const paths = [
-    `domains.${namespace}.routes.${scenario}.crumb`,
-    `domains.${namespace}.routes.${scope}.crumb`,
+    `domains.${domain}.routes.${scenario}.crumb`,
+    `domains.${domain}.routes.${scope}.crumb`,
     `pages.${route.path}.crumb`
   ]
   let expression = $lang(paths)

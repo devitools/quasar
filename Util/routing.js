@@ -71,7 +71,8 @@ export const crud = (
   }
 
   const creator = (resource, component, name, scope) => {
-    const meta = { ...options, domain, namespace: `${domain}.${name}`, scope: scope }
+    const namespace = `${domain}.${name}`
+    const meta = { ...options, domain, scope, namespace }
     return route(`${path}/${resource}`, component, `${domain}.${name}`, meta)
   }
 
@@ -95,7 +96,7 @@ export const resource = (resource, domain = undefined, table = undefined, form =
   }
   const component = () => import('../Components/Group/Group.vue')
   const children = crud(domain, path, table, form)
-  const meta = { prefix: domain }
+  const meta = { domain }
 
   return group(path, component, children, meta)
 }
