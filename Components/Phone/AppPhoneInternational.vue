@@ -27,6 +27,10 @@ export default {
     // eslint-disable-next-line vue/require-prop-types
     value: {
       required: true
+    },
+    geoIpLookup: {
+      type: Function,
+      default: undefined
     }
   },
   data: () => ({
@@ -131,7 +135,12 @@ export default {
         return options
       }
 
-      options.geoIpLookup = this.geoIpLookup
+      options.geoIpLookup = async (resolve) => {
+        const country = await this.geoIpLookup()
+        this.$memory.set('country-code', country)
+        resolve(country)
+      }
+
       return options
     }
   },

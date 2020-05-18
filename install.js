@@ -66,7 +66,7 @@ export default ({ Vue }) => {
     }
   })
 
-  const $memory = {}
+  let $memory = {}
   /**
    */
   Object.defineProperty(Vue.prototype, '$memory', {
@@ -84,6 +84,9 @@ export default ({ Vue }) => {
             return
           }
           $memory[index] = value
+        },
+        clear () {
+          $memory = {}
         }
       }
     }
