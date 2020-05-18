@@ -1,16 +1,18 @@
 <template>
-  <label
-    class="q-field--outlined"
-    :class="{ 'q-field--focused': focused }"
+  <QField
+    class="AppPhoneInternational"
+    v-bind="{ ...$attrs, ...$props }"
+    @clear="$emit('input', '')"
   >
     <div
       ref="root"
-      class="AppPhoneInternational q-field__control relative-position row no-wrap"
+      class="AppPhoneInternational__root"
     />
-  </label>
+  </QField>
 </template>
 
 <script>
+import { QField } from 'quasar'
 /* https://github.com/jackocnr/intl-tel-input#getting-started */
 import intlTelInput from 'intl-tel-input'
 import 'intl-tel-input/build/css/intlTelInput.min.css'
@@ -23,57 +25,79 @@ export default {
   name: 'AppPhoneInternational',
   /**
    */
+  components: { QField },
+  /**
+   */
   props: {
     // eslint-disable-next-line vue/require-prop-types
     value: {
       required: true
     },
+    regex: {
+      type: RegExp,
+      default: () => (/[\d -]+/)
+    },
+    allowDropdown: {
+      type: Boolean,
+      default: true
+    },
+    autoHideDialCode: {
+      type: Boolean,
+      default: true
+    },
+    autoPlaceholder: {
+      type: String,
+      default: 'polite'
+    },
+    customPlaceholder: {
+      type: Function,
+      default: null
+    },
+    excludeCountries: {
+      type: Array,
+      default: () => ([])
+    },
+    formatOnDisplay: {
+      type: Boolean,
+      default: true
+    },
     geoIpLookup: {
       type: Function,
-      default: undefined
+      default: null
+    },
+    initialCountry: {
+      type: String,
+      default: ''
+    },
+    preferredCountries: {
+      type: Array,
+      default: () => (['us', 'gb'])
+    },
+    separateDialCode: {
+      type: Boolean,
+      default: true
     }
   },
   data: () => ({
     identifier: '',
-    dialCode: '',
     focused: false
   }),
   /**
    */
   methods: {
     /**
-     * @return {string}
-     */
-    toValueWithoutDialCode (value) {
-      if (!this.dialCode) {
-        return value
-      }
-      return String(value).replace(new RegExp(`[+${this.dialCode}]`, 'g'), '')
-    },
-    /**
-     * @return {string}
-     */
-    toValueWithDialCode (value) {
-      const valueWithoutDialCode = this.toValueWithoutDialCode(value)
-      return `+${this.dialCode}${valueWithoutDialCode}`
-    },
-    /**
      * @return {HTMLInputElement}
      */
     createIntlInput () {
+      const regex = this.regex
+
       const input = document.createElement('input')
       input.id = this.identifier
       input.type = 'tel'
       input.value = this.value || ''
       input.onkeypress = function ($event) {
-        return /[\d]/.test(String.fromCharCode($event.which))
+        return regex.test(String.fromCharCode($event.which))
       }
-
-      // noinspection SpellCheckingInspection
-      input.addEventListener('countrychange', () => {
-        const { dialCode } = this.$iti.getSelectedCountryData()
-        this.dialCode = dialCode
-      })
 
       input.addEventListener('focus', () => {
         this.focused = true
@@ -84,11 +108,8 @@ export default {
       })
 
       input.addEventListener('change', () => {
-        if (!input.value) {
-          return
-        }
-        const value = String(input.value).trim()
-        this.$emit('input', this.toValueWithDialCode(value))
+        const value = this.$iti.getNumber()
+        this.$emit('input', value)
 
         if (!value) {
           return
@@ -120,8 +141,16 @@ export default {
      */
     getIntlOptions () {
       const options = {
-        separateDialCode: true,
-        initialCountry: process.env.VUE_APP_COUNTRY_CODE
+        allowDropdown: this.allowDropdown,
+        autoHideDialCode: this.autoHideDialCode,
+        autoPlaceholder: this.autoPlaceholder,
+        customPlaceholder: this.customPlaceholder,
+        excludeCountries: this.excludeCountries,
+        formatOnDisplay: this.formatOnDisplay,
+        geoIpLookup: this.geoIpLookup,
+        initialCountry: process.env.VUE_APP_COUNTRY_CODE || this.initialCountry,
+        preferredCountries: this.preferredCountries,
+        separateDialCode: this.separateDialCode
       }
 
       if (!this.geoIpLookup) {
@@ -164,7 +193,7 @@ export default {
   /**
    */
   beforeDestroy () {
-    this.$refs.root.classList.add('AppPhoneInternational--destroyed')
+    this.$refs.root.classList.add('AppPhoneInternational__root--destroyed')
     this.$iti.destroy()
   }
 }
@@ -173,40 +202,55 @@ export default {
 <style lang="stylus">
 .AppPhoneInternational {
   height: 40px;
-  padding: 1px !important;
+  padding-top: 1px !important;
+  padding-left: 1px !important;
+  padding-bottom: 1px !important;
 
-  .iti {
-    color: #909090;
-  }
+  .q-field__control {
+    padding: 1px !important;
 
-  .iti.iti--allow-dropdown, .iti.iti--allow-dropdown input {
-    width: 100%;
-  }
+    .q-field__control-container {
+      overflow: visible !important;
 
-  .iti.iti--allow-dropdown input {
-    border-radius: 4px;
-    border: none;
-    padding: 5px 6px 0 70px;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 28px;
-    letter-spacing: 0.00937em;
-    text-decoration: inherit;
-    text-transform: inherit;
-  }
+      & > .AppPhoneInternational__root {
+        width: 100%
 
-  &.AppPhoneInternational--destroyed {
-    border-radius: 4px;
-    border: 1px solid #c2c2c2;
+        .iti {
+          color: #909090;
+          height: 38px;
 
-    height: 40px;
+          &.iti--allow-dropdown {
+            width: 100%;
 
-    & > * {
-      display: none;
+            input {
+              width: 100%;
+              /*border-radius: 4px;*/
+              border: none !important;
+              padding: 5px 6px 0 70px;
+              font-size: 13px;
+              font-weight: 400;
+              line-height: 28px;
+              letter-spacing: 0.00937em;
+              text-decoration: inherit;
+              text-transform: inherit;
+            }
+          }
+
+        }
+      }
+    }
+
+    .q-field__append.q-field__marginal {
+      margin-right: 10px;
     }
   }
 
-  &:after {
+  .AppPhoneInternational__root {
+    &.AppPhoneInternational__root--destroyed {
+      & > * {
+        display: none;
+      }
+    }
   }
 }
 
