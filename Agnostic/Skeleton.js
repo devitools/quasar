@@ -5,6 +5,7 @@ import action from 'src/settings/action'
 import Base from './Base'
 import { clone, objectToFormData, set, unique, withSeparator } from '../Util/general'
 import { OPERATORS } from 'src/app/Agnostic/enum'
+import { isActionAllowed } from 'src/settings/security'
 
 /**
  * @class {Skeleton}
@@ -191,10 +192,16 @@ export default class Skeleton extends Base {
    * @returns {Array}
    */
   getActions () {
+    const domain = this.constructor.domain
+    const whitelist = this.constructor.actionsWhitelist
+    const actions = Object
+      .values(this.__actions)
+      .filter((action) => isActionAllowed(domain, action, whitelist))
+
     if (this.safe) {
-      return this.$clone(Object.values(this.__actions))
+      return this.$clone(actions)
     }
-    return Object.values(this.__actions)
+    return actions
   }
 
   /**

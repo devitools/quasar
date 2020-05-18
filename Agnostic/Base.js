@@ -35,6 +35,11 @@ export default class Base {
   }
 
   /**
+   * @type {Array}
+   */
+  static actionsWhitelist = []
+
+  /**
    * @type {string}
    */
   primaryKey = primaryKey

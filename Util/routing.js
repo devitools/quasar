@@ -1,6 +1,4 @@
-import { primaryKey } from 'src/settings/schema'
-
-import { SCOPES } from '../Agnostic/enum'
+import { primaryKey, resourceRoutes } from 'src/settings/schema'
 
 /**
  * @param {string} path
@@ -67,25 +65,17 @@ export const crud = (
     delete options.id
   }
 
-  let prefix = domain
-  if (options && options.prefix) {
-    prefix = options.prefix
-    delete options.prefix
+  if (options && options.domain) {
+    domain = options.domain
+    delete options.domain
   }
 
-  const creator = (_path, _component, _name, _scope) => {
-    const meta = { ...options, prefix, namespace: `${domain}.${_name}`, scope: _scope }
-    return route(`${path}/${_path}`, _component, `${prefix}.${_name}`, meta)
+  const creator = (resource, component, name, scope) => {
+    const meta = { ...options, domain, namespace: `${domain}.${name}`, scope: scope }
+    return route(`${path}/${resource}`, component, `${domain}.${name}`, meta)
   }
 
-  // noinspection JSValidateTypes
-  return [
-    creator('', table, 'index', SCOPES.SCOPE_INDEX),
-    creator('trash', table, 'trash', SCOPES.SCOPE_TRASH),
-    creator('add', form, 'add', SCOPES.SCOPE_ADD),
-    creator(`:${key}`, form, 'view', SCOPES.SCOPE_VIEW),
-    creator(`:${key}/edit`, form, 'edit', SCOPES.SCOPE_EDIT)
-  ]
+  return resourceRoutes(creator, table, form, key, options)
 }
 
 /**

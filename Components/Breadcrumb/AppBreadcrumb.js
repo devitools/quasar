@@ -46,7 +46,7 @@ const root = (h) => {
  * @returns {VNode|undefined}
  */
 const li = (h, route, currentRoute = '') => {
-  const namespace = route.meta.prefix || 'common'
+  const namespace = route.meta.domain || 'common'
   const scope = route.meta.scope || 'index'
   const scenario = route.meta.scenario || 'undefined'
   const paths = [
