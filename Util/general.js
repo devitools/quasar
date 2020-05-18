@@ -15,20 +15,34 @@ export const get = (element, path, fallback = undefined) => {
     return fallback
   }
 
+  // break the path in pieces bt dot
   let search = path
   if (!Array.isArray(path)) {
     search = String(path).split('.').filter((pieces) => pieces && pieces.length)
   }
 
+  // try to access a property that has a dot in its name
+  const alias = search.join('.')
+  // if the property exists...
+  if (element[alias]) {
+    // ...then the job is done
+    return element[alias]
+  }
+
+  // search is over...
   if (!search.length) {
+    // return the element
     return element
   }
 
+  // remove a property of the list
   let property = search.shift()
   if (Array.isArray(element)) {
+    // configure the accessor
     // eslint-disable-next-line no-useless-escape
     property = String(property).replace(/[\[\]]+/g, '')
   }
+  // try again
   return get(element[property], search, fallback)
 }
 
