@@ -9,7 +9,11 @@ import util from './Util'
 import { browse, clone } from './Util/general'
 
 import './polyfill'
+import $store from './store'
 
+/**
+ * @param {Vue} Vue
+ */
 export default ({ Vue }) => {
   /**
    */
@@ -72,19 +76,39 @@ export default ({ Vue }) => {
   Object.defineProperty(Vue.prototype, '$memory', {
     get () {
       return {
+        /**
+         * @param {string} index
+         * @param {boolean} copy
+         * @returns {undefined|*}
+         */
         get (index, copy = false) {
+          if ($store.state.purging) {
+            return undefined
+          }
+
           if (copy) {
             return clone($memory[index])
           }
           return $memory[index]
         },
+        /**
+         * @param {string} index
+         * @param {*} value
+         * @param {boolean} copy
+         */
         set (index, value, copy = false) {
+          if ($store.state.purging) {
+            return
+          }
+
           if (copy) {
             $memory[index] = clone(value)
             return
           }
           $memory[index] = value
         },
+        /**
+         */
         clear () {
           $memory = {}
         }

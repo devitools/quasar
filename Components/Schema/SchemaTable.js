@@ -1,16 +1,12 @@
 // settings
 import { searchKey } from 'src/settings/schema'
-
 // app
 import { POSITIONS, SCOPES } from '../../Agnostic/enum'
-
 // contracts
 import Dynamic from './Contracts/Dynamic'
 import Table from './Contracts/Table'
-
 // mixins
 import SchemaTableSlots from './Table/Mixins/SchemaTableSlots'
-
 // components
 import { AppTable } from 'src/app/Components/index'
 import SchemaDebugger from './Debugger/SchemaDebugger'
@@ -155,26 +151,13 @@ export default {
         return
       }
 
-      return h('div', [
-        h(SchemaDebugger, {
-          attrs: {
-            label: 'Data',
-            inspect: this.data
-          }
-        }),
-        h(SchemaDebugger, {
-          attrs: {
-            label: 'Columns',
-            inspect: this.columns
-          }
-        }),
-        h(SchemaDebugger, {
-          attrs: {
-            label: 'Buttons',
-            inspect: this.buttons
-          }
-        })
-      ])
+      const debugging = [
+        h(SchemaDebugger, { attrs: { label: 'Data', inspect: this.data } }),
+        h(SchemaDebugger, { attrs: { label: 'Columns', inspect: this.columns } }),
+        h(SchemaDebugger, { attrs: { label: 'Buttons', inspect: this.buttons } })
+      ]
+
+      return h('div', debugging)
     },
     /**
      * @param {function} h

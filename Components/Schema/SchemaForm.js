@@ -1,14 +1,11 @@
 // app
 import { POSITIONS } from '../../Agnostic/enum'
-
 // contracts
 import Dynamic from './Contracts/Dynamic'
 import Form from './Contracts/Form'
 import Group from './Contracts/Group'
-
 // mixins
 import SchemaBody from './Form/Mixins/SchemaFormBody'
-
 // components
 import SkeletonSchemaForm from './SkeletonSchemaForm'
 import SchemaDebugger from './Debugger/SchemaDebugger'
@@ -81,12 +78,14 @@ export default {
         return
       }
 
-      return h('div', [
+      const debugging = [
         h(SchemaDebugger, { attrs: { label: 'Validation', inspect: this.$v } }),
         h(SchemaDebugger, { attrs: { label: 'Record', inspect: this.record } }),
         h(SchemaDebugger, { attrs: { label: 'Components', inspect: this.components } }),
         h(SchemaDebugger, { attrs: { label: 'Buttons', inspect: this.buttons } })
-      ])
+      ]
+
+      return h('div', debugging)
     },
     /**
      * @return {string}

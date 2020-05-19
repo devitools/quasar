@@ -1,3 +1,5 @@
+import $store from 'src/app/store'
+
 /**
  * @mixin {Form}
  */
@@ -36,7 +38,7 @@ export default {
     /**
      */
     debuggers () {
-      return this.$store.getters['app/getDebuggers']
+      return $store.state.debugging
     }
   },
   /**

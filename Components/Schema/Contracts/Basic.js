@@ -1,3 +1,5 @@
+import $store from '../../../store'
+
 import Trigger from './Hook'
 import Button from './Button'
 import Dialog from './Dialog'
@@ -35,7 +37,7 @@ export default {
     /**
      */
     debuggers () {
-      return this.$store.getters['app/getDebuggers']
+      return $store.state.debugging
     }
   },
   /**
