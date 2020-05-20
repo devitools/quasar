@@ -143,6 +143,10 @@ export default {
      * @returns {*}
      */
     renderTableCellButtons (h, props) {
+      if (this.counter === undefined) {
+        this.counter = 0
+      }
+
       const data = {
         style: { position: 'relative' }
       }

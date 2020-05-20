@@ -19,4 +19,5 @@ export { default as AppSelectRemoteMultiple } from './SelectRemote/AppSelectRemo
 export { default as AppSelectRemoteSingle } from './SelectRemote/AppSelectRemoteSingle.vue'
 export { default as AppSeparator } from './Separator/AppSeparator'
 export { default as AppTable } from './Table/AppTable'
+export { default as AppTableStatic } from './Table/AppTableStatic'
 export { default as AppTree } from './Tree/AppTree.vue'

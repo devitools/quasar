@@ -426,10 +426,11 @@ export default class Skeleton extends Base {
       format: (row, value) => value,
       fields: fields,
       remote: (filter, pagination = undefined, query = {}) => {
-        const where = {
-          ...query,
-          [this.displayKey]: withSeparator(filter, OPERATORS.LIKE)
+        const where = { ...query }
+        if (filter) {
+          where[this.displayKey] = withSeparator(filter, OPERATORS.LIKE)
         }
+
         const parameters = { [searchKey]: where }
 
         if (pagination) {

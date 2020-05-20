@@ -176,8 +176,6 @@ export default {
    * @return {VNode}
    */
   render (h) {
-    this.counter = 0
-
     if (!this.domain) {
       return this.renderLoading(h)
     }
