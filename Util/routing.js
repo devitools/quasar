@@ -15,16 +15,18 @@ export const redirect = (path, redirect) => {
  * @param {function} component
  * @param {string} [name]
  * @param {Object} [meta]
+ * @param {Object|boolean|function} props
  * @returns {RouteConfig}
  */
 export const route = (
   path,
   component,
   name = undefined,
-  meta = {}
+  meta = {},
+  props = undefined
 ) => {
   // noinspection JSValidateTypes
-  return { path, name, component, meta }
+  return { path, name, component, meta, props }
 }
 
 /**
@@ -73,30 +75,37 @@ export const crud = (
   const creator = (resource, component, name, scope) => {
     const namespace = `${domain}.${name}`
     const meta = { ...options, domain, scope, namespace }
-    return route(`${path}/${resource}`, component, `${domain}.${name}`, meta)
+    return route(`${path}/${resource}`, component, `${domain}.${name}`, meta, { path })
   }
 
   return resourceRoutes(creator, table, form, key, options)
 }
 
 /**
- * @param {string|Object} resource
- * @param {string} domain
+ * @param {string|Object} settings
+ * @param {string|Object} domain
  * @param {function} table
  * @param {function} form
  * @return {RouteConfig}
  */
-export const resource = (resource, domain = undefined, table = undefined, form = undefined) => {
-  let path = resource
-  if (typeof resource === 'object') {
-    path = resource.path
-    domain = resource.domain
-    table = resource.table
-    form = resource.form
+export const resource = (settings, domain = undefined, table = undefined, form = undefined) => {
+  let path = settings
+  if (typeof settings === 'object') {
+    path = settings.path
+    domain = settings.domain
+    table = settings.table
+    form = settings.form
   }
+
+  let resource
+  if (typeof domain === 'object') {
+    domain = domain.domain
+    resource = domain.resource
+  }
+
   const component = () => import('../Components/Group/Group.vue')
   const children = crud(domain, path, table, form)
-  const meta = { domain }
+  const meta = { domain, resource }
 
   return group(path, component, children, meta)
 }

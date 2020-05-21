@@ -4,6 +4,14 @@
 export default {
   /**
    */
+  props: {
+    path: {
+      type: String,
+      default: undefined
+    }
+  },
+  /**
+   */
   data () {
     return {
       bind: {
@@ -33,12 +41,17 @@ export default {
      * @param provide
      */
     updateBind (provide) {
-      const bind = this.bind
+      const props = {}
+      if (this.path) {
+        props.path = this.path
+      }
+
       this.bind = {
-        ...bind,
+        ...this.bind,
         key: this.$util.uuid(),
         scope: this.$route.meta.scope,
         ...provide,
+        ...props,
         schema: this.$options.name
       }
     },

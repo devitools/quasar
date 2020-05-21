@@ -43,14 +43,14 @@ export default class AppRouterGroup {
   }
 
   /**
-   * @param {string|Object} route
-   * @param {string} domain
+   * @param {string|Object} settings
+   * @param {string|Object} domain
    * @param {function} table
    * @param {function} form
    * @returns {AppRouterGroup}
    */
-  resource (route, domain = undefined, table = undefined, form = undefined) {
-    return this.routes([resource(route, domain, table, form)])
+  resource (settings, domain = undefined, table = undefined, form = undefined) {
+    return this.routes([resource(settings, domain, table, form)])
   }
 
   /**
