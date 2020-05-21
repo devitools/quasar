@@ -17,7 +17,7 @@ import { QField } from 'quasar'
 import intlTelInput from 'intl-tel-input'
 import 'intl-tel-input/build/css/intlTelInput.min.css'
 import 'intl-tel-input/build/js/utils.js'
-import { uuid } from 'src/app/Util/general'
+import { uuid } from '../../Util/general'
 
 export default {
   /**

@@ -2,7 +2,7 @@ import TableColumns from './Table/TableColumns'
 import TableFetch from './Table/TableFetch'
 import { filterKey, searchKey } from 'src/settings/schema'
 import { tableMinRowsPerPage, tableOuterHeight, tableSelection } from 'src/settings/table'
-import { OPERATORS } from 'src/app/Agnostic/enum'
+import { OPERATORS } from '../../../Agnostic/enum'
 
 /**
  * @mixin {Table}

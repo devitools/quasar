@@ -3,7 +3,7 @@ import { currencyParseInput } from 'src/settings/components'
 
 import { yesNo } from '../options'
 import { booleanFormatter, dateFormatter, format, optionFormatter, optionsFormatter } from '../../Util/formatter'
-import { OPERATORS } from 'src/app/Agnostic/enum'
+import { OPERATORS } from '../../Agnostic/enum'
 
 /**
  * @typedef {Object} FieldIs

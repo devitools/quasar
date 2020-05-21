@@ -1,4 +1,4 @@
-import { OPERATORS } from 'src/app/Agnostic/enum'
+import { OPERATORS } from '../../Agnostic/enum'
 
 export default {
   /**

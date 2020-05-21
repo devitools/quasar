@@ -8,7 +8,7 @@ import Table from './Contracts/Table'
 // mixins
 import SchemaTableSlots from './Table/Mixins/SchemaTableSlots'
 // components
-import { AppTable } from 'src/app/Components/index'
+import { AppTable } from '../../Components'
 import SchemaDebugger from './Debugger/SchemaDebugger'
 import SkeletonSchemaTable from './SkeletonSchemaTable'
 import SchemaTableWhere from './Table/Where/SchemaTableWhere'

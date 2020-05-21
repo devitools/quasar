@@ -4,7 +4,7 @@ import action from 'src/settings/action'
 
 import Base from './Base'
 import { clone, objectToFormData, set, unique, withSeparator } from '../Util/general'
-import { OPERATORS } from 'src/app/Agnostic/enum'
+import { OPERATORS } from '../Agnostic/enum'
 import { isActionAllowed } from 'src/settings/security'
 
 /**
