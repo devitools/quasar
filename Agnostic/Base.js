@@ -37,7 +37,7 @@ export default class Base {
   /**
    * @type {Array}
    */
-  static actionsWhitelist = []
+  whitelist = []
 
   /**
    * @type {string}

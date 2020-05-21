@@ -1,3 +1,5 @@
+import { isActionAllowed } from 'src/settings/security'
+
 /**
  * @mixin {Button}
  */
@@ -13,7 +15,9 @@ export default {
     /**
      */
     renderButtons () {
-      this.buttons = this.actions().reduce(this.buttonReduce, {})
+      this.buttons = this.actions()
+        .filter((action) => isActionAllowed(action, this.domain, this.settings?.whitelist))
+        .reduce(this.buttonReduce, {})
 
       // const key = `${this.schema}.buttons`
       // let buttons = this.$memory.get(key, true)

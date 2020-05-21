@@ -12,6 +12,18 @@ export default {
   },
 
   /**
+   * @param {Array} levels
+   * @returns {Schema}
+   */
+  actionLevels (levels) {
+    const id = this.__currentAction
+    if (this.__actions[id]) {
+      this.__actions[id].levels = levels
+    }
+    return this
+  },
+
+  /**
    * @param {Array} positions
    * @returns {Schema}
    */

@@ -1,4 +1,5 @@
 import { POSITIONS, SCOPES } from '../../enum'
+import { RULES } from 'src/settings/schema'
 
 /**
  */
@@ -55,6 +56,7 @@ export default {
 
     this.addAction('create')
       .actionScopes(readonly ? [] : [SCOPES.SCOPE_ADD])
+      .actionLevels([RULES.LEVEL_ADD])
       .actionPositions([POSITIONS.POSITION_FORM_FOOTER])
       .actionFloatRight()
       .actionIcon('save')
@@ -65,6 +67,7 @@ export default {
 
     this.addAction('update')
       .actionScopes([SCOPES.SCOPE_EDIT])
+      .actionLevels([RULES.LEVEL_EDIT])
       .actionPositions(readonly ? [] : [POSITIONS.POSITION_FORM_FOOTER])
       .actionFloatRight()
       .actionIcon('save')
@@ -75,6 +78,7 @@ export default {
 
     this.addAction('add')
       .actionScopes(readonly ? [] : [SCOPES.SCOPE_INDEX])
+      .actionLevels([RULES.LEVEL_ADD])
       .actionPositions([POSITIONS.POSITION_TABLE_TOP, POSITIONS.POSITION_TABLE_FLOAT])
       .actionIcon('add')
       .actionColor('primary')
@@ -84,6 +88,7 @@ export default {
 
     this.addAction('view')
       .actionScopes([SCOPES.SCOPE_INDEX, SCOPES.SCOPE_TRASH])
+      .actionLevels([RULES.LEVEL_VIEW])
       .actionPositions([POSITIONS.POSITION_TABLE_TOP, POSITIONS.POSITION_TABLE_FLOAT, POSITIONS.POSITION_TABLE_CELL])
       .actionIcon('visibility')
       .actionOn('click', function ({ context, $event }) {
@@ -92,6 +97,7 @@ export default {
 
     this.addAction('edit')
       .actionScopes([SCOPES.SCOPE_INDEX])
+      .actionLevels([RULES.LEVEL_EDIT])
       .actionPositions(readonly ? [] : [POSITIONS.POSITION_TABLE_TOP, POSITIONS.POSITION_TABLE_FLOAT, POSITIONS.POSITION_TABLE_CELL])
       .actionColor('primary')
       .actionIcon('edit')
@@ -101,6 +107,7 @@ export default {
 
     this.addAction('destroy')
       .actionScopes(readonly ? [] : [SCOPES.SCOPE_INDEX, SCOPES.SCOPE_VIEW, SCOPES.SCOPE_EDIT])
+      .actionLevels([RULES.LEVEL_DESTROY])
       .actionPositions([
         POSITIONS.POSITION_TABLE_CELL,
         POSITIONS.POSITION_TABLE_FLOAT,
@@ -122,6 +129,7 @@ export default {
     this.addAction('trash')
       .actionFloatRight()
       .actionScopes([SCOPES.SCOPE_INDEX])
+      .actionLevels([RULES.LEVEL_TRASH])
       .actionPositions(readonly ? [] : [POSITIONS.POSITION_TABLE_TOP, POSITIONS.POSITION_TABLE_FLOAT])
       .actionIcon('restore')
       .actionOn('click', function ({ context, $event }) {
@@ -130,6 +138,7 @@ export default {
 
     this.addAction('restore')
       .actionScopes([SCOPES.SCOPE_VIEW, SCOPES.SCOPE_TRASH])
+      .actionLevels([RULES.LEVEL_TRASH])
       .actionPositions([
         POSITIONS.POSITION_TABLE_TOP,
         POSITIONS.POSITION_TABLE_FLOAT,
@@ -150,6 +159,7 @@ export default {
 
     this.addAction('erase')
       .actionScopes(readonly ? [] : [SCOPES.SCOPE_TRASH, SCOPES.SCOPE_VIEW, SCOPES.SCOPE_EDIT])
+      .actionLevels([RULES.LEVEL_TRASH])
       .actionPositions([
         POSITIONS.POSITION_TABLE_CELL,
         POSITIONS.POSITION_TABLE_FLOAT,
@@ -170,6 +180,7 @@ export default {
 
     this.addAction('sortClear')
       .actionScopes([SCOPES.SCOPE_INDEX, SCOPES.SCOPE_TRASH])
+      .actionLevels([RULES.LEVEL_INDEX])
       .actionPositions([POSITIONS.POSITION_TABLE_TOP])
       .actionIcon('layers_clear')
       .actionNoMinWidth()
@@ -179,6 +190,7 @@ export default {
 
     this.addAction('refresh')
       .actionScopes([SCOPES.SCOPE_INDEX, SCOPES.SCOPE_TRASH])
+      .actionLevels([RULES.LEVEL_INDEX])
       .actionPositions([POSITIONS.POSITION_TABLE_TOP, POSITIONS.POSITION_TABLE_FLOAT])
       .actionIcon('refresh')
       .actionNoMinWidth()
@@ -188,7 +200,9 @@ export default {
 
     this.addAction('search')
       .actionScopes([SCOPES.SCOPE_INDEX])
+      .actionLevels([RULES.LEVEL_INDEX])
       .actionPositions([POSITIONS.POSITION_TABLE_SEARCH])
+      .actionLevels([RULES.LEVEL_INDEX])
       .actionIcon('search')
       .actionColor('primary')
       .actionOn('click', function ({ context, $event }) {
@@ -197,6 +211,7 @@ export default {
 
     this.addAction('searchClear')
       .actionScopes([SCOPES.SCOPE_INDEX])
+      .actionLevels([RULES.LEVEL_INDEX])
       .actionPositions([POSITIONS.POSITION_TABLE_SEARCH])
       .actionIcon('cancel')
       .actionOn('click', function ({ context, $event }) {
