@@ -22,11 +22,26 @@ export default class AppRouter extends VueRouter {
   __routes = []
 
   /**
+   * @param {*} options
+   */
+  constructor (options) {
+    super(options)
+    const { addRoutes } = this.matcher
+    const { routes } = options
+
+    this.__routes = routes || []
+
+    this.matcher.addRoutes = (newRoutes) => {
+      this.__routes.push(...newRoutes)
+      addRoutes(newRoutes)
+    }
+  }
+
+  /**
    * @param {RouteConfig[]} routes
    * @param routes
    */
   addRoutes (routes) {
-    this.__routes.push(...routes)
     super.addRoutes(routes)
   }
 
