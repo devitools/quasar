@@ -1,4 +1,4 @@
-import $store from 'src/app/store'
+import $store from '../../store'
 
 /**
  * @mixin {Form}
