@@ -15,7 +15,12 @@ export default {
     /**
      */
     renderButtons () {
-      this.buttons = this.actions()
+      const actions = this.actions()
+      if (!actions) {
+        return
+      }
+
+      this.buttons = actions
         .filter((action) => isAllowedAction(action, this.domain, this.settings?.whitelist))
         .reduce(this.buttonReduce, {})
 
