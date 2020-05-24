@@ -72,10 +72,10 @@ export const crud = (
     delete options.domain
   }
 
-  const creator = (resource, component, level, scope) => {
+  const creator = (resource, component, name, level, scope) => {
     const namespace = `${domain}.${level}`
     const meta = { ...options, scope, domain, level, namespace }
-    return route(`${path}/${resource}`, component, `${domain}.${level}`, meta, { path })
+    return route(`${path}/${resource}`, component, `${domain}.${name}`, meta, { path })
   }
 
   return resourceRoutes(creator, table, form, key, options)
