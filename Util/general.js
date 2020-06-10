@@ -436,7 +436,7 @@ export const isFile = value =>
 export const objectToFormData = (object, formData = undefined, prefix = '', options = {}) => {
   options = options || {}
 
-  options.indices = isUndefined(options.indices) ? false : options.indices
+  options.indices = isUndefined(options.indices) ? true : options.indices
   options.nullsAsUndefineds = isUndefined(options.nullsAsUndefineds)
     ? false
     : options.nullsAsUndefineds

@@ -2,8 +2,9 @@ import { primaryKey } from 'src/settings/schema'
 import { currencyParseInput } from 'src/settings/components'
 
 import { yesNo } from '../options'
-import { booleanFormatter, dateFormatter, format, optionFormatter, optionsFormatter } from '../../Util/formatter'
 import { OPERATORS } from '../../Agnostic/enum'
+import { booleanFormatter, dateFormatter, format, optionFormatter, optionsFormatter } from '../../Util/formatter'
+import { uuid } from '../../Util/general'
 
 /**
  * @typedef {Object} FieldIs
@@ -29,6 +30,7 @@ export default {
       .fieldTableShow(options.tableShow)
       .fieldFormHidden(options.hiddenForm)
       .fieldFormDisabled(true)
+      .fieldFormDefaultValue(this.constructor.useUuid ? uuid() : undefined)
       .fieldPrimaryKey()
   },
 
