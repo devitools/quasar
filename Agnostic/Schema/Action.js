@@ -1,7 +1,7 @@
 export default {
   /**
    * @param {Array} scopes
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionScopes (scopes) {
     const id = this.__currentAction
@@ -13,7 +13,7 @@ export default {
 
   /**
    * @param {Array} levels
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionLevels (levels) {
     const id = this.__currentAction
@@ -24,8 +24,20 @@ export default {
   },
 
   /**
+   * @param {string} namespace
+   * @returns {Schema|Skeleton}
+   */
+  actionNamespace (namespace) {
+    const id = this.__currentAction
+    if (this.__actions[id]) {
+      this.__actions[id].namespace = namespace
+    }
+    return this
+  },
+
+  /**
    * @param {Array} positions
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionPositions (positions) {
     const id = this.__currentAction
@@ -37,7 +49,7 @@ export default {
 
   /**
    * @param {string} scope
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionScopeJust (scope) {
     const id = this.__currentAction
@@ -49,7 +61,7 @@ export default {
 
   /**
    * @param {string} scope
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionScopeExcept (scope) {
     const id = this.__currentAction
@@ -61,7 +73,7 @@ export default {
 
   /**
    * @param {Number} order
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionOrder (order) {
     const id = this.__currentAction
@@ -83,7 +95,7 @@ export default {
 
   /**
    * @param {string} label
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionLabel (label = '') {
     const id = this.__currentAction
@@ -95,7 +107,7 @@ export default {
 
   /**
    * @param {string} icon
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionIcon (icon = '') {
     const id = this.__currentAction
@@ -107,7 +119,7 @@ export default {
 
   /**
    * @param {string} tooltip
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionTooltip (tooltip = '') {
     const id = this.__currentAction
@@ -117,7 +129,7 @@ export default {
 
   /**
    * @param {string} color
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionColor (color = '') {
     const id = this.__currentAction
@@ -129,7 +141,7 @@ export default {
 
   /**
    * @param {string} textColor
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionTextColor (textColor = '') {
     const id = this.__currentAction
@@ -141,7 +153,7 @@ export default {
 
   /**
    * @param {Boolean} disabled
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionDisabled (disabled = true) {
     const id = this.__currentAction
@@ -152,21 +164,21 @@ export default {
   },
 
   /**
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionFloatRight () {
     return this.actionAddClassName('button-position-right')
   },
 
   /**
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionFloatLeft () {
     return this.actionAddClassName('button-position-left')
   },
 
   /**
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionNoMinWidth () {
     return this.actionAddClassName('button-no-min-width')
@@ -174,7 +186,7 @@ export default {
 
   /**
    * @param {string} className
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionAddClassName (className) {
     const id = this.__currentAction
@@ -189,7 +201,7 @@ export default {
 
   /**
    * @param {Boolean} hidden
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionHidden (hidden = true) {
     const id = this.__currentAction
@@ -201,7 +213,7 @@ export default {
 
   /**
    * @param {Array} actions
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionDropdown (actions) {
     const id = this.__currentAction
@@ -217,7 +229,7 @@ export default {
 
   /**
    * @param {function} validate
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionValidate (validate) {
     const id = this.__currentAction
@@ -229,7 +241,7 @@ export default {
 
   /**
    * @param {function} configure
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionConfigure (configure) {
     const id = this.__currentAction
@@ -242,7 +254,7 @@ export default {
   /**
    * @param {string} event
    * @param {function} handler
-   * @returns {Schema}
+   * @returns {Schema|Skeleton}
    */
   actionOn (event, handler) {
     const id = this.__currentAction
