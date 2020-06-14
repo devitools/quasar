@@ -1,4 +1,4 @@
-import { isActionAllowed } from 'src/settings/security'
+import { isAllowedAction } from 'src/settings/security'
 
 /**
  * @mixin {Button}
@@ -21,7 +21,7 @@ export default {
       }
 
       this.buttons = actions
-        .filter((action) => isActionAllowed(action, this.domain, this.settings?.whitelist))
+        .filter((action) => isAllowedAction(action, this.domain, this.settings?.whitelist))
         .reduce(this.buttonReduce, {})
 
       // const key = `${this.schema}.buttons`
