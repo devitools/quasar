@@ -90,8 +90,8 @@ export default {
 
 <style scoped>
 .AppButton {
-  margin-top: 19px;
-  min-height: 38px;
+  margin-top: 21px;
+  min-height: 39px;
 }
 
 .AppButton--link {

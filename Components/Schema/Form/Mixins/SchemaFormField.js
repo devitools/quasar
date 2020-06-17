@@ -24,7 +24,7 @@ export default {
       const error = this.fieldHasError(key)
       const data = {
         key: key,
-        class: this.fieldClass(field.$layout.formWidth, field.$layout.formHeight, error),
+        class: this.fieldClass(field, error),
         style: { display: field.$layout.formHidden ? 'none' : '' }
       }
 
@@ -50,13 +50,15 @@ export default {
       }
     },
     /**
-     * @param {string|number} width
-     * @param {string|number} height
+     * @param {*} field
      * @param {Boolean} error
      * @returns {Array}
      */
-    fieldClass (width, height, error = false) {
-      const classNames = [`field width-${width} height-${height}`]
+    fieldClass (field, error = false) {
+      const width = field.$layout.formWidth
+      const height = field.$layout.formHeight
+      const background = field.$layout.formBackground
+      const classNames = [field.$key, 'field', `width-${width}`, `height-${height}`, background]
       if (error) {
         classNames.push('has-error')
       }

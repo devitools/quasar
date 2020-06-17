@@ -37,7 +37,7 @@ export default class Schema extends Skeleton {
   /**
    * @type {boolean}
    */
-  static activateBuiltIsn = false
+  static activateBuiltIn = false
 
   /**
    * available: ['edit', 'view', 'index']

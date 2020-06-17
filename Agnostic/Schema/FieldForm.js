@@ -6,6 +6,13 @@ export default {
   fieldFormWidth (formWidth) {
     return this.setLayout({ formWidth })
   },
+  /**
+   * @param {Number} formBackground
+   * @returns {Schema}
+   */
+  fieldFormBackground (formBackground) {
+    return this.setLayout({ formBackground })
+  },
 
   /**
    * @param {Boolean} disable

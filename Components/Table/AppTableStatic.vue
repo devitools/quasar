@@ -1,5 +1,6 @@
 <template>
   <QTable
+    class="AppTableStatic"
     ref="table"
     selection="multiple"
     :style="{ height }"
@@ -74,5 +75,8 @@ export default {
 </script>
 
 <style scoped>
-
+.AppTableStatic {
+  box-shadow: none;
+  border: 1px solid #c2c2c2;
+}
 </style>
