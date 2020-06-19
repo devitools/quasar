@@ -1,11 +1,12 @@
 import { Notify } from 'quasar'
+import { notifyError, notifySuccess, notifyToast, notifyWarning } from 'src/settings/message'
 
 /**
  * @param {Object} options
  * @param {Object} action
  * @returns {*}
  */
-const base = (options, action = {}) => {
+export const notify = (options, action = {}) => {
   const defaults = {
     color: '',
     textColor: '',
@@ -13,19 +14,17 @@ const base = (options, action = {}) => {
     message: '',
     position: 'top-right',
     duration: 5000,
+    progress: true,
     actions: [
       {
         icon: 'close',
-        color: 'white',
+        color: options.textColor || 'white',
         handler: () => undefined,
         ...action
       }
     ]
   }
-  return {
-    ...defaults,
-    ...options
-  }
+  Notify.create({ ...defaults, ...options })
 }
 
 /**
@@ -33,7 +32,7 @@ const base = (options, action = {}) => {
  * @param options
  */
 export const toast = (message, options = {}) => {
-  Notify.create(base({ message, ...options }))
+  notifyToast(message, options)
 }
 
 /**
@@ -41,7 +40,7 @@ export const toast = (message, options = {}) => {
  * @param options
  */
 export const success = (message, options = {}) => {
-  Notify.create(base({ message, icon: 'done', ...options, color: 'positive' }))
+  notifySuccess(message, options)
 }
 
 /**
@@ -49,7 +48,7 @@ export const success = (message, options = {}) => {
  * @param options
  */
 export const error = (message, options = {}) => {
-  Notify.create(base({ message, icon: 'error_outline', ...options, color: 'negative' }))
+  notifyError(message, options)
 }
 
 /**
@@ -57,5 +56,5 @@ export const error = (message, options = {}) => {
  * @param options
  */
 export const warning = (message, options = {}) => {
-  Notify.create(base({ message, icon: 'warning', ...options, color: 'warning' }))
+  notifyWarning(message, options)
 }
