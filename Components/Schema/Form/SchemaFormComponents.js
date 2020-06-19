@@ -22,10 +22,6 @@ export default {
     domain: {
       type: String,
       required: true
-    },
-    schema: {
-      type: String,
-      required: true
     }
   },
   /**

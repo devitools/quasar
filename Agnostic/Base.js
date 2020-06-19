@@ -35,19 +35,19 @@ export default class Base {
   }
 
   /**
+   * @type {string}
+   */
+  static primaryKey = primaryKey
+
+  /**
+   * @type {string}
+   */
+  static displayKey = displayKey
+
+  /**
    * @type {Array}
    */
   whitelist = []
-
-  /**
-   * @type {string}
-   */
-  primaryKey = primaryKey
-
-  /**
-   * @type {string}
-   */
-  displayKey = displayKey
 
   /**
    * @type {Http}

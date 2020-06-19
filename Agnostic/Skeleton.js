@@ -18,7 +18,7 @@ export default class Skeleton extends Base {
   /**
    * @type {string}
    */
-  groupType = 'sections'
+  static groupType = 'sections'
 
   /**
    * @param {string} $key
@@ -311,7 +311,7 @@ export default class Skeleton extends Base {
     let data = clone(record)
 
     if (creating && !this.constructor.useUuid) {
-      delete data[this.primaryKey]
+      delete data[this.constructor.primaryKey]
     }
 
     let useDotNotation = false
@@ -384,14 +384,12 @@ export default class Skeleton extends Base {
    * @param {Object} options
    * @returns {Object}
    */
-  provideArray (options = {}) {
-    const fields = this.arrayFields ? this.arrayFields(this.getFields()) : this.$clone(this.getFields())
+  static provideArray (options = {}) {
     return {
-      schema: this.constructor.name,
-      domain: this.constructor.domain,
+      domain: this.domain,
       primaryKey: this.primaryKey,
       displayKey: this.displayKey,
-      fields: fields,
+      fields: () => this.build().getFields(),
       ...options
     }
   }
@@ -400,8 +398,7 @@ export default class Skeleton extends Base {
    * @param {Object} options
    * @returns {*}
    */
-  provideRemote (options = {}) {
-    const fields = this.remoteFields ? this.remoteFields(this.getFields()) : this.$clone(this.getFields())
+  static provideRemote (options = {}) {
     let { widget, path, query } = options
     if (widget === undefined) {
       widget = false
@@ -409,16 +406,15 @@ export default class Skeleton extends Base {
     if (path === undefined) {
       path = ''
     }
+
     return {
-      schema: this.constructor.name,
       widget: widget,
       path: path,
       query: query,
       keyValue: this.primaryKey,
       keyLabel: this.displayKey,
-      domain: this.constructor.domain,
+      domain: this.domain,
       format: (row, value) => value,
-      fields: fields,
       remote: (filter, pagination = undefined, query = {}) => {
         const where = { ...query }
         if (filter) {
@@ -444,27 +440,30 @@ export default class Skeleton extends Base {
    * @param {string} masterKey
    * @returns {*}
    */
-  provideDetail (masterKey) {
-    if (!this.constructor.activateEmbed) {
-      throw new Error(`Embed is not active on this schema (${this.constructor.domain})`)
+  static provideDetail (masterKey) {
+    if (!this.activateEmbed) {
+      throw new Error(`Embed is not active on this schema (${this.domain})`)
+    }
+
+    let build
+    const instance = () => {
+      if (!build) {
+        build = this.build()
+      }
+      return build
     }
 
     return {
-      schema: this.constructor.name,
       masterKey: masterKey,
       groupType: this.groupType,
-      domain: this.constructor.domain,
-      settings: {
-        toast: this.useToast,
-        uuid: this.useUuid
-      },
+      domain: this.domain,
       primaryKey: this.primaryKey,
       displayKey: this.displayKey,
-      hooks: () => this.getHooks(),
-      actions: () => this.getActions(),
-      groups: () => this.getGroups(),
-      fields: () => this.getFields(),
-      watches: () => this.getWatches()
+      hooks: () => instance().getHooks(),
+      actions: () => instance().getActions(),
+      groups: () => instance().getGroups(),
+      fields: () => instance().getFields(),
+      watches: () => instance().getWatches()
     }
   }
 
@@ -472,12 +471,14 @@ export default class Skeleton extends Base {
    * @param {Object} attrs
    * @return {Object}
    */
-  provideBuiltIn (attrs = {}) {
-    if (!this.constructor.activateBuiltIn) {
-      throw new Error(`BuiltIn is not active on this schema (${this.constructor.domain})`)
+  static provideBuiltIn (attrs = {}) {
+    if (!this.activateBuiltIn) {
+      throw new Error(`BuiltIn is not active on this schema (${this.domain})`)
     }
+
+    const that = this
     return {
-      ...this.provide(),
+      providing: () => that.build().provide(),
       defaults: {},
       ...attrs
     }
@@ -487,28 +488,17 @@ export default class Skeleton extends Base {
    * @returns {Object}
    */
   provide () {
-    const table = {
-      title: this.titleTable,
-      on: this.tableEvents()
-    }
-    const form = {
-      title: this.titleForm,
-      on: this.formEvents()
-    }
     return {
       schema: this.constructor.name,
-      groupType: this.groupType,
+      groupType: this.constructor.groupType,
       path: this.constructor.path,
       domain: this.constructor.domain,
       settings: {
-        toast: this.useToast,
         uuid: this.useUuid,
         whitelist: this.whitelist
       },
-      table: Object.assign(table, this.table),
-      form: Object.assign(form, this.form),
-      primaryKey: this.primaryKey,
-      displayKey: this.displayKey,
+      primaryKey: this.constructor.primaryKey,
+      displayKey: this.constructor.displayKey,
       hooks: () => this.getHooks(),
       actions: () => this.getActions(),
       groups: () => this.getGroups(),

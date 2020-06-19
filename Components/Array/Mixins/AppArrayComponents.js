@@ -14,7 +14,7 @@ export default {
     fields: {
       immediate: true,
       handler (fields) {
-        this.components = Object.values(fields)
+        this.components = Object.values(fields())
           .filter((field) => !field.$layout.formHidden)
           .reduce((accumulator, field) => {
             if (this.disable === true || field.attrs.disable === true) {

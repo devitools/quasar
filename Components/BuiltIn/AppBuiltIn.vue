@@ -33,7 +33,8 @@
 </template>
 
 <script type="text/javascript">
-import Props from '../Schema/Contracts/Props'
+import { displayKey, primaryKey } from 'src/settings/schema'
+
 import { SCOPES } from '../../Agnostic/enum'
 
 import Handler from './Mixin/AppBuiltInActionHandler'
@@ -49,7 +50,7 @@ export default {
   name: 'AppBuiltIn',
   /**
    */
-  mixins: [Props, Handler],
+  mixins: [Handler],
   /**
    */
   components: {
@@ -59,6 +60,18 @@ export default {
   /**
    */
   props: {
+    providing: {
+      type: Function,
+      required: true
+    },
+    builtIn: {
+      type: Boolean,
+      default: false
+    },
+    debuggerAllowed: {
+      type: Boolean,
+      default: true
+    },
     value: {
       type: Array,
       default: () => ([])
@@ -84,7 +97,19 @@ export default {
    */
   data () {
     return {
-      scope: SCOPES.SCOPE_ADD
+      scope: SCOPES.SCOPE_ADD,
+      path: '',
+      domain: '',
+      table: {},
+      form: {},
+      settings: {},
+      primaryKey: primaryKey,
+      displayKey: displayKey,
+      fields: () => ({}),
+      groups: () => () => ({}),
+      actions: () => ({}),
+      hooks: () => ({}),
+      watches: () => ({})
     }
   },
   /**
@@ -97,9 +122,19 @@ export default {
       return {
         ...this.$attrs,
         ...this.$props,
-        schema: '',
         debuggerAllowed: false,
-        actions: this.createActions
+        path: this.path,
+        domain: this.domain,
+        table: this.table,
+        form: this.form,
+        settings: this.settings,
+        primaryKey: this.primaryKey,
+        displayKey: this.displayKey,
+        fields: this.fields,
+        groups: this.groups,
+        actions: this.createActions,
+        hooks: this.hooks,
+        watches: this.watches
       }
     }
   },
@@ -120,6 +155,26 @@ export default {
         'builtinDestroy'
       ]
       return this.actions().filter((action) => allowed.includes(action.$key))
+    }
+  },
+  watch: {
+    providing: {
+      immediate: true,
+      handler (providing) {
+        const provide = providing()
+        this.path = provide['path']
+        this.domain = provide['domain']
+        this.table = provide['table']
+        this.form = provide['form']
+        this.settings = provide['settings']
+        this.primaryKey = provide['primaryKey']
+        this.displayKey = provide['displayKey']
+        this.fields = provide['fields']
+        this.groups = provide['groups']
+        this.actions = provide['actions']
+        this.hooks = provide['hooks']
+        this.watches = provide['watches']
+      }
     }
   }
 }

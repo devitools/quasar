@@ -7,10 +7,6 @@ export default {
       type: String,
       default: () => 'sections'
     },
-    schema: {
-      type: String,
-      default: undefined
-    },
     path: {
       type: String,
       default: () => ''

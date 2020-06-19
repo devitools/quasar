@@ -56,20 +56,19 @@ export default {
       }
     },
     /**
+     * @param {string} name
      */
-    provideBind (schema) {
+    provideBind (name) {
       if (!this.$options.schema) {
         throw new Error(`No schema defined to ${this.$options.name}`)
       }
 
-      if (this.$memory.get(schema)) {
-        this.updateBind(this.$memory.get(schema))
-        return
+      let provide = this.$memory.get(name)
+      if (!provide) {
+        provide = this.$options.schema.build().provide()
       }
-
-      const provide = this.$options.schema.build().provide()
-      this.$memory.set(schema, provide)
       this.updateBind(provide)
+      this.$memory.set(name, provide)
     }
   },
   /**
@@ -84,12 +83,12 @@ export default {
   /**
    */
   created () {
-    const schema = this.$options.name
-    if (this.$memory.get(schema)) {
-      this.provideBind(schema)
+    const name = this.$options.name
+    if (this.$memory.get(name)) {
+      this.provideBind(name)
       return
     }
 
-    window.setTimeout(() => this.provideBind(schema), 100)
+    window.setTimeout(() => this.provideBind(name), 10)
   }
 }

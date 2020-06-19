@@ -33,10 +33,6 @@ export default {
       type: String,
       required: true
     },
-    schema: {
-      type: String,
-      required: true
-    },
     scope: {
       type: String,
       required: true

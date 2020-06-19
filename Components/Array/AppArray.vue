@@ -131,7 +131,7 @@ export default {
       if (this.disable) {
         return {}
       }
-      return Object.values(this.fields)
+      return Object.values(this.fields())
         .filter((field) => !field.$layout.formHidden)
         .reduce((accumulator, field) => {
           let width

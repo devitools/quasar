@@ -9,7 +9,7 @@ export default {
       required: true
     },
     fields: {
-      type: Object,
+      type: Function,
       required: true
     },
     value: {

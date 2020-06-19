@@ -110,7 +110,6 @@ export default {
      */
     renderWhere (h) {
       const attrs = {
-        schema: this.schema,
         primaryKey: this.primaryKey,
         displayKey: this.displayKey,
         value: this[searchKey],
