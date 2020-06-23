@@ -28,6 +28,7 @@ export default {
    */
   data: () => ({
     groupSelected: '',
+    settings: {},
     domain: '',
     groupType: '',
     displayKey: '',

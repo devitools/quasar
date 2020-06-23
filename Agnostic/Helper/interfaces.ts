@@ -11,6 +11,7 @@ export interface Provide {
   fields: Function
   actions: Function
   watches: Function
+  settings?: Record<string, unknown>
 }
 
 /**
@@ -119,9 +120,27 @@ export type FieldEvent = {
  * @interface {Component}
  */
 export interface Component {
-  $getField(name: string): SchemaForm
-  $getValue(): unknown
-  $setValue(value: unknown): unknown
+  $getField (name: string): SchemaForm
+
+  $fieldFormHidden (formHidden?: boolean): SchemaForm
+
+  $fieldFormWidth (formWidth: number): SchemaForm
+
+  $fieldFormHeight (formHeight: number): SchemaForm
+
+  $fieldAttr (property: string, value: unknown): SchemaForm
+
+  $fieldFormDisabled (disable: boolean): SchemaForm
+
+  $fieldFormOrder (formOrder: number, updateOthers?: boolean): SchemaForm
+
+  $fieldTableHidden (tableHidden?: boolean): SchemaForm
+
+  $fieldTableWhere (tableWhere?: string): SchemaForm
+
+  $getValue (): unknown
+
+  $setValue (value: unknown): unknown
 }
 
 /**

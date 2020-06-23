@@ -10,6 +10,11 @@ import { SCOPES } from './enum'
  */
 export default abstract class Schema extends Skeleton {
   /**
+   * @type {boolean}
+   */
+  static useUuid = true
+
+  /**
    * Bootstrap everything
    * @param {SchemaForm | SchemaTable} $component
    */
@@ -47,6 +52,7 @@ export default abstract class Schema extends Skeleton {
   provide (): Provide {
     const schema = <typeof Schema>this.constructor
     return {
+      settings: { useUuid: schema.useUuid },
       domain: schema.domain,
       primaryKey: schema.primaryKey,
       displayKey: schema.displayKey,

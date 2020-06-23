@@ -53,6 +53,7 @@ export default {
      * @param {Provide} provide
      */
     configureProvide (provide) {
+      this.settings = provide.settings || {}
       this.domain = provide.domain
       this.groupType = provide.groupType
       this.displayKey = provide.displayKey

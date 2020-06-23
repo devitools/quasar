@@ -24,6 +24,7 @@ export default {
   /**
    */
   data: () => ({
+    settings: {},
     domain: '',
     groupType: '',
     displayKey: '',
