@@ -65,7 +65,7 @@ export default {
 
       let provide = this.$memory.get(name)
       if (!provide) {
-        provide = this.$options.schema.build(this).provide()
+        provide = this.$options.schema.build().provide()
       }
       this.updateBind(provide)
       this.$memory.set(name, provide)

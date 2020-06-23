@@ -16,7 +16,6 @@ import ConfigureActions from './Schema/Component/ConfigureActions'
 import ConfigureComponent from './Schema/Component/ConfigureComponent'
 
 import Service from '../Services/Rest'
-import { SchemaForm, SchemaTable } from 'app/@devitools/Agnostic/Helper/interfaces'
 import { OPERATORS } from './enum'
 import { clone, objectToFormData, set, unique, withSeparator } from '../Util/general'
 
@@ -37,12 +36,11 @@ abstract class Skeleton extends Base {
   public service?: unknown
 
   /**
-   * @param {SchemaForm | SchemaTable} $component
    * @return {this}
    */
-  static build ($component?: SchemaForm | SchemaTable) {
+  static build () {
     // @ts-ignore
-    return new this($component)
+    return new this()
   }
 
   /**

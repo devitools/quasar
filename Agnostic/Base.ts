@@ -121,15 +121,13 @@ export default abstract class Base {
 
   /**
    * Call schema builder method
-   * @param {SchemaForm | SchemaTable} $component
    */
-  abstract construct ($component?: SchemaForm | SchemaTable): void
+  abstract construct (): void
 
   /**
    * Bootstrap everything
-   * @param {SchemaForm | SchemaTable} $component
    */
-  bootstrap ($component?: SchemaForm | SchemaTable) {
+  bootstrap () {
   }
 
   /**
@@ -139,10 +137,9 @@ export default abstract class Base {
   }
 
   /**
-   * @param {SchemaForm | SchemaTable} $component
    * Base constructor
    */
-  constructor ($component?: SchemaForm | SchemaTable) {
+  constructor () {
     this.scopes = this.initScopes()
     this.__groups = {}
     this.__fields = {}
@@ -152,8 +149,8 @@ export default abstract class Base {
 
     this.__avoids = []
 
-    this.bootstrap($component)
-    this.construct($component)
+    this.bootstrap()
+    this.construct()
     this.timestamps()
   }
 

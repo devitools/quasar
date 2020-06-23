@@ -14,10 +14,6 @@ export default abstract class Fields extends Base {
    * @return {this}
    */
   addField ($key: string, type = 'string'): this {
-    if (!this.__fields) {
-      this.__fields = {}
-    }
-
     if (this.__fields[$key]) {
       throw new Error(`Field '${$key}' already exists`)
     }

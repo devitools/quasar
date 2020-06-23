@@ -99,25 +99,37 @@ export interface Watch {
 }
 
 /**
- * @interface {Timestamp}
+ * @type {Timestamp}
  */
-export interface Timestamp {
+export type Timestamp = {
   name: string
   type: string
 }
 
 /**
- * @interface {SchemaForm}
+ * @type {FieldEvent}
  */
-export interface SchemaForm {
-  $getField(): SchemaForm
-  $getValue(): unknown
+export type FieldEvent = {
+  $event: unknown
+  field: Field
+  parameters: Record<string, unknown>
 }
 
 /**
- * @interface {SchemaTable}
+ * @interface {Component}
  */
-export interface SchemaTable {
-  $getField(): SchemaTable
+export interface Component {
+  $getField(name: string): SchemaForm
   $getValue(): unknown
+  $setValue(value: unknown): unknown
 }
+
+/**
+ * @type {SchemaForm}
+ */
+export type SchemaForm = Component
+
+/**
+ * @type {SchemaTable}
+ */
+export type SchemaTable = Component
