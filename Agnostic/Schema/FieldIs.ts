@@ -1,68 +1,80 @@
 import { primaryKey } from 'src/settings/schema'
 import { currencyParseInput } from 'src/settings/components'
 
+import Base from '../Base'
+
 import { yesNo } from '../options'
 import { OPERATORS } from '../../Agnostic/enum'
 import { booleanFormatter, dateFormatter, format, optionFormatter, optionsFormatter } from '../../Util/formatter'
 import { uuid } from '../../Util/general'
+import {
+  fieldIsSelectFilter,
+  fieldIsSelectNewValue,
+  fieldIsSelectWatch
+} from './Component/select'
+import { fieldIsEmbedWatch } from './Component/embed'
 
 /**
- * @typedef {Object} FieldIs
+ * @class {FieldIs}
  */
-export default {
+export default abstract class FieldIs extends Base {
   /**
    * @param {Object} options
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
-  fieldAsPrimaryKey (options = {}) {
+  fieldAsPrimaryKey (options: Record<string, unknown> = {}) {
     options = {
       tableWith: '80px',
       formWidth: 100,
       tableShow: false,
       key: primaryKey,
-      label: '',
       hiddenForm: true,
       ...options
     }
-    return this.addField(options.key, options.label, String)
+    const self = this.$self()
+
+    // @ts-ignore
+    this.addField(options.key, String)
       .fieldTableWidth(options.tableWith)
       .fieldFormWidth(options.formWidth)
       .fieldTableShow(options.tableShow)
       .fieldFormHidden(options.hiddenForm)
       .fieldFormDisabled(true)
-      .fieldFormDefaultValue(this.constructor.useUuid ? uuid() : undefined)
+      .fieldFormDefaultValue(self.useUuid ? uuid() : undefined)
       .fieldPrimaryKey()
-  },
+
+    return this
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldAsZip (attrs = {}) {
     this.setAttrs({ mask: '#####-###', unmaskedValue: true, placeholder: 'ex.: 39500-201' })
     this.setType('string')
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldAsPhone (attrs = {}) {
     this.setAttrs({ mask: '(##) ####-####', unmaskedValue: true, placeholder: 'ex.: (21) 3289-3950' })
     this.setType('string')
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldAsCell (attrs = {}) {
     this.setAttrs({ mask: '(##) #####-####', unmaskedValue: true, placeholder: 'ex.: (44) 98956-3049' })
     this.setType('string')
     return this
-  },
+  }
 
   /**
    * Mask tokens:
@@ -78,16 +90,16 @@ export default {
    * |------|----------------------------------------------------|
    *
    * @param {string} mask
-   * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @param {Record<string, unknown>} attrs
+   * @returns {Schema}
    */
-  fieldAsMasked (mask, attrs = {}) {
+  fieldAsMasked (mask: string, attrs: Record<string, unknown> = {}) {
     let { placeholder, tableFormat } = attrs
     if (!placeholder) {
       placeholder = mask.replace(/#/g, '9')
     }
     if (!tableFormat) {
-      tableFormat = (value) => format(value, mask)
+      tableFormat = (value: string) => format(value, mask)
     }
     this.setAttrs({
       mask,
@@ -98,23 +110,23 @@ export default {
     this.setLayout({ tableFormat })
     this.setType('string')
     return this
-  },
+  }
 
   /**
    * @param {number} maxlength
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsInput (maxlength = 255, attrs = {}) {
     this.setComponent('input')
     this.setAttrs({ ...attrs, maxlength })
     this.setType('string')
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsNumber (attrs = {}) {
     this.setComponent('number')
@@ -122,45 +134,45 @@ export default {
     this.setLayout({ tableWhere: OPERATORS.EQUAL })
     this.setType('number')
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsPassword (attrs = {}) {
     this.setComponent('password')
     this.setAttrs({ ...attrs })
     this.setType('string')
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsEmail (attrs = {}) {
     this.setComponent('email')
     this.setAttrs({ ...attrs })
     this.setType('string')
     return this
-  },
+  }
 
   /**
    * @param {Number} rows
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsText (rows = 4, attrs = {}) {
     this.setComponent('text')
     this.setAttrs({ ...attrs, rows })
     this.setType('text')
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsCheckbox (attrs = {}) {
     this.setComponent('checkbox')
@@ -168,16 +180,18 @@ export default {
     this.setLayout({ tableFormat: booleanFormatter })
     this.setType('boolean')
     return this
-  },
+  }
 
   /**
-   * @param {Array} options
+   * @param {Record<string, unknown>[]} options
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
-  fieldIsRadio (options = undefined, attrs = {}) {
-    if (!options) {
-      options = this.$lang(`domains.${this.constructor.domain}.fields.${this.__currentField}.options`, undefined)
+  fieldIsRadio (options: Record<string, unknown>[] = [], attrs: Record<string, unknown> = {}) {
+    const self = this.$self()
+    if (!options.length) {
+      // @ts-ignore
+      options = this.$lang(`domains.${self.domain}.fields.${this.__currentField}.options`, undefined)
     }
     if (!Array.isArray(options)) {
       options = yesNo
@@ -187,18 +201,20 @@ export default {
     this.setLayout({ tableWhere: OPERATORS.EQUAL, tableFormat: optionsFormatter(options) })
     this.setType('select')
     return this
-  },
+  }
 
   /**
-   * @param {Array} options
-   * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @param {: Record<string, unknown>[]} options
+   * @param {Record<string, unknown>} attrs
+   * @returns {Schema}
    */
-  fieldIsSelect (options = undefined, attrs = {}) {
+  fieldIsSelect (options: Record<string, unknown>[] = [], attrs: Record<string, unknown> = {}) {
     const currentField = this.__currentField
 
-    if (!options) {
-      options = this.$lang(`domains.${this.constructor.domain}.fields.${currentField}.options`)
+    if (!options.length) {
+      const self = this.$self()
+      // @ts-ignore
+      options = this.$lang(`domains.${self.domain}.fields.${currentField}.options`)
     }
 
     this.setAttrs({
@@ -211,98 +227,48 @@ export default {
 
     this.setComponent('select')
 
-    this.setOn('filter', function ({ $event, parameters }) {
-      const field = this.components[currentField]
+    this.setOn('filter', fieldIsSelectFilter(currentField))
 
-      if (!field.attrs.__options) {
-        field.attrs.__options = field.attrs.options
-      }
-      const original = field.attrs.__options
-
-      const update = parameters[0]
-      update(() => {
-        if ($event === '') {
-          field.attrs.options = original
-          return
-        }
-
-        const needle = String($event).toLowerCase()
-        const compare = (term) => {
-          return String(term)
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .toLowerCase()
-            .includes(needle)
-        }
-
-        field.attrs.options = original.filter((candidate) => {
-          if (typeof candidate === 'string') {
-            return compare(candidate)
-          }
-          if (candidate && candidate.label) {
-            return compare(candidate.label)
-          }
-          return false
-        })
-      })
-    })
-
-    this.addWatch(`record.${currentField}`, function (value) {
-      const field = this.components[currentField]
-      if (!field.attrs.__placeholder) {
-        field.attrs.__placeholder = field.attrs.placeholder
-      }
-      if (value) {
-        field.attrs.placeholder = ''
-        return
-      }
-      field.attrs.placeholder = field.attrs.__placeholder
-    })
+    // @ts-ignore
+    this.addWatch(`record.${currentField}`, fieldIsSelectWatch(currentField))
 
     const { allowNew } = attrs
     if (allowNew) {
       this.setAttrs({ useChips: true })
-      this.setOn('new-value', function ({ $event, field, parameters }) {
-        const done = parameters[0]
-        if ($event.length > 2) {
-          if (!field.attrs.options.includes($event)) {
-            done($event, 'add-unique')
-          }
-        }
-      })
+      this.setOn('new-value', fieldIsSelectNewValue())
     }
 
     this.setLayout({ tableFormat: optionsFormatter(options), tableWhere: OPERATORS.EQUAL })
     this.setType('select')
     return this
-  },
+  }
 
   /**
-   * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @param {Record<string, unknown>} attrs
+   * @returns {Schema}
    */
-  fieldIsSelectRemote (attrs = {}) {
+  fieldIsSelectRemote (attrs: Record<string, unknown> = {}) {
     this.setComponent('remote')
     this.setAttrs(attrs)
     this.setLayout({ tableFormat: optionFormatter(attrs.keyLabel), tableWhere: OPERATORS.EQUAL })
     this.setType('select')
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsSelectRemoteMultiple (attrs = {}) {
     this.setComponent('remoteMultiple')
     this.setAttrs(attrs)
     this.setType('array')
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsToggle (attrs = {}) {
     this.setComponent('toggle')
@@ -310,11 +276,11 @@ export default {
     this.setLayout({ tableFormat: booleanFormatter })
     this.setType('boolean')
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsDate (attrs = {}) {
     this.setComponent('date')
@@ -322,11 +288,11 @@ export default {
     this.setType('date')
     this.__configureDateTableFormat()
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsDatetime (attrs = {}) {
     this.setComponent('datetime')
@@ -337,7 +303,7 @@ export default {
     }
     this.setType('datetime')
     return this
-  },
+  }
 
   /**
    * @private
@@ -346,59 +312,59 @@ export default {
     const name = this.__currentField
     const { display, format } = this.__fields[name].attrs
     this.setLayout({
-      tableFormat: (value) => dateFormatter(value, display, format) || ''
+      tableFormat: (value: string) => dateFormatter(value, String(display), String(format)) || ''
     })
-  },
+  }
 
   /**
    * @param {number} maxlength
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsInputPlan (maxlength = 255, attrs = {}) {
     this.setComponent('plan')
     this.setAttrs({ ...attrs, maxlength })
     this.setType('string')
     return this
-  },
+  }
 
   /**
    * @param {number} maxlength
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsUrl (maxlength = 255, attrs = {}) {
     this.setComponent('plan')
     this.setAttrs({ placeholder: 'ex.: https://quasar.dev', ...attrs, maxlength })
     this.setType('string')
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsArray (attrs = {}) {
     this.setIs('AppArray')
     this.setAttrs({ ...attrs })
     this.setType('array')
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsBuiltIn (attrs = {}) {
     this.setIs('AppBuiltIn')
     this.setAttrs({ ...attrs, uppercase: false })
     this.setType('array')
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsCurrency (attrs = {}) {
     this.setComponent('currency')
@@ -412,14 +378,14 @@ export default {
     })
     this.setType('currency')
     return this
-  },
+  }
 
   /**
    * @param {function} click
-   * @param {Object} options
-   * @returns {Schema|Skeleton}
+   * @param {Record<string, unknown>} options
+   * @returns {Schema}
    */
-  fieldIsButton (click, options = {}) {
+  fieldIsButton (click: Function, options: Record<string, unknown> = {}) {
     this.setIs('AppButton')
     if (!options.label) {
       options.label = this.$lang(`fields.${this.__currentField}.caption`)
@@ -427,31 +393,34 @@ export default {
     const attrs = { ...options, click }
     this.setAttrs(attrs)
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsEmbed (attrs = {}) {
     this.setIs('AppEmbed')
     this.setAttrs({ ...attrs })
     this.setType('undefined')
     const foreignKey = this.__currentField
-    this.addWatch(`record.${this.primaryKey}`, function (value) {
-      this.$getField(foreignKey).$setValue(value)
-    })
+
+    const self = this.$self()
+    // @ts-ignore
+    this.addWatch(`record.${self.primaryKey}`, fieldIsEmbedWatch(foreignKey))
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
-  fieldIsTree (attrs = {}) {
+  fieldIsTree (attrs: Record<string, unknown> = {}) {
+    const self = this.$self()
+
     this.setIs('AppTree')
     if (!attrs.nodes) {
-      attrs.nodes = this.$lang(`domains.${this.constructor.domain}.fields.${this.__currentField}.nodes`, [])
+      attrs.nodes = this.$lang(`domains.${self.domain}.fields.${this.__currentField}.nodes`, [])
     }
     if (!attrs.open) {
       attrs['default-expand-all'] = true
@@ -459,41 +428,41 @@ export default {
     this.setAttrs({ nodeKey: 'id', tickStrategy: 'leaf', ...attrs })
     this.setType('array')
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsImage (attrs = {}) {
     this.setComponent('image')
     this.setAttrs({ ...attrs })
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsFile (attrs = {}) {
     this.setComponent('file')
     this.setAttrs(attrs)
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsFileSync (attrs = {}) {
     this.setComponent('fileSync')
     this.setAttrs(attrs)
     return this
-  },
+  }
 
   /**
    * @param {Object} attrs
-   * @returns {Schema|Skeleton}
+   * @returns {Schema}
    */
   fieldIsInternationalPhone (attrs = {}) {
     this.setComponent('phoneInternational')

@@ -1,14 +1,32 @@
-import { reject } from '../../Util/general'
-import { SCOPES } from '../enum'
+import { defaultActions } from 'src/settings/action'
+
+import { reject } from '../../../Util/general'
+import { SCOPES } from '../../enum'
+import initialize from './initialize'
 
 /**
+ * @class {ConfigureComponent}
  */
-export default {
+export default class ConfigureComponent {
+  /**
+   * Component created hook
+   * @param {Schema} schema
+   */
+  createdHook (schema) {
+    // will override by schemas
+  }
+
+  /**
+   */
+  configureActions () {
+    defaultActions(this)
+  }
+
   /**
    * Method that perform all configure events
    * It call the methods of all default scopes
    */
-  defaultCreated () {
+  configureComponentInitialization () {
     const schema = this
 
     this.addHook('created:default', function () {
@@ -20,19 +38,8 @@ export default {
       // call configure of each field
       this.configure()
 
-      // call global prototype configure
-      schema.beforeCreateHook.call(this)
-
-      const scopeHook = `createdHook${this.scope.toCamelCase(true)}`
-      if (schema[scopeHook]) {
-        /**
-         * @fires.createdHookScopeIndex
-         * @fires.createdHookScopeAdd
-         * @fires.createdHookScopeEdit
-         * @fires.createdHookScopeView
-         * @fires.createdHookScopeTrash
-         */
-        schema[scopeHook].call(this, schema)
+      if (initialize[this.scope]) {
+        initialize[this.scope].call(this, schema)
       }
 
       // call global prototype configure
@@ -41,13 +48,13 @@ export default {
        */
       schema.createdHook.call(this, schema)
     })
-  },
+  }
 
   /**
    * Install hook to handle the data event fetchRecords
    * The hook 'request:records' is triggered when component needs a list of entity
    */
-  defaultRequestRecords () {
+  configureRequestRecords () {
     const schema = this
 
     this.addHook('request:records', function ({ parameters, filters }) {
@@ -57,13 +64,13 @@ export default {
       const trash = this.$route.meta.scope === SCOPES.SCOPE_TRASH
       return schema.$service().paginate(parameters, filters, trash)
     })
-  },
+  }
 
   /**
    * Install hook to handle the data event fetchRecord
    * The hook 'request:record' is triggered when component need a record of entity
    */
-  defaultRequestRecord () {
+  configureRequestRecord () {
     const schema = this
 
     this.addHook('request:record', function ({ id }) {

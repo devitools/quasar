@@ -1,5 +1,5 @@
 /**
- * @type {Object}
+ * @type {Readonly<{SCOPE_REMOVE: string, SCOPE_ADD: string, SCOPE_EDIT: string, SCOPE_TRASH: string, SCOPE_INDEX: string, SCOPE_VIEW: string}>}
  */
 export const SCOPES = Object.freeze({
   SCOPE_INDEX: 'scope-index',
@@ -7,13 +7,7 @@ export const SCOPES = Object.freeze({
   SCOPE_VIEW: 'scope-view',
   SCOPE_EDIT: 'scope-edit',
   SCOPE_REMOVE: 'scope-remove',
-  SCOPE_TRASH: 'scope-trash',
-  SCOPE_MASTER_DETAIL_INDEX: 'scope-master-detail-index',
-  SCOPE_MASTER_DETAIL_ADD: 'scope-master-detail-add',
-  SCOPE_MASTER_DETAIL_VIEW: 'scope-master-detail-view',
-  SCOPE_MASTER_DETAIL_EDIT: 'scope-master-detail-edit',
-  SCOPE_MASTER_DETAIL_REMOVE: 'scope-master-detail-remove',
-  SCOPE_MASTER_DETAIL_TRASH: 'scope-master-detail-trash'
+  SCOPE_TRASH: 'scope-trash'
 })
 
 /**
@@ -22,7 +16,7 @@ export const SCOPES = Object.freeze({
 export const scopes = () => Object.values(SCOPES)
 
 /**
- * @type {Object}
+ * @type {Readonly<{POSITION_TABLE_SEARCH: string, POSITION_FORM_FOOTER: string, POSITION_TABLE_TOP: string, POSITION_TABLE_FLOAT: string, POSITION_TABLE_CELL: string}>}
  */
 export const POSITIONS = Object.freeze({
   POSITION_TABLE_TOP: 'table-top',
@@ -38,7 +32,7 @@ export const POSITIONS = Object.freeze({
 export const positions = () => Object.values(POSITIONS)
 
 /**
- * @type {Readonly<{Object}>}
+ * @type {Readonly<{CURRENCY: string, AUTOMATIC: string, NIN: string, LIKE: string, IN: string, EQUAL: string, NOT_EQUAL: string}>}
  */
 export const OPERATORS = Object.freeze({
   EQUAL: 'eq',

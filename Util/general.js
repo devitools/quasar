@@ -5,7 +5,7 @@ import { SEPARATION_OPERATOR } from 'src/settings/schema'
 import { replacement } from './string'
 
 /**
- * @param {Object} element
+ * @param {unknown} element
  * @param {String|Array} path
  * @param {*} fallback
  * @returns {*}
@@ -50,7 +50,7 @@ export const get = (element, path, fallback = undefined) => {
  * @param {Object|Array} element
  * @param {string|Array} path
  * @param {*} value
- * @returns {boolean}
+ * @returns {Record<string, unknown>}
  */
 export const set = (element, path, value) => {
   if (Object(element) !== element) {
@@ -236,7 +236,7 @@ export const mergeDeep = (target, ...sources) => {
 }
 
 /**
- * @param {Object} object
+ * @param {unknown} object
  * @param {string} prefix
  * @returns {string}
  */
@@ -263,7 +263,7 @@ export const serialize = (object, prefix = '') => {
 /**
  * @param {string} url
  * @param {string} prefix
- * @returns {Object}
+ * @returns {Record<string, unknown>}
  */
 export const unSerialize = (url, prefix = '') => {
   const object = {}

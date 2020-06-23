@@ -1,16 +1,17 @@
 import { primaryKey } from 'src/settings/schema'
-import { createAction, updateAction, destroyAction } from 'src/settings/executors'
+import { createAction, destroyAction, updateAction } from 'src/settings/executors'
 import { SCOPES } from '../../enum'
 import { reject } from '../../../Util/general'
 
 /**
+ * @class {ConfigureActions}
  */
-export default {
+export default class ConfigureActions {
   /**
    */
   actionBack () {
     this.$browse(-1)
-  },
+  }
 
   /**
    * @return {Promise|undefined}
@@ -25,18 +26,21 @@ export default {
       components: this.components,
       record: this.record
     })
-  },
+  }
 
   /**
    * @returns {Object}
    */
   actionHome () {
     if (this.$route.meta.scope === SCOPES.SCOPE_VIEW && this.$route.query.trash) {
-      this.$browse(`${this.getActionPath()}/trash`, { keep: true, exclude: 'trash' })
+      this.$browse(`${this.getActionPath()}/trash`, {
+        keep: true,
+        exclude: 'trash'
+      })
       return
     }
     this.$browse(this.getActionPath(), true)
-  },
+  }
 
   /**
    * @param {Schema} schema
@@ -84,7 +88,7 @@ export default {
 
     const success = createAction(after, action)
     this.withRecord({ record }, success.bind(this))
-  },
+  }
 
   /**
    * @param {Schema} schema
@@ -126,7 +130,7 @@ export default {
     }
     const success = updateAction(after, action)
     this.withRecord({ record }, success.bind(this))
-  },
+  }
 
   /**
    * @param {Schema} schema
@@ -169,8 +173,11 @@ export default {
     }
 
     const success = destroyAction(after, executor, erase)
-    this.withRecords({ record, records }, success.bind(this))
-  },
+    this.withRecords({
+      record,
+      records
+    }, success.bind(this))
+  }
 
   /**
    * @param {Object} payload
@@ -185,7 +192,7 @@ export default {
       this.$browse(target, true)
     }
     this.withRecord(payload, view)
-  },
+  }
 
   /**
    * @param {Object} payload
@@ -193,7 +200,7 @@ export default {
   actionEdit (payload) {
     const edit = (record) => this.$browse(`${this.getActionPath()}/${record[this.primaryKey]}/edit`, true)
     this.withRecord(payload, edit)
-  },
+  }
 
   /**
    */
@@ -202,19 +209,19 @@ export default {
       return this.$alert(this.$lang('agnostic.actions.sortClear.noSort'))
     }
     this.$browse({ query: { sort: undefined } }, true)
-  },
+  }
 
   /**
    */
   actionRefresh () {
     this.fetchRecords()
-  },
+  }
 
   /**
    */
   actionTrash () {
     this.$browse(`${this.getActionPath()}/trash`, false)
-  },
+  }
 
   /**
    * @param {Object} payload
@@ -257,20 +264,20 @@ export default {
         .catch(ignore)
     }
     this.withRecords(payload, restore)
-  },
+  }
 
   /**
    */
   actionAdd () {
     this.$browse(`${this.getActionPath()}/add`, true)
-  },
+  }
 
   /**
    * @component {SchemaTableWhere}
    */
   actionSearch () {
     this.searchApply()
-  },
+  }
 
   /**
    * @component {SchemaTableWhere}

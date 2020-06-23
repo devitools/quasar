@@ -1,17 +1,17 @@
-import { $store } from 'src/store'
-
 import { filterKey, primaryKey, searchKey } from 'src/settings/schema'
-import { parseRestRecords, parseRestRecord } from 'src/settings/rest'
+import { parseRestRecord, parseRestRecords } from 'src/settings/rest'
+
+import Http from '@devitools/Services/Http'
+import { Pagination } from '../Agnostic/Helper/interfaces'
+import { $store } from 'src/store'
 
 import { get, is, serialize, unSerialize, withoutSeparator } from '../Util/general'
 import { replacement } from '../Util/string'
 
-import Http from './Http'
-
 /**
  * @class {Rest}
  */
-export default class Rest extends Http {
+export default abstract class Rest extends Http {
   /**
    * @type {string}
    */
@@ -48,11 +48,11 @@ export default class Rest extends Http {
   filterable = []
 
   /**
-   * @param {Record<string, any>|FormData} record
-   * @param {Record<string, any>} config
+   * @param {string | number | Record<string, unknown> | FormData} record
+   * @param {Record<string, unknown>} config
    * @returns {Promise}
    */
-  create (record, config = {}) {
+  create (record: string | number | Record<string, unknown> | FormData, config: Record<string, unknown> = {}) {
     if ($store.getters['app/getOffline'] || this.offline) {
       return new Promise((resolve, reject) => {
         reject('Unsupported action create')
@@ -62,12 +62,12 @@ export default class Rest extends Http {
   }
 
   /**
-   * @param {string | number | Record<string, any>} record
+   * @param {string | number | Record<string, unknown> | FormData} record
    * @param {boolean} trash
-   * @param {Record<string, any>} config
+   * @param {Record<string, unknown>} config
    * @returns {Promise}
    */
-  read (record, trash = false, config = {}) {
+  read (record: string | number | Record<string, unknown> | FormData, trash = false, config: Record<string, unknown> = {}) {
     let queryString = ''
     if (trash) {
       queryString = '?trash=true'
@@ -77,15 +77,19 @@ export default class Rest extends Http {
       return this.readOffline(record, trash)
     }
     const url = `${this.getResource()}/${this.getId(record)}${queryString}`
-    return this.get(url, config).then(parseRestRecord())
+    // @ts-ignore
+    const parse = parseRestRecord()
+    return this
+      .get(url, config)
+      .then((response) => parse(response))
   }
 
   /**
-   * @param {Record<string, any>|FormData} record
-   * @param {Record<string, any>} config
+   * @param {string | number | Record<string, unknown> | FormData} record
+   * @param {Record<string, unknown>} config
    * @returns {Promise}
    */
-  update (record, config = {}) {
+  update (record: string | number | Record<string, unknown> | FormData, config: Record<string, unknown> = {}) {
     if ($store.getters['app/getOffline'] || this.offline) {
       return this.updateOffline(record)
     }
@@ -100,11 +104,11 @@ export default class Rest extends Http {
   }
 
   /**
-   * @param {Record<string, any>} record
-   * @param {Record<string, any>} config
-   * @returns {Promise<any>}
+   * @param {Record<string, unknown>} record
+   * @param {Record<string, unknown>} config
+   * @returns {Promise<unknown>}
    */
-  destroy (record, config = {}) {
+  destroy (record: string | number | Record<string, unknown> | FormData, config: Record<string, unknown> = {}) {
     if ($store.getters['app/getOffline'] || this.offline) {
       return new Promise((resolve, reject) => {
         reject('Unsupported action create')
@@ -117,22 +121,23 @@ export default class Rest extends Http {
   }
 
   /**
-   * @param {Record<string, any>} record
-   * @param {Record<string, any>} config
+   * @param {record: string | number | Record<string, unknown> | FormData} record
+   * @param {Record<string, unknown>} config
    * @returns {Promise}
    */
-  restore (record, config = {}) {
+  restore (record: string | number | Record<string, unknown> | FormData, config: Record<string, unknown> = {}) {
     const url = `${this.getResource()}/${this.getId(record)}/restore`
-    return this.put(url, null, config)
+    return this.put(url, undefined, config)
   }
 
   /**
    * @param {Record<string, string | number>} parameters
    * @param {Array<string>} [filters] = []
    * @param {boolean} [trash] = false
-   * @returns {Promise}
+   * @return {Promise<Pagination>}
    */
-  paginate (parameters, filters, trash = false) {
+  paginate (parameters: Record<string, unknown>, filters?: string[], trash?: boolean): Promise<Pagination> {
+    // paginate (parameters, filters, trash = false) {
     const { pagination, [filterKey]: filter, [searchKey]: where, raw } = parameters
 
     const size = get(pagination, 'rowsPerPage', this.size)
@@ -150,9 +155,11 @@ export default class Rest extends Http {
       return this.searchOffline({ page, size, sort, filter, where, raw, trash })
     }
 
+    // @ts-ignore
+    const parse = parseRestRecords({ rowsPerPage: size, sortBy, descending, page })
     return this
       .search({ page, size, sort, filter, where, raw, trash })
-      .then(parseRestRecords({ rowsPerPage: size, sortBy, descending, page }))
+      .then((response) => parse(response))
   }
 
   /**
@@ -161,17 +168,17 @@ export default class Rest extends Http {
    * @param {Object} config
    * @returns {Promise}
    */
-  search (parameters = {}, config = {}) {
+  search (parameters = {}, config: Record<string, unknown> = {}) {
     const queryString = this.searchQueryString(parameters, '&')
     return this.get(`${this.getResource()}?${queryString}`, config)
   }
 
   /**
-   * @param {Object} parameters
+   * @param {Record<string, unknown>} parameters
    * @param {string} separator
    * @returns {string}
    */
-  searchQueryString (parameters = {}, separator) {
+  searchQueryString (parameters: Record<string, unknown> = {}, separator: string) {
     const elements = []
     const { raw, page, size, sort, filter, where, trash } = parameters
     if (is(page)) {
@@ -199,12 +206,12 @@ export default class Rest extends Http {
   }
 
   /**
-   * @param {Array} records
+   * @param {string[]} records
    * @param {Object} config
    * @returns {Promise}
    */
-  remove (records, config = {}) {
-    const callback = (record) => this.getId(record)
+  remove (records: string[], config: Record<string, unknown> = {}) {
+    const callback = (record: string) => this.getId(record)
     const remove = records.map(callback).join(',')
     const { erase } = config
     const _erase = erase ? '/erase' : ''
@@ -215,11 +222,11 @@ export default class Rest extends Http {
   }
 
   /**
-   * @param {Record<string, any>} resourceParams
+   * @param {Record<string, unknown>} resourceParams
    * @param {boolean} override
    * @returns {this}
    */
-  resourceParams (resourceParams, override = true) {
+  resourceParams (resourceParams: Record<string, unknown>, override = true) {
     if (!override && is(this.__resourceParams)) {
       return this
     }
@@ -238,26 +245,26 @@ export default class Rest extends Http {
   }
 
   /**
-   * @param {string | number | Record<string, any>} record
+   * @param {record: string | number | Record<string, unknown> | FormData} record
    * @returns {string}
    */
-  getId (record) {
+  getId (record: string | number | Record<string, unknown> | FormData): string {
     if (typeof record === 'string' || typeof record === 'number') {
-      return record
+      return String(record)
     }
     if (record instanceof FormData) {
-      return record.get(this.primaryKey)
+      return String(record.get(this.primaryKey))
     }
-    return record[this.primaryKey]
+    return String(record[this.primaryKey])
   }
 
   /**
-   * @param {string | number | Record<string, any>} record
+   * @param {string | number | Record<string, unknown> | FormData} record
    * @param {boolean} trash
    * @returns {Promise}
    */
-  readOffline (record, trash = false) {
-    const executor = (resolve) => {
+  readOffline (record: string | number | Record<string, unknown> | FormData, trash = false) {
+    const executor = (resolve: Function) => {
       const read = () => {
         const id = this.getId(record)
         const data = this.getOfflineRecord(id)
@@ -270,11 +277,11 @@ export default class Rest extends Http {
   }
 
   /**
-   * @param {Record<string, any>} record
+   * @param {string | number | Record<string, unknown> | FormData} record
    * @returns {Promise}
    */
-  updateOffline (record) {
-    const executor = (resolve, reject) => {
+  updateOffline (record: string | number | Record<string, unknown> | FormData) {
+    const executor = (resolve: Function, reject: Function) => {
       const update = () => {
         const id = this.getId(record)
         const data = this.getOfflineRecord(id)
@@ -282,7 +289,11 @@ export default class Rest extends Http {
           reject({ type: 'notFound' })
           return
         }
-        record = { ...data, ...record }
+        if (typeof record === 'object') {
+          record = { ...data, ...record }
+        } else {
+          record = data
+        }
         const response = this.setOfflineRecord(id, record)
         resolve(response)
       }
@@ -293,28 +304,30 @@ export default class Rest extends Http {
 
   /**
    * @param {Object} parameters
-   * @returns {Promise}
+   * @returns {Promise<Pagination>}
    */
-  searchOffline (parameters) {
-    const executor = (resolve) => {
+  searchOffline (parameters: Record<string, unknown>): Promise<Pagination> {
+    const executor = (resolve: Function) => {
       const search = () => {
         // sort, raw, trash
         const { page, size: rowsPerPage, where, filter } = parameters
 
-        const records = this.getOfflineRecords().filter((record) => {
-          if (is(where)) {
-            return this.searchOfflineWhere(record, where)
-          }
-          if (is(filter)) {
-            return this.searchOfflineFilter(record, filter)
-          }
-          return true
-        })
+        const records = this
+          .getOfflineRecords()
+          .filter((record: Record<string, unknown>) => {
+            if (is(where)) {
+              return this.searchOfflineWhere(record, String(where))
+            }
+            if (is(filter)) {
+              return this.searchOfflineFilter(record, String(filter))
+            }
+            return true
+          })
 
         const rowsNumber = records.length
-        const pagesNumber = Math.ceil(rowsNumber / rowsPerPage)
-        const offset = (page - 1) * rowsPerPage
-        const rows = records.slice(offset, offset + rowsPerPage)
+        const pagesNumber = Math.ceil(rowsNumber / Number(rowsPerPage))
+        const offset = (Number(page) - 1) * Number(rowsPerPage)
+        const rows = records.slice(offset, offset + Number(rowsPerPage))
 
         resolve({ rows, rowsPerPage, rowsNumber, pagesNumber, page })
       }
@@ -324,12 +337,12 @@ export default class Rest extends Http {
   }
 
   /**
-   * @param {Record<string, any>} record
+   * @param {Record<string, unknown>} record
    * @param {string} where
    * @returns {boolean}
    */
-  searchOfflineWhere (record, where) {
-    const unSerialized = unSerialize(where, searchKey)
+  searchOfflineWhere (record: Record<string, unknown>, where: string) {
+    const unSerialized: Record<string, unknown> = unSerialize(where, searchKey)
     for (const key in unSerialized) {
       if (!unSerialized.hasOwnProperty(key)) {
         continue
@@ -343,15 +356,16 @@ export default class Rest extends Http {
   }
 
   /**
-   * @param {Record<string, any>} record
+   * @param {Record<string, unknown>} record
    * @param {string} filter
    * @returns {boolean}
    */
-  searchOfflineFilter (record, filter) {
+  searchOfflineFilter (record: Record<string, unknown>, filter: string) {
     for (const field in record) {
       if (!record.hasOwnProperty(field)) {
         continue
       }
+      // @ts-ignore
       if (!this.filterable.includes(field)) {
         continue
       }
@@ -370,9 +384,11 @@ export default class Rest extends Http {
     if (!this.$store) {
       return []
     }
+    // @ts-ignore
     if (!Array.isArray(this.$store.state.records)) {
       return []
     }
+    // @ts-ignore
     return this.$store.state.records
   }
 
@@ -381,21 +397,22 @@ export default class Rest extends Http {
    * @returns {Object}
    * @private
    */
-  getOfflineRecord (id) {
+  getOfflineRecord (id: string) {
     const records = this.getOfflineRecords()
-    return records.find((record) => record[this.primaryKey] === id)
+    return records.find((record: Record<string, unknown>) => record[this.primaryKey] === id)
   }
 
   /**
    * @param {string} id
-   * @param {Object} record
+   * @param {string | number | Record<string, unknown> | FormData} record
    * @returns {Object}
    * @private
    */
-  setOfflineRecord (id, record) {
+  setOfflineRecord (id: string, record: string | number | Record<string, unknown> | FormData) {
     if (!this.$store) {
       return undefined
     }
+    // @ts-ignore
     this.$store.commit('updateRecord', record)
     return { data: { ticket: id } }
   }

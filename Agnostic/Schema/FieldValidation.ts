@@ -1,215 +1,219 @@
+import Base from '../Base'
+// @ts-ignore
 import { helpers } from 'vuelidate/lib/validators'
 
 import { withValidation } from '../../Util/validation'
 
 /**
+ * @class {FieldTable}
  */
-export default {
+export default abstract class FieldTable extends Base {
   /**
    * @param {string} alias
    * @param {Function|Object|Array|number|string} options
-   * @returns {Schema|Skeleton}
+   * @returns {this}
    */
-  validationAdd (alias, options) {
+  validationAdd (alias: string, options: unknown): this {
     const name = this.__currentField
     this.__fields[name].$validations[alias] = options
     return this
-  },
+  }
 
   /**
    * Register custom validator to field
    * @param {string} alias
    * @param {function} handler
-   * @returns {Schema|Skeleton}
+   * @returns {this}
    */
-  validationAs (alias, handler) {
+  validationAs (alias: string, handler: Function): this {
     return this.validationAdd(alias, withValidation(handler))
-  },
+  }
 
   /**
    * Requires non-empty data. Checks for empty arrays and strings containing only whitespaces.
    * @param {Boolean} required
-   * @returns {Schema|Skeleton}
+   * @returns {this}
    */
-  validationRequired (required = true) {
+  validationRequired (required = true): this {
     return this.validationAdd('required', required)
-  },
+  }
 
   /**
    * Requires non-empty data only if provided property or predicate is true.
-   * @params locator
-   * @returns {Schema|Skeleton}
+   * @params {Function} locator
+   * @returns {this}
    */
-  validationRequiredIf (locator) {
+  validationRequiredIf (locator: Function): this {
     return this.validationAdd('requiredIf', locator)
-  },
+  }
 
   /**
    * Requires non-empty data only if provided property or predicate is true.
-   * @params {function} criteria
-   * @returns {Schema|Skeleton}
+   * @params {Function} criteria
+   * @returns {this}
    */
-  validationRequiredWhen (criteria) {
-    return this.validationAdd('requiredIf', function (value) {
+  validationRequiredWhen (criteria: Function): this {
+    return this.validationAdd('requiredIf', function (value: unknown) {
+      // @ts-ignore
       const validate = criteria.call(this)
       if (!validate) {
         return true
       }
       return !!value
     })
-  },
+  }
 
   /**
    * Requires non-empty data only if provided property or predicate is false.
-   * @params locator
-   * @returns {Schema|Skeleton}
+   * @params {Function} locator
+   * @returns {this}
    */
-  validationRequiredUnless (locator) {
+  validationRequiredUnless (locator: Function): this {
     return this.validationAdd('requiredUnless', locator)
-  },
+  }
 
   /**
    * Requires the input to have a minimum specified length, inclusive. Works with arrays.
-   * @param {Number} minLength
-   * @returns {Schema|Skeleton}
+   * @param {number} minLength
+   * @returns {this}
    */
-  validationMinLength (minLength = 3) {
+  validationMinLength (minLength = 3): this {
     return this.validationAdd('minLength', [minLength])
-  },
+  }
 
   /**
    * Requires the input to have a maximum specified length, inclusive. Works with arrays.
-   * @param {Number} maxLength
-   * @returns {Schema|Skeleton}
+   * @param {number} maxLength
+   * @returns {this}
    */
-  validationMaxLength (maxLength = 10) {
+  validationMaxLength (maxLength = 10): this {
     return this.validationAdd('maxLength', [maxLength])
-  },
+  }
 
   /**
    * Requires entry to have a specified minimum numeric value or Date.
-   * @params min
-   * @returns {Schema|Skeleton}
+   * @params {number} min
+   * @returns {this}
    */
-  validationMinValue (min) {
+  validationMinValue (min: number): this {
     return this.validationAdd('minValue', [min])
-  },
+  }
 
   /**
    * Requires entry to have a specified maximum numeric value or Date.
-   * @params max
-   * @returns {Schema|Skeleton}
+   * @params {number} max
+   * @returns {this}
    */
-  validationMaxValue (max) {
+  validationMaxValue (max: number): this {
     return this.validationAdd('maxValue', [max])
-  },
+  }
 
   /**
    * Checks if a number or Date is in specified bounds. Min and max are both inclusive.
-   * @params min
-   * @params max
-   * @returns {Schema|Skeleton}
+   * @params {number} min
+   * @params {number} max
+   * @returns {this}
    */
-  validationBetween (min, max) {
+  validationBetween (min: number, max: number): this {
     return this.validationAdd('between', [min, max])
-  },
+  }
 
   /**
    * Accepts only alphabet characters.
-   * @returns {Schema|Skeleton}
+   * @returns {this}
    */
-  validationAlpha () {
+  validationAlpha (): this {
     return this.validationAdd('alpha', true)
-  },
+  }
 
   /**
    * Accepts only alphanumerics.
-   * @returns {Schema|Skeleton}
+   * @returns {this}
    */
-  validationAlphaNum () {
+  validationAlphaNum (): this {
     return this.validationAdd('alphaNum', true)
-  },
+  }
 
   /**
    * Accepts only numerics.
-   * @returns {Schema|Skeleton}
+   * @returns {this}
    */
-  validationNumeric () {
+  validationNumeric (): this {
     return this.validationAdd('numeric', true)
-  },
+  }
 
   /**
    * Accepts positive and negative integers.
-   * @returns {Schema|Skeleton}
+   * @returns {this}
    */
-  validationInteger () {
+  validationInteger (): this {
     return this.validationAdd('integer', true)
-  },
+  }
 
   /**
    * Accepts positive and negative decimal numbers.
-   * @returns {Schema|Skeleton}
+   * @returns {this}
    */
-  validationDecimal () {
+  validationDecimal (): this {
     return this.validationAdd('decimal', true)
-  },
+  }
 
   /**
    * Accepts valid email addresses. Keep in mind you still have to carefully verify it on your server, as it is impossible to tell if the address is real without sending verification email.
-   * @returns {Schema|Skeleton}
+   * @returns {this}
    */
-  validationEmail () {
+  validationEmail (): this {
     return this.validationAdd('email', true)
-  },
+  }
 
   /**
    * Accepts valid IPv4 addresses in dotted decimal notation like 127.0.0.1.
-   * @returns {Schema|Skeleton}
+   * @returns {this}
    */
-  validationIpAddress () {
+  validationIpAddress (): this {
     return this.validationAdd('ipAddress', true)
-  },
+  }
 
   /**
    * Accepts valid MAC addresses like 00:ff:11:22:33:44:55. Don't forget to call it macAddress(), as it has optional parameter. You can specify your own separator instead of ':'. Provide empty separator macAddress('') to validate MAC addresses like 00ff1122334455.
    * @params separator=':'
-   * @returns {Schema|Skeleton}
+   * @returns {this}
    */
-  validationMacAddress () {
+  validationMacAddress (): this {
     return this.validationAdd('macAddress', true)
-  },
+  }
 
   /**
    * Test if value is a password
-   * @returns {Schema|Skeleton}
+   * @returns {this}
    */
-  validationPassword () {
+  validationPassword (): this {
     return this.validationAdd('password', helpers.regex('password', /^(?=.*[A-Za-z])(?=.*\d)(?=.*[#$^+=!*()@%&]?).{6,}$/))
-  },
+  }
 
   /**
    * Checks for equality with a given property.
-   * @params locator
-   * @returns {Schema|Skeleton}
+   * @params {Function} locator
+   * @returns {this}
    */
-  validationSameAs (locator) {
+  validationSameAs (locator: Function): this {
     return this.validationAdd('sameAs', locator)
-  },
+  }
 
   /**
    * Accepts only URLs.
-   * @returns {Schema|Skeleton}
+   * @returns {this}
    */
-  validationUrl () {
+  validationUrl (): this {
     return this.validationAdd('url', true)
-  },
+  }
 
   /**
    * @param {number} size "Size in mb (20 * 1024 = 20mb)"
-   * @return {Schema|Skeleton}
+   * @return {this}
    */
-  validationMaxFileSize (size) {
-    const handler = helpers.withParams({ size }, value => {
+  validationMaxFileSize (size: number): this {
+    const handler = helpers.withParams({ size }, (value: File) => {
       if (!value) {
         return true
       }
@@ -218,43 +222,22 @@ export default {
       return valueSize <= size
     })
     return this.validationAs('maxFileSize', handler)
-  },
-
-  // /**
-  //  * Passes when at least one of provided validators passes.
-  //  * @params validators...
-  //  */
-  // validationOr () {},
-  // /**
-  //  * Passes when all of provided validators passes.
-  //  * @params validators...
-  //  */
-  // validationAnd () {},
-  // /**
-  //  * Passes when provided validator would not pass, fails otherwise. Can be chained with other validators like not(sameAs('field')).
-  //  * @params validator
-  //  */
-  // validationNot () {},
-  // /**
-  //  * Not really a validator, but a validator modifier. Adds a $params object to the provided validator. Can be used on validation functions or even entire nested field validation objects. Useful for creating your own custom validators.
-  //  * @params $params, validator
-  //  */
-  // validationWithParams () {},
+  }
 
   /**
-   * @returns {Schema|Skeleton}
+   * @returns {this}
    */
-  validationClear () {
+  validationClear (): this {
     const name = this.__currentField
     this.__fields[name].$validations = {}
     return this
-  },
+  }
 
   /**
    * @param {string} validation
-   * @returns {Schema|Skeleton}
+   * @returns {this}
    */
-  validationRemove (validation) {
+  validationRemove (validation: string): this {
     const name = this.__currentField
     delete this.__fields[name].$validations[validation]
     return this

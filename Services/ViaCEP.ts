@@ -1,6 +1,21 @@
 import { replacement } from '../Util/string'
 
 /**
+ * @interface {ViaCEPResponse}
+ */
+interface ViaCEPResponse {
+  cep: string
+  logradouro: string
+  complemento: string
+  bairro: string
+  localidade: string
+  uf: string
+  unidade: string
+  ibge: string
+  gia: string
+}
+
+/**
  * @link https://viacep.com.br
  *
  * @type {ViaCEP}
@@ -21,22 +36,10 @@ export default class ViaCEP {
   /**
    * @param {string} cep
    */
-  query (cep) {
+  query (cep: string) {
     return new Promise((resolve) => {
-      window.callbackViaCEP = function (response) {
-        /*
-         {
-          "cep": "",
-          "logradouro": "",
-          "complemento": "",
-          "bairro": "",
-          "localidade": "",
-          "uf": "",
-          "unidade": "",
-          "ibge": "",
-          "gia": ""
-        }
-        */
+      // @ts-ignore
+      window.callbackViaCEP = function (response: ViaCEPResponse) {
         resolve({
           zip: response.cep,
           address: response.logradouro,

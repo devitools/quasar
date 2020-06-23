@@ -65,7 +65,7 @@ export default {
 
       let provide = this.$memory.get(name)
       if (!provide) {
-        provide = this.$options.schema.build().provide()
+        provide = this.$options.schema.build(this).provide()
       }
       this.updateBind(provide)
       this.$memory.set(name, provide)
@@ -89,6 +89,6 @@ export default {
       return
     }
 
-    window.setTimeout(() => this.provideBind(name), 10)
+    window.setTimeout(() => this.provideBind(name), 1)
   }
 }

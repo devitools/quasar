@@ -59,8 +59,8 @@ export default class Http {
 
   /**
    * @param {string} url
-   * @param {FormData} data
-   * @param {Record<string, any>} config
+   * @param {string | number | Record<string, unknown> | FormData} data
+   * @param {Record<string, unknown>} config
    * @returns {Promise<*>}
    */
   post (url = '', data = {}, config = {}) {
@@ -71,7 +71,7 @@ export default class Http {
 
   /**
    * @param {string} url
-   * @param {Record<string, any>} config
+   * @param {Record<string, unknown>} config
    * @returns {Promise<*>}
    */
   get (url = '', config = {}) {
@@ -81,7 +81,7 @@ export default class Http {
 
   /**
    * @param {string} url
-   * @param {Record<string, any>} config
+   * @param {Record<string, unknown>} config
    * @returns {Promise<*>}
    */
   head (url, config = {}) {
@@ -91,8 +91,8 @@ export default class Http {
 
   /**
    * @param {string} url
-   * @param {Record<any, string>} data
-   * @param {Record<string, any>} config
+   * @param {string | number | Record<string, unknown> | FormData} data
+   * @param {Record<string, unknown>} config
    * @returns {Promise<*>}
    */
   put (url, data = {}, config = {}) {
@@ -103,8 +103,8 @@ export default class Http {
 
   /**
    * @param {string} url
-   * @param {Record<any, string>} data
-   * @param {Record<string, any>} config
+   * @param {string | number | Record<string, unknown> | FormData} data
+   * @param {Record<string, unknown>} config
    * @returns {Promise<*>}
    */
   patch (url, data = {}, config = {}) {
@@ -115,7 +115,7 @@ export default class Http {
 
   /**
    * @param {string} url
-   * @param {Record<string, any>} config
+   * @param {Record<string, unknown>} config
    * @returns {Promise<*>}
    */
   delete (url, config = {}) {
@@ -124,7 +124,7 @@ export default class Http {
   }
 
   /**
-   * @param {Record<string, any>} fixedValue
+   * @param {Record<string, unknown>} fixedValue
    * @returns {this}
    */
   fixedValue (fixedValue) {
@@ -133,7 +133,7 @@ export default class Http {
   }
 
   /**
-   * @param {Record<string, any>} fixedFilter
+   * @param {Record<string, unknown>} fixedFilter
    * @returns {this}
    */
   fixedFilter (fixedFilter) {
@@ -168,8 +168,8 @@ export default class Http {
   }
 
   /**
-   * @param {Record<any, string>} record
-   * @returns {Record<any, string>}
+   * @param {Record<string, unknown>} record
+   * @returns {Record<string, unknown>}
    */
   parseData (record) {
     if (is(this.__fixedValue)) {

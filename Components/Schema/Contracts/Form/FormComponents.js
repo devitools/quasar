@@ -109,13 +109,13 @@ export default {
       return components
     },
     /**
-     * @param {string} section
+     * @param {string} group
      */
-    getComponents (section = undefined) {
-      if (section === undefined) {
+    getComponents (group = undefined) {
+      if (group === undefined) {
         const reduce = (accumulator, key) => {
           const field = this.components[key]
-          if (!field.section || this.groupType === 'none') {
+          if (!field.group || this.groupType === 'none') {
             accumulator[key] = field
           }
           return accumulator
@@ -125,7 +125,7 @@ export default {
 
       const reduce = (accumulator, key) => {
         const field = this.components[key]
-        if (field.section === section || section === '') {
+        if (field.group === group || group === '') {
           accumulator[key] = field
         }
         return accumulator
