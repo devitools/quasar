@@ -13,7 +13,7 @@ import ConfigureActions from './Schema/Component/ConfigureActions'
 import ConfigureComponent from './Schema/Component/ConfigureComponent'
 
 import mixin from './Helper/mixin'
-import { SchemaForm, SchemaTable } from 'app/@devitools/Agnostic/Helper/interfaces'
+import { SchemaForm, SchemaTable } from './Helper/interfaces'
 
 /**
  * @class {SchemaEmbed}

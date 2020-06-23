@@ -1,7 +1,7 @@
 import { filterKey, primaryKey, searchKey } from 'src/settings/schema'
 import { parseRestRecord, parseRestRecords } from 'src/settings/rest'
 
-import Http from '@devitools/Services/Http'
+import Http from './Http'
 import { Pagination } from '../Agnostic/Helper/interfaces'
 import { $store } from 'src/store'
 

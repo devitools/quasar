@@ -1,5 +1,5 @@
-import $lang from '@devitools/Lang'
 import { RULES } from 'src/settings/schema'
+import $lang from '../Lang'
 
 /**
  * @param {string} domain

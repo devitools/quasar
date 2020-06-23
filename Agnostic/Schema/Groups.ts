@@ -1,5 +1,5 @@
 import Base from '../Base'
-import { Group } from 'app/@devitools/Agnostic/Helper/interfaces'
+import { Group } from '../Helper/interfaces'
 
 /**
  * @class {Groups}

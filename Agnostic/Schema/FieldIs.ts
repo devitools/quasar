@@ -13,6 +13,7 @@ import {
   fieldIsSelectWatch
 } from './Component/select'
 import { fieldIsEmbedWatch } from './Component/embed'
+import Skeleton from '../Skeleton'
 
 /**
  * @class {FieldIs}
@@ -22,7 +23,7 @@ export default abstract class FieldIs extends Base {
    * @param {Object} options
    * @returns {Schema}
    */
-  fieldAsPrimaryKey (options: Record<string, unknown> = {}) {
+  fieldAsPrimaryKey (this: Skeleton, options: Record<string, unknown> = {}) {
     options = {
       tableWith: '80px',
       formWidth: 100,
@@ -33,12 +34,11 @@ export default abstract class FieldIs extends Base {
     }
     const self = this.$self()
 
-    // @ts-ignore
-    this.addField(options.key, String)
-      .fieldTableWidth(options.tableWith)
-      .fieldFormWidth(options.formWidth)
-      .fieldTableShow(options.tableShow)
-      .fieldFormHidden(options.hiddenForm)
+    this.addField(String(options.key), 'string')
+      .fieldTableWidth(String(options.tableWith))
+      .fieldFormWidth(Number(options.formWidth))
+      .fieldTableShow(Boolean(options.tableShow))
+      .fieldFormHidden(Boolean(options.hiddenForm))
       .fieldFormDisabled(true)
       .fieldFormDefaultValue(self.useUuid ? uuid() : undefined)
       .fieldPrimaryKey()
@@ -208,7 +208,7 @@ export default abstract class FieldIs extends Base {
    * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
-  fieldIsSelect (options: Record<string, unknown>[] = [], attrs: Record<string, unknown> = {}) {
+  fieldIsSelect (this: Skeleton, options: Record<string, unknown>[] = [], attrs: Record<string, unknown> = {}) {
     const currentField = this.__currentField
 
     if (!options.length) {
@@ -229,7 +229,6 @@ export default abstract class FieldIs extends Base {
 
     this.setOn('filter', fieldIsSelectFilter(currentField))
 
-    // @ts-ignore
     this.addWatch(`record.${currentField}`, fieldIsSelectWatch(currentField))
 
     const { allowNew } = attrs
@@ -399,14 +398,13 @@ export default abstract class FieldIs extends Base {
    * @param {Object} attrs
    * @returns {Schema}
    */
-  fieldIsEmbed (attrs = {}) {
+  fieldIsEmbed (this: Skeleton, attrs = {}) {
     this.setIs('AppEmbed')
     this.setAttrs({ ...attrs })
     this.setType('undefined')
     const foreignKey = this.__currentField
 
     const self = this.$self()
-    // @ts-ignore
     this.addWatch(`record.${self.primaryKey}`, fieldIsEmbedWatch(foreignKey))
     return this
   }
