@@ -23,66 +23,57 @@ export default {
         return
       }
       return action.call(this, context)
+    },
+    /**
+     * @param {string} hook
+     */
+    triggerOption (hook) {
+      if (!this.$options) {
+        return
+      }
+      if (!this.$options[hook]) {
+        return
+      }
+      const action = this.$options[hook]
+      if (typeof action !== 'function') {
+        return
+      }
+      return action.call(this)
     }
   },
   /**
    */
   created () {
-    /**
-     * @trigger created:default
-     */
+    this.triggerOption('createdHook')
     this.triggerHook('created:default')
-    /**
-     * @trigger created
-     */
     this.triggerHook('created')
   },
   /**
    */
   mounted () {
-    /**
-     * @trigger mounted:default
-     */
+    this.triggerOption('mountedHook')
     this.triggerHook('mounted:default')
-    /**
-     * @trigger mounted
-     */
     this.triggerHook('mounted')
   },
   /**
    */
   beforeMount () {
-    /**
-     * @trigger beforeMount
-     */
+    this.triggerOption('beforeMountHook')
     this.triggerHook('beforeMount:default')
-    /**
-     * @trigger beforeMount
-     */
     this.triggerHook('beforeMount')
   },
   /**
    */
   beforeDestroy () {
-    /**
-     * @trigger beforeDestroy:app
-     */
+    this.triggerOption('beforeDestroyHook')
     this.triggerHook('beforeDestroy:default')
-    /**
-     * @trigger beforeDestroy
-     */
     this.triggerHook('beforeDestroy')
   },
   /**
    */
   destroyed () {
-    /**
-     * @trigger destroyed
-     */
+    this.triggerOption('destroyedHook')
     this.triggerHook('destroyed:default')
-    /**
-     * @trigger destroyed
-     */
     this.triggerHook('destroyed')
   }
 }

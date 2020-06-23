@@ -1,7 +1,7 @@
 import { displayKey, primaryKey } from 'src/settings/schema'
 import components from 'src/settings/components'
 
-import { Action, Field, Group, SchemaForm, SchemaTable, Watch } from './Helper/interfaces'
+import { Action, Component, Field, Group, Watch } from './Helper/interfaces'
 import { scopes } from './enum'
 import { clone } from '../Util/general'
 import $lang from '../Lang'
@@ -120,9 +120,11 @@ export default abstract class Base {
   }
 
   /**
+   * @param {Component} $component
+   * @param {Record<string, unknown>} dependencies
    * Call schema builder method
    */
-  abstract construct (): void
+  abstract construct ($component?: Component, dependencies?: Record<string, unknown>): void
 
   /**
    * Bootstrap everything
@@ -137,9 +139,11 @@ export default abstract class Base {
   }
 
   /**
+   * @param {Component} $component
+   * @param {Record<string, unknown>} dependencies
    * Base constructor
    */
-  constructor () {
+  constructor ($component?: Component, dependencies?: Record<string, unknown>) {
     this.scopes = this.initScopes()
     this.__groups = {}
     this.__fields = {}
@@ -150,7 +154,7 @@ export default abstract class Base {
     this.__avoids = []
 
     this.bootstrap()
-    this.construct()
+    this.construct($component, dependencies)
     this.timestamps()
   }
 

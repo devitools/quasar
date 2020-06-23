@@ -50,6 +50,20 @@ export default {
       // will override by specialists
     },
     /**
+     * @param {Provide} provide
+     */
+    configureProvide (provide) {
+      this.domain = provide.domain
+      this.groupType = provide.groupType
+      this.displayKey = provide.displayKey
+      this.primaryKey = provide.primaryKey
+      this.groups = provide.groups
+      this.fields = provide.fields
+      this.actions = provide.actions
+      this.hooks = provide.hooks
+      this.watches = provide.watches
+    },
+    /**
      * @param {function} h
      * @param {string} position
      * @param {Object} context

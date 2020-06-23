@@ -16,6 +16,7 @@ import ConfigureActions from './Schema/Component/ConfigureActions'
 import ConfigureComponent from './Schema/Component/ConfigureComponent'
 
 import Service from '../Services/Rest'
+import { Component } from './Helper/interfaces'
 import { OPERATORS } from './enum'
 import { clone, objectToFormData, set, unique, withSeparator } from '../Util/general'
 
@@ -36,19 +37,23 @@ abstract class Skeleton extends Base {
   public service?: unknown
 
   /**
+   * @param {Component} $component
+   * @param {Record<string, unknown>} dependencies
    * @return {this}
    */
-  static build () {
+  static build ($component?: Component, dependencies?: Record<string, unknown>) {
     // @ts-ignore
-    return new this()
+    return new this($component, dependencies)
   }
 
   /**
+   * @param {Component} $component
+   * @param {Record<string, unknown>} dependencies
    * @return {this}
    */
-  static $instance () {
+  static $instance ($component?: Component, dependencies?: Record<string, unknown>) {
     if (!this.__instance) {
-      this.__instance = this.build()
+      this.__instance = this.build($component, dependencies)
     }
     return this.__instance
   }
