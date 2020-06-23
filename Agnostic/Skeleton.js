@@ -424,12 +424,16 @@ export default class Skeleton extends Base {
         const parameters = { [searchKey]: where }
 
         if (pagination) {
-          return this.$service()
+          return this
+            .$instance()
+            .$service()
             .paginate({ ...parameters, pagination })
         }
 
         // noinspection JSCheckFunctionSignatures
-        return this.$service()
+        return this
+          .$instance()
+          .$service()
           .paginate(parameters)
           .then((response) => response.rows)
       }

@@ -209,6 +209,16 @@ export default class Base {
   }
 
   /**
+   * @return {this}
+   */
+  static $instance () {
+    if (!this.__instance) {
+      this.__instance = this.build()
+    }
+    return this.__instance
+  }
+
+  /**
    * @param {*} element
    * @param {function} action
    * @returns {*}
