@@ -6,7 +6,7 @@ import $lang from './Lang'
 import * as components from './Components'
 import util from './Util'
 
-import { browse, clone } from './Util/general'
+import { browse } from './Util/general'
 
 import './polyfill'
 import $store from './store'
