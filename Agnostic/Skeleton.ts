@@ -16,35 +16,25 @@ import ConfigureActions from './Schema/Component/ConfigureActions'
 import ConfigureComponent from './Schema/Component/ConfigureComponent'
 
 import Service from '../Services/Rest'
-import { Component } from './Helper/interfaces'
 import { OPERATORS } from './enum'
 import { clone, objectToFormData, set, unique, withSeparator } from '../Util/general'
 
 import mixin from './Helper/mixin'
+import { Component } from './Helper/interfaces'
 
 /**
  * @class {Skeleton}
  */
 abstract class Skeleton extends Base {
   /**
-   * @type {Schema}
+   * @type {Skeleton}
    */
-  private static __instance: Skeleton
+  protected static __instance: Skeleton
 
   /**
    * @type {Service}
    */
   public service?: unknown
-
-  /**
-   * @param {Component} $component
-   * @param {Record<string, unknown>} dependencies
-   * @return {this}
-   */
-  static build ($component?: Component, dependencies?: Record<string, unknown>) {
-    // @ts-ignore
-    return new this($component, dependencies)
-  }
 
   /**
    * @param {Component} $component
@@ -67,23 +57,6 @@ abstract class Skeleton extends Base {
     }
     // @ts-ignore
     return this.service.instance()
-  }
-
-  /**
-   * @param {string} $key
-   * @return {this}
-   */
-  addSeparator ($key = undefined): this {
-    const field = $key || unique()
-    const path = `separators.${field}`
-    const schema = this.$self()
-    const label = this.$lang(`domains.${schema.domain}.${path}`)
-
-    this.addAvoid(path)
-    this.addField(path)
-      .setIs('AppSeparator')
-      .setAttrs({ label })
-    return this
   }
 
   /**

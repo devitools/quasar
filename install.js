@@ -78,33 +78,24 @@ export default ({ Vue }) => {
       return {
         /**
          * @param {string} index
-         * @param {boolean} copy
          * @returns {undefined|*}
          */
-        get (index, copy = false) {
+        get (index) {
           if ($store.state.purging) {
             return undefined
           }
 
-          if (copy) {
-            return clone($memory[index])
-          }
           return $memory[index]
         },
         /**
          * @param {string} index
          * @param {*} value
-         * @param {boolean} copy
          */
-        set (index, value, copy = false) {
+        set (index, value) {
           if ($store.state.purging) {
             return
           }
 
-          if (copy) {
-            $memory[index] = clone(value)
-            return
-          }
           $memory[index] = value
         },
         /**

@@ -15,6 +15,21 @@ export interface Provide {
 }
 
 /**
+ * @interface {ProvideReport}
+ */
+export interface ProvideReport {
+  report: string
+  groupType: string
+  domain: string
+  hooks: Function
+  groups: Function
+  fields: Function
+  actions: Function
+  watches: Function
+  settings?: Record<string, unknown>
+}
+
+/**
  * @interface {Pagination}
  */
 export interface Pagination {

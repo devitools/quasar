@@ -9,7 +9,7 @@ import $lang from '../Lang'
  */
 export const permissionGroup = (namespace, icon, children) => {
   return {
-    label: $lang(`permissions.${namespace}`),
+    label: $lang(`permissions.${namespace}`, `permissions.${namespace}`),
     namespace,
     icon,
     children
@@ -22,7 +22,7 @@ export const permissionGroup = (namespace, icon, children) => {
  */
 export const permissionAvailable = (domain) => {
   return {
-    label: $lang(`permissions.${domain}.${RULES.LEVEL_AVAILABLE}`),
+    label: $lang(`permissions.${domain}.${RULES.LEVEL_AVAILABLE}`, `permissions.${domain}.${RULES.LEVEL_AVAILABLE}`),
     namespace: `${domain}.${RULES.LEVEL_AVAILABLE}`,
     icon: 'done'
   }
@@ -35,7 +35,7 @@ export const permissionAvailable = (domain) => {
  */
 export const permissionLevelNamespace = (namespace, icon) => {
   return {
-    label: $lang(`permissions.${namespace}`),
+    label: $lang(`permissions.${namespace}`, `permissions.${namespace}`),
     namespace,
     icon
   }
@@ -49,7 +49,7 @@ export const permissionLevelNamespace = (namespace, icon) => {
  */
 export const permissionLevel = (domain, icon, level) => {
   return {
-    label: $lang(`permissions.${domain}.${level}`),
+    label: $lang(`permissions.${domain}.${level}`, `permissions.${domain}.${level}`),
     namespace: `${domain}.${level}`,
     domain,
     level,
@@ -63,7 +63,7 @@ export const permissionLevel = (domain, icon, level) => {
  */
 export const permissionSingle = (view) => {
   return {
-    label: $lang(`permissions.${view.domain}`),
+    label: $lang(`permissions.${view.domain}`, `permissions.${view.domain}`),
     namespace: `${view.domain}`,
     icon: view.icon
   }
@@ -102,7 +102,7 @@ export const permissionActions = (domain, filterBy = [], levels = []) => {
     actions.push(...levels)
   }
   return {
-    label: $lang('permissions.actions'),
+    label: $lang('permissions.actions', 'permissions.actions'),
     icon: 'lock_open',
     namespace: `${domain}.actions`,
     children: actions
@@ -127,7 +127,7 @@ export const permission = (view, filterBy = [], levels = [], additional = []) =>
 
   return {
     namespace: view.domain,
-    label: $lang(`permissions.${view.domain}`),
+    label: $lang(`permissions.${view.domain}`, `permissions.${view.domain}`),
     icon: view.icon,
     children
   }

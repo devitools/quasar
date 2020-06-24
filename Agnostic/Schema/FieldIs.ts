@@ -51,7 +51,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldAsZip (attrs = {}) {
-    this.setAttrs({ mask: '#####-###', unmaskedValue: true, placeholder: 'ex.: 39500-201' })
+    this.appendAttrs({ mask: '#####-###', unmaskedValue: true, placeholder: 'ex.: 39500-201' })
     this.setType('string')
     return this
   }
@@ -61,7 +61,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldAsPhone (attrs = {}) {
-    this.setAttrs({ mask: '(##) ####-####', unmaskedValue: true, placeholder: 'ex.: (21) 3289-3950' })
+    this.appendAttrs({ mask: '(##) ####-####', unmaskedValue: true, placeholder: 'ex.: (21) 3289-3950' })
     this.setType('string')
     return this
   }
@@ -71,7 +71,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldAsCell (attrs = {}) {
-    this.setAttrs({ mask: '(##) #####-####', unmaskedValue: true, placeholder: 'ex.: (44) 98956-3049' })
+    this.appendAttrs({ mask: '(##) #####-####', unmaskedValue: true, placeholder: 'ex.: (44) 98956-3049' })
     this.setType('string')
     return this
   }
@@ -101,7 +101,7 @@ export default abstract class FieldIs extends Base {
     if (!tableFormat) {
       tableFormat = (value: string) => format(value, mask)
     }
-    this.setAttrs({
+    this.appendAttrs({
       mask,
       unmaskedValue: true,
       ...attrs,
@@ -118,9 +118,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsInput (maxlength = 255, attrs = {}) {
-    this.setComponent('input')
-    this.setAttrs({ ...attrs, maxlength })
-    this.setType('string')
+    this.setComponent('input', { ...attrs, maxlength }, 'string')
     return this
   }
 
@@ -129,10 +127,8 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsNumber (attrs = {}) {
-    this.setComponent('number')
-    this.setAttrs({ ...attrs })
+    this.setComponent('number', attrs, 'number')
     this.setLayout({ tableWhere: OPERATORS.EQUAL })
-    this.setType('number')
     return this
   }
 
@@ -141,9 +137,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsPassword (attrs = {}) {
-    this.setComponent('password')
-    this.setAttrs({ ...attrs })
-    this.setType('string')
+    this.setComponent('password', attrs, 'string')
     return this
   }
 
@@ -152,9 +146,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsEmail (attrs = {}) {
-    this.setComponent('email')
-    this.setAttrs({ ...attrs })
-    this.setType('string')
+    this.setComponent('email', attrs, 'string')
     return this
   }
 
@@ -164,9 +156,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsText (rows = 4, attrs = {}) {
-    this.setComponent('text')
-    this.setAttrs({ ...attrs, rows })
-    this.setType('text')
+    this.setComponent('text', { ...attrs, rows }, 'text')
     return this
   }
 
@@ -175,10 +165,8 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsCheckbox (attrs = {}) {
-    this.setComponent('checkbox')
-    this.setAttrs({ ...attrs })
+    this.setComponent('checkbox', attrs, 'boolean')
     this.setLayout({ tableFormat: booleanFormatter })
-    this.setType('boolean')
     return this
   }
 
@@ -191,15 +179,13 @@ export default abstract class FieldIs extends Base {
     const self = this.$self()
     if (!options.length) {
       // @ts-ignore
-      options = this.$lang(`domains.${self.domain}.fields.${this.__currentField}.options`, undefined)
+      options = this.$lang(`domains.${self.domain}.fields.${this.__currentField}.options`, [])
     }
     if (!Array.isArray(options)) {
       options = yesNo
     }
-    this.setComponent('radio')
-    this.setAttrs({ ...attrs, options })
+    this.setComponent('radio', { ...attrs, options }, 'select')
     this.setLayout({ tableWhere: OPERATORS.EQUAL, tableFormat: optionsFormatter(options) })
-    this.setType('select')
     return this
   }
 
@@ -214,18 +200,18 @@ export default abstract class FieldIs extends Base {
     if (!options.length) {
       const self = this.$self()
       // @ts-ignore
-      options = this.$lang(`domains.${self.domain}.fields.${currentField}.options`)
+      options = this.$lang(`domains.${self.domain}.fields.${currentField}.options`, [])
     }
 
-    this.setAttrs({
+    attrs = {
       mapOptions: true,
       emitValue: true,
       useChips: false,
       ...attrs,
       options
-    })
+    }
 
-    this.setComponent('select')
+    this.setComponent('select', attrs, 'select')
 
     this.setOn('filter', fieldIsSelectFilter(currentField))
 
@@ -233,12 +219,11 @@ export default abstract class FieldIs extends Base {
 
     const { allowNew } = attrs
     if (allowNew) {
-      this.setAttrs({ useChips: true })
+      this.appendAttrs({ useChips: true })
       this.setOn('new-value', fieldIsSelectNewValue())
     }
 
     this.setLayout({ tableFormat: optionsFormatter(options), tableWhere: OPERATORS.EQUAL })
-    this.setType('select')
     return this
   }
 
@@ -247,10 +232,8 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsSelectRemote (attrs: Record<string, unknown> = {}) {
-    this.setComponent('remote')
-    this.setAttrs(attrs)
+    this.setComponent('remote', attrs, 'select')
     this.setLayout({ tableFormat: optionFormatter(attrs.keyLabel), tableWhere: OPERATORS.EQUAL })
-    this.setType('select')
     return this
   }
 
@@ -259,9 +242,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsSelectRemoteMultiple (attrs = {}) {
-    this.setComponent('remoteMultiple')
-    this.setAttrs(attrs)
-    this.setType('array')
+    this.setComponent('remoteMultiple', attrs, 'array')
     return this
   }
 
@@ -270,10 +251,8 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsToggle (attrs = {}) {
-    this.setComponent('toggle')
-    this.setAttrs({ ...attrs })
+    this.setComponent('toggle', attrs, 'boolean')
     this.setLayout({ tableFormat: booleanFormatter })
-    this.setType('boolean')
     return this
   }
 
@@ -282,10 +261,8 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsDate (attrs = {}) {
-    this.setComponent('date')
-    this.setAttrs({ ...attrs })
-    this.setType('date')
-    this.__configureDateTableFormat()
+    this.setComponent('date', attrs, 'date')
+    this.configureDateTableFormat()
     return this
   }
 
@@ -294,20 +271,18 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsDatetime (attrs = {}) {
-    this.setComponent('datetime')
-    this.setAttrs({ ...attrs })
+    this.setComponent('datetime', attrs, 'datetime')
     const previousTableFormat = this.__fields[this.__currentField].$layout.tableFormat
     if (!previousTableFormat) {
-      this.__configureDateTableFormat()
+      this.configureDateTableFormat()
     }
-    this.setType('datetime')
     return this
   }
 
   /**
    * @private
    */
-  __configureDateTableFormat () {
+  private configureDateTableFormat () {
     const name = this.__currentField
     const { display, format } = this.__fields[name].attrs
     this.setLayout({
@@ -321,9 +296,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsInputPlan (maxlength = 255, attrs = {}) {
-    this.setComponent('plan')
-    this.setAttrs({ ...attrs, maxlength })
-    this.setType('string')
+    this.setComponent('plan', { ...attrs, maxlength }, 'string')
     return this
   }
 
@@ -333,9 +306,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsUrl (maxlength = 255, attrs = {}) {
-    this.setComponent('plan')
-    this.setAttrs({ placeholder: 'ex.: https://quasar.dev', ...attrs, maxlength })
-    this.setType('string')
+    this.setComponent('plan', { placeholder: 'ex.: https://mysite.dev', ...attrs, maxlength }, 'string')
     return this
   }
 
@@ -345,7 +316,7 @@ export default abstract class FieldIs extends Base {
    */
   fieldIsArray (attrs = {}) {
     this.setIs('AppArray')
-    this.setAttrs({ ...attrs })
+    this.setAttrs(attrs)
     this.setType('array')
     return this
   }
@@ -366,8 +337,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsCurrency (attrs = {}) {
-    this.setComponent('currency')
-    this.setAttrs({ value: 0, ...attrs })
+    this.setComponent('currency', { value: 0, ...attrs }, 'currency')
     const previousTableFormat = this.__fields[this.__currentField].$layout.tableFormat
 
     this.setLayout({
@@ -375,7 +345,6 @@ export default abstract class FieldIs extends Base {
       tableAlign: 'right',
       tableWhere: OPERATORS.CURRENCY
     })
-    this.setType('currency')
     return this
   }
 
@@ -400,7 +369,7 @@ export default abstract class FieldIs extends Base {
    */
   fieldIsEmbed (this: Skeleton, attrs = {}) {
     this.setIs('AppEmbed')
-    this.setAttrs({ ...attrs })
+    this.setAttrs(attrs)
     this.setType('undefined')
     const foreignKey = this.__currentField
 
@@ -416,13 +385,13 @@ export default abstract class FieldIs extends Base {
   fieldIsTree (attrs: Record<string, unknown> = {}) {
     const self = this.$self()
 
-    this.setIs('AppTree')
     if (!attrs.nodes) {
       attrs.nodes = this.$lang(`domains.${self.domain}.fields.${this.__currentField}.nodes`, [])
     }
     if (!attrs.open) {
       attrs['default-expand-all'] = true
     }
+    this.setIs('AppTree')
     this.setAttrs({ nodeKey: 'id', tickStrategy: 'leaf', ...attrs })
     this.setType('array')
     return this
@@ -433,8 +402,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsImage (attrs = {}) {
-    this.setComponent('image')
-    this.setAttrs({ ...attrs })
+    this.setComponent('image', attrs)
     return this
   }
 
@@ -443,8 +411,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsFile (attrs = {}) {
-    this.setComponent('file')
-    this.setAttrs(attrs)
+    this.setComponent('file', attrs)
     return this
   }
 
@@ -453,8 +420,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsFileSync (attrs = {}) {
-    this.setComponent('fileSync')
-    this.setAttrs(attrs)
+    this.setComponent('fileSync', attrs)
     return this
   }
 
@@ -463,8 +429,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsInternationalPhone (attrs = {}) {
-    this.setComponent('phoneInternational')
-    this.setAttrs(attrs)
+    this.setComponent('phoneInternational', attrs)
     return this
   }
 }

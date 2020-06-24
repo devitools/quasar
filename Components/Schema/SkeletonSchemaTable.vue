@@ -98,7 +98,7 @@
       </div>
       <div
         class="q-table__bottom row items-center q-table__bottom--nodata"
-        style="42px"
+        style="width: 42px"
       >
         <QSkeleton
           type="rect"

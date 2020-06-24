@@ -9,7 +9,7 @@ import $lang from '../Lang'
  * @returns {{path: *, label: *, icon: *, separated: *}}
  */
 export const actionMenu = (domain, path, icon, separated = false) => {
-  return { label: $lang(`actions.${domain}`), path, icon, separated }
+  return { label: $lang(`actions.${domain}`, `actions.${domain}`), path, icon, separated }
 }
 
 /**
@@ -21,7 +21,7 @@ export const actionMenu = (domain, path, icon, separated = false) => {
  */
 export const actionGroup = (domain, icon, children, separated = false) => {
   return {
-    label: $lang(`actions.${domain}`),
+    label: $lang(`actions.${domain}`, `actions.${domain}`),
     icon,
     separated,
     children
@@ -38,7 +38,7 @@ export const actionGroup = (domain, icon, children, separated = false) => {
  */
 export const actionEntry = (domain, path, icon, namespace = undefined, separated = false) => {
   return {
-    label: $lang(`actions.${domain}`),
+    label: $lang(`actions.${domain}`, `actions.${domain}`),
     namespace: namespace || `${domain}.${RULES.LEVEL_AVAILABLE}`,
     path: path,
     icon: icon,

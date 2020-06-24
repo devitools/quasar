@@ -86,6 +86,33 @@ export default abstract class Base {
   protected safe = true
 
   /**
+   * @type {Base}
+   */
+  protected static __instance: Base
+
+  /**
+   * @param {Component} $component
+   * @param {Record<string, unknown>} dependencies
+   * @return {this}
+   */
+  static build ($component?: Component, dependencies?: Record<string, unknown>) {
+    // @ts-ignore
+    return new this($component, dependencies)
+  }
+
+  /**
+   * @param {Component} $component
+   * @param {Record<string, unknown>} dependencies
+   * @return {this}
+   */
+  static $instance ($component?: Component, dependencies?: Record<string, unknown>) {
+    if (!this.__instance) {
+      this.__instance = this.build($component, dependencies)
+    }
+    return this.__instance
+  }
+
+  /**
    * @return {string[]}
    */
   initScopes (): string[] {
@@ -163,9 +190,19 @@ export default abstract class Base {
    * @returns {this}
    */
   setLayout (layout: Record<string, unknown>): this {
-    const name = this.__currentField
-    const field = this.__fields[name]
-    this.__fields[name].$layout = Object.assign(field.$layout, layout)
+    Object.assign(this.__fields[this.__currentField].$layout, layout)
+    return this
+  }
+
+  /**
+   * @deprecated
+   * @param {Record<string, unknown>} attrs
+   * @returns {this}
+   */
+  setAttrs (attrs: Record<string, unknown>): this {
+    // const name = this.__currentField
+    // const field = this.__fields[name]
+    // this.__fields[name].attrs = Object.assign(field.attrs, attrs || {})
     return this
   }
 
@@ -173,10 +210,8 @@ export default abstract class Base {
    * @param {Record<string, unknown>} attrs
    * @returns {this}
    */
-  setAttrs (attrs: Record<string, unknown>): this {
-    const name = this.__currentField
-    const field = this.__fields[name]
-    this.__fields[name].attrs = Object.assign(field.attrs, attrs || {})
+  appendAttrs (attrs: Record<string, unknown>): this {
+    // Object.assign(this.__fields[this.__currentField].attrs, attrs)
     return this
   }
 
@@ -185,8 +220,7 @@ export default abstract class Base {
    * @returns {this}
    */
   setType (type: string): this {
-    const $key = this.__currentField
-    this.__fields[$key].$type = type
+    this.__fields[this.__currentField].$type = type
     return this
   }
 
@@ -195,9 +229,7 @@ export default abstract class Base {
    * @returns {this}
    */
   setIs (is: unknown) {
-    const name = this.__currentField
-    const field = this.__fields[name]
-    field.is = is
+    this.__fields[this.__currentField].is = is
     return this
   }
 
@@ -206,9 +238,7 @@ export default abstract class Base {
    * @returns {this}
    */
   setParseOutput (parseOutput: Function) {
-    const name = this.__currentField
-    const field = this.__fields[name]
-    field.$parseOutput = parseOutput
+    this.__fields[this.__currentField].$parseOutput = parseOutput
     return this
   }
 
@@ -217,9 +247,19 @@ export default abstract class Base {
    * @returns {this}
    */
   setParseInput (parseInput: Function) {
+    this.__fields[this.__currentField].$parseInput = parseInput
+    return this
+  }
+
+  /**
+   * @deprecated
+   * @param {Function[]} listeners
+   * @returns {this}
+   */
+  setListeners (listeners: Function[]) {
     const name = this.__currentField
     const field = this.__fields[name]
-    field.$parseInput = parseInput
+    Object.assign(field.on, listeners)
     return this
   }
 
@@ -227,10 +267,10 @@ export default abstract class Base {
    * @param {Function[]} listeners
    * @returns {this}
    */
-  setListeners (listeners: Function[]) {
+  appendListeners (listeners: Function[]) {
     const name = this.__currentField
     const field = this.__fields[name]
-    this.__fields[name].on = Object.assign(field.on, listeners)
+    Object.assign(field.on, listeners)
     return this
   }
 
@@ -251,18 +291,28 @@ export default abstract class Base {
 
   /**
    * @param {string} component
+   * @param {Record<string, unknown>} attrs
+   * @param type
    * @returns {this}
    */
-  setComponent (component: string): this {
+  setComponent (component: string, attrs: Record<string, unknown> = {}, type = 'string'): this {
+    const name = this.__currentField
+    const field = this.__fields[name]
+
     // @ts-ignore
     const properties = components[component]
     if (!properties) {
-      this.setIs(component)
+      field.is = component
       return this
     }
-    this.setIs(properties.is)
-    this.setAttrs(properties.attrs)
-    this.setListeners(properties.listeners)
+
+    field.is = properties.is
+
+    this.__fields[name].$type = type
+    // this.__fields[name].attrs = properties.attrs
+    // this.__fields[name].attrs = Object.assign({}, properties.attrs, attrs)
+    Object.assign(this.__fields[name].attrs, properties.attrs, attrs)
+    Object.assign(this.__fields[name].on, properties.listeners)
     return this
   }
 }

@@ -55,13 +55,13 @@ export default {
       }
     },
     /**
-     * @param {string} name
      */
-    provideBind (name) {
+    provideBind () {
       if (!this.$options.schema) {
         throw new Error(`No schema defined to ${this.$options.name}`)
       }
 
+      const name = this.$options.name
       let provide = this.$memory.get(name)
       if (!provide) {
         provide = this.$options.schema.build().provide()
@@ -82,12 +82,6 @@ export default {
   /**
    */
   created () {
-    const name = this.$options.name
-    if (this.$memory.get(name)) {
-      this.provideBind(name)
-      return
-    }
-
-    window.setTimeout(() => this.provideBind(name), 1)
+    window.setTimeout(() => this.provideBind(), 1)
   }
 }

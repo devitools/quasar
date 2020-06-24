@@ -193,10 +193,10 @@ export default abstract class FieldTable extends Base {
 
   /**
    * Checks for equality with a given property.
-   * @params {Function} locator
+   * @params {Function | string[]} locator
    * @returns {this}
    */
-  validationSameAs (locator: Function): this {
+  validationSameAs (locator: Function | string[]): this {
     return this.validationAdd('sameAs', locator)
   }
 

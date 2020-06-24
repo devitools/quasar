@@ -3,6 +3,7 @@ import field from 'src/settings/field'
 import Base from '../Base'
 import Schema from '../Schema'
 import { Field } from '../Helper/interfaces'
+import { unique } from 'app/@devitools/Util/general'
 
 /**
  * @class {Fields}
@@ -118,8 +119,7 @@ export default abstract class Fields extends Base {
    * @param {Record<string, unknown>} options
    * @return {Schema}
    */
-  fieldWatch (callable: Function, options: Record<string, unknown> = {}) {
-    // @ts-ignore
+  fieldWatch (this: Schema, callable: Function, options: Record<string, unknown> = {}) {
     this.addWatch(`record.${this.__currentField}`, callable, options)
     return this
   }
@@ -129,5 +129,22 @@ export default abstract class Fields extends Base {
    */
   getFields (): Record<string, Field> {
     return this.__fields
+  }
+
+  /**
+   * @param {string} $key
+   * @return {this}
+   */
+  addSeparator (this: Schema, $key = undefined) {
+    const field = $key || unique()
+    const path = `separators.${field}`
+    const schema = this.$self()
+    const label = this.$lang(`domains.${schema.domain}.${path}`)
+
+    this.addAvoid(path)
+    this.addField(path)
+      .setIs('AppSeparator')
+      .setAttrs({ label })
+    return this
   }
 }
