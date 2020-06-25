@@ -6,7 +6,7 @@
     @input="updateValue"
   >
     <template v-slot:prepend>
-      <q-btn
+      <QBtn
         round
         dense
         flat
@@ -18,7 +18,7 @@
       v-slot:append
       v-if="typeof value === 'string'"
     >
-      <q-icon
+      <QIcon
         name="cloud_download"
         class="cursor-pointer"
         @click="download"
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { QFile } from 'quasar'
+import { QFile, QIcon, QBtn } from 'quasar'
 
 export default {
   /**
@@ -36,7 +36,7 @@ export default {
   name: 'AppFileSync',
   /**
    */
-  components: { QFile },
+  components: { QFile, QIcon, QBtn },
   /**
    */
   props: {
@@ -47,13 +47,17 @@ export default {
     downloadFile: {
       type: Function,
       required: true
+    },
+    placeholder: {
+      type: String,
+      default: ''
     }
   },
   /**
    */
   computed: {
     bind () {
-      return { ...this.$attrs, ...this.$props }
+      return { ...this.$attrs, ...this.$props, label: !this.value ? this.placeholder : '' }
     },
     input () {
       if (typeof this.value === 'string') {

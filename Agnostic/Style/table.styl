@@ -16,12 +16,12 @@
       }
     }
 
-    & > .q-field {
-      width: 40%;
+    & > #search.q-field {
+      width: 30%;
       transition: width 0.3s;
 
       &.q-field--focused {
-        width: 50%;
+        width: 35%;
       }
     }
   }
@@ -32,8 +32,12 @@
         display: none;
       }
 
-      & > .q-field {
+      & > #search {
         width: 100% !important;
+      }
+
+      & > #selector {
+        display: none;
       }
     }
   }
@@ -356,3 +360,9 @@
     }
   }
 }
+
+
+.SchemaTable__selector__popup {
+  min-width: 200px !important;
+}
+

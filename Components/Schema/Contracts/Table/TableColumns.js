@@ -8,44 +8,11 @@ export default {
    */
   methods: {
     /**
-     */
-    configure () {
-      Object.keys(this.columns).forEach((key) => {
-        if (!(this.columns[key].$configure && typeof this.columns[key].$configure === 'function')) {
-          return
-        }
-        const field = this.columns[key].$configure.call(this, this.columns[key], this.scope)
-        if (!field || field.$key !== this.components[key].$key) {
-          throw Error('The configure return must be the field')
-        }
-        this.columns[key] = field
-      })
-    },
-    /**
      * @param {string} ignore
      * @param {boolean} primaryKeyLast
      */
     renderColumns (ignore = undefined, primaryKeyLast = false) {
-      // const key = `${this.schema}.columns`
-      // let columns = this.$memory.get(key, true)
-      // if (!columns) {
-      //   const fields = this.fields()
-      //   columns = Object
-      //     .values(fields)
-      //     .filter((field) => this.columnsFilter(field, ignore))
-      //     .reduce((accumulator, field) => this.columnsReduce(accumulator, field), [])
-      //     .sort((a, b) => this.columnsSort(a, b, primaryKeyLast))
-      //
-      //   /** @counter */
-      //   columns.unshift(counter)
-      //   this.$memory.set(key, columns, true)
-      // }
-      // this.columns = columns
-
-      let fields = this.fields
-      if (typeof this.fields === 'function') {
-        fields = this.fields()
-      }
+      const fields = this.fields()
       const columns = Object
         .values(fields)
         .filter((field) => this.columnsFilter(field, ignore))
@@ -112,6 +79,21 @@ export default {
         return 1
       }
       return 0
+    },
+    /**
+     */
+    configure () {
+      Object.keys(this.columns).forEach((key) => {
+        const field = this.columns[key]
+        if (!(field.$configure && typeof field.$configure === 'function')) {
+          return
+        }
+        const configured = field.$configure.call(this, this.columns[key], this.scope)
+        if (!configured || configured.$key !== field.$key) {
+          throw Error('The configure return must be the field')
+        }
+        this.columns[key] = configured
+      })
     }
   }
 }

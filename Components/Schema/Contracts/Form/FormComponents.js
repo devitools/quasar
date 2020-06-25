@@ -32,15 +32,17 @@ export default {
     /**
      */
     configure () {
-      Object.keys(this.components).forEach(key => {
-        if (this.components[key].$configure && typeof this.components[key].$configure === 'function') {
-          const field = this.components[key].$configure.call(this, this.components[key], this.scope)
-          if (!field || field.$key !== this.components[key].$key) {
+      const configure = (key) => {
+        const field = this.components[key]
+        if (field.$configure && typeof field.$configure === 'function') {
+          const configured = field.$configure.call(this, field, this.scope)
+          if (!configured || configured.$key !== this.components[key].$key) {
             throw Error('The configure return must be the field')
           }
-          this.components[key] = field
+          this.components[key] = configured
         }
-      })
+      }
+      Object.keys(this.components).forEach(configure)
     },
     /**
      */
@@ -57,6 +59,7 @@ export default {
      */
     performRenderComponents (fields) {
       return Object.values(fields)
+        .map((field) => this.mapComponents(field))
         .sort((a, b) => this.sortComponents(a, b))
         .reduce((components, field) => this.reduceComponents(components, field), {})
     },
@@ -64,6 +67,21 @@ export default {
      */
     reloadComponents () {
       this.components = this.performRenderComponents(this.components)
+    },
+    /**
+     * @param {Field} field
+     */
+    mapComponents (field) {
+      if (!field.$created) {
+        return field
+      }
+      field.$created.forEach((created) => {
+        if (created.scope !== this.scope) {
+          return
+        }
+        this.$util.set(field, created.path, created.value)
+      })
+      return field
     },
     /**
      * @param {Object} a
@@ -80,7 +98,7 @@ export default {
       return 0
     },
     /**
-     * @param {Array} components
+     * @param {*} components
      * @param {Object} field
      * @returns {*}
      */

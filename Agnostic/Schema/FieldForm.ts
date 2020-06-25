@@ -7,110 +7,174 @@ import { fieldsReorder } from '../Helper'
 export default abstract class FieldForm extends Base {
   /**
    * @param {number} formWidth
-   * @returns {Schema}
+   * @param {Record<string, unknown>} [scopes]
+   * @returns {this}
    */
-  fieldFormWidth (formWidth: number): this {
-    return this.setLayout({ formWidth })
-  }
-
-  /**
-   * @param {string} formBackground
-   * @returns {Schema}
-   */
-  fieldFormBackground (formBackground: string): this {
-    return this.setLayout({ formBackground })
-  }
-
-  /**
-   * @param {Boolean} disable
-   * @returns {Schema}
-   */
-  fieldFormDisabled (disable = true): this {
-    return this.setAttrs({ disable })
+  fieldFormWidth (formWidth: number, scopes?: Record<string, unknown>): this {
+    this.setLayout({ formWidth })
+    if (scopes) {
+      this.registerCreated('$layout.formWidth', scopes)
+    }
+    return this
   }
 
   /**
    * @param {number} formHeight
-   * @returns {Schema}
+   * @param {Record<string, unknown>} [scopes]
+   * @returns {this}
    */
-  fieldFormHeight (formHeight: number): this {
-    return this.setLayout({ formHeight })
+  fieldFormHeight (formHeight: number, scopes?: Record<string, unknown>): this {
+    this.setLayout({ formHeight })
+    if (scopes) {
+      this.registerCreated('$layout.formHeight', scopes)
+    }
+    return this
   }
 
   /**
    * @param {boolean} formHidden
-   * @returns {Schema}
+   * @param {Record<string, unknown>} [scopes]
+   * @returns {this}
    */
-  fieldFormHidden (formHidden = true): this {
-    return this.setLayout({ formHidden })
+  fieldFormHidden (formHidden = true, scopes?: Record<string, unknown>): this {
+    this.setLayout({ formHidden })
+    if (scopes) {
+      this.registerCreated('$layout.formHidden', scopes)
+    }
+    return this
   }
 
   /**
    * @param {string} formName
-   * @returns {Schema}
+   * @param {Record<string, unknown>} [scopes]
+   * @returns {this}
    */
-  fieldFormName (formName: string): this {
-    return this.setLayout({ formName })
+  fieldFormName (formName: string, scopes?: Record<string, unknown>): this {
+    this.setLayout({ formName })
+    if (scopes) {
+      this.registerCreated('$layout.formName', scopes)
+    }
+    return this
+  }
+
+  /**
+   * @param {Boolean} disable
+   * @param {Record<string, unknown>} [scopes]
+   * @returns {this}
+   */
+  fieldFormDisabled (disable = true, scopes?: Record<string, unknown>): this {
+    this.appendAttrs({ disable })
+    if (scopes) {
+      this.registerCreated('attrs.disable', scopes)
+    }
+    return this
   }
 
   /*
   * @param {Boolean} type
+   * @param {Record<string, unknown>} [scopes]
   * @returns {Screen}
   */
-  fieldFormAutofocus (autofocus = true): this {
-    return this.setAttrs({ autofocus })
+  fieldFormAutofocus (autofocus = true, scopes?: Record<string, unknown>): this {
+    this.appendAttrs({ autofocus })
+    if (scopes) {
+      this.registerCreated('attrs.autofocus', scopes)
+    }
+    return this
   }
 
   /**
    * @param {*} value
-   * @returns {Schema}
+   * @param {Record<string, unknown>} [scopes]
+   * @returns {this}
    */
-  fieldFormDefaultValue (value: unknown): this {
-    return this.setAttrs({ value })
-  }
-
-  /**
-   * @returns {Schema}
-   */
-  fieldFormErrorHide (): this {
-    return this.setLayout({ formError: false })
-  }
-
-  /**
-   * @returns {Schema}
-   */
-  fieldFormErrorShow (): this {
-    return this.setLayout({ formError: true })
+  fieldFormDefaultValue (value: unknown, scopes?: Record<string, unknown>): this {
+    this.appendAttrs({ value })
+    if (scopes) {
+      this.registerCreated('attrs.value', scopes)
+    }
+    return this
   }
 
   /**
    * @param {Boolean} upperCase
-   * @returns {Schema}
+   * @param {Record<string, unknown>} [scopes]
+   * @returns {this}
    */
-  fieldFormUpperCase (upperCase = true): this {
-    return this.setAttrs({ upperCase })
+  fieldFormUpperCase (upperCase = true, scopes?: Record<string, unknown>): this {
+    this.appendAttrs({ upperCase })
+    if (scopes) {
+      this.registerCreated('attrs.upperCase', scopes)
+    }
+    return this
   }
 
   /**
    * @param {string} placeholder
-   * @returns {Schema}
+   * @param {Record<string, unknown>} [scopes]
+   * @returns {this}
    */
-  fieldFormPlaceholder (placeholder = ''): this {
+  fieldFormPlaceholder (placeholder = '', scopes?: Record<string, unknown>): this {
     if (!placeholder) {
       placeholder = String(this.$lang(`fields.${this.__currentField}.placeholder`))
     }
-    return this.setAttrs({ placeholder })
+    this.appendAttrs({ placeholder })
+    if (scopes) {
+      this.registerCreated('attrs.placeholder', scopes)
+    }
+    return this
+  }
+
+  /**
+   * @param {string} formBackground
+   * @param {Record<string, unknown>} [scopes]
+   * @returns {this}
+   */
+  fieldFormBackground (formBackground: string, scopes?: Record<string, unknown>): this {
+    this.setLayout({ formBackground })
+    if (scopes) {
+      this.registerCreated('$layout.formBackground', scopes)
+    }
+    return this
+  }
+
+  /**
+   * @param {Record<string, unknown>} [scopes]
+   * @returns {this}
+   */
+  fieldFormErrorHide (scopes?: Record<string, unknown>): this {
+    this.setLayout({ formError: false })
+    if (scopes) {
+      this.registerCreated('$layout.formError', scopes)
+    }
+    return this
+  }
+
+  /**
+   * @param {Record<string, unknown>} [scopes]
+   * @returns {this}
+   */
+  fieldFormErrorShow (scopes?: Record<string, unknown>): this {
+    this.setLayout({ formError: true })
+    if (scopes) {
+      this.registerCreated('$layout.formError', scopes)
+    }
+    return this
   }
 
   /**
    * @param {number} order
    * @param {boolean} updateOthers
-   * @returns {Schema}
+   * @param {Record<string, unknown>} [scopes]
+   * @returns {this}
    */
-  fieldFormOrder (order: number, updateOthers = false): this {
+  fieldFormOrder (order: number, updateOthers = false, scopes?: Record<string, unknown>): this {
     this.setLayout({ formOrder: order })
     if (updateOthers) {
       fieldsReorder(this.__fields, this.__currentField, 'formOrder', order)
+    }
+    if (scopes) {
+      this.registerCreated('$layout.formOrder', scopes)
     }
     return this
   }

@@ -130,7 +130,7 @@ export default abstract class Base {
   /**
    * @param {string | string[]} key
    * @param {unknown} [fallback]
-   * @returns {unknown}
+   * @returns {string | string[] | Record<string, unknown>}
    */
   $lang (key: string | string[], fallback: unknown = ''): string | string[] | Record<string, unknown> |
     Record<string, unknown>[] {
@@ -186,6 +186,24 @@ export default abstract class Base {
   }
 
   /**
+   * @param {string} path
+   * @param {Record<string, unknown>} scopes
+   * @return {this}
+   */
+  registerCreated (path: string, scopes: Record<string, unknown>): this {
+    const name = this.__currentField
+    if (!this.__fields[name].$created) {
+      this.__fields[name].$created = []
+    }
+    const created = this.__fields[name].$created || []
+    Object.entries(scopes).forEach((entry) => {
+      const [scope, value] = entry
+      created.push({ path, scope, value })
+    })
+    return this
+  }
+
+  /**
    * @param {Record<string, unknown>} layout
    * @returns {this}
    */
@@ -200,9 +218,7 @@ export default abstract class Base {
    * @returns {this}
    */
   setAttrs (attrs: Record<string, unknown>): this {
-    // const name = this.__currentField
-    // const field = this.__fields[name]
-    // this.__fields[name].attrs = Object.assign(field.attrs, attrs || {})
+    Object.assign(this.__fields[this.__currentField].attrs, attrs || {})
     return this
   }
 
@@ -211,7 +227,7 @@ export default abstract class Base {
    * @returns {this}
    */
   appendAttrs (attrs: Record<string, unknown>): this {
-    // Object.assign(this.__fields[this.__currentField].attrs, attrs)
+    Object.assign(this.__fields[this.__currentField].attrs, attrs)
     return this
   }
 
@@ -309,8 +325,6 @@ export default abstract class Base {
     field.is = properties.is
 
     this.__fields[name].$type = type
-    // this.__fields[name].attrs = properties.attrs
-    // this.__fields[name].attrs = Object.assign({}, properties.attrs, attrs)
     Object.assign(this.__fields[name].attrs, properties.attrs, attrs)
     Object.assign(this.__fields[name].on, properties.listeners)
     return this

@@ -1,7 +1,7 @@
 <!--suppress ES6ModulesDependencies -->
 <template>
   <div class="AppArray">
-    <q-markup-table
+    <QMarkupTable
       class="AppArray__table"
       dense
       bordered
@@ -78,9 +78,9 @@
           </tr>
         </template>
       </tbody>
-    </q-markup-table>
+    </QMarkupTable>
     <div style="padding: 0 0 0 6px;">
-      <q-btn
+      <QBtn
         v-if="!static && !disable"
         icon="add"
         dense
@@ -88,7 +88,7 @@
         @click="addItem"
       />
     </div>
-    <q-resize-observer
+    <QResizeObserver
       :debounce="300"
       @resize="onResize"
     />
@@ -96,6 +96,7 @@
 </template>
 
 <script type="text/javascript">
+import { QResizeObserver, QBtn, QMarkupTable } from 'quasar'
 import { currencyParseInput } from 'src/settings/components'
 
 import { AppArrayProps, AppArrayEmpty, AppArrayItems, AppArrayComponents } from './Mixins'
@@ -108,6 +109,9 @@ export default {
   /**
    */
   mixins: [AppArrayProps, AppArrayEmpty, AppArrayItems, AppArrayComponents],
+  /**
+   */
+  components: { QResizeObserver, QBtn, QMarkupTable },
   /**
    */
   props: {

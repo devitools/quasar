@@ -17,7 +17,7 @@ import ConfigureComponent from './Schema/Component/ConfigureComponent'
 
 import Service from '../Services/Rest'
 import { OPERATORS } from './enum'
-import { clone, objectToFormData, set, unique, withSeparator } from '../Util/general'
+import { clone, objectToFormData, set, withSeparator } from '../Util/general'
 
 import mixin from './Helper/mixin'
 import { Component } from './Helper/interfaces'
@@ -104,20 +104,6 @@ abstract class Skeleton extends Base {
     }
 
     return data
-  }
-
-  /**
-   * @param {Object} options
-   * @returns {Object}
-   */
-  static provideArray (options = {}) {
-    return {
-      domain: this.domain,
-      primaryKey: this.primaryKey,
-      displayKey: this.displayKey,
-      fields: () => this.$instance().getFields(),
-      ...options
-    }
   }
 
   /**

@@ -1,5 +1,7 @@
 import SchemaTableAsync from '../../Components/Schema/SchemaTableAsync'
 import SchemaFormAsync from '../../Components/Schema/SchemaFormAsync'
+import SkeletonSchemaTable from '../../Components/Schema/SkeletonSchemaTable'
+import SkeletonSchemaForm from '../../Components/Schema/SkeletonSchemaForm'
 
 /**
  * @param {Schema} schema
@@ -8,14 +10,31 @@ import SchemaFormAsync from '../../Components/Schema/SchemaFormAsync'
  */
 export function table (schema, dependencies = {}) {
   return {
-    SchemaTableAsync: function (resolve) {
-      resolve({
-        extends: SchemaTableAsync,
-        createdHook () {
-          const provide = schema.build(this, dependencies).provide()
-          this.configureProvide(provide)
-        }
-      })
+    SchemaTableAsync () {
+      return {
+        // The component to load (should be a Promise)
+        component: new Promise(function (resolve) {
+          const handler = () => {
+            const provide = schema.build(undefined, dependencies).provide()
+            resolve({
+              extends: SchemaTableAsync,
+              createdHook () {
+                this.configureProvide(provide)
+              }
+            })
+          }
+          window.setTimeout(handler, 10)
+        }),
+        // A component to use while the async component is loading
+        loading: SkeletonSchemaTable,
+        // A component to use if the load fails
+        // error: ErrorComponent,
+        // Delay before showing the loading component. Default: 200ms.
+        delay: 0,
+        // The error component will be displayed if a timeout is
+        // provided and exceeded. Default: Infinity.
+        timeout: 3000
+      }
     }
   }
 }
@@ -27,14 +46,31 @@ export function table (schema, dependencies = {}) {
  */
 export function form (schema, dependencies = {}) {
   return {
-    SchemaFormAsync: function (resolve) {
-      resolve({
-        extends: SchemaFormAsync,
-        createdHook () {
-          const provide = schema.build(this, dependencies).provide()
-          this.configureProvide(provide)
-        }
-      })
+    SchemaFormAsync () {
+      return {
+        // The component to load (should be a Promise)
+        component: new Promise(function (resolve) {
+          const handler = () => {
+            const provide = schema.build(undefined, dependencies).provide()
+            resolve({
+              extends: SchemaFormAsync,
+              createdHook () {
+                this.configureProvide(provide)
+              }
+            })
+          }
+          window.setTimeout(handler, 10)
+        }),
+        // A component to use while the async component is loading
+        loading: SkeletonSchemaForm,
+        // A component to use if the load fails
+        // error: ErrorComponent,
+        // Delay before showing the loading component. Default: 200ms.
+        delay: 0,
+        // The error component will be displayed if a timeout is
+        // provided and exceeded. Default: Infinity.
+        timeout: 3000
+      }
     }
   }
 }
@@ -57,7 +93,7 @@ export default {
     /**
      * SchemaTable async component
      */
-    SchemaTable () {
+    SchemaTableAsync () {
       return {
         // The component to load (should be a Promise)
         component: new Promise(function (resolve) {
@@ -70,7 +106,7 @@ export default {
           })
         }),
         // A component to use while the async component is loading
-        loading: () => import('../../Components/Schema/SkeletonSchemaTable.vue'),
+        loading: SkeletonSchemaTable,
         // A component to use if the load fails
         // error: ErrorComponent,
         // Delay before showing the loading component. Default: 200ms.
@@ -83,7 +119,7 @@ export default {
     /**
      * SchemaForm async component
      */
-    SchemaForm () {
+    SchemaFormAsync () {
       return {
         // The component to load (should be a Promise)
         component: new Promise(function (resolve) {
@@ -96,7 +132,7 @@ export default {
           })
         }),
         // A component to use while the async component is loading
-        loading: () => import('../../Components/Schema/SkeletonSchemaForm.vue'),
+        loading: SkeletonSchemaForm,
         // A component to use if the load fails
         // error: ErrorComponent,
         // Delay before showing the loading component. Default: 200ms.

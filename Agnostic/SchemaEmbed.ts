@@ -1,24 +1,11 @@
 import Skeleton from './Skeleton'
 
-import Groups from './Schema/Groups'
-import Fields from './Schema/Fields'
-import FieldTable from './Schema/FieldTable'
-import FieldForm from './Schema/FieldForm'
-import FieldIs from './Schema/FieldIs'
-import FieldValidation from './Schema/FieldValidation'
-import Actions from './Schema/Actions'
-import Hooks from './Schema/Hooks'
-import Watches from './Schema/Watches'
-import ConfigureActions from './Schema/Component/ConfigureActions'
-import ConfigureComponent from './Schema/Component/ConfigureComponent'
-
-import mixin from './Helper/mixin'
 import { SchemaForm, SchemaTable } from './Helper/interfaces'
 
 /**
  * @class {SchemaEmbed}
  */
-abstract class SchemaEmbed extends Skeleton {
+export default abstract class SchemaEmbed extends Skeleton {
   /**
    * Bootstrap everything
    * @param {SchemaForm | SchemaTable} $component
@@ -59,35 +46,3 @@ abstract class SchemaEmbed extends Skeleton {
     }
   }
 }
-
-/**
- * @interface {SchemaEmbed}
- */
-interface SchemaEmbed extends Groups,
-  Fields,
-  FieldTable,
-  FieldForm,
-  FieldIs,
-  FieldValidation,
-  Actions,
-  Hooks,
-  Watches,
-  ConfigureActions,
-  ConfigureComponent {
-}
-
-mixin(SchemaEmbed, [
-  Groups,
-  Fields,
-  FieldTable,
-  FieldForm,
-  FieldIs,
-  FieldValidation,
-  Actions,
-  Hooks,
-  Watches,
-  ConfigureActions,
-  ConfigureComponent
-])
-
-export default SchemaEmbed

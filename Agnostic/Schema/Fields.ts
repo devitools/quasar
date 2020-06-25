@@ -57,6 +57,19 @@ export default abstract class Fields extends Base {
   }
 
   /**
+   * @param {string[]} scopes
+   * @returns {this}
+   */
+  fieldScopesExcept (scopes: string[]): this {
+    const field = this.__currentField
+    if (this.__fields[field]) {
+      const filter = (scope: string) => !scopes.includes(scope)
+      this.__fields[field].scopes = this.__fields[field].scopes.filter(filter)
+    }
+    return this
+  }
+
+  /**
    * @param {string} group
    * @returns {Schema}
    */
@@ -69,6 +82,7 @@ export default abstract class Fields extends Base {
   }
 
   /**
+   * @deprecated
    * @param {Function} configure
    * @returns {Schema}
    */

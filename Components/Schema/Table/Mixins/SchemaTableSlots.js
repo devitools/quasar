@@ -44,21 +44,21 @@ export default {
      */
     renderTableTop (h, props) {
       const top = [
-        this.renderSchemaButtonsCompact(h, POSITIONS.POSITION_TABLE_TOP, { records: this.selected }),
-        h(QSpace)
+        this.renderSchemaButtonsCompact(h, POSITIONS.POSITION_TABLE_TOP, { records: this.selected })
       ]
 
       if (tableShowColumnsSelector) {
-        top.push(this.renderTableColumnsSelector(h))
         top.push(h(QSpace))
+        top.push(this.renderTableColumnsSelector(h))
       }
 
       if (tableShowFilters) {
-        top.push(this.renderTableFilter(h))
         top.push(h(QSpace))
+        top.push(this.renderTableFilter(h))
       }
 
       if (tableShowSearch) {
+        top.push(h(QSpace))
         top.push(this.renderTableSearch(h))
       }
 
@@ -81,7 +81,7 @@ export default {
         'option-value': 'name',
         'transition-show': 'jump-up',
         'transition-hide': 'flip-down',
-        'popup-content-class': 'app-float-menu',
+        'popup-content-class': 'SchemaTable__selector__popup',
         ...defaultAttrs,
         clearable: false
       }
@@ -89,13 +89,13 @@ export default {
         value: this.visibleColumns
       }
       const style = {
-        'min-width': '150px'
+        'min-width': '120px'
       }
       const on = {
         input: (visibleColumns) => { this.visibleColumns = visibleColumns }
       }
 
-      return h(QSelect, { attrs, props, on, style })
+      return h(QSelect, { domProps: { id: 'selector' }, attrs, props, on, style })
     },
     /**
      * @param {function} h
@@ -135,7 +135,7 @@ export default {
         append: () => h(QIcon, { attrs: { name: 'search' } })
       }
 
-      return h(QInput, { attrs, props, on, scopedSlots })
+      return h(QInput, { domProps: { id: 'search' }, attrs, props, on, scopedSlots })
     },
     /**
      * @param {function} h

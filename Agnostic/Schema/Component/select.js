@@ -47,6 +47,10 @@ export function fieldIsSelectFilter (currentField) {
 export function fieldIsSelectWatch (currentField) {
   return function (value) {
     const field = this.components[currentField]
+    if (!field) {
+      return
+    }
+
     if (!field.attrs.__placeholder) {
       field.attrs.__placeholder = field.attrs.placeholder
     }

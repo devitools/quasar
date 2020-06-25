@@ -155,7 +155,7 @@ export default abstract class FieldIs extends Base {
    * @param {Object} attrs
    * @returns {Schema}
    */
-  fieldIsText (rows = 4, attrs = {}) {
+  fieldIsText (rows = 6, attrs = {}) {
     this.setComponent('text', { ...attrs, rows }, 'text')
     return this
   }
@@ -190,7 +190,7 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {: Record<string, unknown>[]} options
+   * @param {Record<string, unknown>[]} options
    * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
@@ -207,6 +207,7 @@ export default abstract class FieldIs extends Base {
       mapOptions: true,
       emitValue: true,
       useChips: false,
+      useInput: true,
       ...attrs,
       options
     }
@@ -215,7 +216,7 @@ export default abstract class FieldIs extends Base {
 
     this.setOn('filter', fieldIsSelectFilter(currentField))
 
-    this.addWatch(`record.${currentField}`, fieldIsSelectWatch(currentField))
+    this.addWatch(`record.${currentField}`, fieldIsSelectWatch(currentField), { immediate: true })
 
     const { allowNew } = attrs
     if (allowNew) {

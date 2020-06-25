@@ -81,9 +81,19 @@ export interface Field {
     tableWhere?: string
   }
   scopes: string[]
+  $created?: Configure[]
   group?: string
   $configure?: Function
   chars?: string
+}
+
+/**
+ * @typedef {Configure}
+ */
+export type Configure = {
+  path: string
+  scope: string
+  value: unknown
 }
 
 /**
@@ -115,7 +125,7 @@ export interface Watch {
 }
 
 /**
- * @type {Timestamp}
+ * @typedef {Timestamp}
  */
 export type Timestamp = {
   name: string
@@ -123,7 +133,7 @@ export type Timestamp = {
 }
 
 /**
- * @type {FieldEvent}
+ * @typedef {FieldEvent}
  */
 export type FieldEvent = {
   $event: unknown
@@ -135,35 +145,41 @@ export type FieldEvent = {
  * @interface {Component}
  */
 export interface Component {
-  $getField (name: string): SchemaForm
+  $setIs (is: string): Component
 
-  $fieldFormHidden (formHidden?: boolean): SchemaForm
+  $setLayout (property: string, value: number | string): Component
 
-  $fieldFormWidth (formWidth: number): SchemaForm
+  $getLayout (property: string): Component
 
-  $fieldFormHeight (formHeight: number): SchemaForm
+  $getField (name: string): Component
 
-  $fieldAttr (property: string, value: unknown): SchemaForm
+  $fieldFormHidden (formHidden?: boolean): Component
 
-  $fieldFormDisabled (disable: boolean): SchemaForm
+  $fieldFormWidth (formWidth: number): Component
 
-  $fieldFormOrder (formOrder: number, updateOthers?: boolean): SchemaForm
+  $fieldFormHeight (formHeight: number): Component
 
-  $fieldTableHidden (tableHidden?: boolean): SchemaForm
+  $fieldAttr (property: string, value: unknown): Component
 
-  $fieldTableWhere (tableWhere?: string): SchemaForm
+  $fieldFormDisabled (disable: boolean): Component
+
+  $fieldFormOrder (formOrder: number, updateOthers?: boolean): Component
+
+  $fieldTableHidden (tableHidden?: boolean): Component
+
+  $fieldTableWhere (tableWhere?: string): Component
 
   $getValue (): unknown
 
-  $setValue (value: unknown): unknown
+  $setValue (value: unknown): Component
 }
 
 /**
- * @type {SchemaForm}
+ * @typedef {SchemaForm}
  */
 export type SchemaForm = Component
 
 /**
- * @type {SchemaTable}
+ * @typedef {SchemaTable}
  */
 export type SchemaTable = Component
