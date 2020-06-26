@@ -22,7 +22,7 @@ export default {
         domain: '',
         primaryKey: '',
         displayKey: '',
-        settings: {},
+        settings: { showPlaceholderContent: this.$options.schema.showPlaceholderContent },
         table: {},
         form: {},
         hooks: () => ({}),

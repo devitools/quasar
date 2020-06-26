@@ -1,4 +1,5 @@
 import { timestamps } from 'src/settings/field'
+import { showPlaceholderContent } from 'src/settings/schema'
 
 import Skeleton from './Skeleton'
 
@@ -13,6 +14,11 @@ export default abstract class Schema extends Skeleton {
    * @type {boolean}
    */
   static useUuid = true
+
+  /**
+   * @type {boolean}
+   */
+  static showPlaceholderContent = showPlaceholderContent
 
   /**
    * Bootstrap everything
@@ -52,7 +58,7 @@ export default abstract class Schema extends Skeleton {
   provide (): Provide {
     const schema = <typeof Schema>this.constructor
     return {
-      settings: { useUuid: schema.useUuid },
+      settings: { useUuid: schema.useUuid, showPlaceholderContent: schema.showPlaceholderContent },
       domain: schema.domain,
       primaryKey: schema.primaryKey,
       displayKey: schema.displayKey,

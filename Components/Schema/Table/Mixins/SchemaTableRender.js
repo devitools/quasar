@@ -161,9 +161,9 @@ export default {
    * @return {VNode}
    */
   render (h) {
-    // if (!this.domain) {
-    //   return this.renderLoading(h)
-    // }
+    if (!this.domain && this.settings?.showPlaceholderContent) {
+      return this.renderLoading(h)
+    }
 
     const data = {}
     const children = [
