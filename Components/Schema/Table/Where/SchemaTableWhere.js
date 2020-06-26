@@ -162,6 +162,7 @@ export default {
         return
       }
 
+      this.$performance.start('renderSide')
       const data = {
         class: 'SchemaTableWhere__side',
         on: { submit: this.searchSubmit }
@@ -170,6 +171,7 @@ export default {
         this.renderSideForm(h),
         this.renderSideButtons(h)
       ]
+      this.$performance.end('renderSide')
       return h('form', data, children)
     },
     /**

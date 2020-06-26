@@ -43,6 +43,9 @@ export default {
       return action.call(this)
     }
   },
+  beforeCreate () {
+    this.$performance.start(this.$options.name)
+  },
   /**
    */
   created () {
@@ -56,6 +59,7 @@ export default {
     this.triggerOption('mountedHook')
     this.triggerHook('mounted:default')
     this.triggerHook('mounted')
+    this.$performance.end(this.$options.name)
   },
   /**
    */
