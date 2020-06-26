@@ -7,16 +7,19 @@
       >
         <div class="app-form-buttons flex q-gutter-md">
           <QSkeleton
+            animation="none"
             type="rect"
             width="50px"
           />
           <QSkeleton
+            animation="none"
             type="rect"
             width="50px"
           />
         </div>
         <div class="q-space" />
         <QSkeleton
+          animation="none"
           type="rect"
           width="50%"
         />
@@ -27,24 +30,28 @@
             <tr>
               <th class="text-left">
                 <QSkeleton
+                  animation="none"
                   type="rect"
                   width="100px"
                 />
               </th>
               <th class="text-left">
                 <QSkeleton
+                  animation="none"
                   type="rect"
                   width="50px"
                 />
               </th>
               <th class="text-left">
                 <QSkeleton
+                  animation="none"
                   type="rect"
                   width="50px"
                 />
               </th>
               <th class="text-left">
                 <QSkeleton
+                  animation="none"
                   type="rect"
                   width="100%"
                 />
@@ -61,6 +68,7 @@
                 style="width: auto;"
               >
                 <QSkeleton
+                  animation="none"
                   type="rect"
                   width="100px"
                 />
@@ -70,6 +78,7 @@
                 style="width: auto"
               >
                 <QSkeleton
+                  animation="none"
                   type="rect"
                   width="50px"
                 />
@@ -79,6 +88,7 @@
                 style="width: auto"
               >
                 <QSkeleton
+                  animation="none"
                   type="rect"
                   width="50px"
                 />
@@ -88,6 +98,7 @@
                 style="width: auto"
               >
                 <QSkeleton
+                  animation="none"
                   type="rect"
                   width="100%"
                 />
@@ -101,6 +112,7 @@
         style="width: 42px"
       >
         <QSkeleton
+          animation="none"
           type="rect"
           width="150px"
         />

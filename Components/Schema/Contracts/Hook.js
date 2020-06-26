@@ -22,6 +22,7 @@ export default {
       if (typeof action !== 'function') {
         return
       }
+
       return action.call(this, context)
     },
     /**
@@ -38,6 +39,7 @@ export default {
       if (typeof action !== 'function') {
         return
       }
+
       return action.call(this)
     }
   },

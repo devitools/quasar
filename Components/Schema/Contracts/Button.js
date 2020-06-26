@@ -23,14 +23,6 @@ export default {
       this.buttons = actions
         .filter((action) => isAllowedAction(action, this.domain, this.settings?.whitelist))
         .reduce(this.buttonReduce, {})
-
-      // const key = `${this.schema}.buttons`
-      // let buttons = this.$memory.get(key, true)
-      // if (!buttons) {
-      //   buttons = this.actions().reduce(this.buttonReduce, {})
-      //   this.$memory.set(key, buttons, true)
-      // }
-      // this.buttons = buttons
     },
     /**
      * @param {Object} buttons

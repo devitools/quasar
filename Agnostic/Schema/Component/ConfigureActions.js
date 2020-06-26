@@ -53,7 +53,11 @@ export default class ConfigureActions {
     if (!schema.service) {
       return reject({ error: 'destroy.invalid-service' })
     }
-    const ok = this.formCheckIntegrity(schema, 'agnostic.actions.create.validation')
+
+    const ok = this.formCheckIntegrity(schema, [
+      `domains.${this.domain}.actions.create.validation`,
+      'agnostic.actions.create.validation'
+    ])
     if (!ok) {
       return
     }
@@ -95,13 +99,18 @@ export default class ConfigureActions {
    * @param {Object} record
    * @param {function(Object): Promise} executor
    * @param {function(string)} after
+   * @param {string} alias
    * @returns {Object}
    */
-  actionUpdate ({ schema, record, executor, after }) {
+  actionUpdate ({ schema, record, executor, after, alias }) {
     if (!schema.service) {
       return reject({ error: 'destroy.invalid-service' })
     }
-    const ok = this.formCheckIntegrity(schema, 'agnostic.actions.update.validation')
+
+    const ok = this.formCheckIntegrity(schema, [
+      `domains.${this.domain}.actions.update.validation`,
+      'agnostic.actions.update.validation'
+    ])
     if (!ok) {
       return
     }
@@ -128,7 +137,7 @@ export default class ConfigureActions {
         .then(success)
         .catch(fail)
     }
-    const success = updateAction(after, action)
+    const success = updateAction(after, action, alias)
     this.withRecord({ record }, success.bind(this))
   }
 
@@ -145,6 +154,7 @@ export default class ConfigureActions {
     if (!schema.service) {
       return reject({ error: 'destroy.invalid-service' })
     }
+
     const afterDestroyDefault = (path) => {
       if (this.fetchRecords) {
         this.fetchRecords()

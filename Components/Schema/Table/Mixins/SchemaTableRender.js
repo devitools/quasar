@@ -108,10 +108,7 @@ export default {
         scope: this.scope
       }
       const on = { input: (value) => this.applySearch(value) }
-      return h(SchemaTableWhere, {
-        attrs,
-        on
-      })
+      return h(SchemaTableWhere, { attrs, on })
     },
     /**
      * @param {function} h

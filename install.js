@@ -156,4 +156,22 @@ export default ({ Vue }) => {
       }
     }
   })
+
+  const performance = {}
+  /**
+   */
+  Object.defineProperty(Vue.prototype, '$performance', {
+    get () {
+      return {
+        start (reference) {
+          performance[reference] = window.performance.now()
+        },
+        end (reference) {
+          const t1 = window.performance.now()
+          const t0 = performance[reference]
+          console.warn(`[${reference}] ${Math.round(t1 - t0)}ms`)
+        }
+      }
+    }
+  })
 }

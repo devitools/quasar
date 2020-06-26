@@ -83,29 +83,18 @@ export const crud = (
 
 /**
  * @param {string|Object} settings
- * @param {string|Object} domain
- * @param {function} table
- * @param {function} form
+ * @param {Object[]} children
  * @return {RouteConfig}
  */
-export const resource = (settings, domain = undefined, table = undefined, form = undefined) => {
-  let path = settings
-  if (typeof settings === 'object') {
-    path = settings.path
-    domain = settings.domain
-    table = settings.table
-    form = settings.form
-  }
-
-  let resource
-  if (typeof domain === 'object') {
-    domain = domain.domain
-    resource = domain.resource
-  }
+export const resource = (settings, children = []) => {
+  const path = settings.path
+  const domain = settings.domain
+  const table = settings.table
+  const form = settings.form
 
   const component = () => import('../Components/Group/Group.vue')
-  const children = crud(domain, path, table, form)
+  const kids = crud(domain, path, table, form)
   const meta = { domain, resource }
 
-  return group(path, component, children, meta)
+  return group(path, component, [...kids, ...children], meta)
 }

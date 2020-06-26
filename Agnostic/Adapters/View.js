@@ -66,6 +66,7 @@ export default {
       if (!provide) {
         provide = this.$options.schema.build().provide()
       }
+
       this.updateBind(provide)
       this.$memory.set(name, provide)
     }

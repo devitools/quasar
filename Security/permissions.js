@@ -71,10 +71,10 @@ export const permissionSingle = (view) => {
 
 /**
  * @param domain
- * @param filterBy
+ * @param just
  * @returns {{level: string, domain: string, namespace: string, icon: string, label: string}[]}
  */
-export const permissionLevels = (domain, filterBy = []) => {
+export const permissionLevels = (domain, just = []) => {
   const children = [
     permissionLevel(domain, 'dvr', RULES.LEVEL_INDEX),
     permissionLevel(domain, 'restore', RULES.LEVEL_TRASH),
@@ -84,20 +84,20 @@ export const permissionLevels = (domain, filterBy = []) => {
     permissionLevel(domain, 'delete', RULES.LEVEL_DESTROY)
   ]
 
-  if (!filterBy || !filterBy.length) {
+  if (!just || !just.length) {
     return children
   }
-  return children.filter((kid) => filterBy.includes(kid.level))
+  return children.filter((kid) => just.includes(kid.level))
 }
 
 /**
  * @param {string} domain
- * @param {string[]} filterBy
+ * @param {string[]} just
  * @param {[]} levels
  * @return {{children: [{namespace: string, label: string}], icon: string, namespace: string, label: string}}
  */
-export const permissionActions = (domain, filterBy = [], levels = []) => {
-  const actions = permissionLevels(domain, filterBy)
+export const permissionActions = (domain, just = [], levels = []) => {
+  const actions = permissionLevels(domain, just)
   if (levels.length) {
     actions.push(...levels)
   }
@@ -110,7 +110,7 @@ export const permissionActions = (domain, filterBy = [], levels = []) => {
 }
 
 /**
- * @param {string} view
+ * @param {{icon?: string, domain?: string, path?: string, table?: Function, form?: Function}} view
  * @param {string[]} filterBy
  * @param {[]} levels
  * @param {[]} additional

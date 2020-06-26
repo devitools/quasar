@@ -93,54 +93,26 @@ export default {
     /**
      * SchemaTable async component
      */
-    SchemaTableAsync () {
-      return {
-        // The component to load (should be a Promise)
-        component: new Promise(function (resolve) {
-          resolve({
-            extends: SchemaTableAsync,
-            createdHook () {
-              const provide = this.$parent.$options.schema.build(this).provide()
-              this.configureProvide(provide)
-            }
-          })
-        }),
-        // A component to use while the async component is loading
-        loading: SkeletonSchemaTable,
-        // A component to use if the load fails
-        // error: ErrorComponent,
-        // Delay before showing the loading component. Default: 200ms.
-        delay: 1,
-        // The error component will be displayed if a timeout is
-        // provided and exceeded. Default: Infinity.
-        timeout: 3000
-      }
+    SchemaTableAsync (resolve) {
+      resolve({
+        extends: SchemaTableAsync,
+        createdHook () {
+          const provide = this.$parent.$options.schema.build(this).provide()
+          this.configureProvide(provide)
+        }
+      })
     },
     /**
      * SchemaForm async component
      */
-    SchemaFormAsync () {
-      return {
-        // The component to load (should be a Promise)
-        component: new Promise(function (resolve) {
-          resolve({
-            extends: SchemaFormAsync,
-            createdHook () {
-              const provide = this.$parent.$options.schema.build(this).provide()
-              this.configureProvide(provide)
-            }
-          })
-        }),
-        // A component to use while the async component is loading
-        loading: SkeletonSchemaForm,
-        // A component to use if the load fails
-        // error: ErrorComponent,
-        // Delay before showing the loading component. Default: 200ms.
-        delay: 1,
-        // The error component will be displayed if a timeout is
-        // provided and exceeded. Default: Infinity.
-        timeout: 3000
-      }
+    SchemaFormAsync (resolve) {
+      resolve({
+        extends: SchemaFormAsync,
+        createdHook () {
+          const provide = this.$parent.$options.schema.build(this).provide()
+          this.configureProvide(provide)
+        }
+      })
     }
   },
   /**

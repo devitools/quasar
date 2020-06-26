@@ -109,6 +109,18 @@ export default abstract class Actions extends Base {
   }
 
   /**
+   * @param {string[]} scopes
+   * @returns {this}
+   */
+  actionScopesAppend (scopes: string[]): this {
+    const id = this.__currentAction
+    if (this.__actions[id]) {
+      this.__actions[id].scopes.push(...scopes)
+    }
+    return this
+  }
+
+  /**
    * @param {string[]} levels
    * @returns {this}
    */

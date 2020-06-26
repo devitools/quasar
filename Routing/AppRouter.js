@@ -100,13 +100,11 @@ export default class AppRouter extends VueRouter {
 
   /**
    * @param {string|Object} route
-   * @param {string} domain
-   * @param {function} table
-   * @param {function} form
+   * @param {Object[]} children
    * @returns {AppRouter}
    */
-  resource (route, domain = undefined, table = undefined, form = undefined) {
-    return this.routes([resource(route, domain, table, form)])
+  resource (route, children = []) {
+    return this.routes([resource(route, children)])
   }
 
   /**

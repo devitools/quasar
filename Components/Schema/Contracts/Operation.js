@@ -8,13 +8,13 @@ export default {
    */
   methods: {
     /**
-     * @param {Object} payload
+     * @param {Object} context
      * @param {function} success
      * @param {function} noItems
      * @param {function} tooManySelected
      */
-    withRecord (payload, success, noItems = undefined, tooManySelected = undefined) {
-      let { record, records } = payload
+    withRecord (context, success, noItems = undefined, tooManySelected = undefined) {
+      let { record, records } = context
       if (!record && !(Array.isArray(records) && records.length)) {
         noItems ? noItems() : this.$alert(this.$lang('agnostic.actions.view.noItems'))
         return

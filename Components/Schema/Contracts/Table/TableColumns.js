@@ -42,10 +42,9 @@ export default {
      */
     columnsReduce (accumulator, field) {
       const label = this.parseFieldLabel(field)
-      const options = this.parseFieldOptions(field)
       accumulator.push({
         label: label,
-        options: options,
+        options: field.attrs.options,
         $remoteKey: field.$layout.tableRemoteKey || field.$key,
         $type: field.$type,
         name: field.$layout.tableName || field.$key,

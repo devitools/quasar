@@ -70,6 +70,18 @@ export default abstract class Fields extends Base {
   }
 
   /**
+   * @param {string[]} scopes
+   * @returns {this}
+   */
+  fieldScopesAppend (scopes: string[]): this {
+    const field = this.__currentField
+    if (this.__fields[field]) {
+      this.__fields[field].scopes.push(...scopes)
+    }
+    return this
+  }
+
+  /**
    * @param {string} group
    * @returns {Schema}
    */
@@ -149,16 +161,19 @@ export default abstract class Fields extends Base {
    * @param {string} $key
    * @return {this}
    */
-  addSeparator (this: Schema, $key = undefined) {
+  addSeparator (this: Schema, $key = undefined): Schema {
     const field = $key || unique()
-    const path = `separators.${field}`
-    const schema = this.$self()
-    const label = this.$lang(`domains.${schema.domain}.${path}`)
+    const name = `separators.${field}`
+    this.__currentField = name
 
-    this.addAvoid(path)
-    this.addField(path)
+    const schema = this.$self()
+    const label = this.$lang(`domains.${schema.domain}.${name}`)
+
+    this.addField(name)
       .setIs('AppSeparator')
-      .setAttrs({ label })
+      .fieldAppendAttrs({ label })
+      .fieldAvoid()
+
     return this
   }
 }
