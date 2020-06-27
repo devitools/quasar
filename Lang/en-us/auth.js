@@ -18,6 +18,7 @@ export default {
     username: 'Email',
     password: 'Password',
     confirmPassword: 'Password Confirmation',
+    confirmation: '"Password Confirmation" doesn\'t match "Password"',
     phone: 'Mobile',
     role: 'Business profile',
     person: 'Person',

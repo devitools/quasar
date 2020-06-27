@@ -19,6 +19,7 @@ export default {
     username: 'Nome de Usuário',
     password: 'Senha',
     confirmPassword: 'Confirmação de Senha',
+    confirmation: '"Confirmação de Senha" não combina com "Senha"',
     phone: 'Celular',
     role: 'Perfil do negócio',
     person: 'Pessoa',
