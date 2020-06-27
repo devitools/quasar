@@ -1,5 +1,5 @@
 import { timestamps } from 'src/settings/field'
-import { showPlaceholderContent } from 'src/settings/schema'
+import { SHOW_PLACEHOLDER_CONTENT } from 'src/settings/schema'
 
 import Skeleton from './Skeleton'
 
@@ -18,7 +18,7 @@ export default abstract class Schema extends Skeleton {
   /**
    * @type {boolean}
    */
-  static showPlaceholderContent = showPlaceholderContent
+  static showPlaceholderContent = SHOW_PLACEHOLDER_CONTENT
 
   /**
    * Bootstrap everything
