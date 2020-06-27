@@ -31,6 +31,7 @@ export default {
       this.triggerHook('request:record', { id })
         .then(this.successFetchRecord)
         .catch(this.errorFetchRecord)
+        .finally(this.finallyFetchRecord)
     },
     /**
      * @param {Object} record
@@ -59,9 +60,13 @@ export default {
     /**
      */
     errorFetchRecord (/* error */) {
-      this.loadingHide()
-
       // this.$error.report(error)
+    },
+    /**
+     */
+    finallyFetchRecord (/* error */) {
+      this.loadingHide()
+      this.showPlaceholderContent = false
     }
   }
 }

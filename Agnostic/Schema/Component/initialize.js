@@ -20,12 +20,18 @@ export default {
   /**
    */
   [SCOPES.SCOPE_EDIT] () {
-    this.fetchRecord(this.$route.params[this.primaryKey])
+    this.showPlaceholderContent = true
+    const id = this.$route.params[this.primaryKey]
+    if (!id) {
+      return
+    }
+    this.fetchRecord(id)
   },
 
   /**
    */
   [SCOPES.SCOPE_VIEW] () {
+    this.showPlaceholderContent = true
     const setField = (key) => this.setFieldAttrs(key, { readonly: true, disable: true })
     Object.keys(this.components).forEach(setField)
 
@@ -33,7 +39,11 @@ export default {
       this.$util.set(this.buttons, 'home.attrs.icon', 'restore')
     }
 
-    this.fetchRecord(this.$route.params[this.primaryKey])
+    const id = this.$route.params[this.primaryKey]
+    if (!id) {
+      return
+    }
+    this.fetchRecord(id)
   },
 
   /**

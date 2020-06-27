@@ -167,7 +167,7 @@ export default {
    * @param {function} h
    */
   render (h) {
-    if (!this.domain && this.settings?.showPlaceholderContent) {
+    if ((!this.domain && this.settings?.showPlaceholderContent) || this.showPlaceholderContent) {
       return this.renderLoading(h)
     }
 

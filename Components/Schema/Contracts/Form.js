@@ -26,13 +26,17 @@ export default {
   },
   /**
    */
-  data: () => ({
-    components: {},
-    record: {},
-    payload: {},
-    grouping: {},
-    errors: {}
-  }),
+  data () {
+    return {
+      components: {},
+      record: {},
+      payload: {},
+      grouping: {},
+      errors: {},
+
+      showPlaceholderContent: false
+    }
+  },
   /**
    */
   methods: {
