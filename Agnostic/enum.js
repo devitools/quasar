@@ -1,5 +1,12 @@
 /**
- * @type {Readonly<{SCOPE_REMOVE: string, SCOPE_ADD: string, SCOPE_EDIT: string, SCOPE_TRASH: string, SCOPE_INDEX: string, SCOPE_VIEW: string}>}
+ * @type {Readonly<{
+ * SCOPE_REMOVE: string,
+ * SCOPE_ADD: string,
+ * SCOPE_EDIT: string,
+ * SCOPE_TRASH: string,
+ * SCOPE_INDEX: string,
+ * SCOPE_VIEW: string
+ * }>}
  */
 export const SCOPES = Object.freeze({
   SCOPE_INDEX: 'scope-index',
@@ -16,7 +23,38 @@ export const SCOPES = Object.freeze({
 export const scopes = () => Object.values(SCOPES)
 
 /**
- * @type {Readonly<{POSITION_TABLE_SEARCH: string, POSITION_FORM_FOOTER: string, POSITION_TABLE_TOP: string, POSITION_TABLE_FLOAT: string, POSITION_TABLE_CELL: string}>}
+ * @type {Readonly<{
+ *
+ * SCOPE_EMBED_VIEW: string,
+ * SCOPE_EMBED_TRASH: string,
+ * SCOPE_EMBED_ADD: string,
+ * SCOPE_EMBED_INDEX: string,
+ * SCOPE_EMBED_EDIT: string,
+ * SCOPE_EMBED_REMOVE: string
+ * }>}
+ */
+export const SCOPES_EMBED = Object.freeze({
+  SCOPE_EMBED_INDEX: 'scope-embed-index',
+  SCOPE_EMBED_ADD: 'scope-embed-add',
+  SCOPE_EMBED_VIEW: 'scope-embed-view',
+  SCOPE_EMBED_EDIT: 'scope-embed-edit',
+  SCOPE_EMBED_REMOVE: 'scope-embed-remove',
+  SCOPE_EMBED_TRASH: 'scope-embed-trash'
+})
+
+/**
+ * @return {Array}
+ */
+export const scopesEmbed = () => Object.values(SCOPES_EMBED)
+
+/**
+ * @type {Readonly<{
+ * POSITION_TABLE_SEARCH: string,
+ * POSITION_FORM_FOOTER: string,
+ * POSITION_TABLE_TOP: string,
+ * POSITION_TABLE_FLOAT: string,
+ * POSITION_TABLE_CELL: string
+ * }>}
  */
 export const POSITIONS = Object.freeze({
   POSITION_TABLE_TOP: 'table-top',
@@ -32,7 +70,15 @@ export const POSITIONS = Object.freeze({
 export const positions = () => Object.values(POSITIONS)
 
 /**
- * @type {Readonly<{CURRENCY: string, AUTOMATIC: string, NIN: string, LIKE: string, IN: string, EQUAL: string, NOT_EQUAL: string}>}
+ * @type {Readonly<{
+ * CURRENCY: string,
+ * AUTOMATIC: string,
+ * NIN: string,
+ * LIKE: string,
+ * IN: string,
+ * EQUAL: string,
+ * NOT_EQUAL: string
+ * }>}
  */
 export const OPERATORS = Object.freeze({
   EQUAL: 'eq',

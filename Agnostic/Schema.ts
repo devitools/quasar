@@ -2,6 +2,8 @@ import { timestamps } from 'src/settings/field'
 import { SHOW_PLACEHOLDER_CONTENT } from 'src/settings/schema'
 
 import Skeleton from './Skeleton'
+import ConfigureActionsSchema from './Schema/Component/ConfigureActionsSchema'
+import mixin from './Helper/mixin'
 
 import { Provide, Timestamp, SchemaForm, SchemaTable } from './Helper/interfaces'
 import { SCOPES } from './enum'
@@ -9,7 +11,7 @@ import { SCOPES } from './enum'
 /**
  * @class {Schema}
  */
-export default abstract class Schema extends Skeleton {
+abstract class Schema extends Skeleton {
   /**
    * @type {boolean}
    */
@@ -27,7 +29,7 @@ export default abstract class Schema extends Skeleton {
   bootstrap ($component?: SchemaForm | SchemaTable) {
     this.fieldAsPrimaryKey()
 
-    this.configureActions()
+    this.configureActionsSchema()
     this.configureComponentInitialization()
     this.configureRequestRecords()
     this.configureRequestRecord()
@@ -71,3 +73,14 @@ export default abstract class Schema extends Skeleton {
     }
   }
 }
+
+/**
+ * @interface {Schema}
+ */
+interface Schema extends ConfigureActionsSchema {
+  provide (): Provide
+}
+
+mixin(Schema, [ConfigureActionsSchema])
+
+export default Schema

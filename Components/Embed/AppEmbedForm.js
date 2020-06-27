@@ -1,4 +1,4 @@
-import { SCOPES } from '../../Agnostic/enum'
+import { SCOPES_EMBED } from '../../Agnostic/enum'
 import SchemaForm from '../Schema/SchemaForm'
 
 /**
@@ -58,7 +58,7 @@ export default {
      * @param id
      */
     loadRecordMasterDetailForm (id) {
-      const scopes = [SCOPES.SCOPE_MASTER_DETAIL_EDIT, SCOPES.SCOPE_MASTER_DETAIL_VIEW]
+      const scopes = [SCOPES_EMBED.SCOPE_EMBED_EDIT, SCOPES_EMBED.SCOPE_EMBED_VIEW]
       if (!scopes.includes(this.scope)) {
         return
       }
@@ -68,13 +68,13 @@ export default {
   watch: {
     scope: {
       handler (scope) {
-        if (scope === SCOPES.SCOPE_MASTER_DETAIL_INDEX) {
+        if (scope === SCOPES_EMBED.SCOPE_EMBED_INDEX) {
           return
         }
 
         this.reloadComponents()
 
-        if (scope !== SCOPES.SCOPE_MASTER_DETAIL_VIEW) {
+        if (scope !== SCOPES_EMBED.SCOPE_EMBED_VIEW) {
           return
         }
 

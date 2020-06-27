@@ -12,7 +12,7 @@ import Actions from './Schema/Actions'
 import Hooks from './Schema/Hooks'
 import Watches from './Schema/Watches'
 import Avoids from './Schema/Avoids'
-import ConfigureActions from './Schema/Component/ConfigureActions'
+import ComponentActions from './Schema/Component/ComponentActions'
 import ConfigureComponent from './Schema/Component/ConfigureComponent'
 
 import Service from '../Services/Rest'
@@ -165,7 +165,7 @@ interface Skeleton extends Groups,
   Hooks,
   Watches,
   Avoids,
-  ConfigureActions,
+  ComponentActions,
   ConfigureComponent {
 }
 
@@ -180,7 +180,7 @@ mixin(Skeleton, [
   Hooks,
   Watches,
   Avoids,
-  ConfigureActions,
+  ComponentActions,
   ConfigureComponent
 ])
 

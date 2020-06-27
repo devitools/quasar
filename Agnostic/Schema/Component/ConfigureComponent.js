@@ -17,12 +17,6 @@ export default class ConfigureComponent {
   }
 
   /**
-   */
-  configureActions () {
-    defaultActions(this)
-  }
-
-  /**
    * Method that perform all configure events
    * It call the methods of all default scopes
    */

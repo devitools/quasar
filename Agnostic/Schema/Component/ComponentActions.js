@@ -4,9 +4,9 @@ import { SCOPES } from '../../enum'
 import { reject } from '../../../Util/general'
 
 /**
- * @class {ConfigureActions}
+ * @class {ComponentActions}
  */
-export default class ConfigureActions {
+export default class ComponentActions {
   /**
    */
   actionBack () {

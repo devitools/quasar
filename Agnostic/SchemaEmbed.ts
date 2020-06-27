@@ -1,11 +1,21 @@
 import Skeleton from './Skeleton'
 
 import { SchemaForm, SchemaTable } from './Helper/interfaces'
+import mixin from './Helper/mixin'
+import ConfigureActionsSchemaEmbed from './Schema/Component/ConfigureActionsSchemaEmbed'
+import { scopesEmbed } from './enum'
 
 /**
  * @class {SchemaEmbed}
  */
-export default abstract class SchemaEmbed extends Skeleton {
+abstract class SchemaEmbed extends Skeleton {
+  /**
+   * @return {string[]}
+   */
+  initScopes (): string[] {
+    return scopesEmbed()
+  }
+
   /**
    * Bootstrap everything
    * @param {SchemaForm | SchemaTable} $component
@@ -13,7 +23,7 @@ export default abstract class SchemaEmbed extends Skeleton {
   bootstrap ($component?: SchemaForm | SchemaTable) {
     this.fieldAsPrimaryKey()
 
-    // this.configureActions()
+    this.configureActionsSchemaEmbed()
     this.configureComponentInitialization()
     this.configureRequestRecords()
     this.configureRequestRecord()
@@ -21,9 +31,9 @@ export default abstract class SchemaEmbed extends Skeleton {
 
   /**
    * @param {string} masterKey
-   * @returns {*}
+   * @returns {ProvideEmbed}
    */
-  static provideEmbed (masterKey: string) {
+  static provideEmbed (masterKey: string): ProvideEmbed {
     let build: SchemaEmbed
     const instance = () => {
       if (!build) {
@@ -46,3 +56,30 @@ export default abstract class SchemaEmbed extends Skeleton {
     }
   }
 }
+
+/**
+ * @type {ProvideEmbed}
+ */
+type ProvideEmbed = {
+  masterKey: string
+  groupType: string
+  domain: string
+  primaryKey: string
+  displayKey: string
+  hooks: Function
+  actions: Function
+  groups: Function
+  fields: Function
+  watches: Function
+}
+
+/**
+ * @interface {SchemaEmbed}
+ */
+interface SchemaEmbed extends ConfigureActionsSchemaEmbed {
+  provideEmbed (masterKey: string): ProvideEmbed
+}
+
+mixin(SchemaEmbed, [ConfigureActionsSchemaEmbed])
+
+export default SchemaEmbed

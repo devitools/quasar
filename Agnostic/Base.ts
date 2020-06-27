@@ -327,8 +327,10 @@ export default abstract class Base {
 
     field.is = properties.is
 
+    const inherit = typeof properties.attrs === 'function' ? properties.attrs() : properties.attrs
+
     this.__fields[name].$type = type
-    Object.assign(this.__fields[name].attrs, properties.attrs, attrs)
+    Object.assign(this.__fields[name].attrs, inherit, attrs)
     Object.assign(this.__fields[name].on, properties.listeners)
     return this
   }

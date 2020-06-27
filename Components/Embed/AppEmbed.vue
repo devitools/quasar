@@ -10,6 +10,11 @@
         v-bind="bind"
         @change="change"
       />
+    </transition>
+    <transition
+      name="fade"
+      mode="in-out"
+    >
       <AppEmbedForm
         v-if="form"
         v-bind="bind"
@@ -20,7 +25,7 @@
 </template>
 
 <script lang="js">
-import { SCOPES } from '../../Agnostic/enum'
+import { SCOPES_EMBED } from '../../Agnostic/enum'
 
 import AppEmbedTable from './AppEmbedTable'
 import AppEmbedForm from './AppEmbedForm'
@@ -59,7 +64,7 @@ export default {
    */
   data () {
     return {
-      scope: SCOPES.SCOPE_MASTER_DETAIL_INDEX,
+      scope: SCOPES_EMBED.SCOPE_EMBED_INDEX,
       clipboard: {}
     }
   },
@@ -89,16 +94,16 @@ export default {
      * @return {boolean}
      */
     table () {
-      return this.scope === SCOPES.SCOPE_MASTER_DETAIL_INDEX
+      return this.scope === SCOPES_EMBED.SCOPE_EMBED_INDEX
     },
     /**
      * @return {boolean}
      */
     form () {
       const scopes = [
-        SCOPES.SCOPE_MASTER_DETAIL_ADD,
-        SCOPES.SCOPE_MASTER_DETAIL_EDIT,
-        SCOPES.SCOPE_MASTER_DETAIL_VIEW
+        SCOPES_EMBED.SCOPE_EMBED_ADD,
+        SCOPES_EMBED.SCOPE_EMBED_EDIT,
+        SCOPES_EMBED.SCOPE_EMBED_VIEW
       ]
       // noinspection JSCheckFunctionSignatures
       return scopes.includes(this.scope)
@@ -137,6 +142,8 @@ export default {
 
   > .AppEmbedForm
     position absolute
+    width: calc(100% - 10px)
+
     .app-form-wrapper
       height calc(100vh - 260px)
       box-shadow none
