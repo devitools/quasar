@@ -171,6 +171,7 @@ export default abstract class Base {
    * Base constructor
    */
   constructor ($component?: Component, dependencies?: Record<string, unknown>) {
+    const t0 = window.performance.now()
     this.scopes = this.initScopes()
     this.__groups = {}
     this.__fields = {}
@@ -183,6 +184,8 @@ export default abstract class Base {
     this.bootstrap()
     this.construct($component, dependencies)
     this.timestamps()
+    const t1 = window.performance.now()
+    console.warn(`[Base.construct(${this.$self().domain})] ${Math.round(t1 - t0)}ms`)
   }
 
   /**

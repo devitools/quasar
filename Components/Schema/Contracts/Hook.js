@@ -44,14 +44,16 @@ export default {
     }
   },
   beforeCreate () {
-    this.$performance.start(this.$options.name)
+    this.$performance.start(this.$parent.$options.name)
   },
   /**
    */
   created () {
+    this.$performance.start(`${this.$parent.$options.name}:initialize`)
     this.triggerOption('createdHook')
     this.triggerHook('created:default')
     this.triggerHook('created')
+    this.$performance.end(`${this.$parent.$options.name}:initialize`)
   },
   /**
    */
@@ -59,7 +61,7 @@ export default {
     this.triggerOption('mountedHook')
     this.triggerHook('mounted:default')
     this.triggerHook('mounted')
-    this.$performance.end(this.$options.name)
+    this.$performance.end(this.$parent.$options.name)
   },
   /**
    */
