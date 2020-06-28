@@ -227,15 +227,19 @@ export default {
 </script>
 
 <style lang="stylus">
-.AppArray
-  .AppArray__table.q-table--dense .q-table th, .AppArray__table.q-table--dense .q-table td
-    padding 4px 2px
+.AppArray {
+  .AppArray__table.q-table--dense .q-table th, .AppArray__table.q-table--dense .q-table td {
+    padding: 4px 2px;
+  }
 
-  .AppArray__empty
-    padding 10px
-    text-align center
-    color #797979
+  .AppArray__empty {
+    padding: 10px;
+    text-align: center;
+    color: #797979;
+  }
 
-  .q-field__native.row.items-center
-    flex-wrap nowrap
+  .q-field__native.row.items-center {
+    flex-wrap: nowrap;
+  }
+}
 </style>

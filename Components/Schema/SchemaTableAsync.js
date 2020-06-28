@@ -34,7 +34,7 @@ export default {
     actions: () => ([]),
     hooks: () => ({}),
     watches: () => ({}),
-    builtIn: false,
+    builtin: false,
     debuggerAllowed: true
   })
 }

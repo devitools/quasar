@@ -84,14 +84,14 @@ export default {
 </script>
 
 <style lang="stylus">
-.AppFile
-  > .actions
+.AppFile {
+  > .actions {
     display flex
     justify-content flex-start
     align-items center
     flex-wrap nowrap
 
-    > .content
+    > .content {
       border 1px solid #dddddd
       border-radius 4px
       padding 7px 10px 0 10px
@@ -99,4 +99,7 @@ export default {
       color #737373
       font-size 0.8rem
       height 35px
+    }
+  }
+}
 </style>

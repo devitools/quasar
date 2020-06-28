@@ -1,8 +1,8 @@
 import { SchemaTable } from '../../index'
-import { POSITIONS, SCOPES } from '../../../Agnostic/enum'
+import { POSITIONS, SCOPES_BUILTIN } from '../../../Agnostic/enum'
 
 /**
- * @component {AppBuiltInTable}
+ * @component {AppBuiltinTable}
  */
 export default {
   /**
@@ -10,7 +10,7 @@ export default {
   extends: SchemaTable,
   /**
    */
-  name: 'AppBuiltInTable',
+  name: 'AppBuiltinTable',
   /**
    */
   props: {
@@ -39,7 +39,7 @@ export default {
      * @returns {*}
      */
     renderTable (h, classes = ['SchemaTable'], embed = false) {
-      if (this.scope === SCOPES.SCOPE_TRASH) {
+      if (this.scope === SCOPES_BUILTIN.SCOPE_BUILTIN_TRASH) {
         classes.push('trash')
       }
 
@@ -57,33 +57,33 @@ export default {
     },
     /**
      */
-    actionBuiltInAdd () {
-      this.$emit('actionBuiltInAdd')
+    actionBuiltinAdd () {
+      this.$emit('actionBuiltinAdd')
     },
     /**
      * @param {Object} record
      */
-    actionBuiltInEdit (record) {
-      this.$emit('actionBuiltInEdit', record)
+    actionBuiltinEdit (record) {
+      this.$emit('actionBuiltinEdit', record)
     },
     /**
      * @param {Object} record
      */
-    actionBuiltInView (record) {
-      this.$emit('actionBuiltInView', record)
+    actionBuiltinView (record) {
+      this.$emit('actionBuiltinView', record)
     },
     /**
      * @param {Object} record
      */
-    actionBuiltInDestroy (record) {
-      this.$emit('actionBuiltInDestroy', record)
+    actionBuiltinDestroy (record) {
+      this.$emit('actionBuiltinDestroy', record)
     }
   },
   /**
    * @param {function} h
    */
   render (h) {
-    const data = { class: ['AppBuiltInTable'] }
+    const data = { class: ['AppBuiltinTable'] }
     const children = [
       this.renderTable(h)
     ]

@@ -5,7 +5,7 @@ import {
 } from '../settings'
 
 /**
- * @component {AppBuiltInForm}
+ * @component {AppBuiltinForm}
  */
 export default {
   /**
@@ -13,7 +13,7 @@ export default {
   extends: SchemaForm,
   /**
    */
-  name: 'AppBuiltInForm',
+  name: 'AppBuiltinForm',
   /**
    */
   props: {
@@ -29,19 +29,19 @@ export default {
      * @return {string|Array|Object}
      */
     renderFormClassNames () {
-      return ['SchemaForm', 'AppBuiltInForm', this.renderFormGroupingClass()]
+      return ['SchemaForm', 'AppBuiltinForm', this.renderFormGroupingClass()]
     },
     /**
      * @return {string|Array|Object}
      */
     renderFormWrapperClassNames () {
-      return 'AppBuiltInForm__wrapper'
+      return 'AppBuiltinForm__wrapper'
     },
     /**
      * @return {string|Array|Object}
      */
     renderFormBodyClassNames () {
-      return 'AppBuiltInForm__body'
+      return 'AppBuiltinForm__body'
     },
     /**
      * @return {string|Array|Object}
@@ -51,29 +51,30 @@ export default {
     },
     /**
      */
-    actionBuiltInBack () {
-      this.$emit('actionBuiltInBack')
+    actionBuiltinBack () {
+      this.$emit('actionBuiltinBack')
     },
     /**
      */
-    actionBuiltInCancel () {
-      this.$emit('actionBuiltInCancel')
+    actionBuiltinCancel () {
+      this.$emit('actionBuiltinCancel')
     },
     /**
      */
-    actionBuiltInApply () {
-      this.$emit('actionBuiltInApply')
+    actionBuiltinApply () {
+      this.$emit('actionBuiltinApply')
     },
     /**
      * @param {Object} record
      */
-    actionBuiltInDestroy (record) {
-      this.$emit('actionBuiltInDestroy', record)
+    actionBuiltinDestroy (record) {
+      this.$emit('actionBuiltinDestroy', record)
     }
   },
   watch: {
     value (value) {
       this.record = value
+      this.showPlaceholderContent = false
     }
   }
 }

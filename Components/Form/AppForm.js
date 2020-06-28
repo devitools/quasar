@@ -1,7 +1,7 @@
 import { SchemaForm } from '../../Components'
 
 /**
- * @component {AppBuiltInForm}
+ * @component {AppBuiltinForm}
  */
 export default {
   /**

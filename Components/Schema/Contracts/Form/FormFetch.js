@@ -22,7 +22,7 @@ export default {
      * @returns {Promise}
      */
     fetchRecord (id) {
-      if (this.builtIn) {
+      if (this.builtin) {
         return new Promise((resolve) => resolve(false))
       }
 

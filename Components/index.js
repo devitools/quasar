@@ -3,7 +3,7 @@ export { default as SchemaForm } from './Schema/SchemaForm'
 export { default as SchemaReport } from './Schema/SchemaReport'
 
 export { default as AppArray } from './Array/AppArray.vue'
-export { default as AppBuiltIn } from './BuiltIn/AppBuiltIn.vue'
+export { default as AppBuiltin } from './Builtin/AppBuiltin.vue'
 export { default as AppBreadcrumb } from './Breadcrumb/AppBreadcrumb'
 export { default as AppButton } from './Button/AppButton.vue'
 export { default as AppDate } from './Date/AppDate.vue'

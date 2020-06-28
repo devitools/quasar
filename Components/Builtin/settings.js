@@ -1,9 +1,9 @@
-import { SCOPES } from '../../Agnostic/enum'
+import { SCOPES_BUILTIN } from '../../Agnostic/enum'
 
 export const references = {
-  [SCOPES.SCOPE_ADD]: 'add',
-  [SCOPES.SCOPE_EDIT]: 'edit',
-  [SCOPES.SCOPE_VIEW]: 'view'
+  [SCOPES_BUILTIN.SCOPE_BUILTIN_ADD]: 'add',
+  [SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT]: 'edit',
+  [SCOPES_BUILTIN.SCOPE_BUILTIN_VIEW]: 'view'
 }
 
 /**

@@ -49,6 +49,31 @@ export const scopesEmbed = () => Object.values(SCOPES_EMBED)
 
 /**
  * @type {Readonly<{
+ *
+ * SCOPE_EMBED_VIEW: string,
+ * SCOPE_EMBED_TRASH: string,
+ * SCOPE_EMBED_ADD: string,
+ * SCOPE_EMBED_INDEX: string,
+ * SCOPE_EMBED_EDIT: string,
+ * SCOPE_EMBED_REMOVE: string
+ * }>}
+ */
+export const SCOPES_BUILTIN = Object.freeze({
+  SCOPE_BUILTIN_INDEX: 'scope-builtin-index',
+  SCOPE_BUILTIN_ADD: 'scope-builtin-add',
+  SCOPE_BUILTIN_VIEW: 'scope-builtin-view',
+  SCOPE_BUILTIN_EDIT: 'scope-builtin-edit',
+  SCOPE_BUILTIN_REMOVE: 'scope-builtin-remove',
+  SCOPE_BUILTIN_TRASH: 'scope-builtin-trash'
+})
+
+/**
+ * @return {Array}
+ */
+export const scopesBuiltin = () => Object.values(SCOPES_BUILTIN)
+
+/**
+ * @type {Readonly<{
  * POSITION_TABLE_SEARCH: string,
  * POSITION_FORM_FOOTER: string,
  * POSITION_TABLE_TOP: string,

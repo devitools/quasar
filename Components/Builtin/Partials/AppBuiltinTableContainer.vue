@@ -1,7 +1,7 @@
 <!--suppress ES6ModulesDependencies -->
 <template>
-  <AppBuiltInTable
-    class="AppBuiltInTableContainer"
+  <AppBuiltinTable
+    class="AppBuiltinTableContainer"
     v-bind="$props"
     :scope="scope"
     :value="items"
@@ -9,30 +9,30 @@
     :debugger-allowed="false"
     :size="size"
     selection="none"
-    @actionBuiltInAdd="$emit('actionBuiltInAdd')"
-    @actionBuiltInEdit="$emit('actionEdit', $event)"
-    @actionBuiltInView="$emit('actionView', $event)"
-    @actionBuiltInDestroy="$emit('actionDestroy', $event)"
+    @actionBuiltinAdd="$emit('actionBuiltinAdd')"
+    @actionBuiltinEdit="$emit('actionEdit', $event)"
+    @actionBuiltinView="$emit('actionView', $event)"
+    @actionBuiltinDestroy="$emit('actionDestroy', $event)"
   />
 </template>
 
 <script type="text/javascript">
-import { SCOPES } from '../../../Agnostic/enum'
+import { SCOPES_BUILTIN } from '../../../Agnostic/enum'
 
 import Props from '../../Schema/Contracts/Props'
-import AppBuiltInTable from './AppBuiltInTable'
+import AppBuiltinTable from './AppBuiltinTable'
 import { APP_BUILT_IN_DEFAULT_TABLE_HEIGHT } from '../settings'
 
 export default {
   /**
    */
-  name: 'AppBuiltInTableContainer',
+  name: 'AppBuiltinTableContainer',
   /**
    */
   mixins: [Props],
   /**
    */
-  components: { AppBuiltInTable },
+  components: { AppBuiltinTable },
   /**
    */
   props: {
@@ -68,7 +68,7 @@ export default {
   /**
    */
   data: () => ({
-    scope: SCOPES.SCOPE_INDEX
+    scope: SCOPES_BUILTIN.SCOPE_BUILTIN_INDEX
   }),
   /**
    */
@@ -98,21 +98,25 @@ export default {
 </script>
 
 <style lang="stylus">
-.AppBuiltInTableContainer
-  min-height 300px
+.AppBuiltinTableContainer {
+  min-height: 300px;
 
-  > .q-table__container
-    min-height 300px
+  > .q-table__container {
+    min-height: 300px;
 
-    .q-table__middle
-      height auto
+    .q-table__middle {
+      height: auto;
+    }
 
-    > .q-table__top
-      height 50px
-      min-height 50px
-      max-height 50px
+    > .q-table__top {
+      height: 50px;
+      min-height: 50px;
+      max-height: 50px;
 
-      & > .app-form-buttons
-        display flex
-
+      & > .app-form-buttons {
+        display: flex;
+      }
+    }
+  }
+}
 </style>

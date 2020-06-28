@@ -26,7 +26,7 @@ export default {
      * @param {Object} options
      */
     fetchRecords (options = {}) {
-      if (this.builtIn) {
+      if (this.builtin) {
         const page = (this.pagination.page - 1)
 
         const start = page * this.pagination.rowsPerPage
@@ -201,7 +201,7 @@ export default {
      * @param options
      */
     tableFetchApply (query, options = undefined) {
-      if (!this.embed && !this.builtIn) {
+      if (!this.embed && !this.builtin) {
         this.$browse({ query: query }, options)
         return
       }

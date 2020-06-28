@@ -1,6 +1,6 @@
 import { primaryKey } from 'src/settings/schema'
 
-import { SCOPES } from '../../../Agnostic/enum'
+import { SCOPES_BUILTIN } from '../../../Agnostic/enum'
 import { unique } from '../../../Util/general'
 import Dialog from '../../Schema/Contracts/Dialog'
 
@@ -24,7 +24,7 @@ export default {
      */
     actionAdd () {
       this.item = this.$util.clone(this.defaults)
-      this.scope = SCOPES.SCOPE_ADD
+      this.scope = SCOPES_BUILTIN.SCOPE_BUILTIN_ADD
       this.formActive = true
     },
     /**
@@ -43,8 +43,8 @@ export default {
     actionApply () {
       if (!this.$refs.form.isValidForm()) {
         const message = this.$lang([
-          'agnostic.components.builtIn.actions.builtinApply.validation',
-          `domains.${this.domain}.components.builtIn.actions.builtinApply.validation`
+          'agnostic.components.builtin.actions.builtinApply.validation',
+          `domains.${this.domain}.components.builtin.actions.builtinApply.validation`
         ])
         this.$message.error(message)
         return false
@@ -52,13 +52,13 @@ export default {
 
       const record = this.$util.clone(this.item)
 
-      if (this.scope === SCOPES.SCOPE_ADD) {
+      if (this.scope === SCOPES_BUILTIN.SCOPE_BUILTIN_ADD) {
         this.updateValue([...this.items, record])
       }
 
       record.__id = this.__currentItem
 
-      if (this.scope === SCOPES.SCOPE_EDIT) {
+      if (this.scope === SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT) {
         const index = this.getCurrentIndex(record)
         this.items.splice(index, 1, record)
         this.updateValue(this.items)
@@ -71,25 +71,25 @@ export default {
      * @param {Object} record
      */
     actionView (record) {
-      this.setItem(record, SCOPES.SCOPE_VIEW)
+      this.setItem(record, SCOPES_BUILTIN.SCOPE_BUILTIN_VIEW)
     },
     /**
      * @param {Object} record
      */
     actionEdit (record) {
-      this.setItem(this.$util.clone(record), SCOPES.SCOPE_EDIT)
+      this.setItem(this.$util.clone(record), SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT)
     },
     /**
      * @param {Object} record
      */
     async actionDestroy (record) {
       const message = this.$lang([
-        'agnostic.components.builtIn.actions.builtinDestroy.message',
-        `domains.${this.domain}.components.builtIn.actions.builtinDestroy.message`
+        'agnostic.components.builtin.actions.builtinDestroy.message',
+        `domains.${this.domain}.components.builtin.actions.builtinDestroy.message`
       ])
       const title = this.$lang([
-        'agnostic.components.builtIn.actions.builtinDestroy.title',
-        `domains.${this.domain}.components.builtIn.actions.builtinDestroy.title`
+        'agnostic.components.builtin.actions.builtinDestroy.title',
+        `domains.${this.domain}.components.builtin.actions.builtinDestroy.title`
       ])
       try {
         await this.$confirm(message, { title })
@@ -151,7 +151,7 @@ export default {
       immediate: true
     },
     defaults (defaults) {
-      if (this.scope !== SCOPES.SCOPE_ADD) {
+      if (this.scope !== SCOPES_BUILTIN.SCOPE_BUILTIN_ADD) {
         return
       }
       this.item = this.$util.clone(defaults)

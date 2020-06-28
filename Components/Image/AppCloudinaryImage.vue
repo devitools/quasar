@@ -93,13 +93,15 @@ export default {
 </script>
 
 <style lang="stylus">
-.AppCloudinaryImage
+.AppCloudinaryImage {
 
-  .preview
+  .preview {
     background-color #a8a8a8
     height 203px
     background-size contain
     background-repeat no-repeat
     background-position center
     margin 0 0 10px 0
+  }
+}
 </style>

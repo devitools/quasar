@@ -326,8 +326,8 @@ export default abstract class FieldIs extends Base {
    * @param {Object} attrs
    * @returns {Schema}
    */
-  fieldIsBuiltIn (attrs = {}) {
-    this.setIs('AppBuiltIn')
+  fieldIsBuiltin (attrs = {}) {
+    this.setIs('AppBuiltin')
     this.setAttrs({ ...attrs, uppercase: false })
     this.setType('array')
     return this

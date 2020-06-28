@@ -69,7 +69,7 @@ export default {
         embedSearchClear: actions.searchClear
       }
     },
-    builtIn: {
+    builtin: {
       form: {
         add: 'Novo',
         edit: 'Editar',

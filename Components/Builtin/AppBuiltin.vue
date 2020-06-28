@@ -1,11 +1,11 @@
 <!--suppress ES6ModulesDependencies -->
 <template>
-  <div class="AppBuiltIn">
+  <div class="AppBuiltin">
     <div
-      class="AppBuiltInForm__container"
-      :class="{ 'AppBuiltInForm__container--active': formActive }"
+      class="AppBuiltinForm__container"
+      :class="{ 'AppBuiltinForm__container--active': formActive }"
     >
-      <AppBuiltInFormContainer
+      <AppBuiltinFormContainer
         ref="form"
         v-if="formActive"
         v-bind="attributes"
@@ -19,11 +19,15 @@
       />
     </div>
 
-    <div class="AppBuiltInTable__container">
-      <AppBuiltInTableContainer
+    <div
+      class="AppBuiltinTable__container"
+      :class="{ 'AppBuiltinTable__container--hidden': formActive }"
+      :style="{ height }"
+    >
+      <AppBuiltinTableContainer
         v-bind="attributes"
         :items="items"
-        @actionBuiltInAdd="actionAdd"
+        @actionBuiltinAdd="actionAdd"
         @actionEdit="actionEdit"
         @actionView="actionView"
         @actionDestroy="actionDestroy"
@@ -35,27 +39,27 @@
 <script type="text/javascript">
 import { displayKey, primaryKey } from 'src/settings/schema'
 
-import { SCOPES } from '../../Agnostic/enum'
+import { SCOPES_BUILTIN } from '../../Agnostic/enum'
 
-import Handler from './Mixin/AppBuiltInActionHandler'
+import Handler from './Mixin/AppBuiltinActionHandler'
 
-import AppBuiltInTableContainer from './Partials/AppBuiltInTableContainer'
-import AppBuiltInFormContainer from './Partials/AppBuiltInFormContainer'
+import AppBuiltinTableContainer from './Partials/AppBuiltinTableContainer'
+import AppBuiltinFormContainer from './Partials/AppBuiltinFormContainer'
 
 import { APP_BUILT_IN_DEFAULT_TABLE_HEIGHT } from './settings'
 
 export default {
   /**
    */
-  name: 'AppBuiltIn',
+  name: 'AppBuiltin',
   /**
    */
   mixins: [Handler],
   /**
    */
   components: {
-    AppBuiltInFormContainer,
-    AppBuiltInTableContainer
+    AppBuiltinFormContainer,
+    AppBuiltinTableContainer
   },
   /**
    */
@@ -64,9 +68,9 @@ export default {
       type: Function,
       required: true
     },
-    builtIn: {
+    builtin: {
       type: Boolean,
-      default: false
+      default: true
     },
     debuggerAllowed: {
       type: Boolean,
@@ -97,7 +101,7 @@ export default {
    */
   data () {
     return {
-      scope: SCOPES.SCOPE_ADD,
+      scope: SCOPES_BUILTIN.SCOPE_ADD,
       path: '',
       domain: '',
       table: {},
@@ -120,8 +124,6 @@ export default {
      */
     attributes () {
       return {
-        ...this.$attrs,
-        ...this.$props,
         debuggerAllowed: false,
         path: this.path,
         domain: this.domain,
@@ -132,9 +134,11 @@ export default {
         displayKey: this.displayKey,
         fields: this.fields,
         groups: this.groups,
-        actions: this.createActions,
+        actions: this.builtinActions,
         hooks: this.hooks,
-        watches: this.watches
+        watches: this.watches,
+        ...this.$attrs,
+        ...this.$props
       }
     }
   },
@@ -144,7 +148,7 @@ export default {
     /**
      * @return {Array}
      */
-    createActions () {
+    builtinActions () {
       const allowed = [
         'builtinAdd',
         'builtinBack',
@@ -184,34 +188,43 @@ export default {
   scoped
   lang="stylus"
 >
-.AppBuiltIn
-  border-width 1px
-  border-style solid
-  border-color #ddd
-  border-radius 4px
-  position relative
-  overflow-x hidden
-  min-height 300px
+.AppBuiltin {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ddd;
+  border-radius: 4px;
+  position: relative;
+  overflow-x: hidden;
+  min-height: 300px;
 
-  .AppBuiltInTable__container
-    position relative
-    overflow hidden
+  .AppBuiltinTable__container {
+    position: relative;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 0.5s;
+    &.AppBuiltinTable__container--hidden {
+      opacity: 0;
+    }
+  }
 
-  .AppBuiltInForm__container
-    position absolute
-    top 0
+  .AppBuiltinForm__container {
+    position: absolute;
+    top: 0;
     height 100%
-    bottom 0
-    left 0
-    right 0
-    z-index 9000
-    overflow auto
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9000;
+    overflow: auto;
 
-    background #fff
-    box-shadow 0 0 4px 2px #ddd
-    transform translateX(100vw)
-    transition transform 0.250s
+    background: #fff;
+    box-shadow: 0 0 4px 2px #ddd;
+    transform: translateX(100vw);
+    transition: transform 0.250s;
 
-    &.AppBuiltInForm__container--active
-      transform translateX(0)
+    &.AppBuiltinForm__container--active {
+      transform: translateX(0);
+    }
+  }
+}
 </style>

@@ -3,7 +3,7 @@ import field from 'src/settings/field'
 import Base from '../Base'
 import Schema from '../Schema'
 import { Field } from '../Helper/interfaces'
-import { unique } from 'app/@devitools/Util/general'
+import { unique } from '../../Util/general'
 
 /**
  * @class {Fields}

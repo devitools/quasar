@@ -48,7 +48,7 @@ export default {
           `domains.${this.domain}.actions.${button.$key}.label`,
           `agnostic.actions.${button.$key}.label`,
           `agnostic.components.embed.actions.${button.$key}.label`,
-          `agnostic.components.builtIn.actions.${button.$key}.label`
+          `agnostic.components.builtin.actions.${button.$key}.label`
         ]
         button.attrs.label = this.$lang(paths, button.attrs.label)
       }
@@ -58,7 +58,7 @@ export default {
           `domains.${this.domain}.actions.${button.$key}.tooltip`,
           `agnostic.actions.${button.$key}.tooltip`,
           `agnostic.components.embed.actions.${button.$key}.tooltip`,
-          `agnostic.components.builtIn.actions.${button.$key}.tooltip`
+          `agnostic.components.builtin.actions.${button.$key}.tooltip`
         ]
         button.attrs.tooltip = this.$lang(paths, button.attrs.tooltip)
       }

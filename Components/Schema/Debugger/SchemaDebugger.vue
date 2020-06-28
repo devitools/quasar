@@ -79,46 +79,58 @@ export default {
   lang="stylus"
   rel="stylesheet/stylus"
 >
-  .SchemaDebugger
-    border 1px dotted #d0d0d0
-    margin 10px 0
-    padding 10px
-    border-radius 2px
-    background #ffffff
+.SchemaDebugger {
+  border 1px dotted #d0d0d0
+  margin 10px 0
+  padding 10px
+  border-radius 2px
+  background #ffffff
 
-    summary
-      cursor pointer
-      padding 5px 10px
+  summary {
+    cursor pointer
+    padding 5px 10px
+  }
 
-    .pre
-      padding 0 20px
-      font-family monospace
-      overflow auto
-      white-space pre
+  .pre {
+    padding 0 20px
+    font-family monospace
+    overflow auto
+    white-space pre
 
-      .string
-        color #cf8500
+    .string {
+      color #cf8500
+    }
 
-      .number
-        color #d70000
+    .number {
+      color #d70000
+    }
 
-      .boolean
-        color #0e12ca
+    .boolean {
+      color #0e12ca
+    }
 
-      .null
-        color #9a009a
+    .null {
+      color #9a009a
+    }
 
-      .key
-        color green
+    .key {
+      color green
+    }
+  }
+}
 
-  details[open] summary ~ *
-    animation debug .5s
+details[open] summary ~ * {
+  animation debug .5s
+}
 
-  @keyframes debug
-    0%
-      opacity 0
-      margin-top -10px
-    100%
-      opacity 1
-      margin-top 0
+@keyframes debug {
+  0% {
+    opacity 0
+    margin-top -10px
+  }
+  100% {
+    opacity 1
+    margin-top 0
+  }
+}
 </style>

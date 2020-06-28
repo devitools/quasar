@@ -55,7 +55,7 @@ export default {
       type: Function,
       default: () => ({})
     },
-    builtIn: {
+    builtin: {
       type: Boolean,
       default: false
     },

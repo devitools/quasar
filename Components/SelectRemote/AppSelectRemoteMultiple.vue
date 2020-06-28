@@ -125,31 +125,39 @@ export default {
 </script>
 
 <style lang="stylus">
-.AppSelectRemote__widget
+.AppSelectRemote__widget {
   .SchemaTableSide__absolute, .SchemaTableWhere,
   .SchemaTableWhere > .SchemaTableWhere__side,
-  .SchemaTableWhere > .SchemaTableWhere__toggle
+  .SchemaTableWhere > .SchemaTableWhere__toggle {
     top -16px
+  }
 
-  .SchemaTableWhere > .SchemaTableWhere__side
+  .SchemaTableWhere > .SchemaTableWhere__side {
     height 100vh
+  }
 
-  .SchemaTableWhere > .SchemaTableWhere__side .SchemaTableWhere__form
+  .SchemaTableWhere > .SchemaTableWhere__side .SchemaTableWhere__form {
     height calc(100vh - 55px)
+  }
 
-  .SchemaTableWhere > .SchemaTableWhere__backdrop
+  .SchemaTableWhere > .SchemaTableWhere__backdrop {
     height 100vh
     margin-top -30px
+  }
 
-  .SchemaTableWhere > .SchemaTableWhere__toggle
+  .SchemaTableWhere > .SchemaTableWhere__toggle {
     height 100px
     width 100px
     border-radius 100px
     padding 40px 0 0 10px
     top calc(50vh - 100px)
     right -65px
+  }
+}
 
-.q-dialog__inner--minimized
-  .SchemaTableWhere > .SchemaTableWhere__side .SchemaTableWhere__form
+.q-dialog__inner--minimized {
+  .SchemaTableWhere > .SchemaTableWhere__side .SchemaTableWhere__form {
     height calc(100vh - 107px) !important
+  }
+}
 </style>
