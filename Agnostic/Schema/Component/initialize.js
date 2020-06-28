@@ -26,10 +26,12 @@ export default {
       this.showPlaceholderContent = false
       return
     }
-    this.fetchRecord(id)
-      .finally(() => {
+    const fetch = this.fetchRecord(id)
+    if (fetch?.finally) {
+      fetch.finally(() => {
         this.showPlaceholderContent = false
       })
+    }
   },
 
   /**
@@ -48,10 +50,12 @@ export default {
       this.showPlaceholderContent = false
       return
     }
-    this.fetchRecord(id)
-      .finally(() => {
+    const fetch = this.fetchRecord(id)
+    if (fetch?.finally) {
+      fetch.finally(() => {
         this.showPlaceholderContent = false
       })
+    }
   },
 
   /**
