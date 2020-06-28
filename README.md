@@ -45,7 +45,7 @@
  <a href="#projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#rocket-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#contribuir">Contribuir</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#+1-documentacao">Documentação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#documentação">Documentação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#memo-licença">Licença</a>
 </p>
 
@@ -91,4 +91,4 @@ Se você tiver dúvidas ou precisar de ajuda para integrar o devitools/quasar ao
 
 ## :memo: Licença
 
-Este projeto está sob licença MIT.
+Este projeto está sob licença MIT, [clique aqui](https://github.com/devitools/quasar/blob/master/LICENSE) para visualizar.
