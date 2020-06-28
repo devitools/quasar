@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="Devitools logo" src="https://avatars3.githubusercontent.com/u/58276218?s=200&v=4" />
+  <img alt="Devitools logo" src="https://devi.tools/images/logo-horizontal.png" />
 </div>
 
 <p align="center">
