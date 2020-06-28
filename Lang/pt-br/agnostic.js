@@ -39,6 +39,15 @@ export default {
       search: 'Pesquisar',
       placeholder: 'Digite para pesquisar...'
     },
+    password: {
+      copied: 'Uma nova senha foi criada e enviada para a área de transferência',
+      generator: {
+        tooltip: 'Cria uma nova senha com {length} caracteres'
+      },
+      visible: {
+        tooltip: 'Deixa a senha visível'
+      }
+    },
     image: {
       button: 'Selecione uma imagem'
     },

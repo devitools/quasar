@@ -154,15 +154,15 @@ export default {
         height: calc(100vh - 320px);
         padding: 15px 10px 0 10px;
         border-bottom: 1px solid #ddd;
+      }
 
-        .app-form-buttons {
-          padding: 10px;
+      .app-form-buttons {
+        padding: 10px;
 
-          button {
-            margin-right: 10px;
-            height: 36px;
-            font-size: 0.8rem;
-          }
+        button {
+          margin-right: 10px;
+          height: 36px;
+          font-size: 0.8rem;
         }
       }
     }
@@ -264,6 +264,10 @@ export default {
 
         .app-form-buttons {
           padding: 10px 0 10px 10px;
+
+          > button {
+            margin-right: 10px;
+          }
         }
       }
     }
