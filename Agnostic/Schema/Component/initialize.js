@@ -23,9 +23,13 @@ export default {
     this.showPlaceholderContent = true
     const id = this.$route.params[this.primaryKey]
     if (!id) {
+      this.showPlaceholderContent = false
       return
     }
     this.fetchRecord(id)
+      .finally(() => {
+        this.showPlaceholderContent = false
+      })
   },
 
   /**
@@ -41,9 +45,13 @@ export default {
 
     const id = this.$route.params[this.primaryKey]
     if (!id) {
+      this.showPlaceholderContent = false
       return
     }
     this.fetchRecord(id)
+      .finally(() => {
+        this.showPlaceholderContent = false
+      })
   },
 
   /**
