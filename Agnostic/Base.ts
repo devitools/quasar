@@ -5,6 +5,7 @@ import { Action, Component, Field, Group, Watch } from './Helper/interfaces'
 import { scopes } from './enum'
 import { clone } from '../Util/general'
 import $lang from '../Lang'
+import $performance from '../Plugins/$performance'
 
 /**
  * @class {Base}
@@ -171,7 +172,8 @@ export default abstract class Base {
    * Base constructor
    */
   constructor ($component?: Component, dependencies?: Record<string, unknown>) {
-    const t0 = window.performance.now()
+    const reference = `Base.construct(${this.$self().domain})`
+    $performance.start(reference)
     this.scopes = this.initScopes()
     this.__groups = {}
     this.__fields = {}
@@ -184,8 +186,7 @@ export default abstract class Base {
     this.bootstrap()
     this.construct($component, dependencies)
     this.timestamps()
-    const t1 = window.performance.now()
-    console.warn(`[Base.construct(${this.$self().domain})] ${Math.round(t1 - t0)}ms`)
+    $performance.end(reference)
   }
 
   /**

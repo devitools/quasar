@@ -1,3 +1,5 @@
+import './polyfill'
+
 import validation from 'vuelidate'
 
 import * as messages from './message'
@@ -6,10 +8,10 @@ import $lang from './Lang'
 import * as components from './Components'
 import util from './Util'
 
-import { browse } from './Util/general'
+import { browse as $browse } from './Util/general'
 
-import './polyfill'
-import $store from './store'
+import $performance from './Plugins/$performance'
+import $memory from './Plugins/$memory'
 
 /**
  * @param {Vue} Vue
@@ -49,7 +51,7 @@ export default ({ Vue }) => {
    */
   Object.defineProperty(Vue.prototype, '$browse', {
     get () {
-      return browse
+      return $browse
     }
   })
 
@@ -70,40 +72,11 @@ export default ({ Vue }) => {
     }
   })
 
-  let $memory = {}
   /**
    */
   Object.defineProperty(Vue.prototype, '$memory', {
     get () {
-      return {
-        /**
-         * @param {string} index
-         * @returns {undefined|*}
-         */
-        get (index) {
-          if ($store.state.purging) {
-            return undefined
-          }
-
-          return $memory[index]
-        },
-        /**
-         * @param {string} index
-         * @param {*} value
-         */
-        set (index, value) {
-          if ($store.state.purging) {
-            return
-          }
-
-          $memory[index] = value
-        },
-        /**
-         */
-        clear () {
-          $memory = {}
-        }
-      }
+      return $memory
     }
   })
 
@@ -157,21 +130,11 @@ export default ({ Vue }) => {
     }
   })
 
-  const performance = {}
   /**
    */
   Object.defineProperty(Vue.prototype, '$performance', {
     get () {
-      return {
-        start (reference) {
-          performance[reference] = window.performance.now()
-        },
-        end (reference) {
-          const t1 = window.performance.now()
-          const t0 = performance[reference]
-          console.warn(`[${reference}] ${Math.round(t1 - t0)}ms`)
-        }
-      }
+      return $performance
     }
   })
 }
