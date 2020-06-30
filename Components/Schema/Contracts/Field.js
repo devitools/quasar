@@ -87,6 +87,9 @@ export default {
      */
     setFieldAttr ($key, attr, value) {
       const field = this.__getField($key)
+      if (attr === 'disable' && field.attrs.useReadonly) {
+        attr = 'readonly'
+      }
       if (field.attrs) {
         field.attrs[attr] = value
         return this
@@ -113,9 +116,9 @@ export default {
     getFieldAttr ($key, attr) {
       const field = this.__getField($key)
       if (field.attrs) {
-        return field.attrs[$key]
+        return field.attrs[attr]
       }
-      return field[$key]
+      return field[attr]
     },
     /**
      * @param {string} component

@@ -109,6 +109,7 @@ export default abstract class FieldIs extends Base {
       emitValue: true,
       useChips: false,
       useInput: true,
+      clearable: false,
       ...attrs,
       options
     }
