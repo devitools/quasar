@@ -1,7 +1,7 @@
 import { displayKey, primaryKey } from 'src/settings/schema'
 import components from 'src/settings/components'
 
-import { Action, Component, Field, Group, Watch } from './Helper/interfaces'
+import { Action, Component, Field, Fill, Group, Watch } from './Helper/interfaces'
 import { scopes } from './enum'
 import { clone } from '../Util/general'
 import $lang from '../Lang'
@@ -204,6 +204,15 @@ export default abstract class Base {
       const [scope, value] = entry
       created.push({ path, scope, value })
     })
+    return this
+  }
+
+  /**
+   * @param {Fill| Function} fill
+   * @returns {this}
+   */
+  setFill (fill: Fill | Function): this {
+    this.__fields[this.__currentField].$fill = fill
     return this
   }
 

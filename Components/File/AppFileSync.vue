@@ -22,13 +22,15 @@
         name="cloud_download"
         class="cursor-pointer"
         @click="download"
-      />
+      >
+        <QTooltip>{{ $lang('agnostic.components.file.download') }}</QTooltip>
+      </QIcon>
     </template>
   </QFile>
 </template>
 
 <script>
-import { QFile, QIcon, QBtn } from 'quasar'
+import { QFile, QIcon, QBtn, QTooltip } from 'quasar'
 
 export default {
   /**
@@ -36,7 +38,7 @@ export default {
   name: 'AppFileSync',
   /**
    */
-  components: { QFile, QIcon, QBtn },
+  components: { QFile, QIcon, QBtn, QTooltip },
   /**
    */
   props: {
@@ -51,6 +53,10 @@ export default {
     placeholder: {
       type: String,
       default: ''
+    },
+    downloadName: {
+      type: String,
+      default: 'agnostic.components.file.downloadName'
     }
   },
   /**
@@ -61,7 +67,8 @@ export default {
     },
     input () {
       if (typeof this.value === 'string') {
-        return new File(['empty'], this.value)
+        const extension = this.value.split('.').pop()
+        return new File(['empty'], `${this.$lang(this.downloadName)}.${extension}`)
       }
       return this.value
     }

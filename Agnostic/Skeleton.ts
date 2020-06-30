@@ -4,6 +4,7 @@ import Base from './Base'
 
 import Groups from './Schema/Groups'
 import Fields from './Schema/Fields'
+import FieldAs from './Schema/FieldAs'
 import FieldTable from './Schema/FieldTable'
 import FieldForm from './Schema/FieldForm'
 import FieldIs from './Schema/FieldIs'
@@ -35,6 +36,11 @@ abstract class Skeleton extends Base {
    * @type {Service}
    */
   public service?: unknown
+
+  /**
+   * @type {boolean}
+   */
+  useFormData = false
 
   /**
    * @param {Component} $component
@@ -73,7 +79,7 @@ abstract class Skeleton extends Base {
     }
 
     let useDotNotation = false
-    let useFormData = false
+    let useFormData = this.useFormData
 
     const reducer = (accumulator: Record<string, unknown>, entry: [string, unknown]) => {
       const [field, value] = entry
@@ -161,6 +167,7 @@ interface Skeleton extends Groups,
   FieldForm,
   FieldIs,
   FieldValidation,
+  FieldAs,
   Actions,
   Hooks,
   Watches,
@@ -176,6 +183,7 @@ mixin(Skeleton, [
   FieldForm,
   FieldIs,
   FieldValidation,
+  FieldAs,
   Actions,
   Hooks,
   Watches,

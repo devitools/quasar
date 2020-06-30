@@ -165,12 +165,18 @@ export default {
         }
         this.loading = false
         this.__options = options
-        update(() => this.updateOptions())
+        this.updateOptions()
+        if (!update) {
+          return
+        }
+        update()
       } catch (e) {
         this.loading = false
-        abort(() => {
-          this.options = []
-        })
+        this.options = []
+        if (!abort) {
+          return
+        }
+        abort()
       }
     },
     /**

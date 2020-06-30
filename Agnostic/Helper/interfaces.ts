@@ -82,6 +82,7 @@ export interface Field {
   }
   scopes: string[]
   $created?: Configure[]
+  $fill?: Fill | Function
   group?: string
   $configure?: Function
   chars?: string
@@ -94,6 +95,14 @@ export type Configure = {
   path: string
   scope: string
   value: unknown
+}
+
+/**
+ * @typedef {Fill}
+ */
+export type Fill = {
+  method: string
+  parameters: Record<string, unknown>
 }
 
 /**

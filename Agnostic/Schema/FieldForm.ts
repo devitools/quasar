@@ -178,4 +178,25 @@ export default abstract class FieldForm extends Base {
     }
     return this
   }
+
+  /**
+   * @param {string | Function} filler
+   * @param {Record<string, unknown>} parameters
+   * @returns {this}
+   */
+  fieldFormFill (filler?: string | Function, parameters?: Record<string, unknown>): this {
+    if (typeof filler === 'function') {
+      this.setFill(filler)
+      return this
+    }
+
+    if (typeof filler !== 'string') {
+      const type = String(this.__fields[this.__currentField].$type)
+      this.setFill({ method: `default-${type}`, parameters: {} })
+      return this
+    }
+
+    this.setFill({ method: filler, parameters: (parameters || {}) })
+    return this
+  }
 }

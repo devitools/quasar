@@ -68,10 +68,11 @@ export default {
      */
     renderFieldComponent (h, field) {
       const value = this.record[field.$key]
+      const error = this.inheritErrors[field.$key] || {}
       const input = ($event) => this.componentInput($event, field)
       const ref = this.componentRef(field)
       const tabIndex = this.componentTabIndex()
-      const attrs = { domain: this.domain }
+      const attrs = { domain: this.domain, inheritErrors: error }
       return renderField(h, field, input, value, ref, tabIndex, attrs)
     },
     /**

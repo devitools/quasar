@@ -49,6 +49,10 @@ export default {
     image: {
       button: 'Select an image'
     },
+    file: {
+      download: 'Click here to download the file',
+      downloadName: 'file'
+    },
     embed: {
       actions: {
         embedCreate: actions.create,

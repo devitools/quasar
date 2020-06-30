@@ -30,6 +30,9 @@ export default {
      * @return {boolean}
      */
     columnsFilter (field, ignore) {
+      if (!field.scopes.includes(this.scope)) {
+        return false
+      }
       if (field.$layout.tableFilter) {
         return false
       }

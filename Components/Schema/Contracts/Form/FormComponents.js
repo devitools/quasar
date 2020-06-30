@@ -1,5 +1,6 @@
 import { is } from '../../../../Util/general'
 import FormComponent from './FormComponent'
+import filler from 'src/settings/filler'
 
 /**
  * @mixin {FormComponents}
@@ -169,6 +170,19 @@ export default {
         return
       }
       action.original.call(this, { $event, field, ...parameters })
+    },
+    /**
+     */
+    fillComponentsValue () {
+      return Object.entries(this.components).forEach((entry) => {
+        const [key, field] = entry
+
+        const value = filler.call(this, field, this.record[key])
+        if (value === undefined) {
+          return
+        }
+        this.record[key] = value
+      })
     }
   }
 }

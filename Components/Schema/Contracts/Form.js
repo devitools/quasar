@@ -34,6 +34,7 @@ export default {
       grouping: {},
       errors: {},
 
+      inheritErrors: {},
       showPlaceholderContent: false
     }
   },

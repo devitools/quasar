@@ -1,6 +1,6 @@
+import { QBtn } from 'quasar'
 // app
 import { POSITIONS } from '../../../../Agnostic/enum'
-// contracts
 // components
 import SkeletonSchemaForm from '../../SkeletonSchemaForm'
 import SchemaDebugger from '../../Debugger/SchemaDebugger'
@@ -58,6 +58,21 @@ export default {
         children.push(this.renderFormBodyTabs(h, this.grouping))
       }
 
+      return h('div', data, children)
+    },
+    /**
+     * @param {function} h
+     */
+    renderFormFiller (h) {
+      const data = {
+        class: 'SchemaForm__Filler'
+      }
+      const children = [
+        h(QBtn, {
+          attrs: { icon: 'keyboard_arrow_right', flat: true, round: true, dense: true },
+          on: { click: this.fillComponentsValue }
+        })
+      ]
       return h('div', data, children)
     },
     /**
@@ -179,6 +194,11 @@ export default {
     const children = [
       this.renderForm(h)
     ]
+
+    if (Boolean(process.env.VUE_APP_DEV_FILL_FORM) === true) {
+      children.push(this.renderFormFiller(h))
+    }
+
     if (this.debuggerAllowed) {
       children.push(this.renderFormDebuggers(h))
     }

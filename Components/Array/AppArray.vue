@@ -9,7 +9,7 @@
     >
       <thead>
         <tr>
-          <th v-if="!static && !disable">
+          <th>
             <div style="width: 45px;">
               *
             </div>
@@ -41,10 +41,10 @@
         <template v-for="(item, index) in items">
           <tr :key="item[primaryKey]">
             <td
-              v-if="!static && !disable"
               style="width: 45px; padding: 0 0 0 6px;"
             >
               <q-btn
+                :disable="!editable"
                 icon="close"
                 dense
                 flat
@@ -56,9 +56,12 @@
                 :key="key"
                 :style="widths[field.$key]"
               >
-                <div :style="widths[field.$key]">
+                <div
+                  :style="widths[field.$key]"
+                  :class="{ 'has-error': inheritErrors[field.$key] }"
+                >
                   <div
-                    v-if="(field.attrs.static && item[field.$key] !== undefined) || field.attrs.disable"
+                    v-if="!editable || (field.attrs.static && item[field.$key] !== undefined) || field.attrs.disable"
                     :style="`padding: 4px 8px; text-align: ${field.attrs.align ? field.attrs.align : 'left'}`"
                     :disabled="disable"
                   >
@@ -81,7 +84,7 @@
     </QMarkupTable>
     <div style="padding: 0 0 0 6px;">
       <QBtn
-        v-if="!static && !disable"
+        v-if="editable"
         icon="add"
         dense
         flat
@@ -96,10 +99,10 @@
 </template>
 
 <script type="text/javascript">
-import { QResizeObserver, QBtn, QMarkupTable } from 'quasar'
+import { QBtn, QMarkupTable, QResizeObserver } from 'quasar'
 import { currencyParseInput } from 'src/settings/components'
 
-import { AppArrayProps, AppArrayEmpty, AppArrayItems, AppArrayComponents } from './Mixins'
+import { AppArrayComponents, AppArrayEmpty, AppArrayItems, AppArrayProps } from './Mixins'
 import { uuid } from '../../Util/general'
 
 export default {
@@ -118,6 +121,18 @@ export default {
     static: {
       type: Boolean,
       default: false
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    disable: {
+      type: Boolean,
+      default: false
+    },
+    inheritErrors: {
+      type: Object,
+      default: () => ({})
     }
   },
   /**
@@ -146,6 +161,9 @@ export default {
           accumulator[field.$key] = width
           return accumulator
         }, {})
+    },
+    editable () {
+      return !this.static && !this.disable && !this.readonly
     }
   },
   /**
@@ -227,6 +245,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@import '~src/css/quasar.variables.styl'
+
 .AppArray {
   .AppArray__table.q-table--dense .q-table th, .AppArray__table.q-table--dense .q-table td {
     padding: 4px 2px;
@@ -240,6 +260,24 @@ export default {
 
   .q-field__native.row.items-center {
     flex-wrap: nowrap;
+  }
+
+  .has-error {
+    > div > label {
+      color: $errorForeground;
+    }
+
+    & > .q-field > .q-field__inner > .q-field__control {
+      color: darken($errorBackground, 25%);
+
+      &:before {
+        border-color: $errorBackground;
+      }
+
+      &:after {
+        background: $errorBackground;
+      }
+    }
   }
 }
 </style>

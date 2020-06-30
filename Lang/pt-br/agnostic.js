@@ -51,6 +51,10 @@ export default {
     image: {
       button: 'Selecione uma imagem'
     },
+    file: {
+      download: 'Clique aqui para baixar o arquivo',
+      downloadName: 'arquivo'
+    },
     embed: {
       actions: {
         embedCreate: actions.create,

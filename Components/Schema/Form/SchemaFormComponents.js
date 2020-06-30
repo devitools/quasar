@@ -22,6 +22,10 @@ export default {
     domain: {
       type: String,
       required: true
+    },
+    inheritErrors: {
+      type: Object,
+      default: () => ({})
     }
   },
   /**

@@ -21,7 +21,7 @@ export default {
       const data = {
         ref: `formBody-${counter++}`,
         domProps: { value: this.record },
-        props: { value: this.record, domain: this.domain, schema: this.schema },
+        props: { value: this.record, domain: this.domain, inheritErrors: this.inheritErrors, schema: this.schema },
         attrs: { fields: fields, errors: this.errors, validations: this.$v },
         on: { input: this.receiveInput }
       }
@@ -146,7 +146,14 @@ export default {
      */
     receiveInput ({ field, value }) {
       this.record[field] = value
-      this.errors[field] = undefined
+
+      if (this.errors[field]) {
+        this.errors[field] = undefined
+      }
+
+      if (this.inheritErrors[field]) {
+        this.inheritErrors[field] = undefined
+      }
 
       this.$emit('input', this.record)
     }
