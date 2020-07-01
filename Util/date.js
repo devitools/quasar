@@ -13,10 +13,64 @@ export const today = () => dateCurrent('YYYY-MM-DD')
 /**
  * @returns {string}
  */
+export const tomorrow = () => {
+  const now = new Date()
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  return new DateTime(today.setDate(today.getDate() + 1)).format('YYYY-MM-DD')
+}
+
+/**
+ * @returns {string}
+ */
+export const afterTomorrow = () => {
+  const now = new Date()
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  return new DateTime(today.setDate(today.getDate() + 2)).format('YYYY-MM-DD')
+}
+
+/**
+ * @returns {string}
+ */
 export const lastSunday = () => {
   const now = new Date()
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
   return new DateTime(today.setDate(today.getDate() - today.getDay())).format('YYYY-MM-DD')
+}
+
+/**
+ * @returns {string}
+ */
+export const yesterday = () => {
+  const now = new Date()
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  return new DateTime(today.setDate(today.getDate() - 1)).format('YYYY-MM-DD')
+}
+
+/**
+ * @returns {string}
+ */
+export const beforeYesterday = () => {
+  const now = new Date()
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  return new DateTime(today.setDate(today.getDate() - 2)).format('YYYY-MM-DD')
+}
+
+/**
+ * @returns {string}
+ */
+export const oneWeekAgo = () => {
+  const now = new Date()
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  return new DateTime(today.setDate(today.getDate() - 7)).format('YYYY-MM-DD')
+}
+
+/**
+ * @returns {string}
+ */
+export const oneMonthAgo = () => {
+  const now = new Date()
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  return new DateTime(today.setDate(today.getDate() - 30)).format('YYYY-MM-DD')
 }
 
 /**
