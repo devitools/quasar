@@ -1,10 +1,9 @@
-// noinspection ES6CheckImport
+import FileSaver from 'file-saver'
+import http from 'src/settings/http'
 import { primaryKey } from 'src/settings/schema'
-import { reportAction, reportContext, reportLoading, reportMethod } from 'src/settings/report'
-
+import { reportAction, reportContext, reportDownload, reportLoading, reportMethod } from 'src/settings/report'
 // app
 import { POSITIONS } from '../../Agnostic/enum'
-
 // mixins
 import Dynamic from './Contracts/Dynamic'
 import Form from './Contracts/Form'
@@ -159,6 +158,35 @@ export default {
       })
     },
     /**
+     * @param {string} type
+     * @returns {Promise<void>}
+     */
+    async reportDownload (type = '') {
+      this.$v.$touch()
+      if (this.$v.$error || this.hasErrors) {
+        this.$message.error(this.$lang('report.validation'))
+        return
+      }
+
+      this.$q.loading.show({ delay: 0 })
+      try {
+        const token = this.$store.getters['auth/getToken']
+        const response = await reportDownload(this.report, token, this.record, type)
+
+        const suggestedFileName = response.headers['x-suggested-filename']
+        const effectiveFileName = suggestedFileName === undefined
+          ? 'document.csv'
+          : suggestedFileName
+
+        const file = new Blob([response.data], { type: 'data:text/csv;charset=utf-8,%EF%BB%BF' })
+        this.$q.loading.hide()
+        FileSaver.saveAs(file, effectiveFileName)
+      } catch (e) {
+        this.$message.error(this.$lang('report.fail'))
+      }
+      this.$q.loading.hide()
+    },
+    /**
      */
     reportBack () {
       this.submitting = false
@@ -173,6 +201,16 @@ export default {
       } catch (e) {
         window.alert(e.message)
       }
+    },
+    /**
+     */
+    renderButtons () {
+      const actions = this.actions()
+      if (!actions) {
+        return
+      }
+
+      this.buttons = actions.reduce(this.buttonReduce, {})
     }
   },
   /**

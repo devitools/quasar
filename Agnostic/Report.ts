@@ -10,14 +10,20 @@ import Actions from './Schema/Actions'
 import Hooks from './Schema/Hooks'
 import Watches from './Schema/Watches'
 import Avoids from './Schema/Avoids'
+import ConfigureComponentReport from './Schema/Component/ConfigureComponentReport'
 
-import { ProvideReport } from './Helper/interfaces'
+import { ProvideReport, SchemaForm, SchemaTable } from './Helper/interfaces'
 import mixin from './Helper/mixin'
 
 /**
  * @class {Report}
  */
 abstract class Report extends Base {
+  /**
+   * @type {string}
+   */
+  static identifier: string
+
   /**
    * @returns {[string]}
    */
@@ -26,12 +32,20 @@ abstract class Report extends Base {
   }
 
   /**
+   * Bootstrap everything
+   * @param {SchemaForm | SchemaTable} $component
+   */
+  bootstrap ($component?: SchemaForm | SchemaTable) {
+    this.configureComponentInitialization()
+  }
+
+  /**
    * @return {ProvideReport}
    */
-  provideReport (): ProvideReport {
+  provide (): ProvideReport {
     const schema = <typeof Report>this.constructor
     return {
-      report: String(schema.domain).replace('report.', ''),
+      report: schema.identifier,
       groupType: schema.groupType,
       settings: {},
       domain: schema.domain,
@@ -56,7 +70,8 @@ interface Report extends Groups,
   Actions,
   Hooks,
   Watches,
-  Avoids {
+  Avoids,
+  ConfigureComponentReport {
 }
 
 mixin(Report, [
@@ -69,7 +84,8 @@ mixin(Report, [
   Actions,
   Hooks,
   Watches,
-  Avoids
+  Avoids,
+  ConfigureComponentReport
 ])
 
 export default Report
