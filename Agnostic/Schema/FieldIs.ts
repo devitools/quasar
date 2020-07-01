@@ -85,7 +85,7 @@ export default abstract class FieldIs extends Base {
     if (!Array.isArray(options)) {
       options = yesNo
     }
-    this.setComponent('radio', { ...attrs, options }, 'select')
+    this.setComponent('radio', { ...attrs, options }, 'options')
     this.setLayout({ tableWhere: OPERATORS.EQUAL, tableFormat: optionsFormatter(options) })
     return this
   }
@@ -114,7 +114,7 @@ export default abstract class FieldIs extends Base {
       options
     }
 
-    this.setComponent('select', attrs, 'select')
+    this.setComponent('select', attrs, 'options')
 
     this.setOn('filter', fieldIsSelectFilter(currentField))
 
@@ -305,7 +305,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsImage (attrs = {}) {
-    this.setComponent('image', attrs)
+    this.setComponent('image', attrs, 'file')
     return this
   }
 
@@ -314,7 +314,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsFile (attrs = {}) {
-    this.setComponent('file', attrs)
+    this.setComponent('file', attrs, 'file')
     return this
   }
 
@@ -323,7 +323,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsFileSync (attrs = {}) {
-    this.setComponent('fileSync', attrs)
+    this.setComponent('fileSync', attrs, 'file')
     return this
   }
 

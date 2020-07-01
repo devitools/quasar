@@ -1,27 +1,28 @@
-export { default as SchemaTable } from './Schema/SchemaTable'
-export { default as SchemaForm } from './Schema/SchemaForm'
-export { default as SchemaReport } from './Schema/SchemaReport'
+export const SchemaTable = () => import('./Schema/SchemaTable.js')
+export const SchemaForm = () => import('./Schema/SchemaForm.js')
+export const SchemaReport = () => import('./Schema/SchemaReport.js')
 
-export { default as AppArray } from './Array/AppArray.vue'
-export { default as AppBuiltin } from './Builtin/AppBuiltin.vue'
-export { default as AppBreadcrumb } from './Breadcrumb/AppBreadcrumb'
-export { default as AppButton } from './Button/AppButton.vue'
-export { default as AppBarChart } from './Chart/AppBarChart.vue'
-export { default as AppBarHorizontalChart } from './Chart/AppBarHorizontalChart.vue'
-export { default as AppLineChart } from './Chart/AppLineChart.vue'
-export { default as AppPieChart } from './Chart/AppPieChart.vue'
-export { default as AppDate } from './Date/AppDate.vue'
-export { default as AppDatetime } from './Date/AppDatetime.vue'
-export { default as AppEmbed } from './Embed/AppEmbed.vue'
-export { default as AppAwsFile } from './File/AppAwsFile.vue'
-export { default as AppFileSync } from './File/AppFileSync.vue'
-export { default as AppCloudinaryImage } from './Image/AppCloudinaryImage.vue'
-export { default as AppPassword } from './Password/AppPassword.vue'
-export { default as AppPhoneInternational } from './Phone/AppPhoneInternational.vue'
-export { default as AppSelect } from './Select/AppSelect'
-export { default as AppSelectRemoteMultiple } from './SelectRemote/AppSelectRemoteMultiple.vue'
-export { default as AppSelectRemoteSingle } from './SelectRemote/AppSelectRemoteSingle.vue'
-export { default as AppSeparator } from './Separator/AppSeparator'
-export { default as AppTable } from './Table/AppTable'
-export { default as AppTableStatic } from './Table/AppTableStatic'
-export { default as AppTree } from './Tree/AppTree.vue'
+export const AppArray = () => import('./Array/AppArray.vue')
+export const AppBuiltin = () => import('./Builtin/AppBuiltin.vue')
+export const AppBreadcrumb = () => import('./Breadcrumb/AppBreadcrumb.js')
+export const AppButton = () => import('./Button/AppButton.vue')
+export const AppBarChart = () => import('./Chart/AppBarChart.vue')
+export const AppBarHorizontalChart = () => import('./Chart/AppBarHorizontalChart.vue')
+export const AppLineChart = () => import('./Chart/AppLineChart.vue')
+export const AppPieChart = () => import('./Chart/AppPieChart.vue')
+export const AppDate = () => import('./Date/AppDate.vue')
+export const AppDatetime = () => import('./Date/AppDatetime.vue')
+export const AppEmbed = () => import('./Embed/AppEmbed.vue')
+export const AppAwsFile = () => import('./File/AppAwsFile.vue')
+export const AppFileSync = () => import('./File/AppFileSync.vue')
+export const AppCloudinaryImage = () => import('./Image/AppCloudinaryImage.vue')
+export const AppPassword = () => import('./Password/AppPassword.vue')
+export const AppPhoneInternational = () => import('./Phone/AppPhoneInternational.vue')
+export const AppSelect = () => import('./Select/AppSelect.js')
+export const AppSelectRemoteMultiple = () => import('./SelectRemote/AppSelectRemoteMultiple.vue')
+export const AppSelectRemoteSingle = () => import('./SelectRemote/AppSelectRemoteSingle.vue')
+export const AppSeparator = () => import('./Separator/AppSeparator.js')
+export const AppSwitch = () => import('./Switch/AppSwitch.js')
+export const AppTable = () => import('./Table/AppTable.js')
+export const AppTableStatic = () => import('./Table/AppTableStatic.vue')
+export const AppTree = () => import('./Tree/AppTree.vue')

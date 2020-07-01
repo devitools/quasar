@@ -65,16 +65,42 @@
                     :style="`padding: 4px 8px; text-align: ${field.attrs.align ? field.attrs.align : 'left'}`"
                     :disabled="disable"
                   >
-                    {{ valueItem(field, item) }}
+                    <AppSwitch :value="field.$type">
+                      <template #select>
+                        {{ $util.get(item, `${field.$key}.${field.attrs.keyLabel}`) }}
+                      </template>
+                      <template #options>
+                        {{ options(field, item[field.$key]) }}
+                      </template>
+                      <template #curreny>
+                        {{ item[field.$key] | currency }}
+                      </template>
+                      <template #file>
+                        <QIcon
+                          size="2rem"
+                          color="grey-8"
+                          name="cloud_download"
+                          class="cursor-pointer"
+                          @click="downloadFile(field, item[field.$key])"
+                        >
+                          <QTooltip>{{ $lang('agnostic.components.file.download') }}</QTooltip>
+                        </QIcon>
+                        <span class="q-ml-sm">{{ $lang('agnostic.components.file.downloadName') }}{{ item[field.$key] | extension }}</span>
+                      </template>
+                      <template>
+                        {{ item[field.$key] }}
+                      </template>
+                    </AppSwitch>
                   </div>
-                  <component
-                    v-else
-                    :is="field.is"
-                    :class="field.classNames"
-                    v-bind="field.attrs"
-                    :value="item[field.$key]"
-                    @input="inputItem(index, field, $event)"
-                  />
+                  <template v-else>
+                    <component
+                      :is="field.is"
+                      :class="field.classNames"
+                      v-bind="field.attrs"
+                      :value="item[field.$key]"
+                      @input="inputItem(index, field, $event)"
+                    />
+                  </template>
                 </div>
               </td>
             </template>
@@ -99,7 +125,7 @@
 </template>
 
 <script type="text/javascript">
-import { QBtn, QMarkupTable, QResizeObserver } from 'quasar'
+import { QBtn, QIcon, QTooltip, QMarkupTable, QResizeObserver } from 'quasar'
 import { currencyParseInput } from 'src/settings/components'
 
 import { AppArrayComponents, AppArrayEmpty, AppArrayItems, AppArrayProps } from './Mixins'
@@ -114,7 +140,7 @@ export default {
   mixins: [AppArrayProps, AppArrayEmpty, AppArrayItems, AppArrayComponents],
   /**
    */
-  components: { QResizeObserver, QBtn, QMarkupTable },
+  components: { QResizeObserver, QBtn, QIcon, QTooltip, QMarkupTable },
   /**
    */
   props: {
@@ -164,6 +190,29 @@ export default {
     },
     editable () {
       return !this.static && !this.disable && !this.readonly
+    }
+  },
+  /**
+   */
+  filters: {
+    /**
+     * @param {number} value
+     */
+    currency (value) {
+      return currencyParseInput(value)
+    },
+    /**
+     * @param {number} value
+     */
+    extension (value) {
+      if (typeof value !== 'string') {
+        return ''
+      }
+      const pieces = value.split('.')
+      if (!pieces.length) {
+        return ''
+      }
+      return `.${pieces.pop()}`
     }
   },
   /**
@@ -220,25 +269,34 @@ export default {
       this.$emit('input', input)
     },
     /**
-     * @param {Object} field
-     * @param {Object} item
-     * @returns {string|number}
-     */
-    valueItem (field, item) {
-      const value = item[field.$key]
-      if (typeof value === 'object') {
-        return value[field.attrs.keyLabel]
-      }
-      if (field.$type === 'currency') {
-        return currencyParseInput(value)
-      }
-      return value
-    },
-    /**
      * @param {Object} size
      */
     onResize (size) {
       this.width = size.width
+    },
+    /**
+     * @param {Field} field
+     * @param {number} value
+     */
+    options (field, value) {
+      if (!field.attrs?.options) {
+        return ' - '
+      }
+      const found = field.attrs.options.find((option) => option.value === value)
+      if (!found) {
+        return ' - '
+      }
+      return found.label
+    },
+    /**
+     * @param {Field} field
+     * @param {number} value
+     */
+    downloadFile (field, value) {
+      if (typeof field.attrs?.downloadFile !== 'function') {
+        return
+      }
+      field.attrs.downloadFile(value)
     }
   }
 }
