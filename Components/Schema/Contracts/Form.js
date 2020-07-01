@@ -35,7 +35,8 @@ export default {
       errors: {},
 
       inheritErrors: {},
-      showPlaceholderContent: false
+      showPlaceholderContent: false,
+      useFormReadonly: false
     }
   },
   /**

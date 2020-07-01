@@ -38,8 +38,7 @@ export default {
    */
   [SCOPES.SCOPE_VIEW] () {
     this.showPlaceholderContent = true
-    const setField = (key) => this.setFieldAttrs(key, { readonly: true, disable: true })
-    Object.keys(this.components).forEach(setField)
+    this.useFormReadonly = true
 
     if (this.$route.query.trash) {
       this.$util.set(this.buttons, 'home.attrs.icon', 'restore')

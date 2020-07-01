@@ -45,6 +45,18 @@ export default abstract class Fields extends Base {
   }
 
   /**
+   * @param {string} is
+   * @returns {this}
+   */
+  fieldIs (is: string): this {
+    const field = this.__currentField
+    if (this.__fields[field]) {
+      this.__fields[field].is = is
+    }
+    return this
+  }
+
+  /**
    * @param {string[]} scopes
    * @returns {this}
    */
@@ -154,6 +166,9 @@ export default abstract class Fields extends Base {
    * return {Record<string, Field>}
    */
   getFields (): Record<string, Field> {
+    if (this.safe) {
+      return this.$clone(this.__fields)
+    }
     return this.__fields
   }
 

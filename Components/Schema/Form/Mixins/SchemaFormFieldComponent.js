@@ -73,6 +73,9 @@ export default {
       const ref = this.componentRef(field)
       const tabIndex = this.componentTabIndex()
       const attrs = { domain: this.domain, inheritErrors: error }
+      if (this.useFormReadonly) {
+        attrs.readonly = this.useFormReadonly
+      }
       return renderField(h, field, input, value, ref, tabIndex, attrs)
     },
     /**

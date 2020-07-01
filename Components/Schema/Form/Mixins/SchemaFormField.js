@@ -31,7 +31,7 @@ export default {
       const children = [
         this.renderFieldLabel(h, field),
         this.renderFieldComponent(h, field),
-        this.renderFieldError(h, key, error),
+        field.$layout.formError ? this.renderFieldError(h, key, error) : undefined,
         this.renderFieldUtilities(h)
       ]
 

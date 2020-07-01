@@ -26,6 +26,10 @@ export default {
     inheritErrors: {
       type: Object,
       default: () => ({})
+    },
+    useFormReadonly: {
+      type: Boolean,
+      default: () => false
     }
   },
   /**

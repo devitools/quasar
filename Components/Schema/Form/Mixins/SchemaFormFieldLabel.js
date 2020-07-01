@@ -28,7 +28,7 @@ export default {
       if (tooltip) {
         children.push(tooltip)
       }
-      return h('div', [h('label', data, children)])
+      return h('div', { class: 'app-form__label' }, [h('label', data, children)])
     },
     /**
      * @param {function} h
