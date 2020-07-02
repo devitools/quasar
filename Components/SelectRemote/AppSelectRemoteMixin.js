@@ -5,10 +5,12 @@ import {
   QCardSection,
   QDialog,
   QIcon,
+  QList,
   QItem,
   QItemSection,
   QSpace,
-  QTooltip
+  QTooltip,
+  QPopupProxy
 } from 'quasar'
 
 import Popup from '../../Mixins/Popup'
@@ -33,10 +35,12 @@ export default {
     QCardSection,
     QDialog,
     QIcon,
+    QList,
     QItem,
     QItemSection,
     QSpace,
-    QTooltip
+    QTooltip,
+    QPopupProxy
   },
   /**
    */

@@ -14,11 +14,31 @@
   >
     <template
       v-if="component"
+      v-slot:prepend="scope"
+    >
+      <QBtn
+        flat
+        round
+        icon="zoom_in"
+      >
+        <QPopupProxy>
+          <QList class="uppercase">
+            <component
+              :is="component"
+              v-bind="{ value: arriving ? arriving.__meta : {} }"
+            />
+          </QList>
+        </QPopupProxy>
+      </QBtn>
+    </template>
+
+    <template
+      v-if="component"
       v-slot:option="scope"
     >
       <component
         :is="component"
-        :scope="scope"
+        v-bind="{itemProps: scope.itemProps, itemEvents: scope.itemEvents, label: scope.opt.label, value: scope.opt.__meta}"
       />
     </template>
 
