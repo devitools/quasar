@@ -153,8 +153,8 @@ export default {
     receiveInput ({ field, value }) {
       this.record[field] = value
 
-      if (this.errors[field]) {
-        this.errors[field] = undefined
+      if (this.errors.hasOwnProperty(field)) {
+        delete this.errors[field]
       }
 
       if (this.inheritErrors[field]) {
