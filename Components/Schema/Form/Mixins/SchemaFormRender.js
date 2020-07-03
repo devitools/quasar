@@ -69,7 +69,7 @@ export default {
       }
       const children = [
         h(QBtn, {
-          attrs: { icon: 'keyboard_arrow_right', flat: true, round: true, dense: true },
+          attrs: { icon: 'code', flat: true, round: true, dense: true },
           on: { click: this.fillComponentsValue }
         })
       ]
