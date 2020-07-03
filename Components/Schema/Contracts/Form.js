@@ -62,7 +62,7 @@ export default {
      */
     formCheckIntegrity (schema, fail) {
       this.$v.$touch()
-      if (this.$v.$error || this.hasErrors) {
+      if (this.$v.$error || this.hasErrors()) {
         this.$message.warning(this.$lang(fail))
         return false
       }

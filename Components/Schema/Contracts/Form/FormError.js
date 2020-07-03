@@ -4,17 +4,13 @@
 export default {
   /**
    */
-  computed: {
+  methods: {
     /**
      * @returns {boolean}
      */
     hasErrors () {
       return Object.keys(this.errors).filter((key) => this.errors[key]).length > 0
-    }
-  },
-  /**
-   */
-  methods: {
+    },
     /**
      */
     renderErrors () {
