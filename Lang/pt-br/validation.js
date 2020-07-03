@@ -7,8 +7,8 @@ export default {
   required: 'Campo obrigatório',
   minLength: 'Mínimo de {min} caracteres',
   maxLength: 'Máximo de {max} caracteres',
-  minValue: 'O valor informado ultrapassa o valor mínimo',
-  maxValue: 'O valor informado ultrapassa o valor máximo',
+  minValue: 'O valor mínimo permitido é {min}',
+  maxValue: 'O valor máximo permitido é {max}',
   between: 'O valor informado ultrapassa os limites',
   alpha: 'O valor deve ser uma letra',
   alphaNum: 'O valor deve ser um alfa numérico',
@@ -20,5 +20,14 @@ export default {
   macAddress: 'O valor deve ser um MAC address válido',
   password: 'Password must have letters, numbers and at least six chars',
   notFound: 'Registro não encontrado',
-  maxFileSize: 'O arquivo não deve ser maior que {size}kb'
+  maxFileSize: 'O arquivo não deve ser maior que {size}kb',
+  url: 'O valor deve ser uma URL válida',
+
+  requiredIf: 'configure [validations.{field}.requiredIf] no arquivo de i18n do schema',
+  requiredUnless: 'configure [validations.{field}.requiredUnless] no arquivo de i18n do schema',
+  sameAs: 'configure [validations.{field}.sameAs] no arquivo de i18n do schema',
+  or: 'configure [validations.{field}.or] no arquivo de i18n do schema',
+  and: 'configure [validations.{field}.and] no arquivo de i18n do schema',
+  not: 'configure [validations.{field}.not] no arquivo de i18n do schema',
+  withParams: 'configure [validations.{field}.withParams] no arquivo de i18n do schema'
 }

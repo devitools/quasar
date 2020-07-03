@@ -60,15 +60,15 @@ export default {
       }
 
       if (this.errors[field]) {
-        const validation = this.errors[field]
+        const error = this.errors[field]
+        const validation = error.validation
         const paths = [
           `domains.${domain}.validations.${field}.${validation}`,
           `domains.${domain}.validation.${field}.${validation}`,
-          `validation.${validation}`,
-          this.errors[field]
+          `validation.${validation}`
         ]
-        const message = this.$lang(paths) || this.errors[field]
-        errorMessages.push(message)
+        const message = this.$lang(paths, validation)
+        errorMessages.push(replacement(message, error.parameters))
       }
 
       return errorMessages.join(' / ')
