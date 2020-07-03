@@ -11,6 +11,12 @@ export default {
       default () {
         return this.initOptions()
       }
+    },
+    container: {
+      type: [Object, String],
+      default () {
+        return {}
+      }
     }
   },
   methods: {

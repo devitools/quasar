@@ -44,7 +44,16 @@ export default {
       }
       const children = []
       if (button.attrs.tooltip) {
-        children.push(h(QTooltip, button.attrs.tooltip))
+        const props = {
+          'transition-show': 'show',
+          'content-style': 'font-size: 0.8rem',
+          'content-class': 'bg-white text-accent shadow-4 q-pt-sm q-pb-sm q-pl-md q-pr-md',
+          anchor: 'top middle',
+          self: 'top middle',
+          offset: [20, 40]
+        }
+        const data = { props }
+        children.push(h(QTooltip, data, button.attrs.tooltip))
       }
       if (button.dropdown) {
         return this.renderButtonDropdown(h, data)

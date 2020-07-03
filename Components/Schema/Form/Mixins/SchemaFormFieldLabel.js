@@ -19,7 +19,9 @@ export default {
         return undefined
       }
 
-      const children = [field.label]
+      const children = [
+        h('span', { domProps: { innerHTML: field.label } })
+      ]
       const required = this.labelRequired(h, field)
       if (required) {
         children.push(required)
@@ -60,11 +62,11 @@ export default {
       }
       const props = {
         'transition-show': 'show',
-        'content-style': 'font-size: 0.8em',
-        'content-class': 'bg-white text-primary shadow-4',
+        'content-style': 'font-size: 0.8rem',
+        'content-class': 'bg-white text-accent shadow-4 q-pt-sm q-pb-sm q-pl-md q-pr-md',
         anchor: 'top middle',
         self: 'top middle',
-        offset: [0, 36]
+        offset: [20, 40]
       }
       const data = { props }
       return h(QTooltip, data, field.tooltip || field.attrs.tooltip)

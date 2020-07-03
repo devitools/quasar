@@ -17,6 +17,17 @@ import $memory from './Plugins/$memory'
  * @param {Vue} Vue
  */
 export default ({ Vue }) => {
+  // install general colors
+  window.chartColors = {
+    red: 'rgba(252, 106, 137, 0.8)',
+    orange: 'rgb(255, 159, 64, 0.8)',
+    yellow: 'rgb(255, 205, 86, 0.8)',
+    green: 'rgb(75, 192, 192, 0.8)',
+    blue: 'rgb(54, 162, 235, 0.8)',
+    purple: 'rgb(153, 102, 255, 0.8)',
+    grey: 'rgb(201, 203, 207, 0.8)'
+  }
+
   /**
    */
   Vue.use(validation)

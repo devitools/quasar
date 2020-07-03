@@ -68,7 +68,7 @@ export default {
      */
     renderFieldComponent (h, field) {
       const value = this.record[field.$key]
-      const error = this.inheritErrors[field.$key] || {}
+      const error = this.inheritErrors ? (this.inheritErrors[field.$key] || {}) : {}
       const input = ($event) => this.componentInput($event, field)
       const ref = this.componentRef(field)
       const tabIndex = this.componentTabIndex()

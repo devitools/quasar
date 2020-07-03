@@ -11,10 +11,15 @@ export default {
    */
   methods: {
     /**
+     * @param {boolean} wait
      */
-    loadingShow () {
+    loadingShow (wait = true) {
       this.loading = true
-      this.$q.loading.show({ delay: delayLoading(this) })
+      let delay = wait ? delayLoading(this) : 0
+      if (this.data.length) {
+        delay = 0
+      }
+      this.$q.loading.show({ delay })
     },
     /**
      */

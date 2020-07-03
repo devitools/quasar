@@ -15,7 +15,7 @@
       />
     </template>
     <template
-      v-slot:append
+      v-slot:after
       v-if="typeof value === 'string'"
     >
       <QIcon

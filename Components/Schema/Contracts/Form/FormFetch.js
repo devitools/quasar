@@ -8,9 +8,11 @@ export default {
    */
   methods: {
     /**
+     * @param {boolean} wait
      */
-    loadingShow () {
-      this.$q.loading.show({ delay: delayLoading(this) })
+    loadingShow (wait = true) {
+      const delay = wait ? delayLoading(this) : 0
+      this.$q.loading.show({ delay })
     },
     /**
      */
