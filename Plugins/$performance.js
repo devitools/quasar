@@ -3,7 +3,7 @@
  */
 const performance = {}
 
-const $ = process.env.VUE_APP_PERFORMANCE === 'true'
+const $ = process.env.VUE_APP_DEV_PERFORMANCE === 'true'
   ? {
     start (reference) {
       performance[reference] = window.performance.now()
