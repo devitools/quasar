@@ -142,9 +142,9 @@ export type Timestamp = {
 }
 
 /**
- * @typedef {FieldEvent}
+ * @typedef {Payload}
  */
-export type FieldEvent = {
+export type Payload = {
   $event: unknown
   field: Field
   parameters: Record<string, unknown>
@@ -154,6 +154,8 @@ export type FieldEvent = {
  * @interface {Component}
  */
 export interface Component {
+  scope: string
+
   $setIs (is: string): Component
 
   $setLayout (property: string, value: number | string): Component

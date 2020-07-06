@@ -1,6 +1,7 @@
 import { QBtn } from 'quasar'
 // app
 import { POSITIONS } from '../../../../Agnostic/enum'
+import $store from '../../../../store'
 // components
 import SkeletonSchemaForm from '../../SkeletonSchemaForm'
 import SchemaDebugger from '../../Debugger/SchemaDebugger'
@@ -195,7 +196,7 @@ export default {
       this.renderForm(h)
     ]
 
-    if (Boolean(process.env.VUE_APP_DEV_FILL_FORM) === true) {
+    if ($store.state.filling) {
       children.push(this.renderFormFiller(h))
     }
 
