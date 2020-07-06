@@ -252,7 +252,8 @@
     border-radius: 0 0 0 50px;
     box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2), 0 0px 10px rgba(0, 0, 0, 0.24);
     padding: 10px 0 0 18px;
-    display: none;
+    transition: transform 0.3s;
+    transform: scale(0);
 
     &.SchemaTableWhere__toggle--searching {
       animation: toggle-pulse 2s infinite;
@@ -291,7 +292,7 @@
 
   &.SchemaTableWhere--ready {
     & > .SchemaTableWhere__toggle {
-      display: block;
+      transform: scale(1);
     }
   }
 }

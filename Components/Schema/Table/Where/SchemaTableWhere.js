@@ -158,7 +158,7 @@ export default {
      * @returns {*}
      */
     renderSide (h) {
-      if (!this.ready) {
+      if (!this.open) {
         return
       }
 
@@ -403,7 +403,7 @@ export default {
     const ready = () => {
       this.ready = true
     }
-    window.setTimeout(ready, 2000)
+    window.setTimeout(ready, 500)
   },
   /**
    * @param {function} h
