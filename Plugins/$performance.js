@@ -1,4 +1,4 @@
-import $store from '../store'
+import $emporium from '../emporium'
 
 /**
  * @type {{}}
@@ -9,13 +9,13 @@ const performance = {}
  */
 export default {
   start (reference) {
-    if (!$store.state.profiling) {
+    if (!$emporium.state.profiling) {
       return
     }
     performance[reference] = window.performance.now()
   },
   end (reference) {
-    if (!$store.state.profiling) {
+    if (!$emporium.state.profiling) {
       return
     }
     const t1 = window.performance.now()

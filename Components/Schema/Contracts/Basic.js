@@ -1,4 +1,4 @@
-import $store from '../../../store'
+import $emporium from '../../../emporium'
 
 import Trigger from './Hook'
 import Button from './Button'
@@ -37,7 +37,7 @@ export default {
     /**
      */
     debuggers () {
-      return $store.state.debugging
+      return $emporium.state.debugging
     }
   },
   /**

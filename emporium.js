@@ -4,7 +4,7 @@ import { read, write } from './Util/storage'
 /**
  * @type {*}
  */
-const store = $store({
+const $emporium = $store({
   // the states of store
   state: {
     debugging: read('debugging', true) || false,
@@ -58,4 +58,4 @@ const store = $store({
   }
 })
 
-export default store
+export default $emporium

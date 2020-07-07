@@ -1,7 +1,7 @@
 import { QBtn } from 'quasar'
 // app
 import { POSITIONS } from '../../../../Agnostic/enum'
-import $store from '../../../../store'
+import $emporium from '../../../../emporium'
 // components
 import SkeletonSchemaForm from '../../SkeletonSchemaForm'
 import SchemaDebugger from '../../Debugger/SchemaDebugger'
@@ -196,7 +196,7 @@ export default {
       this.renderForm(h)
     ]
 
-    if ($store.state.filling && !this.builtin) {
+    if ($emporium.state.filling && !this.builtin) {
       children.push(this.renderFormFiller(h))
     }
 

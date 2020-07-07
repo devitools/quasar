@@ -1,4 +1,4 @@
-import $store from '../store'
+import $emporium from '../emporium'
 
 let storage = {}
 
@@ -8,7 +8,7 @@ export default {
    * @returns {undefined|*}
    */
   get (index) {
-    if ($store.state.purging) {
+    if ($emporium.state.purging) {
       return undefined
     }
 
@@ -19,7 +19,7 @@ export default {
    * @param {*} value
    */
   set (index, value) {
-    if ($store.state.purging) {
+    if ($emporium.state.purging) {
       return
     }
 

@@ -2,7 +2,7 @@ import { primaryKey } from 'src/settings/schema'
 import { createAction, destroyAction, updateAction } from 'src/settings/executors'
 import { SCOPES } from '../../enum'
 import { reject } from '../../../Util/general'
-import $store from '../../../store'
+import $emporium from '../../../emporium'
 
 /**
  * @class {ComponentActions}
@@ -64,7 +64,7 @@ export default class ComponentActions {
     }
 
     const afterCreateDefault = (path, id) => {
-      $store.commit('updateModified', false)
+      $emporium.commit('updateModified', false)
 
       if (schema.afterCreate === 'view') {
         this.$browse(`${path}/${id}`, true)
@@ -119,7 +119,7 @@ export default class ComponentActions {
     }
 
     const afterUpdateDefault = (path) => {
-      $store.commit('updateModified', false)
+      $emporium.commit('updateModified', false)
 
       if (schema.afterUpdate !== 'index') {
         return
