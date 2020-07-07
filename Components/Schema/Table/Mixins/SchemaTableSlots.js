@@ -1,4 +1,3 @@
-// noinspection ES6CheckImport
 import { QBtn, QIcon, QInput, QSelect, QSpace, QTd } from 'quasar'
 
 import { counter, filterKey, renderField } from 'src/settings/schema'
@@ -95,7 +94,13 @@ export default {
         input: (visibleColumns) => { this.visibleColumns = visibleColumns }
       }
 
-      return h(QSelect, { domProps: { id: 'selector' }, attrs, props, on, style })
+      return h(QSelect, {
+        domProps: { id: 'selector' },
+        attrs,
+        props,
+        on,
+        style
+      })
     },
     /**
      * @param {function} h
@@ -121,6 +126,7 @@ export default {
      * @returns {*}
      */
     renderTableSearch (h) {
+      const domProps = { id: 'search' }
       const attrs = {
         autofocus: this.$q.platform.is.desktop,
         dense: true,
@@ -135,7 +141,13 @@ export default {
         append: () => h(QIcon, { attrs: { name: 'search' } })
       }
 
-      return h(QInput, { domProps: { id: 'search' }, attrs, props, on, scopedSlots })
+      return h(QInput, {
+        domProps,
+        attrs,
+        props,
+        on,
+        scopedSlots
+      })
     },
     /**
      * @param {function} h
@@ -184,26 +196,45 @@ export default {
       texts.push(props.pagination.rowsNumber)
 
       const button = {
-        round: true, dense: true, flat: true, textColor: 'grey-8'
+        round: true,
+        dense: true,
+        flat: true,
+        textColor: 'grey-8'
       }
 
       const first = {
-        attrs: { ...button, disable: props.isFirstPage, icon: 'first_page' },
+        attrs: {
+          ...button,
+          disable: props.isFirstPage,
+          icon: 'first_page'
+        },
         on: { click: this.firstPage }
       }
 
       const previous = {
-        attrs: { ...button, disable: props.isFirstPage, icon: 'chevron_left' },
+        attrs: {
+          ...button,
+          disable: props.isFirstPage,
+          icon: 'chevron_left'
+        },
         on: { click: this.previousPage }
       }
 
       const next = {
-        attrs: { ...button, disable: props.isLastPage, icon: 'chevron_right' },
+        attrs: {
+          ...button,
+          disable: props.isLastPage,
+          icon: 'chevron_right'
+        },
         on: { click: this.nextPage }
       }
 
       const last = {
-        attrs: { ...button, disable: props.isLastPage, icon: 'last_page' },
+        attrs: {
+          ...button,
+          disable: props.isLastPage,
+          icon: 'last_page'
+        },
         on: { click: this.lastPage }
       }
 

@@ -83,7 +83,7 @@ export default {
   },
   refresh: {
     label: 'Update',
-    tooltip: 'Update loaded logs on screen'
+    tooltip: 'Update loaded records on screen'
   },
   sortClear: {
     noSort: 'Sorting is not active to be restarted',

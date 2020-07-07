@@ -58,9 +58,6 @@ export default {
      */
     actionSchemaSuccess (response, success) {
       this.$q.loading.hide()
-      if (this.debuggers) {
-        window.alert(JSON.stringify(response))
-      }
       let message = actionSuccessMessage(response)
       if (!message) {
         message = this.$lang(success)

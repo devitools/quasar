@@ -66,9 +66,6 @@ export default {
         this.$message.warning(this.$lang(fail))
         return false
       }
-      if (this.debuggers) {
-        window.alert(JSON.stringify(this.getRecord()))
-      }
       return !!schema.service
     },
     /**

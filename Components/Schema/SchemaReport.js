@@ -1,5 +1,4 @@
 import FileSaver from 'file-saver'
-import http from 'src/settings/http'
 import { primaryKey } from 'src/settings/schema'
 import { reportAction, reportContext, reportDownload, reportLoading, reportMethod } from 'src/settings/report'
 // app
@@ -64,7 +63,7 @@ export default {
         domProps: {
           action: reportAction(this.report, token, this.printing),
           method: reportMethod(this.report, token, this.printing),
-          target: 'report'
+          target: 'report-iframe'
         }
       }
       const fields = this.getComponents()
@@ -135,8 +134,8 @@ export default {
         class: 'app-iframe-body',
         domProps: {
           src: reportLoading(this.report),
-          id: 'report',
-          name: 'report'
+          id: 'report-iframe',
+          name: 'report-iframe'
         }
       }
       return h('iframe', data)

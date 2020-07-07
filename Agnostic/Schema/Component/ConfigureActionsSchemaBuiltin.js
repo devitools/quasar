@@ -19,7 +19,7 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_ADD, SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT])
       .actionPositions([POSITIONS.POSITION_FORM_FOOTER])
       .actionIcon('cancel')
-      .actionFloatRight()
+      .actionFloatLeft()
       .actionOn('click', function () {
         this.actionBuiltinCancel()
       })
@@ -36,8 +36,8 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_ADD, SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT])
       .actionPositions([POSITIONS.POSITION_FORM_FOOTER])
       .actionIcon('system_update_alt')
-      .actionColor('primary')
-      .actionFloatRight()
+      .actionColor('positive')
+      .actionFloatLeft()
       .actionOn('click', function () {
         this.actionBuiltinApply()
       })
@@ -65,6 +65,7 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionPositions([POSITIONS.POSITION_TABLE_CELL, POSITIONS.POSITION_FORM_FOOTER])
       .actionIcon('delete')
       .actionColor('negative')
+      .actionFloatRight()
       .actionOn('click', function (paramaters) {
         const { context: { record } } = paramaters
         this.actionBuiltinDestroy(record)

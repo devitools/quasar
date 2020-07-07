@@ -23,14 +23,15 @@
         class="cursor-pointer"
         @click="download"
       >
-        <QTooltip>{{ $lang('agnostic.components.file.download') }}</QTooltip>
+        <AppTooltip>{{ $lang('agnostic.components.file.download') }}</AppTooltip>
       </QIcon>
     </template>
   </QFile>
 </template>
 
 <script>
-import { QFile, QIcon, QBtn, QTooltip } from 'quasar'
+import { QFile, QIcon, QBtn } from 'quasar'
+import AppTooltip from '../Tooltip/AppTooltip'
 
 export default {
   /**
@@ -38,7 +39,7 @@ export default {
   name: 'AppFileSync',
   /**
    */
-  components: { QFile, QIcon, QBtn, QTooltip },
+  components: { QFile, QIcon, QBtn, AppTooltip },
   /**
    */
   props: {

@@ -3,8 +3,8 @@
   <div class="AppBuiltinFormContainer">
     <div class="AppBuiltinFormContainer__bar">
       <span>{{ title }}</span>
-      <q-space />
-      <q-btn
+      <QSpace />
+      <QBtn
         icon="close"
         dense
         flat
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { QSpace, QBtn } from 'quasar'
 import Props from '../../Schema/Contracts/Props'
 import AppBuiltinForm from './AppBuiltinForm'
 
@@ -39,7 +40,11 @@ export default {
   name: 'AppBuiltinFormContainer',
   /**
    */
-  components: { AppBuiltinForm },
+  components: {
+    AppBuiltinForm,
+    QSpace,
+    QBtn
+  },
   /**
    */
   mixins: [Props],
@@ -101,7 +106,7 @@ export default {
     isValidForm () {
       this.$refs.form.$v.$touch()
       const erroAutomatic = this.$refs.form.$v.$error
-      const errorManual = this.$refs.form.hasErrors
+      const errorManual = this.$refs.form.hasErrors()
 
       return !!(!erroAutomatic && !errorManual)
     }
@@ -135,6 +140,7 @@ export default {
       > .AppBuiltinForm__body {
         overflow: auto;
         min-height: 190px;
+        padding: 10px;
       }
 
       > .app-form-buttons {
@@ -145,17 +151,37 @@ export default {
 
         > button {
           margin: 0 10px 0 0;
+          font-size: 0.8rem;
           min-width: 140px;
+          min-height: 36px;
+
+          &.button-position-right {
+            float: right;
+          }
+
+          &.button-position-left {
+            float: left;
+          }
+
+          &.button-position-none {
+            float: none;
+          }
         }
       }
     }
   }
 }
 
+@media (max-width 1200px) {
+  .AppBuiltinFormContainer > .AppBuiltinForm > .AppBuiltinForm__wrapper > .app-form-buttons > button:not(.button-no-min-width) {
+    min-width: auto;
+  }
+}
+
 @media (max-width 768px) {
   .AppBuiltinFormContainer > .AppBuiltinForm > .AppBuiltinForm__wrapper > .app-form-buttons > button {
-    > .q-btn__wrapper > .q-btn__content > div {
-      display: none;
+    > .q-btn__wrapper > .q-btn__content > span {
+      display: none !important;
     }
   }
 }

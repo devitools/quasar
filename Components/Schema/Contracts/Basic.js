@@ -91,10 +91,11 @@ export default {
      * @param {function} h
      * @param {string} position
      * @param {Object} context
+     * @param {Object} extra
      * @returns {*}
      */
-    renderSchemaButtonsCompact (h, position, context) {
-      const override = { dense: true, label: '', flat: true }
+    renderSchemaButtonsCompact (h, position, context, extra = { textColor: 'blue-grey-10' }) {
+      const override = { ...extra, dense: true, label: '', flat: true }
       return this.renderSchemaButtons(h, position, context, override)
     },
     /**

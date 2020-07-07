@@ -83,7 +83,7 @@
                           class="cursor-pointer"
                           @click="downloadFile(field, item[field.$key])"
                         >
-                          <QTooltip>{{ $lang('agnostic.components.file.download') }}</QTooltip>
+                          <AppTooltip>{{ $lang('agnostic.components.file.download') }}</AppTooltip>
                         </QIcon>
                         <span class="q-ml-sm">{{ $lang('agnostic.components.file.downloadName') }}{{ item[field.$key] | extension }}</span>
                       </template>
@@ -125,8 +125,10 @@
 </template>
 
 <script type="text/javascript">
-import { QBtn, QIcon, QTooltip, QMarkupTable, QResizeObserver } from 'quasar'
+import { QBtn, QIcon, QMarkupTable, QResizeObserver } from 'quasar'
 import { currencyParseInput } from 'src/settings/components'
+
+import AppTooltip from '../Tooltip/AppTooltip'
 
 import { AppArrayComponents, AppArrayEmpty, AppArrayItems, AppArrayProps } from './Mixins'
 import { uuid } from '../../Util/general'
@@ -140,7 +142,7 @@ export default {
   mixins: [AppArrayProps, AppArrayEmpty, AppArrayItems, AppArrayComponents],
   /**
    */
-  components: { QResizeObserver, QBtn, QIcon, QTooltip, QMarkupTable },
+  components: { QResizeObserver, QBtn, QIcon, AppTooltip, QMarkupTable },
   /**
    */
   props: {

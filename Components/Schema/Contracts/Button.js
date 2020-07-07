@@ -20,6 +20,12 @@ export default {
         return
       }
 
+      if (this.builtin) {
+        this.buttons = actions
+          .reduce(this.buttonReduce, {})
+        return
+      }
+
       this.buttons = actions
         .filter((action) => isAllowedAction(action, this.domain, this.settings?.whitelist))
         .reduce(this.buttonReduce, {})

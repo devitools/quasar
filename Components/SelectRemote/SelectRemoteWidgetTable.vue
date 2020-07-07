@@ -25,7 +25,7 @@
             dense
             @click="onConfirm"
           >
-            <QTooltip>{{ $lang('agnostic.components.remote.confirm') }}</QTooltip>
+            <AppTooltip>{{ $lang('agnostic.components.remote.confirm') }}</AppTooltip>
           </QBtn>
           <QBtn
             icon="clear_all"
@@ -35,7 +35,7 @@
             dense
             @click="onClear"
           >
-            <QTooltip>{{ $lang('agnostic.components.remote.clear') }}</QTooltip>
+            <AppTooltip>{{ $lang('agnostic.components.remote.clear') }}</AppTooltip>
           </QBtn>
           <QBtn
             icon="clear"
@@ -45,7 +45,7 @@
             dense
             @click="onCancel"
           >
-            <QTooltip>{{ $lang('agnostic.components.remote.cancel') }}</QTooltip>
+            <AppTooltip>{{ $lang('agnostic.components.remote.cancel') }}</AppTooltip>
           </QBtn>
         </div>
       </template>

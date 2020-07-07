@@ -1,4 +1,4 @@
-import { POSITIONS } from '@devitools/Agnostic/enum'
+import { POSITIONS } from '../../../Agnostic/enum'
 
 /**
  * @class {ConfigureComponentReport}

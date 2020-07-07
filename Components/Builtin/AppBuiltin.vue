@@ -166,6 +166,7 @@ export default {
       immediate: true,
       handler (providing) {
         const provide = providing()
+
         this.path = provide['path']
         this.domain = provide['domain']
         this.table = provide['table']

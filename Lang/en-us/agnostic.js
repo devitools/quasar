@@ -75,41 +75,41 @@ export default {
     },
     builtin: {
       form: {
-        add: 'Novo',
-        edit: 'Editar',
-        view: 'Visualizar'
+        add: 'New',
+        edit: 'Edit',
+        view: 'View'
       },
       actions: {
         builtinAdd: {
-          label: 'Novo',
-          tooltip: 'Cria um novo item na lista de itens'
+          label: 'New',
+          tooltip: 'Create a new item in the item list'
         },
         builtinBack: {
-          label: 'Voltar',
-          tooltip: 'Volta para a lista de itens'
+          label: 'Back',
+          tooltip: 'Back to the list of items'
         },
         builtinCancel: {
-          label: 'Cancelar',
-          tooltip: 'Desfazer alterações e voltar para a lista de itens'
+          label: 'Cancel',
+          tooltip: 'Undo changes and return to the list of items'
         },
         builtinApply: {
-          label: 'Aplicar',
-          tooltip: 'Aplicar a alteração à lista de itens',
-          validation: 'Verifique os campos destacados'
+          label: 'Apply',
+          tooltip: 'Apply the change to the item list',
+          validation: 'Check highlighted fields'
         },
         builtinView: {
-          label: 'Visualizar',
-          tooltip: 'Visualizar este item da lista de itens'
+          label: 'View',
+          tooltip: 'View this item in the item list'
         },
         builtinEdit: {
-          label: 'Editar',
-          tooltip: 'Editar este item da lista de itens'
+          label: 'Edit',
+          tooltip: 'Edit this item in the item list'
         },
         builtinDestroy: {
-          label: 'Remover',
-          tooltip: 'Remover este item da lista de itens',
-          title: 'Remover',
-          message: 'Deseja remover este item da lista de itens?'
+          label: 'Remove',
+          tooltip: 'Remove this item from the item list',
+          title: 'Remove',
+          message: 'Do you want to remove this item from the item list?'
         }
       }
     }

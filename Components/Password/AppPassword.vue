@@ -13,7 +13,7 @@
         class="cursor-pointer"
         @click="generate"
       >
-        <QTooltip>{{ generatorTooltip }}</QTooltip>
+        <AppTooltip>{{ generatorTooltip }}</AppTooltip>
       </QIcon>
     </template>
     <template v-slot:append>
@@ -22,14 +22,15 @@
         class="cursor-pointer"
         @click="visible = !visible"
       >
-        <QTooltip>{{ visibleTooltip }}</QTooltip>
+        <AppTooltip>{{ visibleTooltip }}</AppTooltip>
       </QIcon>
     </template>
   </QInput>
 </template>
 
 <script>
-import { QInput, QTooltip, QIcon, copyToClipboard } from 'quasar'
+import { QInput, QIcon, copyToClipboard } from 'quasar'
+import AppTooltip from '../Tooltip/AppTooltip'
 
 import { toast } from '../../message'
 import { replacement } from '../../Util/string'
@@ -41,7 +42,7 @@ export default {
   name: 'AppPassword',
   /**
    */
-  components: { QInput, QTooltip, QIcon },
+  components: { QInput, QIcon, AppTooltip },
   /**
    */
   props: {

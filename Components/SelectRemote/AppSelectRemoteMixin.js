@@ -9,12 +9,12 @@ import {
   QItem,
   QItemSection,
   QSpace,
-  QTooltip,
   QPopupProxy
 } from 'quasar'
 
 import Popup from '../../Mixins/Popup'
 import { withSeparator } from '../../Util/general'
+import AppTooltip from '../Tooltip/AppTooltip'
 
 /**
  * @mixin {AppSelectRemote}
@@ -39,8 +39,8 @@ export default {
     QItem,
     QItemSection,
     QSpace,
-    QTooltip,
-    QPopupProxy
+    QPopupProxy,
+    AppTooltip
   },
   /**
    */

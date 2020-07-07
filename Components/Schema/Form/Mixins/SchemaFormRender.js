@@ -196,7 +196,7 @@ export default {
       this.renderForm(h)
     ]
 
-    if ($store.state.filling) {
+    if ($store.state.filling && !this.builtin) {
       children.push(this.renderFormFiller(h))
     }
 

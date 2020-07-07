@@ -1,4 +1,6 @@
-import { SchemaTable } from '../../index'
+import SchemaTable from '../../Schema/SchemaTable'
+import AppTable from '../../Table/AppTable'
+
 import { POSITIONS, SCOPES_BUILTIN } from '../../../Agnostic/enum'
 
 /**
@@ -53,7 +55,7 @@ export default {
 
       const on = this.renderTableOn()
 
-      return h('AppTable', { class: classes, props, attrs, style, scopedSlots, on })
+      return h(AppTable, { class: classes, props, attrs, style, scopedSlots, on })
     },
     /**
      */

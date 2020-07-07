@@ -295,7 +295,7 @@ export const unSerialize = (url, prefix = '') => {
 }
 
 /**
- * @param {string|number} value
+ * @param {string|number|boolean} value
  * @param {string} operator
  * @returns {string}
  */

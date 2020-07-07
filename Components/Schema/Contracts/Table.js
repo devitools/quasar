@@ -102,8 +102,10 @@ export default {
     /**
      */
     initialize () {
-      this.data = []
-      this.columns = []
+      if (!this.builtin) {
+        this.data = []
+        this.columns = []
+      }
 
       this.renderColumns()
       this.renderButtons()
@@ -142,9 +144,12 @@ export default {
      * @param {Array} data
      */
     value: {
-      handler () {
-        this.fetchRecords()
-      }
+      handler (value) {
+        if (value && value.length) {
+          this.fetchRecords()
+        }
+      },
+      immediate: true
     }
   }
 }

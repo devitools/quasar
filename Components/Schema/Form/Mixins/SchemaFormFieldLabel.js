@@ -1,5 +1,4 @@
-// noinspection ES6CheckImport
-import { QTooltip } from 'quasar'
+import AppTooltip from '../../../Tooltip/AppTooltip'
 
 /**
  * @mixin {SchemaFormFieldLabel}
@@ -60,16 +59,8 @@ export default {
       if (!field.tooltip && !field.attrs.tooltip) {
         return undefined
       }
-      const props = {
-        'transition-show': 'show',
-        'content-style': 'font-size: 0.8rem',
-        'content-class': 'bg-white text-accent shadow-4 q-pt-sm q-pb-sm q-pl-md q-pr-md',
-        anchor: 'top middle',
-        self: 'top middle',
-        offset: [20, 40]
-      }
-      const data = { props }
-      return h(QTooltip, data, field.tooltip || field.attrs.tooltip)
+
+      return h(AppTooltip, field.tooltip || field.attrs.tooltip)
     }
   }
 }
