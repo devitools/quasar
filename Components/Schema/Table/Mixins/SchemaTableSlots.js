@@ -5,6 +5,7 @@ import { attrs as defaultAttrs } from 'src/settings/components'
 import { tableShowColumnsSelector, tableShowFilters, tableShowSearch } from 'src/settings/table'
 
 import { POSITIONS } from '../../../../Agnostic/enum'
+import { write } from '../../../../Util/storage'
 
 /**
  * @mixin {SchemaTableSlots}
@@ -91,7 +92,13 @@ export default {
         'min-width': '120px'
       }
       const on = {
-        input: (visibleColumns) => { this.visibleColumns = visibleColumns }
+        input: (visibleColumns) => {
+          this.visibleColumns = visibleColumns
+          if (!this.schema) {
+            return
+          }
+          write(`${this.schema}:visible-columns`, visibleColumns, true)
+        }
       }
 
       return h(QSelect, {

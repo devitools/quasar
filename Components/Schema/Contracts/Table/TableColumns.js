@@ -1,4 +1,5 @@
 import { counter } from 'src/settings/schema'
+import { read } from '../../../../Util/storage'
 
 /**
  * @mixin {TableColumns}
@@ -22,7 +23,15 @@ export default {
       /** @counter */
       columns.unshift(counter)
       this.columns = columns
-      this.visibleColumns = this.columns.filter(column => !column.hidden).map(column => column.name)
+
+      let visibleColumns
+      if (this.schema) {
+        visibleColumns = read(`${this.schema}:visible-columns`, true)
+      }
+      if (!visibleColumns) {
+        visibleColumns = this.columns.filter(column => !column.hidden).map(column => column.name)
+      }
+      this.visibleColumns = visibleColumns
     },
     /**
      * @param {Object} field

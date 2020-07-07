@@ -62,6 +62,10 @@ export default {
     debuggerAllowed: {
       type: Boolean,
       default: true
+    },
+    schema: {
+      type: String,
+      default: undefined
     }
   }
 }
