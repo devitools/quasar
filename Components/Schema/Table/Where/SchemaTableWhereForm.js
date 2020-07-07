@@ -61,7 +61,16 @@ export default {
       field.attrs.label = ''
       field.attrs.clearable = field.$type !== 'currency'
       if (field.attrs.options) {
-        field.attrs.options = this.parseFieldOptions(field)
+        let options = this.parseFieldOptions(field)
+        if (Array.isArray(options)) {
+          options = options.map((option) => {
+            if (option.hasOwnProperty('disable')) {
+              delete option.disable
+            }
+            return option
+          })
+        }
+        field.attrs.options = options
       }
       (['disable', 'borderLess', 'disabled', 'readonly', 'autofocus']).forEach((property) => {
         field.attrs[property] = false
