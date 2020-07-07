@@ -152,7 +152,9 @@ export default {
     receiveInput ({ field, value }) {
       this.record[field] = value
 
-      $emporium.commit('updateModified', true)
+      if (!this.builtin) {
+        $emporium.commit('updateModified', true)
+      }
 
       if (this.errors.hasOwnProperty(field)) {
         delete this.errors[field]

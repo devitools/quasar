@@ -47,6 +47,10 @@ export default {
     size: {
       type: Number,
       default: 10
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   /**
@@ -69,6 +73,7 @@ export default {
      */
     bind () {
       return {
+        readonly: this.readonly,
         actions: this.$props.actions || this.$attrs.actions,
         builtin: this.$props.builtin || this.$attrs.builtin,
         debuggerAllowed: this.$props.debuggerAllowed || this.$attrs.debuggerAllowed,

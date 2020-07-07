@@ -19,11 +19,31 @@ export default {
     height: {
       type: String,
       default: '400px'
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   /**
    */
   methods: {
+    /**
+     */
+    renderButtons () {
+      const actions = this.actions()
+      if (!actions) {
+        return
+      }
+
+      if (!this.readonly) {
+        this.buttons = actions.reduce(this.buttonReduce, {})
+        return
+      }
+      const editable = ['builtinAdd', 'builtinApply', 'builtinEdit', 'builtinDestroy']
+      const filter = (action) => !editable.includes(action.$key)
+      this.buttons = actions.filter(filter).reduce(this.buttonReduce, {})
+    },
     /**
      * @param {function} h
      * @param {Object} props

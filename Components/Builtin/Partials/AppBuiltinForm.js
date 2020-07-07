@@ -20,6 +20,10 @@ export default {
     height: {
       type: String,
       default: APP_BUILT_IN_DEFAULT_TABLE_HEIGHT
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   /**
@@ -75,6 +79,12 @@ export default {
     value (value) {
       this.record = value
       this.showPlaceholderContent = false
+    },
+    readonly: {
+      immediate: true,
+      handler (readonly) {
+        this.useFormReadonly = readonly
+      }
     }
   }
 }

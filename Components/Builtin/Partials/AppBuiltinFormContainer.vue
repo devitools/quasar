@@ -70,6 +70,10 @@ export default {
     height: {
       type: String,
       default: APP_BUILT_IN_DEFAULT_TABLE_HEIGHT
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   /**
