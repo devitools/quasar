@@ -10,7 +10,8 @@ const store = $store({
     debugging: read('debugging', true) || false,
     filling: read('filling', true) || false,
     profiling: read('profiling', true) || false,
-    purging: read('purging', true) || false
+    purging: read('purging', true) || false,
+    modified: false
   },
   // the mutations to call with commit
   // ex.: $store.commit('updateVersion')
@@ -46,6 +47,13 @@ const store = $store({
     updatePurging (state, purging) {
       state.purging = purging
       write('purging', purging, true)
+    },
+    /**
+     * @param {Object} state
+     * @param {string} modified
+     */
+    updateModified (state, modified) {
+      state.modified = modified
     }
   }
 })

@@ -137,5 +137,6 @@ export default {
       no: 'Não'
     }
   },
+  modified: 'Existem modificações pendentes na tela. Deseja continuar mesmo assim?',
   actions: actions
 }

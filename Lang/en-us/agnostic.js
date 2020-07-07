@@ -135,5 +135,6 @@ export default {
       no: 'No'
     }
   },
+  modified: 'There are pending modifications to the screen. Do you want to continue anyway?',
   actions: actions
 }

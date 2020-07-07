@@ -1,6 +1,5 @@
-// noinspection ES6CheckImport
 import { QIcon, QTab, QTabPanel, QTabs, QTabPanels, QSeparator } from 'quasar'
-
+import $store from '../../../../store'
 import SchemaComponents from '../SchemaFormComponents'
 
 let counter = 0
@@ -152,6 +151,8 @@ export default {
      */
     receiveInput ({ field, value }) {
       this.record[field] = value
+
+      $store.commit('updateModified', true)
 
       if (this.errors.hasOwnProperty(field)) {
         delete this.errors[field]
