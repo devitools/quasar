@@ -2,6 +2,7 @@ import SchemaTable from '../../Schema/SchemaTable'
 import AppTable from '../../Table/AppTable'
 
 import { POSITIONS, SCOPES_BUILTIN } from '../../../Agnostic/enum'
+import { counter } from 'src/settings/schema'
 
 /**
  * @component {AppBuiltinTable}
@@ -43,6 +44,36 @@ export default {
       const editable = ['builtinAdd', 'builtinApply', 'builtinEdit', 'builtinDestroy']
       const filter = (action) => !editable.includes(action.$key)
       this.buttons = actions.filter(filter).reduce(this.buttonReduce, {})
+    },
+    /**
+     * @param h
+     * @returns {*}
+     */
+    renderTableSlots (h) {
+      if (this.readonly) {
+        return {
+          /** @counter */
+          [`body-cell-${counter.name}`]: (props) => {
+            return this.renderTableCellButtons(h, props)
+          },
+          pagination: (props) => {
+            return this.renderTablePagination(h, props)
+          }
+        }
+      }
+
+      return {
+        top: (props) => {
+          return this.renderTableTop(h, props)
+        },
+        /** @counter */
+        [`body-cell-${counter.name}`]: (props) => {
+          return this.renderTableCellButtons(h, props)
+        },
+        pagination: (props) => {
+          return this.renderTablePagination(h, props)
+        }
+      }
     },
     /**
      * @param {function} h
