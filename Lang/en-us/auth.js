@@ -23,7 +23,7 @@ export default {
     role: 'Business profile',
     person: 'Person',
     createAccount: 'Sign-Up',
-    backToLogin: 'back to login',
+    backToLogin: 'I already have an account',
     error: 'Unexpected error',
     validation: 'Check highlighted fields',
     success: 'Account created successfully'
