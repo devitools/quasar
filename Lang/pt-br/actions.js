@@ -63,7 +63,7 @@ export default {
     tooltip: 'Abre a tela de visualização de um registro'
   },
   home: {
-    label: 'Listagem',
+    label: 'Cancelar',
     tooltip: 'Volta para a lista principal'
   },
   back: {

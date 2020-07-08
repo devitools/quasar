@@ -8,7 +8,7 @@ export default {
     password: 'Password',
     button: 'Sign In',
     error: 'Incorrect username or password',
-    goToRegister: 'I want sign up',
+    goToRegister: 'I want to sign-up',
     forgotPassword: 'I forgot my password',
     validation: 'Check highlighted fields'
   },
@@ -22,7 +22,7 @@ export default {
     phone: 'Mobile',
     role: 'Business profile',
     person: 'Person',
-    createAccount: 'Register',
+    createAccount: 'Sign-Up',
     backToLogin: 'back to login',
     error: 'Unexpected error',
     validation: 'Check highlighted fields',
