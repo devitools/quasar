@@ -1,6 +1,7 @@
 import { validation } from '../en-us'
 
 /**
+ * @link https://github.com/enniosousa/laravel-5.5-pt-BR-localization/blob/master/validation.php
  */
 export default {
   ...validation,

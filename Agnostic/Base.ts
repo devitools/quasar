@@ -184,8 +184,8 @@ export default abstract class Base {
     this.__avoids = []
 
     this.bootstrap()
-    this.construct($component, dependencies)
     this.timestamps()
+    this.construct($component, dependencies)
     $performance.end(reference)
   }
 
