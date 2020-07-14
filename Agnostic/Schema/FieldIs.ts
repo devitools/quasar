@@ -335,4 +335,17 @@ export default abstract class FieldIs extends Base {
     this.setComponent('phoneInternational', attrs)
     return this
   }
+
+  /**
+   * @param {Object} attrs
+   * @returns {Schema}
+   */
+  fieldIsPercentage (attrs = {}) {
+    this.setComponent('percentage', { value: 0, ...attrs }, 'currency')
+    this.setLayout({
+      tableAlign: 'right',
+      tableWhere: OPERATORS.CURRENCY
+    })
+    return this
+  }
 }
