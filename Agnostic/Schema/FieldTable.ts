@@ -27,7 +27,7 @@ export default abstract class FieldTable extends Base {
    * @param {string|null} tableWhere
    * @returns {Schema}
    */
-  fieldTableWhere (tableWhere = OPERATORS.AUTOMATIC): this {
+  fieldTableWhere (tableWhere: string | null = OPERATORS.AUTOMATIC): this {
     return this.setLayout({ tableWhere })
   }
 

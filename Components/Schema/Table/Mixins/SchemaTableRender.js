@@ -14,7 +14,33 @@ import SchemaTableWhere from '../Where/SchemaTableWhere'
 export default {
   /**
    */
+  data: () => ({
+    payload: {}
+  }),
+  /**
+   */
   methods: {
+    /**
+     * @param {function} h
+     * @return {VNode|undefined}
+     */
+    renderTop (h) {
+      if (!this.$scopedSlots['top']) {
+        return
+      }
+
+      // noinspection JSValidateTypes
+      return this.$scopedSlots['top']({
+        fields: this.fields,
+        actions: this.actions,
+        domain: this.domain,
+        scope: this.scope,
+        components: this.columns,
+        records: this.data,
+        buttons: this.buttons,
+        payload: this.payload
+      })
+    },
     /**
      * @param {function} h
      * @param {Array} classes
@@ -167,6 +193,7 @@ export default {
 
     const data = {}
     const children = [
+      this.renderTop(h),
       this.renderTable(h),
       this.renderWhere(h),
       this.renderFloatActionButtons(h)
