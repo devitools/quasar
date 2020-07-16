@@ -1,5 +1,6 @@
-import { actionFailMessage, actionSuccessMessage, actionFailErrors } from 'src/settings/schema'
+import { actionSuccessMessage } from 'src/settings/schema'
 import { parseRestError } from 'src/settings/rest'
+import Service from 'source/domains/Registration/Affiliate/Schema/AffiliateService'
 
 /**
  * @mixin Operation
@@ -95,16 +96,18 @@ export default {
             this.fetchRecords()
           }
         }
+
         const accept = (text) => {
           if (!text) {
-            this.$message.error('Preencha os campos corretamente e tente novamente')
+            this.$message.warning('Preencha os campos corretamente e tente novamente')
             return
           }
-          this.$q.loading.show()
+          this.loadingShow(false)
           action(record, text)
             .then(then)
-            .finally(() => this.$q.loading.hide())
+            .finally(() => this.loadingHide())
         }
+
         const ignore = () => '// silent is gold'
 
         if (prompt) {
@@ -116,6 +119,37 @@ export default {
         this.$confirm(this.$lang(question))
           .then(accept)
           .catch(ignore)
+      })
+    },
+    /**
+     * @param {Object} payload
+     * @param {function(Record<string, unknown>)} action
+     * @param {string} alias
+     */
+    actionSchemaConfirm (payload, action, alias) {
+      const { context } = payload
+      this.withRecord(context, async (record) => {
+        try {
+          const confirm = await this.$confirm(this.$lang(`actions.${alias}.confirm`))
+          if (!confirm) {
+            return
+          }
+        } catch (e) {
+          return
+        }
+        try {
+          this.loadingShow(false)
+          const response = await action(record)
+          if (String(response.status) === 'success') {
+            this.$message.success(this.$lang(`actions.${alias}.success`))
+            if (this.fetchRecords) {
+              this.fetchRecords()
+            }
+          }
+        } catch (e) {
+          this.$message.error(this.$lang(`actions.${alias}.error`))
+        }
+        this.loadingHide()
       })
     }
   }

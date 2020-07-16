@@ -12,7 +12,7 @@ export function alert (message, options = { title: '' }) {
     options.title = $lang('agnostic.dialog.alert.title')
   }
   const _options = {
-    message: $lang(message),
+    message: $lang(message, message),
     ...options
   }
 
@@ -43,7 +43,7 @@ export function confirm (message, options = { title: '' }) {
       label: $lang('agnostic.options.yesNo.no'),
       flat: true
     },
-    message: $lang(message),
+    message: $lang(message, message),
     ...options
   }
 
@@ -71,7 +71,7 @@ export function prompt (message, options = { title: '' }) {
       model: '',
       type: 'text'
     },
-    message,
+    message: $lang(message, message),
     ...options
   }
 

@@ -151,10 +151,31 @@ export type Payload = {
 }
 
 /**
+ * @interface {Message}
+ */
+export interface Message {
+  notify (options: Record<string, unknown>, action?: Record<string, unknown>): void
+
+  toast (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
+
+  success (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
+
+  error (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
+
+  warning (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
+}
+
+/**
  * @interface {Component}
  */
 export interface Component {
   scope: string
+
+  loadingShow (wait: boolean): void
+
+  loadingHide (): void
+
+  actionSchemaConfirm(payload: Record<string, unknown>, action: Function, alias: string): void
 
   $setIs (is: string): Component
 
@@ -183,6 +204,12 @@ export interface Component {
   $getValue (): unknown
 
   $setValue (value: unknown): Component
+
+  $confirm (message: string | Record<string, unknown>, options?: Record<string, unknown>): Promise<Record<string, unknown>>
+
+  $lang (path: string, fallback?: string | string[]): string | Record<string, unknown>
+
+  $message: Message
 }
 
 /**
@@ -193,4 +220,6 @@ export type SchemaForm = Component
 /**
  * @typedef {SchemaTable}
  */
-export type SchemaTable = Component
+export interface SchemaTable extends Component {
+  fetchRecords (): Promise<Record<string, unknown>>
+}
