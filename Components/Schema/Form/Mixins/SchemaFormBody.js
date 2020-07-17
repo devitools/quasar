@@ -152,7 +152,7 @@ export default {
     receiveInput ({ field, value }) {
       this.record[field] = value
 
-      if (!this.builtin) {
+      if (!this.builtin && this.settings.useModified) {
         $emporium.commit('updateModified', true)
       }
 

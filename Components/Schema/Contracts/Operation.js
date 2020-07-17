@@ -1,6 +1,5 @@
 import { actionSuccessMessage } from 'src/settings/schema'
 import { parseRestError } from 'src/settings/rest'
-import Service from 'source/domains/Registration/Affiliate/Schema/AffiliateService'
 
 /**
  * @mixin Operation

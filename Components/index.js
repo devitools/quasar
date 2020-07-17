@@ -24,6 +24,7 @@ export const AppSelectRemoteSingle = () => import('./SelectRemote/AppSelectRemot
 export const AppSeparator = () => import('./Separator/AppSeparator.js')
 export const AppSwitch = () => import('./Switch/AppSwitch.js')
 export const AppTable = () => import('./Table/AppTable.js')
+export const AppTableData = () => import('./Table/AppTableData.vue')
 export const AppTableStatic = () => import('./Table/AppTableStatic.vue')
 export const AppTimeline = () => import('./Timeline/AppTimeline.vue')
 export const AppTooltip = () => import('./Tooltip/AppTooltip.js')

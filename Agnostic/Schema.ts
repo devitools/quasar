@@ -20,6 +20,11 @@ abstract class Schema extends Skeleton {
   /**
    * @type {boolean}
    */
+  static useModified = true
+
+  /**
+   * @type {boolean}
+   */
   static showPlaceholderContent = SHOW_PLACEHOLDER_CONTENT
 
   /**
@@ -60,7 +65,11 @@ abstract class Schema extends Skeleton {
   provide (): Provide {
     const schema = <typeof Schema>this.constructor
     return {
-      settings: { useUuid: schema.useUuid, showPlaceholderContent: schema.showPlaceholderContent },
+      settings: {
+        useUuid: schema.useUuid,
+        showPlaceholderContent: schema.showPlaceholderContent,
+        useModified: schema.useModified
+      },
       domain: schema.domain,
       primaryKey: schema.primaryKey,
       displayKey: schema.displayKey,
