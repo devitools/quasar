@@ -151,6 +151,14 @@ export type Payload = {
 }
 
 /**
+ * @typedef {Context}
+ */
+export type Context = {
+  record: Record<string, unknown>
+  records: Record<string, unknown>[]
+}
+
+/**
  * @interface {Message}
  */
 export interface Message {
@@ -166,14 +174,29 @@ export interface Message {
 }
 
 /**
+ * @typedef {VuexStore}
+ */
+export type VuexStore = {
+  getters: Record<string, never>
+
+  dispatch(action: string, parameters?: Record<string, never>): Promise<never>
+}
+
+/**
  * @interface {Component}
  */
 export interface Component {
   scope: string
 
+  domain: string
+
+  $store: VuexStore
+
   loadingShow (wait: boolean): void
 
   loadingHide (): void
+
+  withRecord (context: Context, success: Function, noItems?: Function, tooManySelected?: Function): void
 
   actionSchemaConfirm(payload: Record<string, unknown>, action: Function, alias: string): void
 
@@ -207,7 +230,11 @@ export interface Component {
 
   $confirm (message: string | Record<string, unknown>, options?: Record<string, unknown>): Promise<Record<string, unknown>>
 
+  $alert (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
+
   $lang (path: string, fallback?: string | string[]): string | Record<string, unknown>
+
+  $can(namespace: string): boolean
 
   $message: Message
 }

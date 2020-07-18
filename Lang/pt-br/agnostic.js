@@ -39,6 +39,12 @@ export default {
       search: 'Pesquisar',
       placeholder: 'Digite para pesquisar...'
     },
+    appSelectWithOthers: {
+      others: {
+        label: 'Outros',
+        placeholder: 'informe (use vírgula para separar ou enter para adicionar valores)'
+      }
+    },
     password: {
       copied: 'Uma nova senha foi criada e enviada para a área de transferência',
       generator: {

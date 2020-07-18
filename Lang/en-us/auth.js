@@ -12,7 +12,7 @@ export default {
     forgotPassword: 'I forgot my password',
     validation: 'Check highlighted fields'
   },
-  register: {
+  signUp: {
     title: 'Come on! Enter your information ',
     name: 'Name',
     username: 'Email',

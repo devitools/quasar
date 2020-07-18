@@ -45,7 +45,7 @@ export default {
    */
   computed: {
     entries () {
-      return this.value.map(this.map)
+      return this.value.map(this.map.bind(this))
     }
   }
 }

@@ -37,6 +37,12 @@ export default {
       notFound: '-',
       placeholder: 'Type to search...'
     },
+    appSelectWithOthers: {
+      others: {
+        label: 'Others',
+        placeholder: 'if other, specify (use comma separated or enter to each value)'
+      }
+    },
     password: {
       copied: 'A new password was created and has been copied to clipboard',
       generator: {
