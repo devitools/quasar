@@ -340,6 +340,8 @@ export default abstract class Base {
     const inherit = typeof properties.attrs === 'function' ? properties.attrs() : properties.attrs
 
     this.__fields[name].$type = type
+    this.__fields[name].$parseInput = properties.parseInput
+    this.__fields[name].$parseOutput = properties.parseOutput
     Object.assign(this.__fields[name].attrs, inherit, attrs)
     Object.assign(this.__fields[name].on, properties.listeners)
     return this
