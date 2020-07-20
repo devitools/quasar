@@ -1,5 +1,8 @@
 <template>
-  <div class="AppSelectWithOthers">
+  <div
+    class="AppSelectWithOthers"
+    :class="{ 'AppSelectWithOthers--has-error q-field--error': error }"
+  >
     <QOptionGroup
       type="checkbox"
       :options="available"
@@ -29,6 +32,10 @@
       @input-value="otherInputValue"
       @blur="parseOtherInputValue"
     />
+    <div
+      class="AppSelectWithOthers__error_message q-field__bottom"
+      v-html="errorMessage"
+    />
   </div>
 </template>
 
@@ -52,6 +59,14 @@ export default {
     options: {
       type: Array,
       default: () => ([])
+    },
+    error: {
+      type: Boolean,
+      default: () => false
+    },
+    errorMessage: {
+      type: String,
+      default: () => undefined
     }
   },
   /**
@@ -128,6 +143,22 @@ export default {
 </script>
 
 <style scoped>
+.AppSelectWithOthers > .AppSelectWithOthers__error_message {
+  display: none;
+}
+
+.AppSelectWithOthers.AppSelectWithOthers--has-error > .AppSelectWithOthers__error_message {
+  display: block;
+}
+
+.AppSelectWithOthers.AppSelectWithOthers--has-error >>> .q-checkbox:not(.disabled) {
+  color: var(--q-color-negative);
+}
+
+.AppSelectWithOthers.AppSelectWithOthers--has-error >>> .q-checkbox:not(.disabled) .q-checkbox__bg {
+  border-color: var(--q-color-negative);
+}
+
 .AppSelectWithOthers > .AppSelectWithOthers__allow_other {
   margin: 0 0 0 8px;
 }
