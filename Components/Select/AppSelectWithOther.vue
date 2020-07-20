@@ -7,6 +7,7 @@
       type="checkbox"
       :options="available"
       v-model="selected"
+      :disable="readonly"
       @input="updateValue"
     />
 
@@ -14,6 +15,7 @@
       <QCheckbox
         :label="$lang('agnostic.components.appSelectWithOthers.others.label')"
         v-model="othersEnable"
+        :disable="readonly"
       />
     </div>
 
@@ -27,7 +29,7 @@
       hide-dropdown-icon
       input-debounce="0"
       new-value-mode="add-unique"
-      :disable="!othersEnable"
+      :disable="!othersEnable || readonly"
       @input="updateValue"
       @input-value="otherInputValue"
       @blur="parseOtherInputValue"
@@ -67,6 +69,10 @@ export default {
     errorMessage: {
       type: String,
       default: () => undefined
+    },
+    readonly: {
+      type: Boolean,
+      default: () => false
     }
   },
   /**
