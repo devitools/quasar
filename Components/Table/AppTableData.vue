@@ -48,6 +48,10 @@ export default {
       type: Array,
       default: () => ([])
     },
+    readonly: {
+      type: Boolean,
+      default: () => false
+    },
     title: {
       type: String,
       default: () => ('')
@@ -89,7 +93,7 @@ export default {
    */
   computed: {
     columnsWithActions () {
-      return [
+      return this.readonly ? this.columns : [
         ...this.columns,
         {
           name: 'actions',
