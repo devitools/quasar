@@ -22,7 +22,7 @@
         icon="zoom_in"
       >
         <QPopupProxy>
-          <QList class="uppercase">
+          <QList :class="{ 'uppercase': uppercase }">
             <component
               :is="component"
               v-bind="{ value: arriving ? arriving.__meta : {} }"

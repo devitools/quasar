@@ -87,6 +87,10 @@ export default {
     },
     path: {
       default: undefined
+    },
+    uppercase: {
+      type: Boolean,
+      default: true
     }
   },
   /**
@@ -103,7 +107,7 @@ export default {
         clearable: true,
         'use-chips': this.$options.multiple,
         multiple: this.$options.multiple,
-        'popup-content-class': 'uppercase',
+        'popup-content-class': this.uppercase ? 'uppercase' : '',
         loading: this.loading,
         ...attrs
       }
