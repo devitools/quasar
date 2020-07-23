@@ -32,7 +32,7 @@ export default {
      * @param {Object} field
      */
     componentRef (field) {
-      return `form:component-${field.$layout.formOrder}`
+      return `form:component-${field.$key}`
     },
     /**
      * @returns {number}

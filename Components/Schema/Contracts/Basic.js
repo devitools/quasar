@@ -112,7 +112,24 @@ export default {
      * @param {Object} field
      */
     generateComponentRef (field) {
-      return `form:component-${field.$layout.formOrder}`
+      return `form:component-${field.$key}`
+    },
+    /**
+     * @param {string} $key
+     * @returns {*}
+     */
+    getComponent ($key) {
+      return new Promise((resolve, reject) => {
+        let component = this.findComponentByRef(`form:component-${$key}`)
+        if (!component) {
+          reject()
+          return
+        }
+        if (Array.isArray(component) && component[0]) {
+          component = component[0]
+        }
+        resolve(component)
+      })
     },
     /**
      * @param {string} ref

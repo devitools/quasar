@@ -126,6 +126,14 @@ export default {
       } catch (e) {
         // silent is gold
       }
+    },
+    /**
+     * @param {Record<string, unknown>} row
+     */
+    add (row) {
+      const rows = [...this.rows]
+      rows.push(row)
+      this.$emit('input', rows)
     }
   },
   /**
@@ -144,7 +152,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.has-error > .AppTableData {
+  background: rgba(255, 225, 220, 0.7);
+}
+
 .AppTableData {
   box-shadow: none;
   border: 1px solid #c2c2c2;

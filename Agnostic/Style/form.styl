@@ -45,51 +45,6 @@
 
         .field {
           padding: 2px 5px;
-
-          label {
-            color: #3c3c3c;
-            font-size: 0.8rem;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-            cursor: help;
-          }
-
-          &.has-error {
-            > .app-form__label > label {
-              color: $errorForeground;
-            }
-
-            .q-field > .q-field__inner > .q-field__control {
-              color: darken($errorBackground, 25%);
-
-              &:before {
-                border-color: $errorBackground;
-              }
-
-              &:after {
-                background: $errorBackground;
-              }
-            }
-          }
-
-          .is-required {
-            position: relative;
-
-            &:after {
-              position: absolute;
-              content: '*';
-              color: #e0534f;
-              margin: 0 0 0 5px;
-              font-weight: bold;
-              font-size: 0.9rem;
-            }
-          }
-
-          .field-error {
-            min-height: 22px;
-            padding: 4px 0 0 0;
-            font-size: 12px;
-            color: $errorForeground;
-          }
         }
       }
     }
@@ -219,6 +174,56 @@
     .q-icon {
       font-size: 3rem;
       color: #4c80c9;
+    }
+  }
+}
+
+.form {
+  .field {
+
+    label {
+      color: #3c3c3c;
+      font-size: 0.8rem;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      cursor: help;
+    }
+
+    &.has-error {
+      > .app-form__label > label {
+        color: $errorForeground;
+      }
+
+      .q-field > .q-field__inner > .q-field__control {
+        color: darken($errorBackground, 25%);
+
+        &:before {
+          border-color: $errorBackground;
+        }
+
+        &:after {
+          background: $errorBackground;
+        }
+      }
+    }
+
+    .is-required {
+      position: relative;
+
+      &:after {
+        position: absolute;
+        content: '*';
+        color: #e0534f;
+        margin: 0 0 0 5px;
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+    }
+
+    .field-error {
+      min-height: 22px;
+      padding: 4px 0 0 0;
+      font-size: 12px;
+      color: $errorForeground;
     }
   }
 }
