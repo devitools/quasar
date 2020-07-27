@@ -190,6 +190,8 @@ export interface Component {
 
   domain: string
 
+  payload: Record<string, unknown>
+
   $store: VuexStore
 
   loadingShow (wait: boolean): void
