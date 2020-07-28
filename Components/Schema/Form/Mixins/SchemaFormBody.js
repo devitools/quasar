@@ -1,4 +1,4 @@
-import { QIcon, QTab, QTabPanel, QTabs, QTabPanels, QSeparator } from 'quasar'
+import { QIcon, QSeparator, QTab, QTabPanel, QTabPanels, QTabs } from 'quasar'
 import $emporium from '../../../../emporium'
 import SchemaComponents from '../SchemaFormComponents'
 
@@ -78,7 +78,17 @@ export default {
         return
       }
 
-      const style = hidden ? 'display: none' : ''
+      const entries = Object.entries(components)
+      const visible = entries.reduce((accumulator, entry) => {
+        const [, field] = entry
+        const { $layout: { formHidden } } = field
+        if (formHidden === false) {
+          accumulator++
+        }
+        return accumulator
+      }, 0)
+
+      const style = (hidden || visible === 0) ? 'display: none' : ''
       const data = { key: `${key}-section`, class: 'app-form-section', style }
       const children = [_title(label, icon), this.renderFormBodyComponents(h, components)]
 
@@ -92,22 +102,45 @@ export default {
     renderFormBodyTabs (h, groups) {
       const tabs = []
       const panes = []
-      Object.keys(groups).forEach((key) => {
+      Object.entries(groups).forEach((entry) => {
+        const [key, group] = entry
+        const { hidden, label, pane } = group
+
+        const components = this.getComponents(key)
+        if (!components) {
+          return
+        }
+
+        const entries = Object.entries(components)
+        const visible = entries.reduce((accumulator, entry) => {
+          const [, field] = entry
+          const { $layout: { formHidden } } = field
+          if (formHidden === false) {
+            accumulator++
+          }
+          return accumulator
+        }, 0)
+
+        if (hidden || visible === 0) {
+          return
+        }
+
         if (!this.groupSelected) {
           this.groupSelected = key
         }
+
         const tab = {
           attrs: {
             key: key,
             name: key,
             slot: 'title',
-            label: groups[key].label
+            label: label
           }
         }
         tabs.push(h(QTab, tab))
 
-        const pane = {
-          style: groups[key].pane,
+        const data = {
+          style: pane,
           attrs: {
             key: key,
             name: key
@@ -116,7 +149,7 @@ export default {
         const children = [
           this.renderFormBodyComponents(h, this.getComponents(key))
         ]
-        panes.push(h(QTabPanel, pane, children))
+        panes.push(h(QTabPanel, data, children))
       })
 
       const tabsData = {
