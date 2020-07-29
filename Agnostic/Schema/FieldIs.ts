@@ -348,4 +348,14 @@ export default abstract class FieldIs extends Base {
     })
     return this
   }
+
+  /**
+   * @param {Object} attrs
+   * @returns {Schema}
+   */
+  fieldIsNumeric (attrs = {}) {
+    this.setComponent('numeric', { value: 0, ...attrs }, 'number')
+    this.setLayout({ tableAlign: 'right' })
+    return this
+  }
 }
