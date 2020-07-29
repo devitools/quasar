@@ -124,9 +124,10 @@ export default {
      */
     attributes () {
       return {
+        ...this.$attrs,
+        ...this.$props,
         debuggerAllowed: false,
         path: this.path,
-        domain: this.domain,
         table: this.table,
         form: this.form,
         settings: this.settings,
@@ -137,8 +138,7 @@ export default {
         actions: this.builtinActions,
         hooks: this.hooks,
         watches: this.watches,
-        ...this.$attrs,
-        ...this.$props
+        domain: this.domain
       }
     }
   },
