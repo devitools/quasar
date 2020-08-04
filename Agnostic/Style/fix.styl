@@ -143,3 +143,15 @@ main.q-page {
 .q-field--auto-height.q-field--dense.q-field--labeled .q-field__control-container {
   padding-top: 0;
 }
+
+.q-select:not(.q-field--focused) > .q-field__inner > .q-field__control > .q-field__control-container {
+  .q-field__native > .q-field__input {
+    display: none;
+  }
+}
+
+.SchemaTableWhere__component {
+  .q-field--labeled.q-field--dense .q-field__native, .q-field--labeled.q-field--dense .q-field__prefix, .q-field--labeled.q-field--dense .q-field__suffix {
+    padding-top: 2px;
+  }
+}
