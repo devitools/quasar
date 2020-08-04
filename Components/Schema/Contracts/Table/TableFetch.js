@@ -106,6 +106,11 @@ export default {
       this.pagination.rowsNumber = response.rowsNumber
       /* "sortBy": null, "descending": false, "page": 1, "": 5  */
 
+      // wildcard data
+      if (response.payload) {
+        this.payload = response.payload
+      }
+
       if (!this.data.length && !this.embed) {
         const query = {}
         if (this.$route.query.page >= 2) {
