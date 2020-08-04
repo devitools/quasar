@@ -16,7 +16,7 @@
       @change="handleFiles"
     >
 
-    <q-btn
+    <QBtn
       :disabled="locked"
       @click="onClick"
       color="primary"
@@ -25,7 +25,7 @@
       flat
     />
 
-    <q-btn
+    <QBtn
       :disabled="locked"
       color="negative"
       icon="delete"
@@ -45,6 +45,7 @@
 
 <script>
 import File from '../File/Uploader'
+import { QBtn } from 'quasar'
 
 export default {
   /**
@@ -53,6 +54,11 @@ export default {
   /**
    */
   mixins: [File],
+  /**
+   */
+  components: {
+    QBtn
+  },
   /**
    */
   props: {
