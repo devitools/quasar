@@ -49,8 +49,13 @@ export const actionEntry = (domain, path, icon, namespace = undefined, separated
 /**
  * @param {{path: string, icon: string, domain: string}} view
  * @param {boolean} separated
+ * @param {string} query
  * @returns {{path: string, label: string, namespace: string, separated: boolean}}
  */
-export const action = (view, separated = false) => {
-  return actionEntry(view.domain, view.path, view.icon, view.namespace, separated)
+export const action = (view, separated = false, query = '') => {
+  let path = view.path
+  if (query) {
+    path = `${view.path}?${query}`
+  }
+  return actionEntry(view.domain, path, view.icon, view.namespace, separated)
 }
