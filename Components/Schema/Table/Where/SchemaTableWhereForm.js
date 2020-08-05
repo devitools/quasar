@@ -53,10 +53,13 @@ export default {
     },
     /**
      * @param {function} h
-     * @param {Object} field
+     * @param {Field|Object} field
      * @returns {*}
      */
     renderWhereFormComponent (h, field) {
+      if (field.$layout.tableWhereComponent) {
+        field.is = field.$layout.tableWhereComponent
+      }
       field.label = this.parseFieldLabel(field)
       field.attrs.label = ''
       field.attrs.clearable = field.$type !== 'currency'

@@ -2,8 +2,10 @@
   <QIcon
     class="cursor-pointer"
     name="event"
+    :disabled="disable"
   >
     <QPopupProxy
+      v-if="!disable"
       ref="qDateProxy"
       transition-hide="scale"
       transition-show="scale"
@@ -31,6 +33,14 @@ export default {
   /**
    */
   components: { QIcon, QPopupProxy, QDate },
+  /**
+   */
+  props: {
+    disable: {
+      type: Boolean,
+      default: false
+    }
+  },
   /**
    */
   methods: {

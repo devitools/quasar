@@ -79,6 +79,7 @@ export interface Field {
     tableOrder: number
     tableFormat?: Function
     tableWhere?: string
+    tableWhereComponent?: unknown
   }
   scopes: string[]
   $created?: Configure[]
@@ -86,6 +87,9 @@ export interface Field {
   group?: string
   $configure?: Function
   chars?: string
+
+  label?: string
+  listeners?: Record<string, Function | Function[]>
 }
 
 /**
@@ -179,7 +183,7 @@ export interface Message {
 export type VuexStore = {
   getters: Record<string, never>
 
-  dispatch(action: string, parameters?: Record<string, never>): Promise<never>
+  dispatch (action: string, parameters?: Record<string, never>): Promise<never>
 }
 
 /**
@@ -200,7 +204,7 @@ export interface Component {
 
   withRecord (context: Context, success: Function, noItems?: Function, tooManySelected?: Function): void
 
-  actionSchemaConfirm(payload: Record<string, unknown>, action: Function, alias: string): void
+  actionSchemaConfirm (payload: Record<string, unknown>, action: Function, alias: string): void
 
   $setIs (is: string): Component
 
@@ -236,7 +240,7 @@ export interface Component {
 
   $lang (path: string, fallback?: string | string[]): string | Record<string, unknown>
 
-  $can(namespace: string): boolean
+  $can (namespace: string): boolean
 
   $message: Message
 }
