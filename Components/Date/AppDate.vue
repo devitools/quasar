@@ -9,6 +9,7 @@
       <DateWidgetDate
         :format="format"
         :value="widgetValue"
+        :disable="readonly"
         @input="widgetUpdateValue($event)"
       />
     </template>

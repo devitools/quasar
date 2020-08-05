@@ -2,8 +2,10 @@
   <QIcon
     class="cursor-pointer"
     name="access_time"
+    :disabled="disable"
   >
     <QPopupProxy
+      v-if="!disable"
       ref="qDatetimeProxy"
       transition-hide="scale"
       transition-show="scale"
@@ -34,6 +36,14 @@ export default {
   /**
    */
   components: { QIcon, QPopupProxy, QTime },
+  /**
+   */
+  props: {
+    disable: {
+      type: Boolean,
+      default: false
+    }
+  },
   /**
    */
   data: () => ({

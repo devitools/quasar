@@ -78,6 +78,9 @@ export default {
      * @return {boolean}
      */
     endDisabled () {
+      if (this.readonly) {
+        return true
+      }
       return String(this.value).split(',') < 1
     }
   },
