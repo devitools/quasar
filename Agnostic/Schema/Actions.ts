@@ -232,7 +232,7 @@ export default abstract class Actions extends Base {
    */
   actionTooltip (tooltip = ''): this {
     const id = this.__currentAction
-    this.__actions[id].attrs.tooltip = $lang(tooltip)
+    this.__actions[id].attrs.tooltip = this.$lang(tooltip || `actions.${id}.tooltip`)
     return this
   }
 
