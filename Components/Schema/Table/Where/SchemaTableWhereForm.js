@@ -61,7 +61,7 @@ export default {
         field.is = field.$layout.tableWhereComponent
       }
       field.label = this.parseFieldLabel(field)
-      field.attrs.label = ''
+      field.attrs.label = undefined
       field.attrs.clearable = field.$type !== 'currency'
       if (field.attrs.options) {
         let options = this.parseFieldOptions(field)
