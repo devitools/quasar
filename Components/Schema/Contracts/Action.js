@@ -101,7 +101,7 @@ export default {
     $actionDisabled (disabled = true) {
       const id = this.__currentAction
       if (this.buttons[id]) {
-        this.buttons[id].attrs.disabled = disabled
+        this.buttons[id].attrs.disable = disabled
       }
       return this
     },
