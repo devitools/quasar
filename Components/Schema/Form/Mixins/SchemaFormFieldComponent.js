@@ -72,7 +72,7 @@ export default {
       const input = ($event) => this.componentInput($event, field)
       const ref = this.componentRef(field)
       const tabIndex = this.componentTabIndex()
-      const attrs = { domain: this.domain, inheritErrors: error }
+      const attrs = { domain: field.attrs.domain || this.domain, inheritErrors: error }
       if (this.useFormReadonly) {
         attrs.readonly = this.useFormReadonly
       }
