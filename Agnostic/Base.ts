@@ -1,7 +1,7 @@
 import { displayKey, primaryKey } from 'src/settings/schema'
 import components from 'src/settings/components'
 
-import { Action, Component, Field, Fill, Group, Watch } from './Helper/interfaces'
+import { Action, Component, Field, Fill, Group, SchemaForm, SchemaTable, Watch } from './Helper/interfaces'
 import { scopes } from './enum'
 import { clone } from '../Util/general'
 import $lang from '../Lang'
@@ -156,8 +156,9 @@ export default abstract class Base {
 
   /**
    * Bootstrap everything
+   * @param {SchemaForm | SchemaTable} $component
    */
-  bootstrap () {
+  bootstrap ($component?: SchemaForm | SchemaTable) {
   }
 
   /**
