@@ -267,7 +267,7 @@ export default abstract class Actions extends Base {
   actionDisabled (disabled = true): this {
     const id = this.__currentAction
     if (this.__actions[id]) {
-      this.__actions[id].attrs.disabled = disabled
+      this.__actions[id].attrs.disable = disabled
     }
     return this
   }
