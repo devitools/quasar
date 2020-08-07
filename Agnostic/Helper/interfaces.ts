@@ -248,7 +248,11 @@ export interface Component {
 /**
  * @typedef {SchemaForm}
  */
-export type SchemaForm = Component
+export interface SchemaForm extends Component {
+  $payload: Record<string, unknown>
+
+  fetchRecord(): Promise<Record<string, unknown>>
+}
 
 /**
  * @typedef {SchemaTable}
