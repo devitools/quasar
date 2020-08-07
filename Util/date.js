@@ -49,6 +49,15 @@ export const yesterday = () => {
 /**
  * @returns {string}
  */
+export const fourDaysAgo = () => {
+  const today = new Date()
+  today.setDate(today.getDate() - 4)
+  return today.toDateString()
+}
+
+/**
+ * @returns {string}
+ */
 export const beforeYesterday = () => {
   const now = new Date()
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
