@@ -72,13 +72,14 @@ export default {
     /**
      * @param {Object} error
      * @param {string|Array} fail
+     * @param {string|Array} validation
      */
-    actionSchemaFail (error, fail) {
+    actionSchemaFail (error, fail, validation = undefined) {
       this.$q.loading.hide()
       if (!error.response) {
         return Promise.reject(error)
       }
-      parseRestError.call(this, error, fail)
+      parseRestError.call(this, error, fail, validation)
     },
     /**
      * @param {Object} payload
