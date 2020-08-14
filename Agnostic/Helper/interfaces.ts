@@ -168,13 +168,9 @@ export type Context = {
  */
 export interface Message {
   notify (options: Record<string, unknown>, action?: Record<string, unknown>): void
-
   toast (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
-
   success (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
-
   error (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
-
   warning (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
 }
 
@@ -183,7 +179,6 @@ export interface Message {
  */
 export type VuexStore = {
   getters: Record<string, never>
-
   dispatch (action: string, parameters?: Record<string, never>): Promise<never>
 }
 
@@ -191,7 +186,10 @@ export type VuexStore = {
  * @typedef {RouteRecord}
  */
 export type RouteRecord = {
+  name: string
+  path: string
   meta: Record<string, unknown>
+  query: Record<string, unknown>
 }
 
 /**
@@ -199,65 +197,35 @@ export type RouteRecord = {
  */
 export interface Component {
   scope: string
-
   domain: string
-
   primaryKey: string
-
   payload: Record<string, unknown>
-
   $store: VuexStore
-
   $route: RouteRecord
-
   getActionPath(): string
-
   $browse(target: undefined | number | string | Record<string, unknown>, options?: Record<string, unknown> | boolean): void
-
   loadingShow (wait: boolean): void
-
   loadingHide (): void
-
   withRecord (context: Context, success: Function, noItems?: Function, tooManySelected?: Function): void
-
   actionSchemaConfirm (payload: Record<string, unknown>, action: Function, alias: string): void
-
   $setIs (is: string): Component
-
   $setLayout (property: string, value: number | string): Component
-
   $getLayout (property: string): Component
-
   $getField (name: string): Component
-
   $fieldFormHidden (formHidden?: boolean): Component
-
   $fieldFormWidth (formWidth: number): Component
-
   $fieldFormHeight (formHeight: number): Component
-
   $fieldAttr (property: string, value: unknown): Component
-
   $fieldFormDisabled (disable: boolean): Component
-
   $fieldFormOrder (formOrder: number, updateOthers?: boolean): Component
-
   $fieldTableHidden (tableHidden?: boolean): Component
-
   $fieldTableWhere (tableWhere?: string): Component
-
   $getValue (): unknown
-
   $setValue (value: unknown): Component
-
   $confirm (message: string | Record<string, unknown>, options?: Record<string, unknown>): Promise<Record<string, unknown>>
-
   $alert (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
-
   $lang (path: string, fallback?: string | string[]): string | Record<string, unknown>
-
   $can (namespace: string): boolean
-
   $message: Message
 }
 
@@ -266,7 +234,6 @@ export interface Component {
  */
 export interface SchemaForm extends Component {
   $payload: Record<string, unknown>
-
   fetchRecord(): Promise<Record<string, unknown>>
 }
 
