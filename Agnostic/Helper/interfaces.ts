@@ -1,3 +1,4 @@
+
 /**
  * @interface {Provide}
  */
@@ -187,6 +188,13 @@ export type VuexStore = {
 }
 
 /**
+ * @typedef {RouteRecord}
+ */
+export type RouteRecord = {
+  meta: Record<string, unknown>
+}
+
+/**
  * @interface {Component}
  */
 export interface Component {
@@ -194,9 +202,17 @@ export interface Component {
 
   domain: string
 
+  primaryKey: string
+
   payload: Record<string, unknown>
 
   $store: VuexStore
+
+  $route: RouteRecord
+
+  getActionPath(): string
+
+  $browse(target: undefined | number | string | Record<string, unknown>, options?: Record<string, unknown> | boolean): void
 
   loadingShow (wait: boolean): void
 

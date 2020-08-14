@@ -96,5 +96,5 @@ export const resource = (settings, children = []) => {
   const kids = crud(domain, path, table, form)
   const meta = { domain, resource }
 
-  return group(path, component, [...kids, ...children], meta)
+  return group(path, component, [...children, ...kids], meta)
 }

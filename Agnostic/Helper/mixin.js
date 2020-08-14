@@ -3,9 +3,13 @@
  * @param mixins
  */
 export default function (base, mixins) {
-  mixins.forEach(baseCtor => {
-    Object.getOwnPropertyNames(baseCtor.prototype).forEach(name => {
-      Object.defineProperty(base.prototype, name, Object.getOwnPropertyDescriptor(baseCtor.prototype, name))
-    })
-  })
+  const mergeMixin = (baseConstructor) => {
+    const mergeProperties = (name) => {
+      const attributes = Object.getOwnPropertyDescriptor(baseConstructor.prototype, name)
+      Object.defineProperty(base.prototype, name, attributes)
+    }
+
+    Object.getOwnPropertyNames(baseConstructor.prototype).forEach(mergeProperties)
+  }
+  mixins.forEach(mergeMixin)
 }
