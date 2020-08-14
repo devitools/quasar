@@ -9,6 +9,7 @@
       <DateWidgetDate
         :format="format"
         :value="startValue"
+        :disable="readonly"
         @input="startUpdateValue($event)"
       />
     </template>
@@ -16,7 +17,7 @@
       <DateWidgetDate
         :format="format"
         :value="endValue"
-        :disable="endDisabled"
+        :disable="readonly"
         @input="endUpdateValue($event)"
       />
     </template>
@@ -50,7 +51,10 @@ export default {
     inputValue () {
       const start = dateFormatter(this.startValue, this.display, this.format)
       const end = dateFormatter(this.endValue, this.display, this.format)
-      return `${start} - ${end}`
+      if (start && end) {
+        return `${start} - ${end}`
+      }
+      return ''
     },
     /**
      * @returns {string}
@@ -73,15 +77,6 @@ export default {
         return ''
       }
       return value
-    },
-    /**
-     * @return {boolean}
-     */
-    endDisabled () {
-      if (this.readonly) {
-        return true
-      }
-      return String(this.value).split(',') < 1
     }
   },
   /**
@@ -91,38 +86,47 @@ export default {
      * @param {string} value
      */
     inputUpdateValue (value) {
+      // console.log('~> inputUpdateValue: value', value)
       let [start, end] = String(value).split('-')
       start = dateFormatter(String(start).trim(), this.format, this.display)
       end = dateFormatter(String(end).trim(), this.format, this.display)
+      // console.log('~> inputUpdateValue: start', start)
+      // console.log('~> inputUpdateValue: end', end)
       if (start && end) {
+        // console.log('~> inputUpdateValue: start,end', `${start},${end}`)
         this.$emit('input', `${start},${end}`)
         return
       }
-      this.$emit('input', '')
+      // console.log('~> inputUpdateValue: start,end', undefined)
+      this.$emit('input', undefined)
     },
     /**
      * @param {string} start
      */
     startUpdateValue (start) {
+      // console.log('~> startUpdateValue: start', start)
       let [, end] = String(this.value).split(',')
       end = dateFormatter(String(end).trim(), this.format, this.format)
-      if (end) {
-        this.$emit('input', `${start},${end}`)
-        return
+      // console.log('~> startUpdateValue: end', end)
+      if (!end) {
+        end = start
       }
-      this.$emit('input', start)
+      // console.log('~> startUpdateValue: emit', `${start},${end}`)
+      this.$emit('input', `${start},${end}`)
     },
     /**
      * @param {string} end
      */
     endUpdateValue (end) {
+      // console.log('~> endUpdateValue: end', end)
       let [start] = String(this.value).split(',')
       start = dateFormatter(String(start).trim(), this.format, this.format)
-      if (start) {
-        this.$emit('input', `${start},${end}`)
-        return
+      // console.log('~> endUpdateValue: start', start)
+      if (!start) {
+        start = end
       }
-      this.$emit('input', `,${end}`)
+      // console.log('~> endUpdateValue: emit', `${start},${end}`)
+      this.$emit('input', `${start},${end}`)
     }
   }
 }
