@@ -3,7 +3,7 @@
     mask="##/##/#### - ##/##/####"
     :value="inputValue"
     @input="inputUpdateValue($event)"
-    v-bind="inputAttrs"
+    v-bind="bind"
   >
     <template v-slot:prepend>
       <DateWidgetDate

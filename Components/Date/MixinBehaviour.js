@@ -10,8 +10,8 @@ export default {
     /**
      * @returns {Object}
      */
-    inputAttrs () {
-      return { ...this.$attrs }
+    bind () {
+      return { ...this.$attrs, ...this.$props }
     },
     /**
      * @returns {string}
