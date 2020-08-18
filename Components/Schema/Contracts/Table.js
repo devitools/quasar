@@ -145,7 +145,7 @@ export default {
      */
     value: {
       handler (value) {
-        if (value && value.length) {
+        if ((value && value.length) || this.builtin) {
           this.fetchRecords()
         }
       },

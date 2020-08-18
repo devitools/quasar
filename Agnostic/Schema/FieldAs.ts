@@ -22,7 +22,6 @@ export default abstract class FieldAs extends Base {
       hiddenForm: true,
       ...options
     }
-    const self = this.$self()
 
     this.addField(String(options.key), 'string')
       .fieldTableWidth(String(options.tableWith))
@@ -30,7 +29,6 @@ export default abstract class FieldAs extends Base {
       .fieldTableShow(Boolean(options.tableShow))
       .fieldFormHidden(Boolean(options.hiddenForm))
       .fieldFormDisabled(true)
-      .fieldFormDefaultValue(self.useUuid ? uuid() : undefined)
       .fieldPrimaryKey()
 
     return this
