@@ -30,17 +30,17 @@ export const actionGroup = (domain, icon, children, separated = false) => {
 
 /**
  * @param {string|Object} domain
- * @param {string} path
+ * @param {string} to
  * @param {string} icon
  * @param {string} namespace
  * @param {boolean} separated
- * @returns {{path: string, label: string, namespace: string, separated: boolean}}
+ * @returns {{path: *, label: string, namespace: string, separated: boolean}}
  */
-export const actionEntry = (domain, path, icon, namespace = undefined, separated = false) => {
+export const actionEntry = (domain, to, icon, namespace = undefined, separated = false) => {
   return {
     label: $lang(`actions.${domain}`, `actions.${domain}`),
     namespace: namespace || `${domain}.${RULES.LEVEL_AVAILABLE}`,
-    path: path,
+    path: to,
     icon: icon,
     separated: separated
   }
@@ -49,13 +49,13 @@ export const actionEntry = (domain, path, icon, namespace = undefined, separated
 /**
  * @param {{path: string, icon: string, domain: string}} view
  * @param {boolean} separated
- * @param {string} query
- * @returns {{path: string, label: string, namespace: string, separated: boolean}}
+ * @param {Record<string, unknown>} query
+ * @returns {{path: *, label: string, namespace: string, separated: boolean}}
  */
-export const action = (view, separated = false, query = '') => {
-  let path = view.path
+export const action = (view, separated = false, query = null) => {
+  let to = view.path
   if (query) {
-    path = `${view.path}?${query}`
+    to = { path: to, query }
   }
-  return actionEntry(view.domain, path, view.icon, view.namespace, separated)
+  return actionEntry(view.domain, to, view.icon, view.namespace, separated)
 }
