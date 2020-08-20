@@ -179,7 +179,7 @@ export interface Message {
  */
 export type VuexStore = {
   getters: Record<string, never>
-  dispatch (action: string, parameters?: Record<string, never>): Promise<never>
+  dispatch (action: string, parameters?: Record<string, unknown> | string | number | unknown): Promise<never>
 }
 
 /**
@@ -203,6 +203,7 @@ export interface Component {
   $store: VuexStore
   $route: RouteRecord
   getActionPath(): string
+  getRecord(): Record<string, unknown>
   $browse(target: undefined | number | string | Record<string, unknown>, options?: Record<string, unknown> | boolean): void
   loadingShow (wait: boolean): void
   loadingHide (): void
