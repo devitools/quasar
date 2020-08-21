@@ -1,5 +1,3 @@
-import { defaultActions } from 'src/settings/action'
-
 import { reject } from '../../../Util/general'
 import { SCOPES } from '../../enum'
 import initialize from './initialize'

@@ -16,13 +16,12 @@ export default {
      */
     renderButtons () {
       const actions = this.actions()
-      if (!actions) {
+      if (!actions || !Array.isArray(actions)) {
         return
       }
 
       if (this.builtin) {
-        this.buttons = actions
-          .reduce(this.buttonReduce, {})
+        this.buttons = actions.reduce(this.buttonReduce, {})
         return
       }
 

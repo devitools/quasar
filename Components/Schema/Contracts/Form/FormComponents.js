@@ -38,7 +38,7 @@ export default {
         if (field.$configure && typeof field.$configure === 'function') {
           const configured = field.$configure.call(this, field, this.scope)
           if (!configured || configured.$key !== this.components[key].$key) {
-            throw Error('The configure return must be the field')
+            throw Error('The return of configure must be the self field')
           }
           this.components[key] = configured
         }

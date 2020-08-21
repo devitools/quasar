@@ -88,8 +88,8 @@ export default {
         return accumulator
       }, 0)
 
-      const style = (hidden || visible === 0) ? 'display: none' : ''
-      const data = { key: `${key}-section`, class: 'app-form-section', style }
+      const hide = (hidden || visible === 0) ? 'hide' : ''
+      const data = { key: `${key}-section`, class: ['app-form-section', hide] }
       const children = [_title(label, icon), this.renderFormBodyComponents(h, components)]
 
       return h('div', data, children)

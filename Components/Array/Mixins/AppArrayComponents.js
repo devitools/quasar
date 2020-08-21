@@ -1,10 +1,6 @@
 export default {
   /**
    */
-  computed: {
-  },
-  /**
-   */
   data: () => ({
     components: {}
   }),

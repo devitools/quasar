@@ -215,10 +215,15 @@ export default abstract class FieldIs extends Base {
 
   /**
    * @param {Object} attrs
+   * @param {boolean} form
    * @returns {Schema}
    */
-  fieldIsArray (attrs = {}) {
-    this.setIs('AppArray')
+  fieldIsArray (attrs = {}, form = false) {
+    let is = 'AppArray'
+    if (form) {
+      is = 'AppArrayForm'
+    }
+    this.setIs(is)
     this.setAttrs(attrs)
     this.setType('array')
     return this

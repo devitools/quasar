@@ -3,6 +3,7 @@ export const SchemaForm = () => import('./Schema/SchemaForm.js')
 export const SchemaReport = () => import('./Schema/SchemaReport.js')
 
 export const AppArray = () => import('./Array/AppArray.vue')
+export const AppArrayForm = () => import('./Array/AppArrayForm.vue')
 export const AppBuiltin = () => import('./Builtin/AppBuiltin.vue')
 export const AppBreadcrumb = () => import('./Breadcrumb/AppBreadcrumb.js')
 export const AppButton = () => import('./Button/AppButton.vue')

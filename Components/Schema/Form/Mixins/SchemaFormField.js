@@ -24,8 +24,7 @@ export default {
       const error = this.fieldHasError(key)
       const data = {
         key: key,
-        class: this.fieldClass(field, error),
-        style: { display: field.$layout.formHidden ? 'none' : '' }
+        class: this.fieldClass(field, error)
       }
 
       const children = [
@@ -58,7 +57,11 @@ export default {
       const width = field.$layout.formWidth
       const height = field.$layout.formHeight
       const background = field.$layout.formBackground
+      const hidden = field.$layout.formHidden
       const classNames = [field.$key, 'field', `width-${width}`, `height-${height}`, background]
+      if (hidden) {
+        classNames.push('hide')
+      }
       if (error) {
         classNames.push('has-error')
       }

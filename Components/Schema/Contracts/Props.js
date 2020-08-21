@@ -45,7 +45,7 @@ export default {
     },
     actions: {
       type: Function,
-      default: () => ({})
+      default: () => ([])
     },
     hooks: {
       type: Function,
