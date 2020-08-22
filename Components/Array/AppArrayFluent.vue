@@ -1,5 +1,5 @@
 <template>
-  <div class="AppArrayForm AppArray">
+  <div class="AppArrayFluent AppArray">
     <div class="AppArray__wrapper">
       <AppArrayHead
         :domain="domain"
@@ -20,10 +20,8 @@
               :hooks="hooks"
               :readonly="readonly"
               :static="static"
-              :editable="editable[record.__uuid]"
-              @edit="setEditable(record.__uuid, $event)"
+              :fluent="true"
               @input="updateItem(index, $event)"
-              @cancel="cancelItem(index)"
               @remove="removeItem(index)"
             />
           </template>
@@ -66,7 +64,7 @@ import AppArrayRow from './Partials/AppArrayRow'
 export default {
   /**
    */
-  name: 'AppArrayForm',
+  name: 'AppArrayFluent',
   /**
    */
   mixins: [AppArrayEmpty, AppArrayProps],
@@ -121,18 +119,8 @@ export default {
      */
     removeItem (index) {
       const records = [...this.records]
-      this.dropEditable(records[index])
       records.splice(index, 1)
       this.$emit('input', records)
-    },
-    /**
-     * @param {number} index
-     */
-    cancelItem (index) {
-      const records = [...this.records]
-      this.dropEditable(records[index])
-      records.splice(index, 1)
-      this.records = records
     },
     /**
      * @param {number} index
@@ -142,24 +130,6 @@ export default {
       const records = [...this.records]
       records[index] = record
       this.updateValue(index, records)
-    },
-    /**
-     * @param {number|string} id
-     * @param {boolean} editable
-     */
-    setEditable (id, editable) {
-      this.$set(this.editable, id, editable)
-    },
-    /**
-     * @param {Record<string, unknown>} row
-     */
-    dropEditable (row) {
-      try {
-        const id = row.__uuid
-        this.$delete(this.editable, id)
-      } catch (e) {
-        // silent is gold
-      }
     },
     /**
      * @param {number} index

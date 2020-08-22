@@ -63,9 +63,9 @@ export default {
       type: Boolean,
       default: true
     },
-    schema: {
-      type: String,
-      default: undefined
+    fillerAllowed: {
+      type: Boolean,
+      default: true
     }
   }
 }

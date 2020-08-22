@@ -158,10 +158,6 @@ export default {
      * @return {VNode|undefined}
      */
     renderTableDebuggers (h) {
-      if (!this.debuggers) {
-        return
-      }
-
       const debugging = [
         h(SchemaDebugger, { attrs: { label: 'Data', inspect: this.data } }),
         h(SchemaDebugger, { attrs: { label: 'Columns', inspect: this.columns } }),
@@ -198,7 +194,8 @@ export default {
       this.renderWhere(h),
       this.renderFloatActionButtons(h)
     ]
-    if (this.debuggerAllowed) {
+
+    if (this.debugging) {
       children.push(this.renderTableDebuggers(h))
     }
 

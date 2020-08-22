@@ -219,7 +219,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsArray (attrs = {}, form = false) {
-    let is = 'AppArray'
+    let is = 'AppArrayFluent'
     if (form) {
       is = 'AppArrayForm'
     }

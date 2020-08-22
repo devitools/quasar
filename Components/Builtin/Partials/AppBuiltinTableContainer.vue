@@ -5,7 +5,7 @@
     v-bind="bind"
     :scope="scope"
     :value="items"
-    :built-in="true"
+    :builtin="true"
     :debugger-allowed="false"
     :size="size"
     selection="none"

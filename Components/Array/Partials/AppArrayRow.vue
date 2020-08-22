@@ -3,17 +3,22 @@
     class="AppArrayRow form form-grid"
     :class="classNames"
   >
-    <template v-if="editable">
+    <template v-if="editable || fluent">
       <div class="AppArrayForm__form__inline field width-100">
         <AppForm
           ref="form"
           v-bind="bind"
           :scope="scope"
           v-model="record"
-          :built-in="true"
+          @input="fluentRow($event)"
+          :builtin="true"
           :debugger-allowed="false"
+          :filler-allowed="false"
         />
-        <div class="AppArrayForm__actions">
+        <div
+          v-if="!fluent"
+          class="AppArrayForm__actions"
+        >
           <QBtn
             unelevated
             dense
@@ -60,7 +65,10 @@
       v-show="!editable"
       class="AppArrayRow__buttons"
     >
-      <div class="AppArrayForm__indicator">
+      <div
+        v-if="!fluent && !static"
+        class="AppArrayForm__indicator"
+      >
         <QBtn
           unelevated
           dense
@@ -71,7 +79,10 @@
           @click="visible = !visible"
         />
       </div>
-      <div class="AppArrayForm__edit">
+      <div
+        v-if="!fluent"
+        class="AppArrayForm__edit"
+      >
         <QBtn
           unelevated
           dense
@@ -153,6 +164,10 @@ export default {
       type: Boolean,
       default: false
     },
+    fluent: {
+      type: Boolean,
+      default: false
+    },
     editable: {
       type: [Boolean, undefined],
       default: false
@@ -191,7 +206,8 @@ export default {
       return {
         'AppArrayRow--buttons-visible': this.visible,
         'AppArrayRow--readonly': this.readonly,
-        'AppArrayRow--static': this.static
+        'AppArrayRow--static': this.static,
+        'AppArrayRow--fluent': this.fluent
       }
     }
   },
@@ -210,6 +226,11 @@ export default {
     /**
      */
     async removeRow () {
+      if (this.fluent) {
+        this.$emit('remove')
+        return
+      }
+
       try {
         await confirm(this.$lang('agnostic.components.array.confirm'))
       } catch (e) {
@@ -246,8 +267,23 @@ export default {
 
       const value = JSON.parse(JSON.stringify(this.record))
       this.record = {}
-      this.$emit('input', value)
+      this.updateValue(value)
       this.$emit('edit', false)
+    },
+    /**
+     * @param {Record<string, unknown>} input
+     */
+    fluentRow (input) {
+      if (!this.fluent) {
+        return
+      }
+      this.$emit('input', input)
+    },
+    /**
+     * @param {Record<string, unknown>} input
+     */
+    updateValue (input) {
+      this.$emit('input', input)
     },
     /**
      * @param {Field} field
@@ -264,7 +300,18 @@ export default {
       return classNames
     }
   },
+  /**
+   */
   watch: {
+    value: {
+      immediate: true,
+      handler (value) {
+        if (!this.fluent) {
+          return
+        }
+        this.record = value
+      }
+    },
     fields: {
       immediate: true,
       handler (fields) {
@@ -305,12 +352,9 @@ export default {
   .AppArrayForm__indicator {
     display: none;
   }
-  .AppArrayRow__buttons {
-    width: 46px;
-  }
 }
 
-.desktop .AppArrayRow:not(.AppArrayRow--static):hover {
+.desktop .AppArrayRow:not(.AppArrayRow--static):not(.AppArrayRow--fluent):hover {
   .AppArrayRow__buttons {
     // 88px is enough
     width: 90px;
@@ -318,14 +362,14 @@ export default {
 }
 
 .AppArrayRow {
-  @extend .AppArrayForm__element--color
+  @extend .AppArray__element--color
   border-width: 1px 0 0 0;
 
   .AppArrayForm__form__inline {
     position: relative;
 
     .AppArrayForm__actions {
-      @extend .AppArrayForm__element--color
+      @extend .AppArray__element--color
       border-width: 1px 0 0 0;
       padding: 2px;
       margin: 0 -5px;
@@ -334,21 +378,10 @@ export default {
         margin: 0 5px 0 0;
       }
     }
-
-    /*
-    > .AppForm > .AppForm__wrapper > .AppForm__body > .form > .field:not(.hide) {
-      // #padding
-      padding-left: 18px;
-    }
-
-    .AppForm > .AppForm__wrapper > .AppForm__body > .form > .field:not(.hide) ~ .field:not(.hide) {
-      padding-left: 5px !important;
-    }
-    */
   }
 
   .AppArrayRow__buttons {
-    @extend .AppArrayForm__element--color
+    @extend .AppArray__element--color
     border-width: 1px;
     border-radius: 2px;
     position: absolute;
@@ -390,6 +423,24 @@ export default {
         // #padding
         padding: 4px 5px 5px 24px !important;
       }
+    }
+  }
+
+  &.AppArrayRow--static {
+    .AppArrayRow__buttons .AppArrayForm__edit {
+      display: inline-block !important;
+      padding: 0 !important;
+    }
+  }
+
+  &.AppArrayRow--fluent {
+    .field-error {
+      display: none;
+    }
+
+    .AppArrayRow__buttons .AppArrayForm__remove {
+      display: inline-block !important;
+      padding: 0 !important;
     }
   }
 }

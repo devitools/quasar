@@ -80,35 +80,11 @@ export default {
      * @param {function} h
      */
     renderFormDebuggers (h) {
-      if (!this.debuggers) {
-        return
-      }
-
       const debugging = [
-        h(SchemaDebugger, {
-          attrs: {
-            label: 'Validation',
-            inspect: this.$v
-          }
-        }),
-        h(SchemaDebugger, {
-          attrs: {
-            label: 'Record',
-            inspect: this.record
-          }
-        }),
-        h(SchemaDebugger, {
-          attrs: {
-            label: 'Components',
-            inspect: this.components
-          }
-        }),
-        h(SchemaDebugger, {
-          attrs: {
-            label: 'Buttons',
-            inspect: this.buttons
-          }
-        })
+        h(SchemaDebugger, { attrs: { label: 'Validation', inspect: this.$v } }),
+        h(SchemaDebugger, { attrs: { label: 'Record', inspect: this.record } }),
+        h(SchemaDebugger, { attrs: { label: 'Components', inspect: this.components } }),
+        h(SchemaDebugger, { attrs: { label: 'Buttons', inspect: this.buttons } })
       ]
 
       return h('div', debugging)
@@ -196,11 +172,11 @@ export default {
       this.renderForm(h)
     ]
 
-    if ($emporium.state.filling && !this.builtin) {
+    if (this.filling) {
       children.push(this.renderFormFiller(h))
     }
 
-    if (this.debuggerAllowed) {
+    if (this.debugging) {
       children.push(this.renderFormDebuggers(h))
     }
 

@@ -16,7 +16,7 @@
       v-bind="$props"
       :scope="scope"
       :value="item"
-      :built-in="true"
+      :builtin="true"
       :debugger-allowed="false"
       @input="$emit('update:item', $event)"
       @actionBuiltinCancel="$emit('actionCancel')"

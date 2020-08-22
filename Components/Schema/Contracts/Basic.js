@@ -36,8 +36,13 @@ export default {
   computed: {
     /**
      */
-    debuggers () {
-      return $emporium.state.debugging
+    debugging () {
+      return this.debuggerAllowed && !this.builtin && $emporium.state.debugging
+    },
+    /**
+     */
+    filling () {
+      return this.fillerAllowed && !this.builtin && $emporium.state.filling
     }
   },
   /**
