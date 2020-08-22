@@ -90,12 +90,16 @@ export default {
       class: ['AppEmbedTable'],
       attrs: { padding: true }
     }
+
     const children = [
       this.renderTable(h, ['AppEmbedTable__container'], true),
       this.renderWhere(h),
-      this.renderFloatActionButtons(h),
-      this.renderTableDebuggers(h)
+      this.renderFloatActionButtons(h)
     ]
+
+    if (this.debugging) {
+      children.push(this.renderTableDebuggers(h))
+    }
 
     return h('div', data, children)
   }

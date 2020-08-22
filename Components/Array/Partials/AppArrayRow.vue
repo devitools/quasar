@@ -442,6 +442,17 @@ export default {
       display: inline-block !important;
       padding: 0 !important;
     }
+
+    .AppArrayForm__form__inline {
+      > .AppForm > .AppForm__wrapper > .AppForm__body > .form > .field:not(.hide) {
+        // #padding
+        padding-left: 18px;
+      }
+
+      .AppForm > .AppForm__wrapper > .AppForm__body > .form > .field:not(.hide) ~ .field:not(.hide) {
+        padding-left: 5px !important;
+      }
+    }
   }
 }
 </style>

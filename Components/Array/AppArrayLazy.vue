@@ -1,6 +1,6 @@
 <template>
   <AppArray
-    class="AppArrayFluent"
+    class="AppArrayLazy"
     :domain="domain"
     :fields="fields"
     :value="value"
@@ -24,8 +24,10 @@
         :hooks="hooks"
         :readonly="readonly"
         :static="static"
-        :fluent="true"
+        :editable="editable[record.__uuid]"
+        @edit="setEditable(record.__uuid, $event)"
         @input="updateItem(index, $event)"
+        @cancel="cancelItem(index)"
         @remove="removeItem(index)"
       />
     </template>
@@ -35,15 +37,15 @@
 <script type="text/javascript">
 import AppArray from './AppArray'
 import AppArrayRow from './Partials/AppArrayRow'
-import { AppArrayBasic, AppArrayProps, AppArrayFluent } from './Mixins'
+import { AppArrayBasic, AppArrayProps, AppArrayLazy } from './Mixins'
 
 export default {
   /**
    */
-  name: 'AppArrayFluent',
+  name: 'AppArrayLazy',
   /**
    */
-  mixins: [AppArrayBasic, AppArrayProps, AppArrayFluent],
+  mixins: [AppArrayBasic, AppArrayProps, AppArrayLazy],
   /**
    */
   components: { AppArray, AppArrayRow }
