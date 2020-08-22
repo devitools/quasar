@@ -1,10 +1,7 @@
-// noinspection ES6CheckImport
 import { QFab, QPageSticky } from 'quasar'
 
-import { ignored } from 'src/settings/action'
+import { ICON_GROUP_ACTIONS, IGNORED_ACTIONS } from 'src/settings/action'
 
-// app
-// mixins
 import SchemaButton from './Mixins/SchemaButton'
 import SchemaButtonParse from './Mixins/SchemaButtonParse'
 
@@ -12,6 +9,8 @@ import SchemaButtonParse from './Mixins/SchemaButtonParse'
  * @component {SchemaButtons}
  */
 export default {
+  /**
+   */
   name: 'SchemaButtons',
   /**
    */
@@ -75,10 +74,10 @@ export default {
       ) {
         return false
       }
-      if (!Array.isArray(ignored)) {
+      if (!Array.isArray(IGNORED_ACTIONS)) {
         return true
       }
-      return !ignored.includes(button.$key)
+      return !IGNORED_ACTIONS.includes(button.$key)
     },
     /**
      * @param {Object} a
@@ -117,7 +116,7 @@ export default {
           class: 'q-fab-cell',
           attrs: {
             direction: 'right',
-            icon: 'add'
+            icon: ICON_GROUP_ACTIONS
           }
         },
         this.getSchemaButtonsActions(h, { __floating: true })
@@ -139,7 +138,7 @@ export default {
           QFab, {
             attrs: {
               direction: 'up',
-              icon: 'apps',
+              icon: ICON_GROUP_ACTIONS,
               color: 'primary'
             }
           },

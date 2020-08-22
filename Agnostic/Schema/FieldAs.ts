@@ -39,7 +39,7 @@ export default abstract class FieldAs extends Base {
    * @returns {Schema}
    */
   fieldAsZip (attrs = {}) {
-    this.fieldAsMasked('#####-###', { placeholder: 'ex.: 39500-201' })
+    this.fieldAsMasked('#####-###', { placeholder: '39500-201' })
     this.setType('string')
     return this
   }
@@ -49,7 +49,7 @@ export default abstract class FieldAs extends Base {
    * @returns {Schema}
    */
   fieldAsPhone (attrs = {}) {
-    this.fieldAsMasked('(##) ####-####', { placeholder: 'ex.: (21) 3289-3950' })
+    this.fieldAsMasked('(##) ####-####', { placeholder: '(21) 3289-3950' })
     this.setType('string')
     return this
   }
@@ -59,7 +59,7 @@ export default abstract class FieldAs extends Base {
    * @returns {Schema}
    */
   fieldAsCell (attrs = {}) {
-    this.fieldAsMasked('(##) #####-####', { placeholder: 'ex.: (44) 98956-3049' })
+    this.fieldAsMasked('(##) #####-####', { placeholder: '(44) 98956-3049' })
     this.setType('string')
     return this
   }

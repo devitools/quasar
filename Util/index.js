@@ -1,9 +1,9 @@
 import { clone, get, set, uuid, run } from './general'
 
 /**
- * @param {Vue} Vue
+ * @return {Record<string, Function>}
  */
-export default (Vue) => {
+export default () => {
   return {
     clone, get, set, uuid, run
   }

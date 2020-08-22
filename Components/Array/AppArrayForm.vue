@@ -1,131 +1,55 @@
 <template>
   <div class="AppArrayForm">
     <div class="AppArrayForm__wrapper">
-      <div class="AppArrayForm__head form form-grid">
-        <template v-for="(field, key) in components">
-          <div
-            :key="key"
-            class="AppArrayForm__th"
-            :class="generateClassNames(field)"
-          >
-            {{ $lang([`domains.${domain}.fields.${field.$key}.label`, `domains.${domain}.fields.${field.$key}`]) }}
-          </div>
-        </template>
-      </div>
+      <AppArrayHead
+        :domain="domain"
+        :fields="fields"
+        :readonly="readonly"
+      />
 
-      <div class="AppArrayForm__body">
-        <template v-for="(data, index) in value">
-          <div
-            :key="index"
-            class="AppArrayForm__tr form form-grid"
-          >
-            <template v-if="manipulating[index]">
-              <div class="AppArrayForm__manipulating field width-100">
-                <AppForm
-                  :ref="`form-${index}`"
-                  v-bind="bind"
-                  :scope="scope"
-                  :value="records[index]"
-                  :built-in="true"
-                  :debugger-allowed="false"
-                  @input="setManipulatedValue(index, $event)"
-                />
-              </div>
-            </template>
+      <template v-if="records.length">
+        <div class="AppArrayForm__body">
+          <template v-for="(record, index) in records">
+            <AppArrayRow
+              :key="record.__uuid"
+              :ref="`body-${index}`"
+              :fields="fields"
+              :value="record"
+              :domain="domain"
+              :primary-key="primaryKey"
+              :hooks="hooks"
+              :readonly="readonly"
+              :static="static"
+              :editable="editable[record.__uuid]"
+              @edit="setEditable(record.__uuid, $event)"
+              @input="updateItem(index, $event)"
+              @cancel="cancelItem(index)"
+              @remove="removeItem(index)"
+            />
+          </template>
+        </div>
+      </template>
 
-            <template v-else>
-              <template v-for="(field, key) in components">
-                <div
-                  :key="key"
-                  class="AppArrayForm__td"
-                  :class="generateClassNames(field, true)"
-                >
-                  <div class="AppArrayForm__td_value">
-                    <label class="q-field row q-input q-field--outlined q-field--dense q-field--readonly">
-                      <div class="q-field__inner relative-position col self-stretch column justify-center">
-                        <div class="q-field__control relative-position row no-wrap">
-                          <div class="q-field__control-container col relative-position row no-wrap q-anchor--skip">
-                            <div
-                              class="q-field__native q-placeholder"
-                              v-html="showValue(field, data[field.$key])"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-              </template>
-            </template>
-
-            <div class="AppArrayForm__tr__buttons">
-              <div
-                v-if="editable"
-                class="AppArrayForm__top"
-              >
-                <QBtn
-                  v-show="!manipulating[index]"
-                  unelevated
-                  dense
-                  color="white"
-                  text-color="grey-9"
-                  round
-                  icon="edit"
-                  size="sm"
-                  @click="editItem(index, data)"
-                />
-                <QBtn
-                  v-show="manipulating[index]"
-                  unelevated
-                  dense
-                  color="white"
-                  text-color="grey-9"
-                  round
-                  icon="done"
-                  size="sm"
-                  @click="saveItem(index)"
-                />
-              </div>
-              <div class="AppArrayForm__bottom">
-                <QBtn
-                  v-show="!manipulating[index]"
-                  unelevated
-                  dense
-                  color="white"
-                  text-color="grey-9"
-                  round
-                  icon="delete"
-                  size="sm"
-                  @click="removeItem(index)"
-                />
-                <QBtn
-                  v-show="manipulating[index]"
-                  unelevated
-                  dense
-                  color="white"
-                  text-color="grey-9"
-                  round
-                  icon="cancel"
-                  size="sm"
-                  @click="resetItem(index)"
-                />
-              </div>
-            </div>
-          </div>
-        </template>
-      </div>
+      <template v-else>
+        <div
+          class="AppArray__empty"
+          v-html="empty"
+        />
+      </template>
     </div>
 
     <div>
       <QBtn
-        v-if="editable"
+        v-if="!readonly && !static"
         unelevated
         dense
         color="white"
         text-color="grey-9"
         icon="add"
         @click="addItem"
-      />
+      >
+        <AppTooltip>{{ $lang('agnostic.components.array.add') }}</AppTooltip>
+      </QBtn>
     </div>
   </div>
 </template>
@@ -133,11 +57,11 @@
 <script type="text/javascript">
 import { QBtn } from 'quasar'
 
-import AppForm from '../../Components/Form/AppForm'
-import { SCOPES } from '../../Agnostic/enum'
 import { uuid } from '../../Util/general'
 
-import { AppArrayEmpty } from './Mixins'
+import { AppArrayEmpty, AppArrayProps } from './Mixins'
+import AppArrayHead from './Partials/AppArrayHead'
+import AppArrayRow from './Partials/AppArrayRow'
 
 export default {
   /**
@@ -145,329 +69,158 @@ export default {
   name: 'AppArrayForm',
   /**
    */
-  mixins: [AppArrayEmpty],
+  mixins: [AppArrayEmpty, AppArrayProps],
   /**
    */
-  components: { AppForm, QBtn },
-  /**
-   */
-  props: {
-    domain: {
-      type: String,
-      required: true
-    },
-    primaryKey: {
-      type: String,
-      required: true
-    },
-    fields: {
-      type: Function,
-      required: true
-    },
-    hooks: {
-      type: Function,
-      required: true
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    disable: {
-      type: Boolean,
-      default: false
-    },
-    inheritErrors: {
-      type: Object,
-      default: () => ({})
-    },
-    debuggerAllowed: {
-      type: Boolean,
-      default: true
-    },
-    value: {
-      type: Array,
-      default: () => ([])
-    }
-  },
-  /**
-   */
-  computed: {
-    /**
-     * @returns {boolean}
-     */
-    editable () {
-      return !this.static && !this.disable && !this.readonly
-    },
-    /**
-     * @return {Record<string, unknown>}
-     */
-    bind () {
-      return {
-        scope: this.scope,
-        domain: this.domain,
-        primaryKey: this.primaryKey,
-        fields: this.fields,
-        hooks: this.hooks,
-        readonly: this.readonly
-      }
-    }
-  },
+  components: { AppArrayRow, AppArrayHead, QBtn },
   /**
    */
   data: () => ({
-    components: {},
-    records: {},
-    manipulating: {},
-    scope: SCOPES.SCOPE_ADD
+    head: {},
+    records: [],
+    editable: {}
   }),
   /**
    */
   methods: {
     /**
      */
-    addItem () {
-      const newest = {}
+    newest () {
+      const newest = { __new: true, __uuid: uuid() }
       if (this.useUuid) {
         newest[this.primaryKey] = uuid()
       }
-      Object.keys(this.components).forEach((key) => {
-        newest[key] = this.components[key].attrs.value
+      const reduce = (accumulator, field) => {
+        accumulator[field.$key] = field.attrs.value
+        return accumulator
+      }
+      return Object.values(this.fields()).reduce(reduce, newest)
+    },
+    /**
+     */
+    addItem () {
+      const newest = this.newest()
+
+      const records = [...this.records, newest]
+      this.records = records
+
+      this.$nextTick(() => {
+        let ref = this.$refs[`body-${records.length - 1}`]
+        if (!ref) {
+          return
+        }
+        if (Array.isArray(ref)) {
+          ref = ref[0]
+        }
+        if (ref) {
+          ref.editRow()
+        }
       })
-      const input = [...this.value, newest]
-      this.editItem(input.length - 1, {})
-      this.$emit('input', input)
     },
     /**
      * @param {number} index
      */
     removeItem (index) {
-      const input = [...this.value]
-      input.splice(index, 1)
+      const records = [...this.records]
+      this.dropEditable(records[index])
+      records.splice(index, 1)
+      this.$emit('input', records)
+    },
+    /**
+     * @param {number} index
+     */
+    cancelItem (index) {
+      const records = [...this.records]
+      this.dropEditable(records[index])
+      records.splice(index, 1)
+      this.records = records
+    },
+    /**
+     * @param {number} index
+     * @param {*} record
+     */
+    updateItem (index, record) {
+      const records = [...this.records]
+      records[index] = record
+      this.updateValue(index, records)
+    },
+    /**
+     * @param {number|string} id
+     * @param {boolean} editable
+     */
+    setEditable (id, editable) {
+      this.$set(this.editable, id, editable)
+    },
+    /**
+     * @param {Record<string, unknown>} row
+     */
+    dropEditable (row) {
+      try {
+        const id = row.__uuid
+        this.$delete(this.editable, id)
+      } catch (e) {
+        // silent is gold
+      }
+    },
+    /**
+     * @param {number} index
+     * @param {*} records
+     */
+    updateValue (index, records) {
+      const input = records.map((record) => {
+        if (record.__new) {
+          delete record.__new
+        }
+        return record
+      })
       this.$emit('input', input)
-    },
-    /**
-     * @param {number} index
-     * @param {Record<string, unknown>} data
-     */
-    editItem (index, data) {
-      this.$set(this.manipulating, index, true)
-      this.$set(this.records, index, JSON.parse(JSON.stringify(data)))
-    },
-    /**
-     * @param {number} index
-     */
-    resetItem (index) {
-      this.$delete(this.manipulating, index)
-      this.$set(this.records, index, {})
-    },
-    /**
-     * @param {number} index
-     */
-    saveItem (index) {
-      let ref = this.$refs[`form-${index}`]
-      if (!ref) {
-        return
-      }
-      if (Array.isArray(ref)) {
-        ref = ref[0]
-      }
-      ref.$v.$touch()
-
-      if (ref.$v.$error) {
-        return
-      }
-
-      this.$set(this.manipulating, index, true)
-      const value = this.records[index]
-      this.$set(this.records, index, {})
-      this.resetItem(index)
-      this.updateValue(index, value)
-    },
-    /**
-     * @param {number} index
-     * @param {string} field
-     * @param {*} value
-     */
-    setManipulatedValue (index, value) {
-      this.records[index] = value
-    },
-    /**
-     * @param {number} index
-     * @param {*} value
-     */
-    updateValue (index, value) {
-      const input = [...this.value]
-
-      input[index] = value
-
-      this.$emit('input', input)
-    },
-    /**
-     * @param {Field} field
-     * @param {*} value
-     * @return {string}
-     */
-    showValue (field, value) {
-      /*
-      <AppSwitch :value="field.$type">
-        <template #select>
-          {{ $util.get(item, `${field.$key}.${field.attrs.keyLabel}`) }}
-        </template>
-        <template #options>
-          {{ options(field, item[field.$key]) }}
-        </template>
-        <template #curreny>
-          {{ item[field.$key] | currency }}
-        </template>
-        <template #file>
-          <QIcon
-            size="2rem"
-            color="grey-8"
-            name="cloud_download"
-            class="cursor-pointer"
-            @click="downloadFile(field, item[field.$key])"
-          >
-            <AppTooltip>{{ $lang('agnostic.components.file.download') }}</AppTooltip>
-          </QIcon>
-          <span class="q-ml-sm">{{ $lang('agnostic.components.file.downloadName') }}{{ item[field.$key] | extension }}</span>
-        </template>
-        <template>
-          {{ item[field.$key] }}
-        </template>
-      </AppSwitch>
-      */
-      if (typeof field.$layout.tableFormat === 'function') {
-        return field.$layout.tableFormat(value)
-      }
-      if (typeof value === 'undefined') {
-        return ''
-      }
-      return String(value)
-    },
-    /**
-     * @param {Field} field
-     * @param {boolean} value
-     */
-    generateClassNames (field, value = false) {
-      const classNames = [
-        'field',
-        field.$layout.formWidth ? `width-${field.$layout.formWidth}` : 'width-100', `$key-${field.$key}`
-      ]
-      if (value && field.attrs.uppercase) {
-        classNames.push('text-uppercase')
-      }
-      return classNames
     }
   },
   watch: {
-    fields: {
+    value: {
       immediate: true,
-      handler (fields) {
-        this.components = Object.values(fields()).filter((field) => !field.$layout.formHidden)
+      handler (value) {
+        if (Array.isArray(value)) {
+          this.records = value.map((row) => {
+            const id = row[this.primaryKey] || row.__uuid || uuid()
+            return { ...row, __uuid: id }
+          })
+          return
+        }
+        this.records = []
       }
     }
   }
 }
 </script>
 
-<style lang="stylus">
+<style
+  lang="stylus"
+  rel="stylesheet/stylus"
+>
 @import '~src/css/quasar.variables.styl'
-
-.AppArrayForm__element--color {
-  border-style: solid;
-  border-color: #e1e1e1;
-}
+@import './Partials/app-array-include.styl'
 
 .AppArrayForm {
+
+  .AppArray__empty {
+    @extend .AppArrayForm__element--color
+    border-width: 1px 0 0 0;
+    padding: 10px;
+    text-align: center;
+    color: #797979;
+  }
 
   .AppArrayForm__wrapper {
     @extend .AppArrayForm__element--color
     border-width: 1px;
     border-radius: 4px;
-  }
 
-  .AppArrayForm__head {
-  }
-
-  .AppArrayForm__th {
-    padding: 6px !important;
-
-    &:first-child {
-      padding: 6px 6px 6px 16px !important;
-    }
-  }
-
-  .AppArrayForm__body {
-    .app-form__label {
-      display: none;
-    }
-  }
-
-  .AppArrayForm__tr {
-    @extend .AppArrayForm__element--color
-    border-width: 1px 0 0 0;
-    min-height: 64px;
-
-    .AppArrayForm__manipulating {
-      position: relative;
-
-      > .AppForm > .AppForm__wrapper > .AppForm__body > .form > .field:not(.hide) {
-        padding-left: 10px !important;
+    .AppArrayForm__body {
+      .app-form__label {
+        display: none;
       }
     }
-
-    .AppArrayForm__manipulating > .AppForm > .AppForm__wrapper > .AppForm__body > .form > .field:not(.hide) ~ .field:not(.hide) {
-      padding-left: 5px !important;
-    }
-
-    .AppArrayForm__tr__buttons {
-      @extend .AppArrayForm__element--color
-      border-width: 1px;
-      border-radius: 2px;
-      position: absolute;
-      margin: 2px 0 0 -13px;
-      background: #ffffff;
-      z-index: 1000;
-
-      .AppArrayForm__top {
-        padding: 2px 0;
-        background: #ffffff;
-        @extend .AppArrayForm__element--color
-        border-width: 0 0 1px 0;
-      }
-
-      .AppArrayForm__bottom {
-        padding: 2px 0;
-        background: #ffffff;
-      }
-    }
-
-  }
-
-  .AppArrayForm__td {
-    padding: 4px 5px !important;
-
-    &:first-child {
-      padding: 4px 5px 5px 16px !important;
-    }
-
-    > .AppArrayForm__td_value {
-      width: 100%;
-
-      .uppercase {
-        text-transform: uppercase !important;
-      }
-    }
-  }
-
-  .AppArrayForm__th:last-child, .AppArrayForm__td:last-child {
-    border-width: 0;
-  }
-
-  .AppArrayForm__empty {
-    padding: 10px;
-    text-align: center;
-    color: #797979;
   }
 
   .q-field__native.row.items-center {

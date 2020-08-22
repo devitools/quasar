@@ -20,10 +20,6 @@ export default {
       type: String,
       default: primaryKey
     },
-    disable: {
-      type: Boolean,
-      default: undefined
-    },
     optimize: {
       type: Boolean,
       default: false
@@ -31,6 +27,26 @@ export default {
     useUuid: {
       type: Boolean,
       default: false
+    },
+    hooks: {
+      type: Function,
+      required: true
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    static: {
+      type: Boolean,
+      default: false
+    },
+    debuggerAllowed: {
+      type: Boolean,
+      default: false
+    },
+    inheritErrors: {
+      type: Object,
+      default: () => ({})
     }
   }
 }

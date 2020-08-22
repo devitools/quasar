@@ -8,9 +8,12 @@ import { replacement } from './string'
  * @return {string}
  */
 export const format = (value, pattern) => {
+  if (typeof value !== 'string') {
+    return ''
+  }
   let i = 0
-  const string = String(value).replace(/[./\-,]/g, '')
-  return pattern.replace(/#/g, _ => string[i++])
+  const string = value.replace(/[./\-,]/g, '')
+  return pattern.replace(/#/g, _ => string[i++] || '')
 }
 
 /**

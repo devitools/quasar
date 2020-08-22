@@ -26,7 +26,13 @@ export default {
   },
   components: {
     array: {
-      empty: 'Use o botão {button} abaixo para adicionar itens',
+      empty: 'Use o botão {button} abaixo para adicionar elementos',
+      remove: 'Remove este elemento da lista',
+      confirm: 'Deseja realmente remover este elemento da lista?',
+      edit: 'Permite editar este elemento',
+      reset: 'Cancela as alterações feitas',
+      add: 'Adiciona um novo elemento na lista',
+      apply: 'Aplica as alterações feitas no elemento',
       options: 'Opções'
     },
     appSelectRemote: {
@@ -48,7 +54,7 @@ export default {
     password: {
       copied: 'Uma nova senha foi criada e enviada para a área de transferência',
       generator: {
-        tooltip: 'Cria uma nova senha com {length} caracteres'
+        tooltip: 'Cria uma senha com {length} caracteres'
       },
       visible: {
         tooltip: 'Deixa a senha visível'
@@ -90,34 +96,34 @@ export default {
       actions: {
         builtinAdd: {
           label: 'Novo',
-          tooltip: 'Cria um novo item na lista de itens'
+          tooltip: 'Adiciona um elemento na lista'
         },
         builtinBack: {
           label: 'Voltar',
-          tooltip: 'Volta para a lista de itens'
+          tooltip: 'Volta para a lista de elementos'
         },
         builtinCancel: {
           label: 'Cancelar',
-          tooltip: 'Desfazer alterações e voltar para a lista de itens'
+          tooltip: 'Desfazer alterações e voltar para a lista'
         },
         builtinApply: {
           label: 'Aplicar',
-          tooltip: 'Aplicar a alteração à lista de itens',
+          tooltip: 'Aplicar a alteração à lista',
           validation: 'Verifique os campos destacados'
         },
         builtinView: {
           label: 'Visualizar',
-          tooltip: 'Visualizar este item da lista de itens'
+          tooltip: 'Visualizar este elemento'
         },
         builtinEdit: {
           label: 'Editar',
-          tooltip: 'Editar este item da lista de itens'
+          tooltip: 'Editar este elemento'
         },
         builtinDestroy: {
           label: 'Remover',
-          tooltip: 'Remover este item da lista de itens',
+          tooltip: 'Remover este elemento da lista',
           title: 'Remover',
-          message: 'Deseja remover este item da lista de itens?'
+          message: 'Deseja remover este elemento da lista?'
         }
       }
     }
