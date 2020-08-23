@@ -19,8 +19,7 @@
         <div class="SelectRemoteWidgetTable__buttons">
           <QBtn
             icon="done"
-            text-color="grey-9"
-            color="white"
+            color="default"
             flat
             dense
             @click="onConfirm"
@@ -29,8 +28,7 @@
           </QBtn>
           <QBtn
             icon="clear_all"
-            text-color="grey-9"
-            color="white"
+            color="default"
             flat
             dense
             @click="onClear"
@@ -39,8 +37,7 @@
           </QBtn>
           <QBtn
             icon="clear"
-            text-color="grey-9"
-            color="white"
+            color="default"
             flat
             dense
             @click="onCancel"
