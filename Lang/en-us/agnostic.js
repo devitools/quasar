@@ -25,6 +25,12 @@ export default {
   components: {
     array: {
       empty: 'Use the button {button} to add items',
+      remove: 'Remove this element from the list',
+      confirm: 'Do you really want to remove this item from the list?',
+      edit: 'Allows you to edit this element',
+      reset: 'Cancel changes made',
+      add: 'Add a new element to the list',
+      apply: 'Apply changes made to the element',
       options: 'Options'
     },
     appSelectRemote: {
@@ -87,32 +93,25 @@ export default {
       },
       actions: {
         builtinAdd: {
-          label: 'New',
           tooltip: 'Create a new item in the item list'
         },
         builtinBack: {
-          label: 'Back',
           tooltip: 'Back to the list of items'
         },
         builtinCancel: {
-          label: 'Cancel',
           tooltip: 'Undo changes and return to the list of items'
         },
         builtinApply: {
-          label: 'Apply',
           tooltip: 'Apply the change to the item list',
           validation: 'Check highlighted fields'
         },
         builtinView: {
-          label: 'View',
           tooltip: 'View this item in the item list'
         },
         builtinEdit: {
-          label: 'Edit',
           tooltip: 'Edit this item in the item list'
         },
         builtinDestroy: {
-          label: 'Remove',
           tooltip: 'Remove this item from the item list',
           title: 'Remove',
           message: 'Do you want to remove this item from the item list?'

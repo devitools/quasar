@@ -95,32 +95,25 @@ export default {
       },
       actions: {
         builtinAdd: {
-          label: 'Novo',
           tooltip: 'Adiciona um elemento na lista'
         },
         builtinBack: {
-          label: 'Voltar',
           tooltip: 'Volta para a lista de elementos'
         },
         builtinCancel: {
-          label: 'Cancelar',
           tooltip: 'Desfazer alterações e voltar para a lista'
         },
         builtinApply: {
-          label: 'Aplicar',
           tooltip: 'Aplicar a alteração à lista',
           validation: 'Verifique os campos destacados'
         },
         builtinView: {
-          label: 'Visualizar',
           tooltip: 'Visualizar este elemento'
         },
         builtinEdit: {
-          label: 'Editar',
           tooltip: 'Editar este elemento'
         },
         builtinDestroy: {
-          label: 'Remover',
           tooltip: 'Remover este elemento da lista',
           title: 'Remover',
           message: 'Deseja remover este elemento da lista?'

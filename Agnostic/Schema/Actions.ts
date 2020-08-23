@@ -273,6 +273,18 @@ export default abstract class Actions extends Base {
   }
 
   /**
+   * @param {Record<string, unknown>} attrs
+   * @returns {this}
+   */
+  actionAttrsAppendAttrs (attrs: Record<string, unknown>): this {
+    const id = this.__currentAction
+    if (this.__actions[id]) {
+      this.__actions[id].attrs = { ...this.__actions[id].attrs, ...attrs }
+    }
+    return this
+  }
+
+  /**
    * @returns {this}
    */
   actionFloatRight (): this {

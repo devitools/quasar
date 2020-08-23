@@ -13,31 +13,46 @@
     :debugger-allowed="debuggerAllowed"
     :inherit-errors="inheritErrors"
   >
-    <template v-for="(record, index) in records">
-      <AppArrayRow
-        :key="record.__uuid"
-        :ref="`body-${index}`"
-        :fields="fields"
-        :value="record"
-        :domain="domain"
-        :primary-key="primaryKey"
-        :hooks="hooks"
-        :readonly="readonly"
-        :static="static"
-        :editable="editable[record.__uuid]"
-        @edit="setEditable(record.__uuid, $event)"
-        @input="updateItem(index, $event)"
-        @cancel="cancelItem(index)"
-        @remove="removeItem(index)"
-      />
+    <template v-slot:body>
+      <template v-for="(record, index) in records">
+        <AppArrayRow
+          :key="record.__uuid"
+          :ref="`body-${index}`"
+          :fields="fields"
+          :value="record"
+          :domain="domain"
+          :primary-key="primaryKey"
+          :hooks="hooks"
+          :readonly="readonly"
+          :static="static"
+          :editable="editable[record.__uuid]"
+          @edit="setEditable(record.__uuid, $event)"
+          @input="updateItem(index, $event)"
+          @cancel="cancelItem(index)"
+          @remove="removeItem(index)"
+        />
+      </template>
+    </template>
+
+    <template v-slot:add>
+      <QBtn
+        v-if="!readonly && !static"
+        v-bind="$options.INTERNAL_ATTRS"
+        icon="add"
+        @click="addItem"
+      >
+        <AppTooltip>{{ $lang('agnostic.components.array.add') }}</AppTooltip>
+      </QBtn>
     </template>
   </AppArray>
 </template>
 
 <script type="text/javascript">
+import { QBtn } from 'quasar'
+
 import AppArray from './AppArray'
 import AppArrayRow from './Partials/AppArrayRow'
-import { AppArrayBasic, AppArrayProps, AppArrayLazy } from './Mixins'
+import { AppArrayBasic, AppArrayProps, AppArrayAdd, AppArrayLazy } from './Mixins'
 
 export default {
   /**
@@ -45,10 +60,10 @@ export default {
   name: 'AppArrayLazy',
   /**
    */
-  mixins: [AppArrayBasic, AppArrayProps, AppArrayLazy],
+  mixins: [AppArrayBasic, AppArrayProps, AppArrayAdd, AppArrayLazy],
   /**
    */
-  components: { AppArray, AppArrayRow }
+  components: { AppArray, AppArrayRow, QBtn }
 }
 </script>
 

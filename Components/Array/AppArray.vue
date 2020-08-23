@@ -9,7 +9,7 @@
 
       <template v-if="records.length">
         <div class="AppArray__body">
-          <slot />
+          <slot name="body" />
         </div>
       </template>
 
@@ -22,25 +22,13 @@
     </div>
 
     <div>
-      <QBtn
-        v-if="!readonly && !static"
-        unelevated
-        dense
-        color="white"
-        text-color="grey-9"
-        icon="add"
-        @click="addItem"
-      >
-        <AppTooltip>{{ $lang('agnostic.components.array.add') }}</AppTooltip>
-      </QBtn>
+      <slot name="add" />
     </div>
   </div>
 </template>
 
 <script type="text/javascript">
-import { QBtn } from 'quasar'
-
-import { AppArrayBasic, AppArrayProps, AppArrayAdd, AppArrayEmpty } from './Mixins'
+import { AppArrayBasic, AppArrayProps, AppArrayEmpty } from './Mixins'
 import AppArrayHead from './Partials/AppArrayHead'
 
 export default {
@@ -49,10 +37,10 @@ export default {
   name: 'AppArrayLazy',
   /**
    */
-  mixins: [AppArrayBasic, AppArrayProps, AppArrayEmpty, AppArrayAdd],
+  mixins: [AppArrayBasic, AppArrayProps, AppArrayEmpty],
   /**
    */
-  components: { AppArrayHead, QBtn }
+  components: { AppArrayHead }
 }
 </script>
 

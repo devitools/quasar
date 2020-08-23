@@ -14,4 +14,4 @@ export const APP_BUILT_IN_DEFAULT_TABLE_HEIGHT = '540px'
 /**
  * @type {string}
  */
-export const APP_BUILT_IN_FORM_HEIGHT_COMPENSATION = '110px'
+export const APP_BUILT_IN_FORM_HEIGHT_COMPENSATION = '96px'

@@ -1,6 +1,14 @@
+import { INTERNAL_ATTRS } from 'src/settings/action'
+
 import { uuid } from '../../../Util/general'
 
+/**
+ * @mixin {AppArrayBasic}
+ */
 export default {
+  /**
+   */
+  INTERNAL_ATTRS,
   /**
    */
   data: () => ({

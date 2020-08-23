@@ -20,20 +20,14 @@
           class="AppArrayForm__actions"
         >
           <QBtn
-            unelevated
-            dense
-            color="white"
-            text-color="grey-9"
+            v-bind="$options.INTERNAL_ATTRS"
             icon="cancel"
             @click="resetRow"
           >
             <AppTooltip>{{ $lang('agnostic.components.array.reset') }}</AppTooltip>
           </QBtn>
           <QBtn
-            unelevated
-            dense
-            color="white"
-            text-color="grey-9"
+            v-bind="$options.INTERNAL_ATTRS"
             icon="done"
             @click="applyRow"
           >
@@ -70,10 +64,7 @@
         class="AppArrayForm__indicator"
       >
         <QBtn
-          unelevated
-          dense
-          color="white"
-          text-color="grey-9"
+          v-bind="$options.INTERNAL_ATTRS"
           round
           :icon="visible ? 'close' : indicator"
           @click="visible = !visible"
@@ -84,10 +75,7 @@
         class="AppArrayForm__edit"
       >
         <QBtn
-          unelevated
-          dense
-          color="white"
-          text-color="grey-9"
+          v-bind="$options.INTERNAL_ATTRS"
           round
           icon="edit"
           @click="editRow"
@@ -100,10 +88,7 @@
         class="AppArrayForm__remove"
       >
         <QBtn
-          unelevated
-          dense
-          color="white"
-          text-color="grey-9"
+          v-bind="$options.INTERNAL_ATTRS"
           round
           icon="delete"
           @click="removeRow"
@@ -118,7 +103,7 @@
 <script>
 import { QBtn } from 'quasar'
 
-import { ICON_GROUP_ACTIONS } from 'src/settings/action'
+import { ICON_GROUP_ACTIONS, INTERNAL_ATTRS } from 'src/settings/action'
 
 import AppForm from '../../../Components/Form/AppForm'
 import { SCOPES } from '../../../Agnostic/enum'
@@ -130,6 +115,9 @@ export default {
   /**
    */
   name: 'AppArrayRow',
+  /**
+   */
+  INTERNAL_ATTRS,
   /**
    */
   components: { AppArrayValue, AppForm, QBtn },

@@ -1,4 +1,5 @@
 import { POSITIONS, SCOPES_BUILTIN } from '../../../Agnostic/enum'
+import { INTERNAL_ATTRS } from 'src/settings/action'
 
 /**
  * @class {ConfigureActionsSchemaBuiltin}
@@ -11,6 +12,8 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_INDEX])
       .actionPositions([POSITIONS.POSITION_TABLE_TOP])
       .actionIcon('add')
+      .actionNoMinWidth()
+      .actionAttrsAppendAttrs(INTERNAL_ATTRS)
       .actionOn('click', function () {
         this.actionBuiltinAdd()
       })
@@ -19,6 +22,8 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_ADD, SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT])
       .actionPositions([POSITIONS.POSITION_FORM_FOOTER])
       .actionIcon('cancel')
+      .actionNoMinWidth()
+      .actionAttrsAppendAttrs(INTERNAL_ATTRS)
       .actionFloatLeft()
       .actionOn('click', function () {
         this.actionBuiltinCancel()
@@ -28,6 +33,8 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_VIEW])
       .actionPositions([POSITIONS.POSITION_FORM_FOOTER])
       .actionIcon('reply')
+      .actionNoMinWidth()
+      .actionAttrsAppendAttrs(INTERNAL_ATTRS)
       .actionOn('click', function () {
         this.actionBuiltinBack()
       })
@@ -35,8 +42,9 @@ export default class ConfigureActionsSchemaBuiltin {
     this.addAction('builtinApply')
       .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_ADD, SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT])
       .actionPositions([POSITIONS.POSITION_FORM_FOOTER])
-      .actionIcon('system_update_alt')
-      .actionColor('positive')
+      .actionIcon('done')
+      .actionNoMinWidth()
+      .actionAttrsAppendAttrs(INTERNAL_ATTRS)
       .actionFloatLeft()
       .actionOn('click', function () {
         this.actionBuiltinApply()
@@ -46,6 +54,8 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_INDEX])
       .actionPositions([POSITIONS.POSITION_TABLE_CELL])
       .actionIcon('visibility')
+      .actionNoMinWidth()
+      .actionAttrsAppendAttrs(INTERNAL_ATTRS)
       .actionOn('click', function (paramaters) {
         const { context: { record } } = paramaters
         this.actionBuiltinView(record)
@@ -55,6 +65,8 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_INDEX])
       .actionPositions([POSITIONS.POSITION_TABLE_CELL])
       .actionIcon('edit')
+      .actionNoMinWidth()
+      .actionAttrsAppendAttrs(INTERNAL_ATTRS)
       .actionOn('click', function (paramaters) {
         const { context: { record } } = paramaters
         this.actionBuiltinEdit(record)
@@ -64,7 +76,8 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_INDEX, SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT])
       .actionPositions([POSITIONS.POSITION_TABLE_CELL, POSITIONS.POSITION_FORM_FOOTER])
       .actionIcon('delete')
-      .actionColor('negative')
+      .actionNoMinWidth()
+      .actionAttrsAppendAttrs(INTERNAL_ATTRS)
       .actionFloatRight()
       .actionOn('click', function (paramaters) {
         const { context: { record } } = paramaters

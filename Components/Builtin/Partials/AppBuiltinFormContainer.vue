@@ -134,7 +134,9 @@ export default {
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
-    background: linear-gradient(180deg, #f7f7f7 0, #f1f1f1 20px, #ecebeb 50px, #e0e0e0 52px);
+    /*background: linear-gradient(180deg, #f7f7f7 0, #f1f1f1 20px, #ecebeb 50px, #e0e0e0 52px);*/
+    background: #dddddd;
+    color: #424242;
   }
 
   > .AppBuiltinForm {
@@ -148,7 +150,7 @@ export default {
       }
 
       > .app-form-buttons {
-        padding: 10px;
+        padding: 4px;
         border-width: 1px 0 0 0;
         border-style: solid;
         border-color #ddd
@@ -169,6 +171,10 @@ export default {
 
           &.button-position-none {
             float: none;
+          }
+
+          &.button-no-min-width {
+            min-width: auto !important;
           }
         }
       }
