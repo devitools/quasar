@@ -393,7 +393,7 @@ export default {
 
   .AppArrayForm__td {
     &.field {
-      padding: 4px 5px;
+      padding: 4px 5px !important;
     }
 
     > .AppArrayForm__td_value {
