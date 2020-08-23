@@ -7,7 +7,7 @@
         :readonly="readonly"
       />
 
-      <template v-if="records.length">
+      <template v-if="length > 0">
         <div class="AppArray__body">
           <slot name="body" />
         </div>
@@ -34,13 +34,21 @@ import AppArrayHead from './Partials/AppArrayHead'
 export default {
   /**
    */
-  name: 'AppArrayLazy',
+  name: 'AppArray',
   /**
    */
   mixins: [AppArrayBasic, AppArrayProps, AppArrayEmpty],
   /**
    */
-  components: { AppArrayHead }
+  components: { AppArrayHead },
+  /**
+   */
+  props: {
+    length: {
+      type: Number,
+      default: 0
+    }
+  }
 }
 </script>
 

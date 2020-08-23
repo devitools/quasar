@@ -12,6 +12,7 @@
     :static="static"
     :debugger-allowed="debuggerAllowed"
     :inherit-errors="inheritErrors"
+    :length="records.length"
   >
     <template v-slot:body>
       <template v-for="(record, index) in records">
