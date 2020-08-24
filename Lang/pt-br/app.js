@@ -32,5 +32,12 @@ export default {
   },
   http: {
     noNetwork: 'Este recurso não está disponível quando não há internet no dispositivo'
+  },
+  print: {
+    user: 'USUÁRIO',
+    date: 'DATA'
+  },
+  clipboard: {
+    copy: 'Conteúdo copiado para a área de transferência'
   }
 }

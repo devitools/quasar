@@ -9,15 +9,16 @@ export default {
    */
   methods: {
     /**
-     * @param {string} ignore
-     * @param {boolean} primaryKeyLast
+     * @param {Record<string, unknown>} options
      */
-    renderColumns (ignore = undefined, primaryKeyLast = false) {
+    renderColumns (options = {}) {
+      const { ignore = undefined, primaryKeyLast = false } = options
+
       const fields = this.fields()
       const columns = Object
         .values(fields)
+        .map((accumulator, field) => this.columnsMap(accumulator, field), [])
         .filter((field) => this.columnsFilter(field, ignore))
-        .reduce((accumulator, field) => this.columnsReduce(accumulator, field), [])
         .sort((a, b) => this.columnsSort(a, b, primaryKeyLast))
 
       /** @counter */
@@ -39,23 +40,21 @@ export default {
      * @return {boolean}
      */
     columnsFilter (field, ignore) {
-      if (!field.scopes.includes(this.scope)) {
-        return false
-      }
-      if (field.$layout.tableFilter) {
+      if (field.hidden) {
         return false
       }
       return field[ignore] !== true
     },
     /**
-     * @param {Array} accumulator
-     * @param {Object} field
+     * @param {Field} field
      * @return {*}
      */
-    columnsReduce (accumulator, field) {
+    columnsMap (field) {
       const label = this.parseFieldLabel(field)
-      accumulator.push({
-        label: label,
+      const hidden = this.parseFieldHidden(field)
+      return {
+        label,
+        hidden,
         options: field.attrs.options,
         $remoteKey: field.$layout.tableRemoteKey || field.$key,
         $type: field.$type,
@@ -68,10 +67,8 @@ export default {
         sortable: field.$layout.tableSortable,
         format: field.$layout.tableFormat ? field.$layout.tableFormat.bind(this) : undefined,
         classes: [`$key-${field.$key}`, field.attrs.uppercase ? 'text-uppercase' : ''],
-        hidden: field.$layout.tableHidden,
         __order: field.$layout.tableOrder
-      })
-      return accumulator
+      }
     },
     /**
      * @param {Object} a
@@ -105,6 +102,19 @@ export default {
         }
         this.columns[key] = configured
       })
+    },
+    /**
+     * @param {Field} field
+     * @return {boolean}
+     */
+    parseFieldHidden (field) {
+      if (!field.scopes.includes(this.scope)) {
+        return true
+      }
+      if (this.override[field.$key] && this.override[field.$key].$layout.hasOwnProperty('tableHidden')) {
+        return this.override[field.$key].$layout.tableHidden
+      }
+      return field.$layout.tableHidden
     }
   }
 }

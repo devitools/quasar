@@ -93,7 +93,8 @@ export default {
 
       tooltip: {
         delay: 600
-      }
+      },
+      override: {}
     }
   },
   /**
@@ -121,6 +122,19 @@ export default {
         return
       }
       return this.selected[0]
+    },
+    /**
+     * @param {string} property
+     * @param {*} value
+     * @return {this}
+     */
+    $setLayout (property, value) {
+      if (!this.override[this.__currentField]) {
+        this.override[this.__currentField] = { $layout: {} }
+      }
+      this.override[this.__currentField].$layout[property] = value
+      this.renderColumns()
+      return this
     },
     /**
      * @param {boolean} tableHidden

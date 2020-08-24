@@ -29,5 +29,8 @@ export default {
   print: {
     user: 'USER',
     date: 'DATE'
+  },
+  clipboard: {
+    copy: 'Content copied to the clipboard'
   }
 }

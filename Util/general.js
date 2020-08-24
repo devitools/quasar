@@ -3,6 +3,8 @@ import { v1 as uuidV1 } from 'uuid'
 import { $router } from 'src/router'
 import { SEPARATION_OPERATOR } from 'src/settings/schema'
 import { replacement } from './string'
+import { toast } from '../message'
+import $lang from '../Lang'
 
 /**
  * @param {unknown} element
@@ -546,4 +548,22 @@ export const secret = (length = 32) => {
     result.push(characters.charAt(Math.floor(Math.random() * charactersLength)))
   }
   return result.join('')
+}
+
+/**
+ * @param {HTMLTextAreaElement} element
+ * @param {string} [i18n]
+ */
+export const copyContent = (element, i18n = 'app.clipboard.copy') => {
+  if (!element.value) {
+    return
+  }
+
+  try {
+    element.select()
+    document.execCommand('copy')
+    toast($lang(i18n))
+  } catch (e) {
+    // silent is gold
+  }
 }

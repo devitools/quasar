@@ -227,6 +227,7 @@ export interface Component {
   $alert (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
   $lang (path: string, fallback?: string | string[]): string | Record<string, unknown>
   $can (namespace: string): boolean
+  $user(property: string): string | number | boolean | Record<string, unknown> | undefined
   $message: Message
 }
 
