@@ -49,6 +49,9 @@ export default {
      * @param {Object} component
      */
     componentInput ($event, component) {
+      if (this.useFormReadonly) {
+        return
+      }
       const value = component.$parseOutput ? component.$parseOutput($event) : $event
       const field = component.$key
       this.record[field] = value
@@ -73,8 +76,12 @@ export default {
       const ref = this.componentRef(field)
       const tabIndex = this.componentTabIndex()
       const attrs = { domain: field.attrs.domain || this.domain, inheritErrors: error }
+      let readonly = 'readonly'
+      if (!field.attrs.useReadonly) {
+        readonly = 'disable'
+      }
       if (this.useFormReadonly) {
-        attrs.readonly = this.useFormReadonly
+        attrs[readonly] = this.useFormReadonly
       }
       return renderField(h, field, input, value, ref, tabIndex, attrs)
     },

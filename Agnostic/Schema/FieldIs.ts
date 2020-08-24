@@ -209,7 +209,7 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsUrl (maxlength = 255, attrs = {}) {
-    this.setComponent('plan', { placeholder: 'ex.: https://mysite.dev', ...attrs, maxlength }, 'string')
+    this.setComponent('plan', { ...attrs, maxlength }, 'string')
     return this
   }
 
