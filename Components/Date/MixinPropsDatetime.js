@@ -20,6 +20,10 @@ export default {
     display: {
       type: String,
       default: 'DD/MM/YYYY HH:mm'
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   }
 }
