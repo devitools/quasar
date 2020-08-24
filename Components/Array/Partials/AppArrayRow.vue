@@ -350,6 +350,8 @@ export default {
 }
 
 .AppArrayRow {
+  position: relative;
+
   @extend .AppArray__element--color
   border-width: 1px 0 0 0;
 
