@@ -109,6 +109,10 @@ export default {
         return components
       }
 
+      if (field.hasOwnProperty('$visible') && !field.$visible.call(this)) {
+        return components
+      }
+
       components[field.$key] = this.parseField(field)
 
       return components

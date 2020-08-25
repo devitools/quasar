@@ -57,6 +57,18 @@ export default abstract class Fields extends Base {
   }
 
   /**
+   * @param {string[]} condition
+   * @returns {this}
+   */
+  fieldVisible (condition: Function): this {
+    const field = this.__currentField
+    if (this.__fields[field]) {
+      this.__fields[field].$visible = condition
+    }
+    return this
+  }
+
+  /**
    * @param {string[]} scopes
    * @returns {this}
    */

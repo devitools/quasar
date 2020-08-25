@@ -64,7 +64,12 @@ export default {
     const fields = this.$util.run(this.fields)
 
     const components = Object.values(fields)
-      .filter((field) => field.$layout.tableWhere)
+      .filter((field) => {
+        if (field.hasOwnProperty('$visible')) {
+          return field.$visible.call(this)
+        }
+        return !!field.$layout.tableWhere
+      })
       .reduce((accumulator, field) => {
         accumulator[field.$key] = field
         return accumulator

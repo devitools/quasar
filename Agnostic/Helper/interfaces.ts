@@ -83,6 +83,7 @@ export interface Field {
     tableWhereComponent?: unknown
   }
   scopes: string[]
+  $visible?: Function
   $created?: Configure[]
   $fill?: Fill | Function
   group?: string
@@ -220,7 +221,7 @@ export interface Component {
   $fieldFormDisabled (disable: boolean): Component
   $fieldFormOrder (formOrder: number, updateOthers?: boolean): Component
   $fieldTableHidden (tableHidden?: boolean): Component
-  $fieldTableWhere (tableWhere?: string): Component
+  $fieldTableWhere (tableWhere?: string | null): Component
   $getValue (): unknown
   $setValue (value: unknown): Component
   $confirm (message: string | Record<string, unknown>, options?: Record<string, unknown>): Promise<Record<string, unknown>>
