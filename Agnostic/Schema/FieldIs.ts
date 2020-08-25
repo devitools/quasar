@@ -1,9 +1,9 @@
-import { currencyParseInput } from 'src/settings/components'
 
 import Base from '../Base'
 
 import { yesNo } from '../options'
 import { OPERATORS } from '../../Agnostic/enum'
+import { format } from '../../Util/currency'
 import { booleanFormatter, dateFormatter, optionFormatter, optionsFormatter } from '../../Util/formatter'
 import { fieldIsSelectFilter, fieldIsSelectNewValue, fieldIsSelectWatch } from './Component/select'
 import { fieldIsEmbedWatch } from './Component/embed'
@@ -241,15 +241,31 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsCurrency (attrs = {}) {
-    this.setComponent('currency', { value: 0, ...attrs }, 'currency')
-    const previousTableFormat = this.__fields[this.__currentField].$layout.tableFormat
-
+    this.setComponent('currency', attrs, 'currency')
+    const field = this.__fields[this.__currentField]
+    const previousTableFormat = field.$layout.tableFormat
     this.setLayout({
-      tableFormat: previousTableFormat || currencyParseInput,
+      tableFormat: previousTableFormat || ((value: number) => format(value, field.attrs)),
+      tableAlign: 'right',
+      tableWhere: OPERATORS.CURRENCY
+    })
+    return this
+  }
+
+  /**
+   * @param {Record<string, unknown>} attrs
+   * @returns {Schema}
+   */
+  fieldIsPercentage (attrs = {}) {
+    this.setComponent('percentage', attrs, 'currency')
+    const field = this.__fields[this.__currentField]
+    const previousTableFormat = field.$layout.tableFormat
+    this.setLayout({
+      tableFormat: previousTableFormat || ((value: number) => format(value, field.attrs)),
       tableAlign: 'right',
       tableWhere: OPERATORS.CURRENCY
     })
@@ -338,19 +354,6 @@ export default abstract class FieldIs extends Base {
    */
   fieldIsInternationalPhone (attrs = {}) {
     this.setComponent('phoneInternational', attrs)
-    return this
-  }
-
-  /**
-   * @param {Object} attrs
-   * @returns {Schema}
-   */
-  fieldIsPercentage (attrs = {}) {
-    this.setComponent('percentage', { value: 0, ...attrs }, 'currency')
-    this.setLayout({
-      tableAlign: 'right',
-      tableWhere: OPERATORS.CURRENCY
-    })
     return this
   }
 

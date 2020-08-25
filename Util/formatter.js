@@ -2,6 +2,8 @@ import $lang from '../Lang'
 import DateTime from '../Support/DateTime'
 import { replacement } from './string'
 
+export { format as currencyFormatter } from './currency'
+
 /**
  * @param {string} value
  * @param {string} pattern

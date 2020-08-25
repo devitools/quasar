@@ -351,6 +351,14 @@ export default {
 
 .AppArrayRow {
   position: relative;
+  padding: 2px 5px !important;
+
+  > .AppArrayForm__form__inline {
+    padding: 0 !important;
+    > .AppForm > .AppForm__wrapper > .AppForm__body > .form {
+      padding: 0 !important;
+    }
+}
 
   @extend .AppArray__element--color
   border-width: 1px 0 0 0;
