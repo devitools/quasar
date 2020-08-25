@@ -8,6 +8,7 @@ import { booleanFormatter, dateFormatter, optionFormatter, optionsFormatter } fr
 import { fieldIsSelectFilter, fieldIsSelectNewValue, fieldIsSelectWatch } from './Component/select'
 import { fieldIsEmbedWatch } from './Component/embed'
 import Skeleton from '../Skeleton'
+import Schema from 'app/@devitools/Agnostic/Schema'
 
 /**
  * @class {FieldIs}
@@ -15,7 +16,7 @@ import Skeleton from '../Skeleton'
 export default abstract class FieldIs extends Base {
   /**
    * @param {number} maxlength
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsInput (maxlength = 255, attrs = {}) {
@@ -24,7 +25,7 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsNumber (attrs = {}) {
@@ -34,7 +35,18 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param digits
+   * @param {Record<string, unknown>} attrs
+   * @returns {Schema}
+   */
+  fieldIsDigits (this: Schema, digits = 2, attrs = {}) {
+    const mask = ('#').repeat(digits)
+    this.fieldAsMasked(mask, attrs)
+    return this
+  }
+
+  /**
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsPassword (attrs = {}) {
@@ -43,7 +55,7 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsEmail (attrs = {}) {
@@ -53,7 +65,7 @@ export default abstract class FieldIs extends Base {
 
   /**
    * @param {Number} rows
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsText (rows = 6, attrs = {}) {
@@ -62,7 +74,7 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsCheckbox (attrs = {}) {
@@ -73,7 +85,7 @@ export default abstract class FieldIs extends Base {
 
   /**
    * @param {Record<string, unknown>[]} options
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsRadio (options: Record<string, unknown>[] = [], attrs: Record<string, unknown> = {}) {
@@ -141,7 +153,7 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsSelectRemoteMultiple (attrs = {}) {
@@ -150,7 +162,7 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsToggle (attrs = {}) {
@@ -160,7 +172,7 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsDate (attrs = {}) {
@@ -170,7 +182,7 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsDatetime (attrs = {}) {
@@ -195,7 +207,7 @@ export default abstract class FieldIs extends Base {
 
   /**
    * @param {number} maxlength
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsInputPlan (maxlength = 255, attrs = {}) {
@@ -205,7 +217,7 @@ export default abstract class FieldIs extends Base {
 
   /**
    * @param {number} maxlength
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsUrl (maxlength = 255, attrs = {}) {
@@ -214,7 +226,7 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @param {boolean} lazy
    * @returns {Schema}
    */
@@ -230,7 +242,7 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsBuiltin (attrs = {}) {
@@ -288,7 +300,7 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsEmbed (this: Skeleton, attrs = {}) {
@@ -303,7 +315,7 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsTree (attrs: Record<string, unknown> = {}) {
@@ -322,7 +334,7 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsImage (attrs = {}) {
@@ -331,7 +343,7 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsFile (attrs = {}) {
@@ -340,7 +352,7 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsFileSync (attrs = {}) {
@@ -349,7 +361,7 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsInternationalPhone (attrs = {}) {
@@ -358,7 +370,7 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Object} attrs
+   * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
   fieldIsNumeric (attrs = {}) {
