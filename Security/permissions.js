@@ -75,14 +75,15 @@ export const permissionSingle = (view) => {
  * @returns {{level: string, domain: string, namespace: string, icon: string, label: string}[]}
  */
 export const permissionLevels = (domain, just = []) => {
-  const children = [
-    permissionLevel(domain, 'dvr', RULES.LEVEL_INDEX),
-    permissionLevel(domain, 'restore', RULES.LEVEL_TRASH),
-    permissionLevel(domain, 'add', RULES.LEVEL_ADD),
-    permissionLevel(domain, 'visibility', RULES.LEVEL_VIEW),
-    permissionLevel(domain, 'edit', RULES.LEVEL_EDIT),
-    permissionLevel(domain, 'delete', RULES.LEVEL_DESTROY)
-  ]
+  const rules = {
+    [RULES.LEVEL_INDEX]: permissionLevel(domain, 'dvr', RULES.LEVEL_INDEX),
+    [RULES.LEVEL_TRASH]: permissionLevel(domain, 'restore', RULES.LEVEL_TRASH),
+    [RULES.LEVEL_ADD]: permissionLevel(domain, 'add', RULES.LEVEL_ADD),
+    [RULES.LEVEL_VIEW]: permissionLevel(domain, 'visibility', RULES.LEVEL_VIEW),
+    [RULES.LEVEL_EDIT]: permissionLevel(domain, 'edit', RULES.LEVEL_EDIT),
+    [RULES.LEVEL_DESTROY]: permissionLevel(domain, 'delete', RULES.LEVEL_DESTROY)
+  }
+  const children = Object.values(rules)
 
   if (!just || !just.length) {
     return children
@@ -110,25 +111,26 @@ export const permissionActions = (domain, just = [], levels = []) => {
 }
 
 /**
- * @param {{icon?: string, domain?: string, path?: string, table?: Function, form?: Function}} view
+ * @param {{icon?: string, domain?: string, path?: string, table?: Function, form?: Function}} index
  * @param {string[]} filterBy
  * @param {[]} levels
  * @param {[]} additional
  * @return {{children: [{icon: string, namespace: string, label: string}, {children: {namespace: string, label: string}[], icon: string, namespace: string, label: string}], namespace: *, icon: *, label: *}}
  */
-export const permission = (view, filterBy = [], levels = [], additional = []) => {
+export const permission = (index, filterBy = [], levels = [], additional = []) => {
   const children = [
-    permissionAvailable(view.domain),
-    permissionActions(view.domain, filterBy, levels)
+    permissionAvailable(index.domain),
+    permissionActions(index.domain, filterBy, levels)
   ]
   if (additional.length) {
     children.push(...additional)
   }
 
   return {
-    namespace: view.domain,
-    label: $lang(`permissions.${view.domain}`, `permissions.${view.domain}`),
-    icon: view.icon,
+    namespace: index.domain,
+    label: $lang(`permissions.${index.domain}`, `permissions.${index.domain}`),
+    icon: index.icon,
+    meta: index.meta,
     children
   }
 }

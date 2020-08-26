@@ -37,27 +37,28 @@ export const actionGroup = (domain, icon, children, separated = false) => {
  * @returns {{path: *, label: string, namespace: string, separated: boolean}}
  */
 export const actionEntry = (domain, to, icon, namespace = undefined, options = {}) => {
-  const { separated = false, i18n = '' } = options
+  const { separated = false, i18n = '', meta = {} } = options
   const label = i18n ? `menu.${i18n}` : `menu.${domain}`
   return {
     label: $lang(label, label),
     namespace: namespace || `${domain}.${RULES.LEVEL_AVAILABLE}`,
     path: to,
     icon: icon,
-    separated: separated
+    separated: separated,
+    meta
   }
 }
 
 /**
- * @param {{path: string, icon: string, domain: string}} view
+ * @param {{path: string, icon: string, domain: string, meta: unknown}} index
  * @param {boolean} separated
  * @returns {{path: *, label: string, namespace: string, separated: boolean}}
  */
-export const action = (view, separated = false) => {
-  let to = view.path
-  const { query, i18n } = view
+export const action = (index, separated = false) => {
+  let to = index.path
+  const { query, i18n, meta } = index
   if (query) {
-    to = { path: to, query: typeof query === 'function' ? query(view) : query }
+    to = { path: to, query: typeof query === 'function' ? query(index) : query }
   }
-  return actionEntry(view.domain, to, view.icon, view.namespace, { separated, i18n })
+  return actionEntry(index.domain, to, index.icon, index.namespace, { separated, i18n, meta })
 }

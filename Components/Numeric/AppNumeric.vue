@@ -31,6 +31,7 @@
 
 <script>
 import { QBtn, QInput } from 'quasar'
+import { attrs } from 'src/settings/components'
 
 export default {
   /**
@@ -59,7 +60,7 @@ export default {
    */
   computed: {
     bind () {
-      return { ...this.$attrs, ...this.$props }
+      return { ...this.$attrs, ...this.$props, clearable: false }
     },
     on () {
       return { ...this.$listeners, input: this.updateValue, keyup: this.handleKeyboard }
