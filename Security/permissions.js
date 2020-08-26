@@ -58,7 +58,7 @@ export const permissionLevel = (domain, icon, level) => {
 }
 
 /**
- * @deprecated
+ * @deprecated use permissionEntry
  *
  * @param {{domain: string, icon: string}} view
  * @returns {{namespace: string, icon: *, label: *}}

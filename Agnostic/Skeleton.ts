@@ -114,9 +114,9 @@ abstract class Skeleton extends Base {
 
   /**
    * @param {Record<string, *>} options
-   * @returns {*}
+   * @returns {Record<string, unknown>}
    */
-  static provideRemote (options: Record<string, unknown> = {}) {
+  static provideRemote (options: Record<string, unknown> = {}): Record<string, unknown> {
     let { widget, path, query } = options
     if (widget === undefined) {
       widget = false
