@@ -2,6 +2,8 @@ import { RULES } from 'src/settings/schema'
 import $lang from '../Lang'
 
 /**
+ * @deprecated
+ *
  * @param {string} domain
  * @param {string} path
  * @param {string} icon
@@ -9,7 +11,7 @@ import $lang from '../Lang'
  * @returns {{path: *, label: *, icon: *, separated: *}}
  */
 export const actionMenu = (domain, path, icon, separated = false) => {
-  return { label: $lang(`menu.${domain}`, `menu.${domain}`), path, icon, separated }
+  return actionEntry(domain, path, icon, separated)
 }
 
 /**

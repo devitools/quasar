@@ -58,10 +58,20 @@ export const permissionLevel = (domain, icon, level) => {
 }
 
 /**
+ * @deprecated
+ *
  * @param {{domain: string, icon: string}} view
  * @returns {{namespace: string, icon: *, label: *}}
  */
 export const permissionSingle = (view) => {
+  return permissionEntry(view)
+}
+
+/**
+ * @param {{domain: string, icon: string}} view
+ * @returns {{namespace: string, icon: *, label: *}}
+ */
+export const permissionEntry = (view) => {
   return {
     label: $lang(`permissions.${view.domain}`, `permissions.${view.domain}`),
     namespace: `${view.domain}`,
