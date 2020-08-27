@@ -77,6 +77,15 @@ export default abstract class FieldIs extends Base {
    * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
+  fieldIsTextEditor (attrs = {}) {
+    this.setComponent('editor', { ...attrs }, 'text')
+    return this
+  }
+
+  /**
+   * @param {Record<string, unknown>} attrs
+   * @returns {Schema}
+   */
   fieldIsCheckbox (attrs = {}) {
     this.setComponent('checkbox', attrs, 'boolean')
     this.setLayout({ tableFormat: booleanFormatter })
