@@ -8,11 +8,13 @@ export default {
    */
   methods: {
     /**
+     * @param {boolean|number} wait
+     * @param {string} [message]
      * @param {boolean} wait
      */
-    loadingShow (wait = true) {
-      const delay = wait ? delayLoading(this) : 0
-      this.$q.loading.show({ delay })
+    loadingShow (wait = true, message = undefined) {
+      const delay = wait === true ? delayLoading(this) : Number(wait || 0)
+      this.$q.loading.show({ delay, message })
     },
     /**
      */

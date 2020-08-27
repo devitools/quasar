@@ -11,15 +11,16 @@ export default {
    */
   methods: {
     /**
-     * @param {boolean} wait
+     * @param {boolean|number} wait
+     * @param {string} [message]
      */
-    loadingShow (wait = true) {
+    loadingShow (wait = true, message = undefined) {
       this.loading = true
-      let delay = wait ? delayLoading(this) : 0
+      let delay = wait === true ? delayLoading(this) : Number(wait || 0)
       if (this.data.length) {
         delay = 0
       }
-      this.$q.loading.show({ delay })
+      this.$q.loading.show({ delay, message })
     },
     /**
      */
