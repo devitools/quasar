@@ -60,7 +60,7 @@ export const action = (index, separated = false) => {
   let to = index.path
   const { query, i18n, meta } = index
   if (query) {
-    to = { path: to, query: typeof query === 'function' ? query(index) : query }
+    to = { path: to, query }
   }
   return actionEntry(index.domain, to, index.icon, index.namespace, { separated, i18n, meta })
 }
