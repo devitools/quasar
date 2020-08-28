@@ -122,7 +122,7 @@ export default {
       })
     },
     /**
-     * @param {Object} payload
+     * @param {Context} payload
      * @param {function(Record<string, unknown>)} action
      * @param {string} alias
      */
@@ -137,19 +137,23 @@ export default {
         } catch (e) {
           return
         }
+
+        let response
         try {
           this.loadingShow(false)
-          const response = await action(record)
-          if (String(response.status) === 'success') {
-            this.$message.success(this.$lang(`actions.${alias}.success`))
-            if (this.fetchRecords) {
-              this.fetchRecords()
-            }
-          }
+          response = await action(record)
         } catch (e) {
           this.$message.error(this.$lang(`actions.${alias}.error`))
+          return
+        } finally {
+          this.loadingHide()
         }
-        this.loadingHide()
+
+        this.$message.success(this.$lang(`actions.${alias}.success`))
+        if (this.fetchRecords) {
+          this.fetchRecords()
+        }
+        return response
       })
     }
   }
