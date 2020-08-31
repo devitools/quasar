@@ -12,7 +12,7 @@
         @input="emitValue"
         v-bind="moneyFormatForComponent"
         v-show="floatingLabel"
-        @keypress.native="handleKeyboard"
+        @keyup.native="handleKeyboard"
       />
     </template>
   </QField>
@@ -97,6 +97,7 @@ export default {
     handleKeyboard ($event) {
       $event.stopPropagation()
       $event.preventDefault()
+
       if ($event.key === 'ArrowDown') {
         this.minus()
         return
@@ -108,12 +109,12 @@ export default {
     /**
      */
     minus () {
-      this.updateValue(Number(this.value) - 1)
+      this.updateValue(Number(this.currency) - 1)
     },
     /**
      */
     plus () {
-      this.updateValue(Number(this.value) + 1)
+      this.updateValue(Number(this.currency) + 1)
     },
     /**
      * @param {number | string} input
