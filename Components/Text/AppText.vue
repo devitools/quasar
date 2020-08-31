@@ -1,8 +1,14 @@
 <template>
-  <div class="AppText" :class="classNames" :style="styles">
-    <template v-if="html"> {{ value }}</template>
+  <div
+    class="AppText"
+    :class="classNames"
+    :style="styles"
+  >
+    <template v-if="html">
+      <div v-html="value" />
+    </template>
     <template v-else>
-      <div v-html="value"/>
+      {{ value }}
     </template>
   </div>
 </template>
