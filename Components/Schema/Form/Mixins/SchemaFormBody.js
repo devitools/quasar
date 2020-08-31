@@ -186,6 +186,9 @@ export default {
       this.record[field] = value
 
       if (!this.builtin && this.settings.useModified) {
+        if ($emporium.state.debugging) {
+          this.$log('~> $emporium.state.debugging', { field, value })
+        }
         $emporium.commit('updateModified', true)
       }
 

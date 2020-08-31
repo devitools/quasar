@@ -12,6 +12,7 @@
         @input="emitValue"
         v-bind="moneyFormatForComponent"
         v-show="floatingLabel"
+        @keypress.native="handleKeyboard"
       />
     </template>
   </QField>
@@ -76,7 +77,7 @@ export default {
       return { ...this.$attrs, ...this.$props, clearable: false }
     },
     on () {
-      return { ...this.$listeners, input: this.updateValue, keyup: this.handleKeyboard }
+      return { ...this.$listeners, input: this.updateValue }
     },
     moneyFormatForComponent () {
       return {
@@ -118,6 +119,9 @@ export default {
      * @param {number | string} input
      */
     updateValue (input) {
+      if (this.currency === input) {
+        return
+      }
       this.$emit('input', input)
     }
   },
