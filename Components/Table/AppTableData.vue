@@ -29,7 +29,7 @@
 
 <script>
 import { QTable, QTd, QBtn } from 'quasar'
-import Dialog from '@devitools/Components/Schema/Contracts/Dialog'
+import Dialog from '../Schema/Contracts/Dialog'
 
 export default {
   /**

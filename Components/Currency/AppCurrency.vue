@@ -4,12 +4,12 @@
     v-bind="bind"
     v-on="on"
   >
-    <template v-slot:control="{ id, floatingLabel: show, value: money, emitValue: input }">
+    <template v-slot:control="{ id, floatingLabel: show, value: money }">
       <money
         :id="id"
         class="q-field__input text-right"
         :value="money"
-        @input="input"
+        @input="updateValue"
         v-bind="moneyFormatForComponent"
         v-show="show"
         @keyup.native="handleKeyboard"
@@ -68,8 +68,7 @@ export default {
   /**
    */
   data: () => ({
-    currency: 0,
-    started: false
+    currency: 0
   }),
   /**
    */
@@ -78,7 +77,7 @@ export default {
       return { ...this.$attrs, ...this.$props, clearable: false }
     },
     on () {
-      return { ...this.$listeners, input: this.updateValue }
+      return { ...this.$listeners, input: () => undefined }
     },
     moneyFormatForComponent () {
       return {
@@ -118,14 +117,13 @@ export default {
       this.updateValue(Number(this.currency) + 1)
     },
     /**
-     * @param {number | string} input
+     * @param {number | string} value
      */
-    updateValue (input) {
-      if (this.currency === input && !this.started) {
-        this.started = true
+    updateValue (value) {
+      if (this.currency === value) {
         return
       }
-      this.$emit('input', input)
+      this.$emit('input', value)
     }
   },
   /**

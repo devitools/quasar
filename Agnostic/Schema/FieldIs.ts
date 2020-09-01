@@ -3,12 +3,12 @@ import Base from '../Base'
 
 import { yesNo } from '../options'
 import { OPERATORS } from '../../Agnostic/enum'
+import Schema from '../../Agnostic/Schema'
 import { format } from '../../Util/currency'
 import { booleanFormatter, dateFormatter, optionFormatter, optionsFormatter } from '../../Util/formatter'
 import { fieldIsSelectFilter, fieldIsSelectNewValue, fieldIsSelectWatch } from './Component/select'
 import { fieldIsEmbedWatch } from './Component/embed'
 import Skeleton from '../Skeleton'
-import Schema from 'app/@devitools/Agnostic/Schema'
 
 /**
  * @class {FieldIs}

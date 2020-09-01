@@ -30,7 +30,7 @@ import { QInput } from 'quasar'
 import MixinPropsDate from './MixinPropsDate'
 import MixinBehaviour from './MixinBehaviour'
 import DateWidgetDate from './DateWidgetDate'
-import { dateFormatter } from '@devitools/Util/formatter'
+import { dateFormatter } from '../../Util/formatter'
 
 export default {
   /**
