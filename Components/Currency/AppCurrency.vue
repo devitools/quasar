@@ -4,14 +4,14 @@
     v-bind="bind"
     v-on="on"
   >
-    <template v-slot:control="{ id, floatingLabel, value: money, emitValue }">
+    <template v-slot:control="{ id, floatingLabel: show, value: money, emitValue: input }">
       <money
         :id="id"
         class="q-field__input text-right"
         :value="money"
-        @input="emitValue"
+        @input="input"
         v-bind="moneyFormatForComponent"
-        v-show="floatingLabel"
+        v-show="show"
         @keyup.native="handleKeyboard"
       />
     </template>
@@ -68,7 +68,8 @@ export default {
   /**
    */
   data: () => ({
-    currency: 0
+    currency: 0,
+    started: false
   }),
   /**
    */
@@ -120,7 +121,8 @@ export default {
      * @param {number | string} input
      */
     updateValue (input) {
-      if (this.currency === input) {
+      if (this.currency === input && !this.started) {
+        this.started = true
         return
       }
       this.$emit('input', input)
