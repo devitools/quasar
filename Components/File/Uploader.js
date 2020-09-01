@@ -81,7 +81,11 @@ export default {
      */
     onUploadProgress (event) {
       const progress = Math.round((event.loaded * 100.0) / event.total)
-      this.$refs.progress.style.width = (100 - progress) + '%'
+      try {
+        this.$refs.progress.style.width = (100 - progress) + '%'
+      } catch (e) {
+        // silent is gold
+      }
     },
     /**
      * @param {Object} event
@@ -104,7 +108,11 @@ export default {
     /**
      */
     resetUploadProgress () {
-      this.$refs.progress.style.width = '100%'
+      try {
+        this.$refs.progress.style.width = '100%'
+      } catch (e) {
+        // silent is gold
+      }
     },
     /**
      * @param {Event} event

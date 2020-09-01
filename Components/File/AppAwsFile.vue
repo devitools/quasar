@@ -74,6 +74,10 @@ export default {
     identityPoolId: {
       type: String,
       required: true
+    },
+    filename: {
+      type: Function,
+      default: undefined
     }
   },
   /**
@@ -103,10 +107,15 @@ export default {
      * @param {File} file
      */
     startFileUpload (file) {
+      let filename = file.name
+      if (typeof this.filename === 'function') {
+        filename = this.filename(file)
+      }
+
       this.agent = new window.AWS.S3.ManagedUpload({
         params: {
           Bucket: this.bucketName,
-          Key: file.name,
+          Key: filename,
           Body: file,
           // https://docs.aws.amazon.com/pt_br/AmazonS3/latest/dev/acl-overview.html#canned-acl
           ACL: 'bucket-owner-full-control'
