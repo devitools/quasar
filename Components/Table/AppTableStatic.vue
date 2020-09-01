@@ -2,7 +2,7 @@
   <QTable
     class="AppTableStatic"
     ref="table"
-    selection="multiple"
+    :selection="selection"
     :style="{ height }"
     :title="title"
     :data="data"
@@ -49,6 +49,10 @@ export default {
     rowsPerPage: {
       type: Number,
       default: () => 100
+    },
+    selection: {
+      type: String,
+      default: () => ('multiple')
     }
   },
   /**
