@@ -16,12 +16,10 @@ export function alert (message, options = { title: '' }) {
     ...options
   }
 
-  return new Promise((resolve, reject) => {
-    Dialog.create(_options)
-      .onOk(() => resolve(true))
-      .onCancel(() => reject({ type: 'cancel' }))
-      .onDismiss(() => reject({ type: 'dismiss' }))
-  })
+  return Dialog.create(_options)
+    .onOk(() => undefined)
+    .onCancel(() => undefined)
+    .onDismiss(() => undefined)
 }
 
 /**
