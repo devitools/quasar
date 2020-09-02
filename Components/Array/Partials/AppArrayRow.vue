@@ -304,7 +304,12 @@ export default {
       immediate: true,
       handler (fields) {
         this.components = Object.values(fields())
-          .filter((field) => !field.$layout.formHidden)
+          .filter((field) => {
+            if (field.hasOwnProperty('$visible')) {
+              return field.$visible.call(this)
+            }
+            return !field.$layout.formHidden
+          })
           .map((component) => {
             const $class = this.generateClassNames(component, true)
             return { ...component, $class }

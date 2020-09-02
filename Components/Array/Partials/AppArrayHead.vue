@@ -61,7 +61,12 @@ export default {
     fields: {
       immediate: true,
       handler (fields) {
-        const components = Object.values(fields()).filter((field) => !field.$layout.formHidden)
+        const components = Object.values(fields()).filter((field) => {
+          if (field.hasOwnProperty('$visible')) {
+            return field.$visible.call(this)
+          }
+          return !field.$layout.formHidden
+        })
 
         this.components = components.map((component) => {
           return {
