@@ -10,8 +10,9 @@ import util from './Util'
 
 import { browse as $browse } from './Util/general'
 
-import $performance from './Plugins/$performance'
+import $clipboard from './Plugins/$clipboard'
 import $memory from './Plugins/$memory'
+import $performance from './Plugins/$performance'
 
 /**
  * @param {Vue} Vue
@@ -87,6 +88,14 @@ export default ({ Vue }) => {
   Object.defineProperty(Vue.prototype, '$memory', {
     get () {
       return $memory
+    }
+  })
+
+  /**
+   */
+  Object.defineProperty(Vue.prototype, '$clipboard', {
+    get () {
+      return $clipboard
     }
   })
 

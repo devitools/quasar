@@ -176,6 +176,15 @@ export interface Message {
 }
 
 /**
+ * @interface {Clipboard}
+ */
+export interface Clipboard {
+  register (index: string, value: unknown): void
+  recover(index: string): undefined | unknown
+  clear(): void
+}
+
+/**
  * @typedef {VuexStore}
  */
 export type VuexStore = {
@@ -230,6 +239,7 @@ export interface Component {
   $can (namespace: string): boolean
   $user(property: string): string | number | boolean | Record<string, unknown> | undefined
   $message: Message
+  $clipboard: Clipboard
 }
 
 /**
