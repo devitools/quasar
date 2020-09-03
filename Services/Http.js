@@ -164,7 +164,7 @@ export default class Http {
       path = configure(path, this.__fixedFilter)
     }
 
-    return path
+    return path.replace(/^(\/)/, '')
   }
 
   /**
