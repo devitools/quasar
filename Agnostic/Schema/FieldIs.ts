@@ -157,7 +157,8 @@ export default abstract class FieldIs extends Base {
    */
   fieldIsSelectRemote (attrs: Record<string, unknown> = {}) {
     this.setComponent('remote', attrs, 'select')
-    this.setLayout({ tableFormat: optionFormatter(attrs.keyLabel), tableWhere: OPERATORS.EQUAL })
+    const { format } = attrs
+    this.setLayout({ tableFormat: format || optionFormatter(attrs.keyLabel), tableWhere: OPERATORS.EQUAL })
     return this
   }
 
