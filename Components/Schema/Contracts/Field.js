@@ -90,11 +90,16 @@ export default {
       if (attr === 'disable' && field.attrs.useReadonly) {
         attr = 'readonly'
       }
+
+      let attrs = field
       if (field.attrs) {
-        field.attrs[attr] = value
-        return this
+        attrs = field.attrs
       }
-      field[attr] = value
+
+      attrs[attr] = value
+      if (attrs.hasOwnProperty(`__${attr}`)) {
+        attrs[`__${attr}`] = value
+      }
       return this
     },
     /**

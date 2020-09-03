@@ -1,6 +1,6 @@
 /**
- * @param currentField
- * @return {function(...[*]=)}
+ * @param {string} currentField
+ * @return {function({$event?: *, parameters: *}): void}
  */
 export function fieldIsSelectFilter (currentField) {
   return function ({ $event, parameters }) {
@@ -9,10 +9,10 @@ export function fieldIsSelectFilter (currentField) {
     if (!field.attrs.__options) {
       field.attrs.__options = field.attrs.options
     }
-    const original = field.attrs.__options
 
     const update = parameters[0]
     update(() => {
+      const original = field.attrs.__options
       if ($event === '') {
         field.attrs.options = original
         return

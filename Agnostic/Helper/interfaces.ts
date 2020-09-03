@@ -1,3 +1,4 @@
+import { Store } from 'vuex'
 
 /**
  * @interface {Provide}
@@ -185,14 +186,6 @@ export interface Clipboard {
 }
 
 /**
- * @typedef {VuexStore}
- */
-export type VuexStore = {
-  getters: Record<string, never>
-  dispatch (action: string, parameters?: Record<string, unknown> | string | number | unknown): Promise<never>
-}
-
-/**
  * @typedef {RouteRecord}
  */
 export type RouteRecord = {
@@ -210,7 +203,7 @@ export interface Component {
   domain: string
   primaryKey: string
   payload: Record<string, unknown>
-  $store: VuexStore
+  $store: Store<unknown>
   $route: RouteRecord
   getActionPath(): string
   getRecord(): Record<string, unknown>
