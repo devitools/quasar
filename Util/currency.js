@@ -76,7 +76,7 @@ export function format (input, options = DEFAULT_CURRENCY) {
   }
   if (typeof value !== 'string') {
     const { fallback } = options
-    return fallback || ''
+    return fallback || '-'
   }
 
   const negative = value.indexOf('-') >= 0 ? '-' : ''

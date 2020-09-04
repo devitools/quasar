@@ -211,7 +211,7 @@ export default abstract class FieldIs extends Base {
     const name = this.__currentField
     const { display, format } = this.__fields[name].attrs
     this.setLayout({
-      tableFormat: (value: string) => dateFormatter(value, String(display), String(format)) || ''
+      tableFormat: (value: string) => dateFormatter(value, String(display), String(format)) || '-'
     })
   }
 
