@@ -3,6 +3,7 @@
     <div class="q-field__inner relative-position col self-stretch column justify-center">
       <div class="q-field__control relative-position row no-wrap">
         <div class="q-field__control-container col relative-position row no-wrap q-anchor--skip">
+
           <template v-if="field.$type === 'file'">
             <div class="q-field__native q-placeholder flex row">
               <div class="col-xs-9">{{ input }}</div>
@@ -23,6 +24,7 @@
             v-html="output"
           />
         </div>
+
       </div>
     </div>
   </label>
@@ -55,12 +57,14 @@ export default {
   computed: {
     output () {
       if (typeof this.field.$layout.tableFormat === 'function') {
-        return this.field.$layout.tableFormat(this.value)
+        return String(this.field.$layout.tableFormat(this.value))
       }
-      if (typeof this.value === 'undefined') {
-        return ''
+
+      if (typeof this.value !== 'undefined' && this.value !== null) {
+        return String(this.value)
       }
-      return String(this.value)
+
+      return ''
     },
     input () {
       if (typeof this.value !== 'string') {
