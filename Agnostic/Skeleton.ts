@@ -132,7 +132,7 @@ abstract class Skeleton extends Base {
       keyValue: this.primaryKey,
       keyLabel: this.displayKey,
       domain: this.domain,
-      format: (row: Record<string, unknown>, value: unknown) => value,
+      format: undefined,
       remote: (filter = '', pagination = undefined, query: Record<string, unknown> = {}) => {
         const where = { ...query }
         if (filter) {
