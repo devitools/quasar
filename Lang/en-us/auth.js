@@ -10,7 +10,8 @@ export default {
     error: 'Incorrect username or password',
     goToRegister: 'I want to sign-up',
     forgotPassword: 'I forgot my password',
-    validation: 'Check highlighted fields'
+    validation: 'Check highlighted fields',
+    remember: 'Keep me connected'
   },
   signUp: {
     title: 'Come on! Enter your information ',

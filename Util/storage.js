@@ -33,12 +33,35 @@ export const write = (index, value, remember = DEFAULT_REMEMBER) => {
 
 /**
  * @param {string} index
- * @param {boolean} remember
  * @returns {*}
  */
-export const erase = (index, remember = DEFAULT_REMEMBER) => {
-  if (remember) {
-    return LocalStorage.remove(index)
+export const erase = (index) => {
+  try {
+    LocalStorage.remove(index)
+    return
+  } catch (e) {
+    // silent is gold
   }
-  return SessionStorage.remove(index)
+  try {
+    SessionStorage.remove(index)
+  } catch (e) {
+    // silent is gold
+  }
+}
+
+/**
+ * @param {string} index
+ * @param {*} fallback
+ * @returns {*}
+ */
+export const recover = (index, fallback = undefined) => {
+  const local = parse(LocalStorage.getItem(index))
+  if (local) {
+    return local
+  }
+  const session = parse(SessionStorage.getItem(index))
+  if (session) {
+    return session
+  }
+  return fallback
 }
