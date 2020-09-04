@@ -87,7 +87,12 @@ export default abstract class FieldAs extends Base {
       placeholder = mask.replace(/#/g, '9')
     }
     if (!tableFormat) {
-      tableFormat = (value: string) => format(value, mask)
+      tableFormat = (value: string) => {
+        if (typeof value === 'undefined' || value === null) {
+          return '-'
+        }
+        return format(String(value), mask)
+      }
     }
     this.appendAttrs({
       mask,
