@@ -49,14 +49,18 @@ export default {
         style: this.renderFormBodyStyles()
       }
 
-      const children = [
-        this.renderFormBodyComponents(h, this.getComponents())
-      ]
+      const children = []
+      if (this.settings?.noGroupPosition === undefined || this.settings?.noGroupPosition === 'before') {
+        children.push(this.renderFormBodyComponents(h, this.getComponents()))
+      }
       if (this.hasSections) {
         children.push(this.renderFormBodySections(h, this.grouping))
       }
       if (this.hasTabs) {
         children.push(this.renderFormBodyTabs(h, this.grouping))
+      }
+      if (this.settings?.noGroupPosition === 'after') {
+        children.push(this.renderFormBodyComponents(h, this.getComponents()))
       }
 
       return h('div', data, children)

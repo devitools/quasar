@@ -28,6 +28,11 @@ abstract class Schema extends Skeleton {
   static showPlaceholderContent = SHOW_PLACEHOLDER_CONTENT
 
   /**
+   * @type {string}
+   */
+  static noGroupPosition = 'before'
+
+  /**
    * Bootstrap everything
    * @param {SchemaForm | SchemaTable} $component
    */
@@ -68,7 +73,8 @@ abstract class Schema extends Skeleton {
       settings: {
         useUuid: schema.useUuid,
         showPlaceholderContent: schema.showPlaceholderContent,
-        useModified: schema.useModified
+        useModified: schema.useModified,
+        noGroupPosition: schema.noGroupPosition
       },
       domain: schema.domain,
       primaryKey: schema.primaryKey,
