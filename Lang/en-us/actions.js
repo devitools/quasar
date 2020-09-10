@@ -70,7 +70,7 @@ export default {
     tooltip: 'Opens a record preview screen'
   },
   home: {
-    label: 'Cancel',
+    label: 'Back to List',
     tooltip: 'Back to main list'
   },
   back: {
