@@ -83,6 +83,24 @@ export const oneMonthAgo = () => {
 }
 
 /**
+ * @returns {string}
+ */
+export const firstDayOfYear = () => {
+  const now = new Date()
+  const today = new Date(now.getFullYear(), 0, 1)
+  return new DateTime(today.setDate(today.getDate())).format('YYYY-MM-DD')
+}
+
+/**
+ * @returns {string}
+ */
+export const lastDayOfYear = () => {
+  const now = new Date()
+  const today = new Date(now.getFullYear(), 11, 31)
+  return new DateTime(today.setDate(today.getDate())).format('YYYY-MM-DD')
+}
+
+/**
  * @param {string} output
  */
 export const dateCurrent = (output) => {
