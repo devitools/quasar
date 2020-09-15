@@ -16,6 +16,7 @@
         @actionBack="actionBack"
         @actionApply="actionApply"
         @actionDestroy="actionDestroy"
+        @broadcast:action="$emit('broadcast:action', $event)"
       />
     </div>
 
@@ -31,6 +32,7 @@
         @actionEdit="actionEdit"
         @actionView="actionView"
         @actionDestroy="actionDestroy"
+        @broadcast:action="$emit('broadcast:action', $event)"
       />
     </div>
   </div>

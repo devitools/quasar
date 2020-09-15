@@ -23,12 +23,14 @@
       @actionBuiltinBack="$emit('actionBack')"
       @actionBuiltinApply="$emit('actionApply')"
       @actionBuiltinDestroy="$emit('actionDestroy', $event)"
+      @broadcast:action="$emit('broadcast:action', $event)"
     />
   </div>
 </template>
 
 <script>
 import { QSpace, QBtn } from 'quasar'
+
 import Props from '../../Schema/Contracts/Props'
 import AppBuiltinForm from './AppBuiltinForm'
 
@@ -85,8 +87,9 @@ export default {
       }
       const reference = references[this.scope]
       const paths = [
-        `agnostic.components.builtin.form.${reference}`,
-        `domains.${this.domain}.components.builtin.form.${reference}`
+        `domains.${this.domain}.components.builtin.form.${reference}`,
+        `domains.${this.domain}.components.builtin.form.${this.scope}`,
+        `agnostic.components.builtin.form.${reference}`
       ]
       return this.$lang(paths)
     }

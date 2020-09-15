@@ -30,7 +30,7 @@ export default {
     },
     hooks: {
       type: Function,
-      required: true
+      default: () => ({})
     },
     readonly: {
       type: Boolean,

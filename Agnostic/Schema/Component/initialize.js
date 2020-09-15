@@ -1,4 +1,4 @@
-import { SCOPES } from '../../enum'
+import { SCOPES, SCOPES_BUILTIN } from '../../enum'
 
 /**
  */
@@ -61,5 +61,11 @@ export default {
    */
   [SCOPES.SCOPE_TRASH] () {
     this.fetchRecords()
+  },
+
+  /**
+   */
+  [SCOPES_BUILTIN.SCOPE_BUILTIN_VIEW] () {
+    this.useFormReadonly = true
   }
 }
