@@ -163,13 +163,16 @@ export default {
     indicator: {
       type: String,
       default: ICON_GROUP_ACTIONS
+    },
+    scope: {
+      type: String,
+      default: () => SCOPES.SCOPE_ADD
     }
   },
   /**
    */
   data: () => ({
     components: {},
-    scope: SCOPES.SCOPE_ADD,
     record: {},
     visible: false
   }),

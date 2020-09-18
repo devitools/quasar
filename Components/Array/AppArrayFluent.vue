@@ -21,6 +21,7 @@
           :ref="`body-${index}`"
           :fields="fields"
           :value="record"
+          :scope="scope"
           :domain="domain"
           :primary-key="primaryKey"
           :hooks="hooks"

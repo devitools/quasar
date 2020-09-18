@@ -1,4 +1,5 @@
 import { primaryKey } from 'src/settings/schema'
+import { SCOPES } from '../../../Agnostic/enum'
 
 export default {
   /**
@@ -47,6 +48,10 @@ export default {
     inheritErrors: {
       type: Object,
       default: () => ({})
+    },
+    scope: {
+      type: String,
+      default: () => SCOPES.SCOPE_ADD
     }
   }
 }

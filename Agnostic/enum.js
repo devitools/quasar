@@ -1,12 +1,12 @@
 /**
- * @type {Readonly<{
+ * @type {{
  * SCOPE_REMOVE: string,
  * SCOPE_ADD: string,
  * SCOPE_EDIT: string,
  * SCOPE_TRASH: string,
  * SCOPE_INDEX: string,
  * SCOPE_VIEW: string
- * }>}
+ * }}
  */
 export const SCOPES = Object.freeze({
   SCOPE_INDEX: 'scope-index',
@@ -23,15 +23,14 @@ export const SCOPES = Object.freeze({
 export const scopes = () => Object.values(SCOPES)
 
 /**
- * @type {Readonly<{
- *
+ * @type {{
  * SCOPE_EMBED_VIEW: string,
  * SCOPE_EMBED_TRASH: string,
  * SCOPE_EMBED_ADD: string,
  * SCOPE_EMBED_INDEX: string,
  * SCOPE_EMBED_EDIT: string,
  * SCOPE_EMBED_REMOVE: string
- * }>}
+ * }}
  */
 export const SCOPES_EMBED = Object.freeze({
   SCOPE_EMBED_INDEX: 'scope-embed-index',
@@ -48,15 +47,14 @@ export const SCOPES_EMBED = Object.freeze({
 export const scopesEmbed = () => Object.values(SCOPES_EMBED)
 
 /**
- * @type {Readonly<{
- *
- * SCOPE_EMBED_VIEW: string,
- * SCOPE_EMBED_TRASH: string,
- * SCOPE_EMBED_ADD: string,
- * SCOPE_EMBED_INDEX: string,
- * SCOPE_EMBED_EDIT: string,
- * SCOPE_EMBED_REMOVE: string
- * }>}
+ * @type {{
+ * SCOPE_BUILTIN_VIEW: string,
+ * SCOPE_BUILTIN_TRASH: string,
+ * SCOPE_BUILTIN_ADD: string,
+ * SCOPE_BUILTIN_INDEX: string,
+ * SCOPE_BUILTIN_EDIT: string,
+ * SCOPE_BUILTIN_REMOVE: string
+ * }}
  */
 export const SCOPES_BUILTIN = Object.freeze({
   SCOPE_BUILTIN_INDEX: 'scope-builtin-index',
@@ -73,13 +71,13 @@ export const SCOPES_BUILTIN = Object.freeze({
 export const scopesBuiltin = () => Object.values(SCOPES_BUILTIN)
 
 /**
- * @type {Readonly<{
+ * @type {{
  * POSITION_TABLE_SEARCH: string,
  * POSITION_FORM_FOOTER: string,
  * POSITION_TABLE_TOP: string,
  * POSITION_TABLE_FLOAT: string,
  * POSITION_TABLE_CELL: string
- * }>}
+ * }}
  */
 export const POSITIONS = Object.freeze({
   POSITION_TABLE_TOP: 'table-top',
@@ -95,7 +93,7 @@ export const POSITIONS = Object.freeze({
 export const positions = () => Object.values(POSITIONS)
 
 /**
- * @type {Readonly<{
+ * @type {{
  * CURRENCY: string,
  * AUTOMATIC: string,
  * NIN: string,
@@ -103,7 +101,7 @@ export const positions = () => Object.values(POSITIONS)
  * IN: string,
  * EQUAL: string,
  * NOT_EQUAL: string
- * }>}
+ * }}
  */
 export const OPERATORS = Object.freeze({
   EQUAL: 'eq',
