@@ -92,9 +92,11 @@ export const resource = (settings, children = []) => {
   const table = settings.table
   const form = settings.form
 
+  const options = settings.options || {}
+
   const component = () => import('../Components/Group/Group.vue')
-  const meta = { domain, ...(settings.meta || {}) }
-  const kids = crud(domain, path, table, form, meta)
+  const kids = crud(domain, path, table, form, options)
+  const meta = { domain, ...options }
 
   return group(path, component, [...children, ...kids], meta)
 }
