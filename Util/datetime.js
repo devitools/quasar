@@ -14,7 +14,7 @@ export const format = (date, format = 'DD/MM/YYYY') => {
  * @param {string} format
  * @returns {string}
  */
-export const firstDayOfWeek = (date, format = 'DD/MM/YYYY') => {
+export const firstDayOfWeek = (date = new Date(), format = 'DD/MM/YYYY') => {
   return dayJS(date).startOf('week').format(format)
 }
 
@@ -23,6 +23,14 @@ export const firstDayOfWeek = (date, format = 'DD/MM/YYYY') => {
  * @param {string} format
  * @returns {string}
  */
-export const firstDayOfMonth = (date, format = 'DD/MM/YYYY') => {
+export const firstDayOfMonth = (date = new Date(), format = 'DD/MM/YYYY') => {
   return dayJS(date).startOf('month').format(format)
+}
+
+/**
+ * @param {string} format
+ * @returns {string}
+ */
+export const firstDayOfYear = (format = 'YYYY-MM-DD HH:mm:ss') => {
+  return dayJS(new Date()).startOf('year').hour(23).minute(59).second(59).format(format)
 }
