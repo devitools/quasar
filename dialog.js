@@ -58,8 +58,9 @@ export function confirm (message, options = { title: '' }) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function prompt (message, options = { title: '' }) {
-  if (!options.title) {
+export function prompt (message, options = { title: '', isValid: undefined }) {
+  const { title, isValid } = options
+  if (!title) {
     options.title = $lang('agnostic.dialog.prompt.title')
   }
   const _options = {
@@ -67,7 +68,8 @@ export function prompt (message, options = { title: '' }) {
     persistent: true,
     prompt: {
       model: '',
-      type: 'text'
+      type: 'text',
+      isValid
     },
     message: $lang(message, message),
     ...options
