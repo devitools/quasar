@@ -12,6 +12,7 @@
         @input="updateValue"
         v-bind="moneyFormatForComponent"
         v-show="show"
+        :disabled="disable"
         @keyup.native="handleKeyboard"
       />
     </template>
@@ -61,6 +62,10 @@ export default {
       default: 2
     },
     masked: {
+      type: Boolean,
+      default: false
+    },
+    disable: {
       type: Boolean,
       default: false
     }
