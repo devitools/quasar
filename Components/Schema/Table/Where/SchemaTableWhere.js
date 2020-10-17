@@ -2,11 +2,11 @@
 import { QIcon } from 'quasar'
 
 // settings
-import { serializeSearch, unSerializeSearch } from 'src/settings/schema'
+import { serializeSearch, serializeWhere, unSerializeSearch } from 'src/settings/schema'
 
 // app
-import { OPERATORS, POSITIONS } from '../../../../Agnostic/enum'
-import { is, isObject, withoutSeparator, withSeparator } from '../../../../Util/general'
+import { POSITIONS } from '../../../../Agnostic/enum'
+import { is, withoutSeparator } from '../../../../Util/general'
 
 // mixin
 import Button from '../../Contracts/Button'
@@ -259,36 +259,7 @@ export default {
     /**
      */
     searchApply () {
-      const query = {}
-      for (const field in this.record) {
-        if (!this.record.hasOwnProperty(field)) {
-          continue
-        }
-        if (this.record[field] === undefined || this.record[field] === null || this.record[field] === '') {
-          continue
-        }
-        const component = this.components[field]
-        if (component.$type === 'currency' && this.record[field] === 0) {
-          continue
-        }
-
-        let value = this.record[field]
-        if (isObject(value)) {
-          const attrs = component.attrs
-          value = JSON.stringify({
-            [attrs.keyValue]: value[attrs.keyValue],
-            [attrs.keyLabel]: value[attrs.keyLabel]
-          })
-        }
-        if (typeof value === 'boolean') {
-          value = value ? 1 : 0
-        }
-        let operator
-        if (component.$layout.tableWhere !== OPERATORS.AUTOMATIC) {
-          operator = component.$layout.tableWhere
-        }
-        query[field] = withSeparator(value, operator)
-      }
+      const query = serializeWhere(this.record, this.components)
       this.activeSearching = true
       this.$emit('input', serializeSearch(query))
       this.toggleWhere()

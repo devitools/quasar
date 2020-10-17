@@ -305,7 +305,7 @@ export const withSeparator = (value, operator = undefined) => {
   if (operator) {
     return `${operator}${SEPARATION_OPERATOR}${value}`
   }
-  if (typeof value === 'number' || !isNaN(Number(operator))) {
+  if (typeof value === 'number' || typeof value === 'boolean' || !isNaN(Number(operator))) {
     return `eq${SEPARATION_OPERATOR}${value}`
   }
   return `like${SEPARATION_OPERATOR}${value}`

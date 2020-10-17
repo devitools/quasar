@@ -37,6 +37,11 @@ export default abstract class Base {
   static useUuid = false
 
   /**
+   * @type {boolean}
+   */
+  static keepPrimaryKey = true
+
+  /**
    * @type {Record<string, Group>}
    */
   protected __groups: Record<string, Group>

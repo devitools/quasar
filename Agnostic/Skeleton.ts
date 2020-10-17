@@ -74,7 +74,8 @@ abstract class Skeleton extends Base {
     let data = clone(record)
 
     const schema = this.$self()
-    if (creating && !schema.useUuid) {
+    if (creating && (!schema.useUuid && !schema.keepPrimaryKey)) {
+      debugger
       delete data[schema.primaryKey]
     }
 
