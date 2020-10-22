@@ -1,40 +1,45 @@
 import DateTime from '../Support/DateTime'
 
 /**
+ * @param {string} [output]
  * @returns {string}
  */
-export const now = () => dateCurrent('YYYY-MM-DD HH:mm')
+export const now = (output = 'YYYY-MM-DD HH:mm') => dateCurrent(output)
 
 /**
+ * @param {string} [output]
  * @returns {string}
  */
-export const today = () => dateCurrent('YYYY-MM-DD')
+export const today = (output = 'YYYY-MM-DD') => dateCurrent(output)
 
 /**
+ * @param {string} [output]
  * @returns {string}
  */
-export const tomorrow = () => {
+export const tomorrow = (output = 'YYYY-MM-DD') => {
   const now = new Date()
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-  return new DateTime(today.setDate(today.getDate() + 1)).format('YYYY-MM-DD')
+  return new DateTime(today.setDate(today.getDate() + 1)).format(output)
 }
 
 /**
+ * @param {string} [output]
  * @returns {string}
  */
 export const afterTomorrow = () => {
   const now = new Date()
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-  return new DateTime(today.setDate(today.getDate() + 2)).format('YYYY-MM-DD')
+  return new DateTime(today.setDate(today.getDate() + 2)).format(output)
 }
 
 /**
+ * @param {string} [output]
  * @returns {string}
  */
-export const lastSunday = () => {
+export const lastSunday = (output = 'YYYY-MM-DD') => {
   const now = new Date()
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-  return new DateTime(today.setDate(today.getDate() - today.getDay())).format('YYYY-MM-DD')
+  return new DateTime(today.setDate(today.getDate() - today.getDay())).format(output)
 }
 
 /**
