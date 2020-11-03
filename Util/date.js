@@ -26,7 +26,7 @@ export const tomorrow = (output = 'YYYY-MM-DD') => {
  * @param {string} [output]
  * @returns {string}
  */
-export const afterTomorrow = () => {
+export const afterTomorrow = (output = 'YYYY-MM-DD') => {
   const now = new Date()
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
   return new DateTime(today.setDate(today.getDate() + 2)).format(output)
