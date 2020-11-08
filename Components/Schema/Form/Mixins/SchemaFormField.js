@@ -58,7 +58,7 @@ export default {
       const height = field.$layout.formHeight
       const background = field.$layout.formBackground
       const hidden = field.$layout.formHidden
-      const classNames = [field.$key, 'field', `width-${width}`, `height-${height}`, background]
+      const classNames = [field.$key.replace(/\./g,' '), 'field', `width-${width}`, `height-${height}`, background]
       if (hidden) {
         classNames.push('hide')
       }
