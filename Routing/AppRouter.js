@@ -77,14 +77,14 @@ export default class AppRouter extends VueRouter {
   }
 
   /**
-   * @param {string} path
+   * @param {string|Record<string|unknown>} source
    * @param {function} component
    * @param {Object} [options]
-   * @returns {AppRouter}
+   * @returns {AppRouterGroup}
    */
-  route (path, component, options = {}) {
+  route (source, component, options = {}) {
     const { name } = options
-    this.routes([route(path, component, name, options)])
+    this.routes([route(source, component, name, options)])
     return this
   }
 

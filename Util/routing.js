@@ -6,12 +6,11 @@ import { primaryKey, resourceRoutes } from 'src/settings/schema'
  * @returns {RouteConfig}
  */
 export const redirect = (path, redirect) => {
-  // noinspection JSValidateTypes
   return { path, redirect }
 }
 
 /**
- * @param {string} path
+ * @param {string} source
  * @param {function} component
  * @param {string} [name]
  * @param {Object} [meta]
@@ -19,13 +18,23 @@ export const redirect = (path, redirect) => {
  * @returns {RouteConfig}
  */
 export const route = (
-  path,
-  component,
+  source,
+  component = undefined,
   name = undefined,
   meta = {},
   props = undefined
 ) => {
-  // noinspection JSValidateTypes
+  let path = source
+  if (typeof source === 'string') {
+    return { path, name, component, meta, props }
+  }
+  path = source.path
+  if (source.component) {
+    component = source.component
+  }
+  if (typeof source.meta === 'object') {
+    meta = { ...source.meta, ...meta }
+  }
   return { path, name, component, meta, props }
 }
 
@@ -42,7 +51,6 @@ export const group = (
   children = [],
   meta = {}
 ) => {
-  // noinspection JSValidateTypes
   return { path, component, children, meta: { scope: 'group', ...meta } }
 }
 
