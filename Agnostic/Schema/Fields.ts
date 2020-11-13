@@ -133,7 +133,7 @@ export default abstract class Fields extends Base {
    * @returns {Schema}
    */
   fieldType (type: string) {
-    return this.setAttrs({ type })
+    return this.appendAttrs({ type })
   }
 
   /**
@@ -141,7 +141,7 @@ export default abstract class Fields extends Base {
    * @returns {Schema}
    */
   fieldAppendAttrs (attrs: Record<string, unknown>) {
-    return this.setAttrs(attrs)
+    return this.appendAttrs(attrs)
   }
 
   /**

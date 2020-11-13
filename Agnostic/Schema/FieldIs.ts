@@ -246,7 +246,7 @@ export default abstract class FieldIs extends Base {
       is = 'AppArrayLazy'
     }
     this.setIs(is)
-    this.setAttrs(attrs)
+    this.appendAttrs(attrs)
     this.setType('array')
     return this
   }
@@ -257,7 +257,7 @@ export default abstract class FieldIs extends Base {
    */
   fieldIsBuiltin (attrs = {}) {
     this.setIs('AppBuiltin')
-    this.setAttrs({ ...attrs, uppercase: false })
+    this.appendAttrs({ ...attrs, uppercase: false })
     this.setType('array')
     return this
   }
@@ -305,7 +305,7 @@ export default abstract class FieldIs extends Base {
       options.label = this.$lang(`fields.${this.__currentField}.caption`)
     }
     const attrs = { ...options, click }
-    this.setAttrs(attrs)
+    this.appendAttrs(attrs)
     return this
   }
 
@@ -315,7 +315,7 @@ export default abstract class FieldIs extends Base {
    */
   fieldIsEmbed (this: Skeleton, attrs = {}) {
     this.setIs('AppEmbed')
-    this.setAttrs(attrs)
+    this.appendAttrs(attrs)
     this.setType('undefined')
     const foreignKey = this.__currentField
 
@@ -338,7 +338,7 @@ export default abstract class FieldIs extends Base {
       attrs['default-expand-all'] = true
     }
     this.setIs('AppTree')
-    this.setAttrs({ nodeKey: 'id', tickStrategy: 'leaf', ...attrs })
+    this.appendAttrs({ nodeKey: 'id', tickStrategy: 'leaf', ...attrs })
     this.setType('array')
     return this
   }
