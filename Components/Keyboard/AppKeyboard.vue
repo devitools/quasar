@@ -21,8 +21,8 @@ export default {
       type: Boolean,
       default: false,
     },
-    input: {
-      type: String,
+    value: {
+      type: [String, Number],
     }
   },
   /**
@@ -95,6 +95,7 @@ export default {
       this.$keyboard = new Keyboard(options)
     },
     /**
+     * @param {string} input
      */
     onChange (input) {
       this.$emit('input', input)
@@ -135,7 +136,7 @@ export default {
   watch: {
     /**
      */
-    input (input) {
+    value (input) {
       this.$keyboard.setInput(input)
     },
     /**
@@ -191,7 +192,7 @@ export default {
           font-family: "Fira Code", monospace;
           position: relative;
           // start click effect
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 1px -1px rgba(131, 128, 128, 0.05), 0 -2px 1px -1px rgba(0, 0, 0, 0.1) !important;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 1px -1px rgba(131, 128, 128, 0.05), 0 -2px 1px -1px rgba(0, 0, 0, 0.01) !important;
 
           &[data-skbtn="{enter}"] {
             background: #007aff !important;
