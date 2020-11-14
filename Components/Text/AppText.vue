@@ -8,15 +8,27 @@
       <div v-html="value" />
     </template>
     <template v-else>
+      <template v-if="icon">
+        <QIcon
+          :name="icon"
+          size="1.8rem"
+        />
+      </template>
       {{ value }}
     </template>
   </div>
 </template>
 
-<script> export default {
+<script>
+import { QIcon } from 'quasar'
+
+export default {
   /**
   */
   name: 'AppText',
+  /**
+  */
+  components: { QIcon },
   /**
   */
   props: {
@@ -30,6 +42,10 @@
     },
     styles: {
       type: [String, Object, Array],
+      default: ''
+    },
+    icon: {
+      type: String,
       default: ''
     },
     html: {

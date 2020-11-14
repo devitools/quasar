@@ -63,6 +63,15 @@ export default abstract class FieldIs extends Base {
     return this
   }
 
+ /**
+   * @param {Record<string, unknown>} attrs
+   * @returns {Schema}
+   */
+  fieldIsLabel(attrs = {}) {
+    this.setComponent('AppText', attrs)
+    return this
+  }
+
   /**
    * @param {Number} rows
    * @param {Record<string, unknown>} attrs
