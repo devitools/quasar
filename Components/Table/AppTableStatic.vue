@@ -1,5 +1,5 @@
 <template>
-  <QTable
+  <AppTable
     class="AppTableStatic"
     ref="table"
     :selection="selection"
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { QTable } from 'quasar'
+import AppTable from './AppTable'
 
 export default {
   /**
@@ -23,7 +23,7 @@ export default {
   /**
    */
   components: {
-    QTable
+    AppTable
   },
   props: {
     title: {
