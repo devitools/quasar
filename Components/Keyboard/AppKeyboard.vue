@@ -19,16 +19,16 @@ export default {
   props: {
     numpad: {
       type: Boolean,
-      default: false,
+      default: false
     },
     value: {
-      type: [String, Number],
+      type: [String, Number]
     }
   },
   /**
    */
   data: () => ({
-    keyboard: null,
+    keyboard: null
   }),
   /**
    */
@@ -90,7 +90,7 @@ export default {
         onKeyPress: this.onKeyPress,
         layoutName: layoutName,
         layout: layout,
-        display: display,
+        display: display
       }
       this.$keyboard = new Keyboard(options)
     },
@@ -119,7 +119,7 @@ export default {
      * @param {string} layout
      */
     setLayout (layout) {
-      let currentLayout = this.$keyboard.options.layoutName
+      const currentLayout = this.$keyboard.options.layoutName
       if (currentLayout === 'default') {
         this.$keyboard.setOptions({ layoutName: layout })
         return
@@ -402,7 +402,6 @@ export default {
       }
     }
   }
-
 
   &.simple-keyboard--is-numpad {
 

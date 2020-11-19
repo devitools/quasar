@@ -67,11 +67,15 @@ export default {
       return ''
     },
     input () {
-      if (typeof this.value !== 'string') {
+      let value = this.value
+      if (value instanceof File) {
+        value = value.name
+      }
+      if (typeof value !== 'string') {
         return ''
       }
       const name = this.$lang('agnostic.components.file.downloadName')
-      const extension = this.value.split('.').pop()
+      const extension = value.split('.').pop()
       return `${name}.${extension}`
     }
   },
