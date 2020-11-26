@@ -6,15 +6,35 @@
     :style="{ height }"
     :title="title"
     :data="data"
-    :columns="columns"
+    :columns="fields"
     :row-key="rowKey"
     :selected.sync="selected"
     :pagination="pagination"
-  />
+  >
+    <template v-slot:body-cell-actions="props">
+      <QTd
+        :props="props"
+        :style="{ padding: 0 }"
+      >
+        <template v-for="(button, index) in actions">
+          <QBtn
+            :key="index"
+            :icon="button.icon"
+            flat
+            dense
+            round
+            color="grey-8"
+            @click="$emit(button.name, props.row)"
+          />
+        </template>
+      </QTd>
+    </template>
+  </AppTable>
 </template>
 
 <script>
 import AppTable from './AppTable'
+import { QBtn, QTd } from 'quasar'
 
 export default {
   /**
@@ -23,7 +43,9 @@ export default {
   /**
    */
   components: {
-    AppTable
+    AppTable,
+    QBtn,
+    QTd
   },
   props: {
     title: {
@@ -35,6 +57,10 @@ export default {
       default: () => ('id')
     },
     columns: {
+      type: Array,
+      default: () => ([])
+    },
+    actions: {
       type: Array,
       default: () => ([])
     },
@@ -66,6 +92,24 @@ export default {
         page: 1,
         rowsPerPage: this.rowsPerPage
       }
+    }
+  },
+  /**
+   */
+  computed: {
+    fields () {
+      if (this.actions.length) {
+        const actions = {
+          name: 'actions',
+          label: '*',
+          sortable: false,
+          required: true,
+          align: 'left',
+          style: 'width: 50px'
+        }
+        return [actions, ...this.columns]
+      }
+      return this.columns
     }
   },
   /**

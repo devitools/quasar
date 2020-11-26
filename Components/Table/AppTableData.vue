@@ -109,7 +109,8 @@ export default {
     async remove (index) {
       const remove = () => {
         const rows = [...this.rows]
-        rows.splice(index, 1)
+        const removed = rows.splice(index, 1)
+        this.$emit('remove', removed)
         this.$emit('input', rows)
       }
 
