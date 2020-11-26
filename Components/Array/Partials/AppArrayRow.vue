@@ -238,7 +238,7 @@ export default {
      */
     editRow () {
       this.$emit('edit', true)
-      this.record = JSON.parse(JSON.stringify(this.value))
+      this.record = this.$util.clone(this.value)
     },
     /**
      */
@@ -256,7 +256,7 @@ export default {
         return
       }
 
-      const value = JSON.parse(JSON.stringify(this.record))
+      const value = this.$util.clone(this.record)
       this.record = {}
       this.updateValue(value)
       this.$emit('edit', false)

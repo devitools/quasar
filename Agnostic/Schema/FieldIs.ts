@@ -1,4 +1,3 @@
-
 import Base from '../Base'
 
 import { yesNo } from '../options'
@@ -63,11 +62,11 @@ export default abstract class FieldIs extends Base {
     return this
   }
 
- /**
+  /**
    * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
-  fieldIsLabel(attrs = {}) {
+  fieldIsLabel (attrs = {}) {
     this.setComponent('AppText', attrs)
     return this
   }
