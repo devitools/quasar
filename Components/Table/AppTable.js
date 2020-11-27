@@ -1,4 +1,3 @@
-// noinspection ES6CheckImport
 import { QCheckbox, QTable } from 'quasar'
 import { get } from '../../Util/general'
 
@@ -15,6 +14,97 @@ export default {
   /**
    */
   methods: {
+    /**
+     * @param h
+     * @param row
+     * @param bodySlot
+     * @param pageIndex
+     * @return {*}
+     * @private
+     */
+    __getTBodyTR (h, row, bodySlot, pageIndex) {
+      const
+        key = this.getRowKey(row),
+        selected = this.isRowSelected(key)
+
+      if (bodySlot !== void 0) {
+        return bodySlot(
+          this.__getBodyScope({
+            key,
+            row,
+            pageIndex,
+            __trClass: selected ? 'selected' : ''
+          })
+        )
+      }
+
+      const
+        bodyCell = this.$scopedSlots['body-cell'],
+        child = this.computedCols.map(col => {
+          const
+            bodyCellCol = this.$scopedSlots[`body-cell-${col.name}`],
+            slot = bodyCellCol !== void 0 ? bodyCellCol : bodyCell
+
+          if (slot !== void 0) {
+            return slot(this.__getBodyCellScope({ key, row, pageIndex, col }))
+          }
+          const value = this.getCellValue(col, row)
+          const domProps = {}
+          if (col.format) {
+            domProps.innerHTML = value
+          }
+          const data = {
+            staticClass: col.__tdClass,
+            style: col.style,
+            class: Array.isArray(col.classes) ? col.classes.join(' ') : col.classes,
+            domProps
+          }
+          return h('td', data, value)
+        })
+
+      if (this.hasSelectionMode === true) {
+        const slot = this.$scopedSlots['body-selection']
+        const content = slot !== void 0
+          ? slot(this.__getBodySelectionScope({ key, row, pageIndex }))
+          : [
+            h(QCheckbox, {
+              props: {
+                value: selected,
+                color: this.color,
+                dark: this.isDark,
+                dense: this.dense
+              },
+              on: {
+                input: (adding, evt) => {
+                  this.__updateSelection([key], [row], adding, evt)
+                }
+              }
+            })
+          ]
+
+        child.unshift(
+          h('td', { staticClass: 'q-table--col-auto-width' }, content)
+        )
+      }
+
+      const data = { key, class: { selected }, on: {} }
+
+      if (this.qListeners['row-click'] !== void 0) {
+        data.class['cursor-pointer'] = true
+        data.on.click = evt => {
+          this.$emit('row-click', evt, row, pageIndex)
+        }
+      }
+
+      if (this.qListeners['row-dblclick'] !== void 0) {
+        data.class['cursor-pointer'] = true
+        data.on.dblclick = evt => {
+          this.$emit('row-dblclick', evt, row, pageIndex)
+        }
+      }
+
+      return h('tr', data, child)
+    },
     /**
      * @param {function} h
      * @return {VNode}

@@ -40,7 +40,8 @@ export default {
      * @return {boolean}
      */
     columnsFilter (field, ignore) {
-      if (field.hidden) {
+      const scopes = field?.scopes || []
+      if (scopes.includes(this.scope)) {
         return false
       }
       return field[ignore] !== true
