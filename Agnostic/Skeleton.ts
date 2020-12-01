@@ -75,7 +75,6 @@ abstract class Skeleton extends Base {
 
     const schema = this.$self()
     if (creating && (!schema.useUuid && !schema.keepPrimaryKey)) {
-      debugger
       delete data[schema.primaryKey]
     }
 
