@@ -1,5 +1,5 @@
 <template>
-  <QTable
+  <AppTable
     class="AppTableData"
     ref="table"
     :style="{ height }"
@@ -25,12 +25,13 @@
         />
       </QTd>
     </template>
-  </QTable>
+  </AppTable>
 </template>
 
 <script>
 import { QBtn, QTable, QTd } from 'quasar'
 import Dialog from '../Schema/Contracts/Dialog'
+import AppTable from './AppTable'
 
 export default {
   /**
@@ -41,7 +42,7 @@ export default {
   mixins: [Dialog],
   /**
    */
-  components: { QTable, QTd, QBtn },
+  components: { AppTable, QTable, QTd, QBtn },
   /**
    */
   props: {

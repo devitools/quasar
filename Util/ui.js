@@ -91,3 +91,27 @@ export const color = () => {
   }
   return `#${matches.join('')}`
 }
+
+/**
+ * @param {string|number} value
+ * @param {boolean} disabled
+ * @return {string|*}
+ */
+export const disable = (value, disabled = false) => {
+  if (disabled === true) {
+    return `<span class="disabled">${value}</span>`
+  }
+  return value
+}
+
+/**
+ * @param {string} value
+ * @param {length} length
+ * @return {string|*}
+ */
+export const ellipsis = (value, length = 30, suffix = '...') => {
+  if (value.length < length) {
+    return value
+  }
+  return value.substring(0, length) + suffix
+}
