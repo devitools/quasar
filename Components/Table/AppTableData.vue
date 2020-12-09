@@ -15,6 +15,7 @@
         :style="{ padding: 0 }"
       >
         <QBtn
+          v-if="isRemovable(props.row)"
           icon="delete"
           flat
           dense
@@ -28,7 +29,7 @@
 </template>
 
 <script>
-import { QTable, QTd, QBtn } from 'quasar'
+import { QBtn, QTable, QTd } from 'quasar'
 import Dialog from '../Schema/Contracts/Dialog'
 
 export default {
@@ -74,6 +75,10 @@ export default {
     },
     confirm: {
       type: String,
+      default: () => undefined
+    },
+    removable: {
+      type: Function,
       default: () => undefined
     }
   },
@@ -135,6 +140,19 @@ export default {
       const rows = [...this.rows]
       rows.push(row)
       this.$emit('input', rows)
+    },
+    /**
+     * @param {Record<string, unknown>} row
+     */
+    isRemovable (row) {
+      if (typeof this.removable !== 'function') {
+        return true
+      }
+      const isRemovable = this.removable(row)
+      if (isRemovable === undefined) {
+        return true
+      }
+      return isRemovable
     }
   },
   /**
