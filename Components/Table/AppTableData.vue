@@ -15,13 +15,13 @@
         :style="{ padding: 0 }"
       >
         <QBtn
-          v-if="isRemovable(props.row)"
+          v-if="isRemovable(props)"
           icon="delete"
           flat
           dense
           round
           color="grey-8"
-          @click="remove(props.rowIndex)"
+          @click="remove(index(props))"
         />
       </QTd>
     </template>
@@ -42,7 +42,12 @@ export default {
   mixins: [Dialog],
   /**
    */
-  components: { AppTable, QTable, QTd, QBtn },
+  components: {
+    AppTable,
+    QTable,
+    QTd,
+    QBtn
+  },
   /**
    */
   props: {
@@ -112,6 +117,10 @@ export default {
   /**
    */
   methods: {
+    /**
+     * @param {number} index
+     * @return {Promise<void>}
+     */
     async remove (index) {
       const remove = () => {
         const rows = [...this.rows]
@@ -145,7 +154,7 @@ export default {
     /**
      * @param {Record<string, unknown>} row
      */
-    isRemovable (row) {
+    isRemovable ({ row }) {
       if (typeof this.removable !== 'function') {
         return true
       }
@@ -154,6 +163,16 @@ export default {
         return true
       }
       return isRemovable
+    },
+    /**
+     * @param {Record<string,unknown>} props
+     * @return {number}
+     */
+    index (props) {
+      if (!Array.isArray(this.rows)) {
+        return -1
+      }
+      return this.rows.findIndex((row) => String(props.row[this.rowKey]) === String(row[this.rowKey]))
     }
   },
   /**
