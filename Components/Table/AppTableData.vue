@@ -8,6 +8,7 @@
     :columns="columnsWithActions"
     :row-key="rowKey"
     :pagination="pagination"
+    :hide-bottom="hideBottom"
   >
     <template v-slot:body-cell-actions="props">
       <QTd
@@ -86,6 +87,10 @@ export default {
     removable: {
       type: Function,
       default: () => undefined
+    },
+    hideBottom: {
+      type: Boolean,
+      default: () => false
     }
   },
   /**
