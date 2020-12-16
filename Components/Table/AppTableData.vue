@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { QBtn, QTable, QTd } from 'quasar'
+import { QBtn, QTd } from 'quasar'
 import Dialog from '../Schema/Contracts/Dialog'
 import AppTable from './AppTable'
 
@@ -45,7 +45,6 @@ export default {
    */
   components: {
     AppTable,
-    QTable,
     QTd,
     QBtn
   },
