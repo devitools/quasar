@@ -17,8 +17,8 @@ export default {
       const fields = this.fields()
       const columns = Object
         .values(fields)
-        .map((accumulator, field) => this.columnsMap(accumulator, field), [])
         .filter((field) => this.columnsFilter(field, ignore))
+        .map((accumulator, field) => this.columnsMap(accumulator, field), [])
         .sort((a, b) => this.columnsSort(a, b, primaryKeyLast))
 
       /** @counter */
@@ -40,8 +40,8 @@ export default {
      * @return {boolean}
      */
     columnsFilter (field, ignore) {
-      const scopes = field?.scopes || []
-      if (scopes.includes(this.scope)) {
+      const scopes = field?.scopes ?? []
+      if (!scopes.includes(this.scope)) {
         return false
       }
       return field[ignore] !== true
