@@ -11,6 +11,10 @@ export default {
       type: String,
       default: () => ''
     },
+    schema: {
+      type: String,
+      default: () => ''
+    },
     domain: {
       type: String,
       default: () => ''
