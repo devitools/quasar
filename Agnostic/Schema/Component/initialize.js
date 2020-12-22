@@ -12,9 +12,11 @@ export default {
   /**
    */
   [SCOPES.SCOPE_ADD] () {
+    /*
     if (this.settings.useUuid) {
       this.record[this.primaryKey] = this.$util.uuid()
     }
+    */
   },
 
   /**
