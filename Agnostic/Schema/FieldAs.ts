@@ -30,6 +30,7 @@ export default abstract class FieldAs extends Base {
       .fieldFormHidden(Boolean(options.hiddenForm))
       .fieldFormDisabled(true)
       .fieldPrimaryKey()
+      .fieldAppendAttrs({ uppercase: false })
 
     return this
   }
