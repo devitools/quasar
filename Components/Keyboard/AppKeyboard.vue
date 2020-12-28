@@ -3,7 +3,10 @@
     class="AppKeyboard"
     :class="numpad ? 'simple-keyboard--is-numpad' : 'simple-keyboard--is-full'"
   >
-    <div class="simple-keyboard" />
+    <div
+      ref="keyboard"
+      class="simple-keyboard"
+    />
   </div>
 </template>
 
@@ -93,7 +96,7 @@ export default {
         layout: layout,
         display: display
       }
-      this.$keyboard = new Keyboard(options)
+      this.$keyboard = new Keyboard(this.$refs.keyboard, options)
     },
     /**
      * @param {string} input
