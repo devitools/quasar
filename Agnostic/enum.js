@@ -94,6 +94,7 @@ export const positions = () => Object.values(POSITIONS)
 
 /**
  * @type {{
+ * NONE: string,
  * CURRENCY: string,
  * AUTOMATIC: string,
  * NIN: string,
@@ -104,6 +105,7 @@ export const positions = () => Object.values(POSITIONS)
  * }}
  */
 export const OPERATORS = Object.freeze({
+  NONE: 'none',
   EQUAL: 'eq',
   NOT_EQUAL: 'neq',
   LIKE: 'like',
