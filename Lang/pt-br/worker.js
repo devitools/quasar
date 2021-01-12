@@ -12,6 +12,8 @@ export default {
   },
   update: {
     message: 'Há uma atualização disponível para esse aplicativo',
+    warning: 'Há uma atualização disponível para esse aplicativo.<br>' +
+      'Atualização automática em {minutes} minutos.',
     close: 'Fechar',
     confirm: 'Atualizar',
     updating: 'Atualizando o aplicativo...'
