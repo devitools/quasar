@@ -11,7 +11,7 @@ export default {
     button: 'Entrar',
     goToRegister: 'Quero me cadastrar',
     forgotPassword: 'Esqueci minha senha',
-    error: 'Nome de Usuário ou senha incorretos'
+    error: 'Nome de usuário ou senha incorretos'
   },
   register: {
     title: 'Vamos lá! Insira suas informações',
