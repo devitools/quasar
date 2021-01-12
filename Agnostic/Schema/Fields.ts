@@ -188,7 +188,7 @@ export default abstract class Fields extends Base {
    * @param {string} $key
    * @return {this}
    */
-  addSeparator (this: Schema, $key = undefined): Schema {
+  addSeparator (this: Schema, $key?: string): Schema {
     const field = $key || unique()
     const name = `separators.${field}`
     this.__currentField = name
