@@ -38,7 +38,6 @@ export const write = (index, value, remember = DEFAULT_REMEMBER) => {
 export const erase = (index) => {
   try {
     LocalStorage.remove(index)
-    return
   } catch (e) {
     // silent is gold
   }
