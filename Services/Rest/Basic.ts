@@ -106,4 +106,13 @@ export default abstract class Basic extends Http {
     const records = this.getOfflineRecords()
     return records.find((record: Record<string, unknown>) => record[this.primaryKey] === id)
   }
+
+  /**
+   * @param {string} primaryKey
+   * @return {this}
+   */
+  setPrimaryKey (primaryKey: string): this {
+    this.primaryKey = primaryKey
+    return this
+  }
 }
