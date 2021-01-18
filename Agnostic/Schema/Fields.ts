@@ -25,7 +25,7 @@ export default abstract class Fields extends Base {
 
     const domain = schema.domain
     const order = Object.keys(this.__fields).length
-    const scopes = this.scopes
+    const scopes = [...this.scopes]
 
     const options = { domain, type, order, scopes }
     const attrs = { value: undefined, disable: false, readonly: false }

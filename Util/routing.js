@@ -24,17 +24,16 @@ export const route = (
   meta = {},
   props = undefined
 ) => {
-  let path = source
   if (typeof source === 'string') {
-    return { path, name, component, meta, props }
+    return { path: source, name, component, meta, props }
   }
-  path = source.path
-  if (source.component) {
-    component = source.component
-  }
-  if (typeof source.meta === 'object') {
-    meta = { ...source.meta, ...meta }
-  }
+
+  const path = source.path
+  component = source.component
+  name = source.name
+  meta = source.meta
+  props = source.props
+
   return { path, name, component, meta, props }
 }
 
