@@ -21,7 +21,7 @@ export default {
       tooltip: 'Start the print dialog'
     },
     csv: {
-      label: 'CSV',
+      label: 'Download',
       tooltip: 'Submit the form and download the data in CSV format'
     }
   }
