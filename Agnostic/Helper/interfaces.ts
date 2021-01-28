@@ -1,4 +1,5 @@
 import { Store } from 'vuex'
+import { QVueGlobals } from 'quasar'
 
 /**
  * @interface {Provide}
@@ -233,6 +234,7 @@ export interface Component {
   $user(property: string): string | number | boolean | Record<string, unknown> | undefined
   $message: Message
   $clipboard: Clipboard
+  $q: QVueGlobals
 }
 
 /**
