@@ -234,6 +234,12 @@ export default class ComponentActions {
 
   /**
    */
+  actionExport () {
+    this.fetchDownload()
+  }
+
+  /**
+   */
   actionTrash () {
     this.$browse(`${this.getActionPath()}/trash`, false)
   }

@@ -42,6 +42,7 @@ abstract class Schema extends Skeleton {
     this.configureActionsSchema()
     this.configureComponentInitialization()
     this.configureRequestRecords()
+    this.configureRequestDownload()
     this.configureRequestRecord()
   }
 

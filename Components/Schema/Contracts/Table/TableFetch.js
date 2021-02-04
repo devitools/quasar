@@ -1,3 +1,5 @@
+import { exportFile } from 'quasar'
+
 import { filterKey, searchKey } from 'src/settings/schema'
 import { delayLoading } from 'src/settings/rest'
 
@@ -29,9 +31,18 @@ export default {
       this.loading = false
     },
     /**
+     * @return {number}
+     */
+    parsePageToFetch () {
+      if (!this.embed) {
+        return this.$route.query.page ? Number(this.$route.query.page) : 1
+      }
+      return this.pagination.page
+    },
+    /**
      * @param {Object} options
      */
-    fetchRecords (options = {}) {
+    fetchContext (options = {}) {
       if (this.builtin) {
         const page = (this.pagination.page - 1)
 
@@ -49,12 +60,13 @@ export default {
         return
       }
 
-      this.loadingShow()
-
       if (options === undefined || !is(options)) {
         const page = this.parsePageToFetch()
         options = {
-          pagination: { ...this.pagination, page: page }
+          pagination: {
+            ...this.pagination,
+            page: page
+          }
         }
       }
 
@@ -81,18 +93,27 @@ export default {
         raw: raw
       }
 
-      this.triggerHook('request:records', { parameters, filters: this.filters })
-        .then(this.successFetchRecords)
-        .catch(this.errorFetchRecords)
+      return {
+        parameters,
+        filters: this.filters
+      }
     },
     /**
-     * @return {number}
+     * @param {Object} options
      */
-    parsePageToFetch () {
-      if (!this.embed) {
-        return this.$route.query.page ? Number(this.$route.query.page) : 1
+    fetchRecords (options = {}) {
+      this.loadingShow()
+
+      const context = this.fetchContext(options)
+
+      try {
+        this.triggerHook('request:records', context)
+          .then(this.successFetchRecords)
+          .catch(this.errorFetchRecords)
+      } catch (e) {
+        this.loadingHide()
+        this.$error.notify(e)
       }
-      return this.pagination.page
     },
     /**
      * @param {Object} response
@@ -133,6 +154,62 @@ export default {
       this.loadingHide()
 
       this.data = []
+    },
+    /**
+     * @param {Object} options
+     */
+    fetchDownload (options = {}) {
+      this.loadingShow()
+
+      const context = this.fetchContext(options)
+      const labels = this.columns.reduce((accumulator, column) => {
+        if (column.field) {
+          accumulator[column.field] = column.label
+        }
+        return accumulator
+      }, {})
+      context.parameters.raw = { labels }
+
+      try {
+        this.triggerHook('request:download', context)
+          .then(this.successFetchDownload)
+          .catch(this.errorFetchDownload)
+      } catch (e) {
+        this.loadingHide()
+        this.$error.notify(e)
+      }
+    },
+    /**
+     * @param {Object} response
+     */
+    successFetchDownload (response) {
+      this.loadingHide()
+
+      const context = response.headers['context']
+      let fileName = 'content.csv'
+      if (typeof context === 'string') {
+        fileName = context
+      }
+
+      const status = exportFile(fileName, response.data, response.type)
+      if (status !== true) {
+        this.$q.notify({
+          message: '',
+          color: 'negative',
+          icon: 'warning'
+        })
+      }
+
+      if (!this.triggerHook) {
+        return
+      }
+      this.triggerHook('fetch:download')
+    },
+    /**
+     * // @param {Object} error
+     */
+    errorFetchDownload (/* error */) {
+      this.loadingHide()
     },
     /**
      */

@@ -59,6 +59,21 @@ export default class ConfigureComponent {
   }
 
   /**
+   * Install hook to handle the data event fetchDownload
+   * The hook 'request:download' is triggered when component needs download the table data
+   */
+  configureRequestDownload () {
+    const schema = this
+
+    this.addHook('request:download', function ({ parameters, filters }) {
+      if (!schema.service) {
+        return reject({})
+      }
+      return schema.$service().download(parameters, filters)
+    })
+  }
+
+  /**
    * Install hook to handle the data event fetchRecord
    * The hook 'request:record' is triggered when component need a record of entity
    */
