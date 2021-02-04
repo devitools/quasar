@@ -3,7 +3,9 @@
     class="AppKeyboardFloat"
     :class="{ 'AppKeyboardFloat--visible': visible }"
   >
-    <div class="AppKeyboardFloat__display">{{ value }}</div>
+    <div class="AppKeyboardFloat__display">
+      {{ value }}
+    </div>
     <AppKeyboard
       :value="value"
       @input="$emit('input', $event)"
