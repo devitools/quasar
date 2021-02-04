@@ -1,7 +1,7 @@
 import Basic from './Basic'
 
 import { Pagination } from '../../Agnostic/Helper/interfaces'
-import { get, is, serialize, unSerialize, withoutSeparator } from '../../Util/general'
+import { get, is, promisify, serialize, unSerialize, withoutSeparator } from '../../Util/general'
 
 import { filterKey, searchKey } from 'src/settings/schema'
 import { parseRestRecords } from 'src/settings/rest'
@@ -169,5 +169,33 @@ export default abstract class Search extends Basic {
       }
     }
     return false
+  }
+
+  /**
+   * @param {Record<string, string | number>} parameters
+   * @param {Array<string>} [filters] = []
+   * @return {Promise<unknown>}
+   */
+  download (parameters: Record<string, unknown>, filters?: string[]): Promise<unknown> {
+    // paginate (parameters, filters, trash = false) {
+    const { pagination, [filterKey]: filter, [searchKey]: where, raw } = parameters
+
+    const sortBy = get(pagination, 'sortBy')
+    const descending = get(pagination, 'descending')
+
+    let sort
+    if (sortBy) {
+      const direction = descending ? 'desc' : 'asc'
+      sort = `${sortBy}.${direction}`
+    }
+
+    if ($store.getters['app/getOffline'] || this.offline) {
+      return promisify({}, 1)
+    }
+
+    const queryString = this.searchQueryString({ sort, filter, where, raw }, '&')
+    const path = `${this.getResource()}/download/csv`
+    const config = { responseType: 'blob', notExtractData: true }
+    return this.get(`${path}?${queryString}`, config)
   }
 }
