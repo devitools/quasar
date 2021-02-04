@@ -54,7 +54,8 @@ export default {
         }
         this[recordName][key] = value
       })
-      this.fetching = false
+      const handler = () => (this.fetching = false)
+      window.setTimeout(handler, 500)
 
       if (!this.triggerHook) {
         return

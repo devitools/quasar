@@ -185,7 +185,7 @@ export default {
     receiveInput ({ field, value }) {
       this.record[field] = value
 
-      if (!this.builtin && this.settings.useModified) {
+      if (!this.builtin && this.settings.useModified && !this.fetching) {
         if ($emporium.state.debugging) {
           this.$log('~> $emporium.state.debugging', { field, value })
         }
