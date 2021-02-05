@@ -78,6 +78,10 @@ export default {
     label: 'Atualizar',
     tooltip: 'Atualiza os registros carregados na tela'
   },
+  export: {
+    label: 'Download',
+    tooltip: 'Faz o download dos registros carregados na tela'
+  },
   sortClear: {
     noSort: 'A ordenação não está ativa para ser reiniciada',
     tooltip: 'Remove a ordenação aplicada à tela'

@@ -85,6 +85,10 @@ export default {
     label: 'Update',
     tooltip: 'Update loaded records on screen'
   },
+  export: {
+    label: 'Download',
+    tooltip: 'Download the data of the loaded records on screen'
+  },
   sortClear: {
     noSort: 'Sorting is not active to be restarted',
     tooltip: 'Remove sort applied to canvas'
