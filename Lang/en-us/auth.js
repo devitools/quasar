@@ -4,7 +4,7 @@
 export default {
   signIn: {
     title: 'Welcome!',
-    username: 'Email',
+    username: 'Username',
     password: 'Password',
     button: 'Sign In',
     error: 'Incorrect username or password',
