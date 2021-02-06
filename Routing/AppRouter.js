@@ -1,6 +1,6 @@
 // noinspection NpmUsedModulesInstalled
 import VueRouter from 'vue-router'
-import { group, redirect, resource, route } from '../Util/routing'
+import { group, provide, redirect, route } from '../Util/routing'
 import AppRouterGroup from './AppRouterGroup'
 
 const originalPush = VueRouter.prototype.push
@@ -80,7 +80,7 @@ export default class AppRouter extends VueRouter {
    * @param {string|Record<string|unknown>} source
    * @param {function} component
    * @param {Object} [options]
-   * @returns {AppRouterGroup}
+   * @return {this}
    */
   route (source, component, options = {}) {
     const { name } = options
@@ -91,7 +91,7 @@ export default class AppRouter extends VueRouter {
   /**
    * @param {string} source
    * @param {string} target
-   * @returns {AppRouter}
+   * @returns {this}
    */
   redirect (source, target) {
     this.routes([redirect(source, target)])
@@ -99,17 +99,28 @@ export default class AppRouter extends VueRouter {
   }
 
   /**
-   * @param {string|Object} route
+   * @deprecated use provide instead resource
+   *
+   * @param {string|Object} settings
    * @param {Object[]} children
-   * @returns {AppRouter}
+   * @return {this}
    */
-  resource (route, children = []) {
-    return this.routes([resource(route, children)])
+  resource (settings, children = []) {
+    return this.provide(settings, children)
+  }
+
+  /**
+   * @param {string|Object} settings
+   * @param {Object[]} children
+   * @return {this}
+   */
+  provide (settings, children = []) {
+    return this.routes([provide(settings, children)])
   }
 
   /**
    * @param {RouteConfig[]} routes
-   * @returns {AppRouter}
+   * @returns {this}
    */
   routes (routes) {
     this.addRoutes(routes)
@@ -121,7 +132,7 @@ export default class AppRouter extends VueRouter {
    * @param {function} component
    * @param {function(AppRouterGroup, string):void} handler called when done
    * @param {Object} meta
-   * @returns {AppRouter}
+   * @returns {this}
    */
   group (path, component, handler, meta = {}) {
     const appRouterGroup = AppRouterGroup.build()

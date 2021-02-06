@@ -1,5 +1,5 @@
 // noinspection NpmUsedModulesInstalled
-import { group, resource, redirect, route } from '../Util/routing'
+import { group, provide, redirect, route } from '../Util/routing'
 
 /**
  * @class {AppRouterGroup}
@@ -44,12 +44,23 @@ export default class AppRouterGroup {
   }
 
   /**
+   * @deprecated use provide instead resource
+   *
    * @param {string|Object} settings
    * @param {Object[]} children
    * @returns {AppRouterGroup}
    */
   resource (settings, children = []) {
-    return this.routes([resource(settings, children)])
+    return this.provide(settings, children)
+  }
+
+  /**
+   * @param {string|Object} settings
+   * @param {Object[]} children
+   * @returns {AppRouterGroup}
+   */
+  provide (settings, children = []) {
+    return this.routes([provide(settings, children)])
   }
 
   /**

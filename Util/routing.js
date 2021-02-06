@@ -3,7 +3,7 @@ import { primaryKey, resourceRoutes } from 'src/settings/schema'
 /**
  * @param {string} path
  * @param {string} redirect
- * @returns {RouteConfig}
+ * @return {RouteConfig}
  */
 export const redirect = (path, redirect) => {
   return { path, redirect }
@@ -15,7 +15,7 @@ export const redirect = (path, redirect) => {
  * @param {string} [name]
  * @param {Object} [meta]
  * @param {Object|boolean|function} props
- * @returns {RouteConfig}
+ * @return {RouteConfig}
  */
 export const route = (
   source,
@@ -42,7 +42,7 @@ export const route = (
  * @param {function} component
  * @param {Array} [children]
  * @param {Object} [meta]
- * @returns {RouteConfig}
+ * @return {RouteConfig}
  */
 export const group = (
   path,
@@ -59,7 +59,7 @@ export const group = (
  * @param {function} table
  * @param {function} form
  * @param {Object} [options]
- * @returns {Array<RouteConfig>}
+ * @return {RouteConfig[]}
  */
 export const crud = (
   domain,
@@ -89,11 +89,22 @@ export const crud = (
 }
 
 /**
+ * @deprecated use provide instead resource
+ *
  * @param {string|Object} settings
  * @param {Object[]} children
  * @return {RouteConfig}
  */
 export const resource = (settings, children = []) => {
+  return provide(settings, children)
+}
+
+/**
+ * @param {string|Object} settings
+ * @param {Object[]} children
+ * @return {RouteConfig}
+ */
+export const provide = (settings, children = []) => {
   const path = settings.path
   const domain = settings.domain
   const table = settings.table
