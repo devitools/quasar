@@ -46,8 +46,8 @@
 
 <script>
 import { QBtn, QDialog } from 'quasar'
-import AppKeyboard from '@devitools/Components/Keyboard/AppKeyboard'
-import { currencyFormatter } from '@devitools/Util/formatter'
+import AppKeyboard from './AppKeyboard'
+import { currencyFormatter } from '../../Util/formatter'
 
 import { DEFAULT_CURRENCY } from 'src/settings/components'
 
