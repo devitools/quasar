@@ -23,10 +23,8 @@ abstract class SchemaBuiltin extends Schema {
   bootstrap ($component?: SchemaForm | SchemaTable) {
     this.fieldAsPrimaryKey()
 
-    this.configureActionsSchemaEmbed()
+    this.configureActionsSchemaBuiltin()
     this.configureComponentInitialization()
-    this.configureRequestRecords()
-    this.configureRequestRecord()
   }
 
   /**

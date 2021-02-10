@@ -7,7 +7,7 @@ import { INTERNAL_ATTRS } from 'src/settings/action'
 export default class ConfigureActionsSchemaBuiltin {
   /**
    */
-  configureActionsSchemaEmbed () {
+  configureActionsSchemaBuiltin () {
     this.addAction('builtinAdd')
       .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_INDEX])
       .actionPositions([POSITIONS.POSITION_TABLE_TOP])

@@ -102,9 +102,12 @@ export default {
      * @param {Object} options
      */
     fetchRecords (options = {}) {
-      this.loadingShow()
-
       const context = this.fetchContext(options)
+      if (!context) {
+        return
+      }
+
+      this.loadingShow()
 
       try {
         this.triggerHook('request:records', context)
