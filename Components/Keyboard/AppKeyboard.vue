@@ -20,12 +20,24 @@ export default {
   /**
    */
   props: {
+    value: {
+      type: [String, Number],
+      default: undefined
+    },
     numpad: {
       type: Boolean,
       default: false
     },
-    value: {
-      type: [String, Number],
+    layout: {
+      type: Array,
+      default: undefined
+    },
+    currency: {
+      type: Array,
+      default: undefined
+    },
+    decimal: {
+      type: Array,
       default: undefined
     }
   },
@@ -47,6 +59,7 @@ export default {
       let layoutName = 'default'
 
       const layout = {
+        /*
         default: [
           'Q W E R T Y U I O P',
           'A S D F G H J K L {bksp}',
@@ -61,20 +74,33 @@ export default {
           '< > \\ / ( ) { } {lock} {numeric}',
           '* http https :// {space}'
         ],
+        */
+        default: [
+          'Q W E R T Y U I O P',
+          'A S D F G H J K L {bksp}',
+          'Z X C V B N M Ç {numeric} {lock}',
+          '{tab} . , {space} ? {enter}'
+        ],
+        shift: [
+          'q w e r t y u i o p',
+          'a s d f g h j k l {bksp}',
+          'z x c v b n m ç {numeric} {lock}',
+          '{tab} @ ; {space} ! {enter}'
+        ],
         numbers: [
           '1 2 3 4 5 {clear}',
           '6 7 8 9 0 {bksp}',
-          '< > \\ / ( ) { } {enter}',
-          '{tab} . , ! ? ; & % {lock} {numeric}',
-          '+ - $ @ .com {space}'
+          '< > \\ / ( ) { } {numeric} {lock}',
+          '{tab} + - {space} # {enter}'
         ],
         numpad: [
           '1 2 3',
           '4 5 6',
           '7 8 9',
-          '{bksp} 0 {enter}',
-          '. , {clear}'
-        ]
+          '{bksp} 0 {clear}',
+          '{enter}'
+        ],
+        custom: this.layout
       }
 
       const display = {
@@ -88,6 +114,10 @@ export default {
       }
       if (this.numpad) {
         layoutName = 'numpad'
+      }
+
+      if (this.layout !== undefined) {
+        layoutName = 'custom'
       }
       const options = {
         onChange: this.onChange,
@@ -390,8 +420,8 @@ export default {
         }
 
         &[data-skbtn="{space}"] {
-          min-width: 450px !important;
-          max-width: 450px !important;
+          min-width: 380px !important;
+          max-width: 380px !important;
         }
 
         &[data-skbtn="A"],
@@ -416,7 +446,7 @@ export default {
         .hg-button {
           font-size: 2.1em;
           height: 90px !important;
-          max-width: 90px !important;
+          max-width: 90px;
           min-width: 90px !important;
           background: #ffffff !important;
 
@@ -427,6 +457,7 @@ export default {
           &.hg-button-enter {
             background: #007aff !important;
             color: #ffffff;
+            max-width: unset;
           }
         }
       }
