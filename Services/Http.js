@@ -59,8 +59,8 @@ export default class Http {
 
   /**
    * @param {string} url
-   * @param {string | number | Record<string, unknown> | FormData} data
-   * @param {Record<string, unknown>} config
+   * @param {FormData} data
+   * @param {Record<string, commander.ParseOptionsResult.unknown>|undefined} config
    * @returns {Promise<*>}
    */
   post (url = '', data = {}, config = {}) {

@@ -7,6 +7,7 @@ import { format } from '../../Util/currency'
 import { booleanFormatter, dateFormatter, optionFormatter, optionsFormatter } from '../../Util/formatter'
 import { fieldIsSelectFilter, fieldIsSelectNewValue, fieldIsSelectWatch } from './Component/select'
 import { fieldIsEmbedWatch } from './Component/embed'
+import { Component, Payload } from '../../Agnostic/Helper/interfaces'
 import Skeleton from '../Skeleton'
 
 /**
@@ -366,6 +367,36 @@ export default abstract class FieldIs extends Base {
    */
   fieldIsFile (attrs = {}) {
     this.setComponent('file', attrs, 'file')
+    return this
+  }
+
+  /**
+   * @param {Record<string, unknown>} attrs
+   * @returns {Schema}
+   */
+  fieldIsFileAsync (this: Schema, attrs: Record<string, unknown> = {}) {
+    this.setComponent('file', attrs, 'file')
+    const schema = this
+    let extract: Function = attrs.extract as Function
+    if (!extract) {
+      extract = (response: unknown) => response
+    }
+    let aggregate: Function = attrs.aggregate as Function
+    if (!aggregate) {
+      aggregate = function (data: unknown) {
+        return data
+      }
+    }
+    const name = this.__currentField
+    this.setOn('file-selected', function (this: Component, payload: Payload) {
+      const $event = payload.$event as Blob
+      const data = { file: $event }
+      schema.$service().upload(aggregate.call(this, data))
+        .then((response) => {
+          const value = extract(response)
+          this.$getField(name).$setValue(value)
+        })
+    })
     return this
   }
 

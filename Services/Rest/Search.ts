@@ -19,8 +19,7 @@ export default abstract class Search extends Basic {
    * @return {Promise<Pagination>}
    */
   paginate (parameters: Record<string, unknown>, filters?: string[], trash?: boolean): Promise<Pagination> {
-    // paginate (parameters, filters, trash = false) {
-    const { pagination, [filterKey]: filter, [searchKey]: where, raw } = parameters
+    const { pagination, [filterKey]: filter, [searchKey]: where, raw } = parameters ?? {}
 
     const size = get(pagination, 'rowsPerPage', this.size)
     const sortBy = get(pagination, 'sortBy')
@@ -46,7 +45,7 @@ export default abstract class Search extends Basic {
    * @return {Promise<Pagination>}
    */
   protected paginateParser (parameters: Record<string, number | string | boolean | unknown>) {
-    const { page, size, sortBy, descending, sort, filter, where, raw, trash } = parameters
+    const { page, size, sortBy, descending, sort, filter, where, raw, trash } = parameters ?? {}
 
     const parse = parseRestRecords({ rowsPerPage: size, sortBy, descending, page })
     return this
@@ -72,7 +71,7 @@ export default abstract class Search extends Basic {
    */
   searchQueryString (parameters: Record<string, unknown> = {}, separator: string) {
     const elements = []
-    const { raw, page, size, sort, filter, where, trash } = parameters
+    const { raw, page, size, sort, filter, where, trash } = parameters ?? {}
     if (is(page)) {
       elements.push(`page=${page}`)
     }
@@ -105,7 +104,7 @@ export default abstract class Search extends Basic {
     const executor = (resolve: Function) => {
       const search = () => {
         // sort, raw, trash
-        const { page, size: rowsPerPage, where, filter } = parameters
+        const { page, size: rowsPerPage, where, filter } = parameters ?? {}
 
         const records = this
           .getOfflineRecords()
@@ -177,8 +176,7 @@ export default abstract class Search extends Basic {
    * @return {Promise<unknown>}
    */
   download (parameters: Record<string, unknown>, filters?: string[]): Promise<unknown> {
-    // paginate (parameters, filters, trash = false) {
-    const { pagination, [filterKey]: filter, [searchKey]: where, raw } = parameters
+    const { pagination, [filterKey]: filter, [searchKey]: where, raw } = parameters ?? {}
 
     const sortBy = get(pagination, 'sortBy')
     const descending = get(pagination, 'descending')
