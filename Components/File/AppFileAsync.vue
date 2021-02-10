@@ -25,7 +25,7 @@
         :disabled="locked"
         color="negative"
         icon="delete"
-        @click="$emit('input', undefined)"
+        @click="$emit('input', empty)"
         round
         flat
       />
@@ -70,6 +70,10 @@ export default {
   /**
    */
   props: {
+    empty: {
+      type: [Number, String],
+      default: ''
+    },
     accept: {
       type: String,
       default: 'image/*'
