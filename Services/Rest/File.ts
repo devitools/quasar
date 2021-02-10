@@ -9,7 +9,7 @@ export default abstract class File extends Basic {
    * @param {Record<string, unknown>} config
    * @returns {Promise}
    */
-  upload (data: Record<string, unknown>, config: Record<string, unknown> = {}) {
+  send (data: Record<string, unknown>, config: Record<string, unknown> = {}) {
     const file = data.blob as Blob
     const formData = new FormData()
     formData.append('file', file)
@@ -21,7 +21,7 @@ export default abstract class File extends Basic {
    * @param {Record<string, unknown>} config
    * @returns {Promise}
    */
-  download (name: string, config: Record<string, unknown> = {}) {
+  receive (name: string, config: Record<string, unknown> = {}) {
     return this.get(`/statics/download/${name}`, config)
   }
 }

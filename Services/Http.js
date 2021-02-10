@@ -59,8 +59,8 @@ export default class Http {
 
   /**
    * @param {string} url
-   * @param {FormData} data
-   * @param {Record<string, commander.ParseOptionsResult.unknown>|undefined} config
+   * @param {string | number | Record<string, unknown> | FormData} data
+   * @param {Record<string, unknown>|undefined} config
    * @returns {Promise<*>}
    */
   post (url = '', data = {}, config = {}) {
@@ -168,8 +168,8 @@ export default class Http {
   }
 
   /**
-   * @param {Record<string, unknown>} record
-   * @returns {Record<string, unknown>}
+   * @param {string | number | Record<string, unknown> | FormData} record
+   * @returns {string | number | Record<string, unknown> | FormData}
    */
   parseData (record) {
     if (is(this.__fixedValue)) {

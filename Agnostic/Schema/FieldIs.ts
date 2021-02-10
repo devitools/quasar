@@ -391,7 +391,7 @@ export default abstract class FieldIs extends Base {
     this.setOn('file-selected', function (this: Component, payload: Payload) {
       const $event = payload.$event as Blob
       const data = { file: $event }
-      schema.$service().upload(aggregate.call(this, data))
+      schema.$service().send(aggregate.call(this, data))
         .then((response) => {
           const value = extract(response)
           this.$getField(name).$setValue(value)
