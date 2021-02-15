@@ -30,7 +30,7 @@ export default {
         visibleColumns = read(`${this.schema}:visible-columns`, true)
       }
       if (!visibleColumns) {
-        visibleColumns = this.columns.filter(column => !column.hidden).map(column => column.name)
+        visibleColumns = this.columns.filter((column) => !column.hidden).map((column) => column.name)
       }
       this.visibleColumns = visibleColumns
     },
@@ -40,6 +40,9 @@ export default {
      * @return {boolean}
      */
     columnsFilter (field, ignore) {
+      if (field?.attrs?.separator) {
+        return false
+      }
       const scopes = field?.scopes ?? []
       if (!scopes.includes(this.scope)) {
         return false

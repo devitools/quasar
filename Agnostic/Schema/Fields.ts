@@ -193,12 +193,14 @@ export default abstract class Fields extends Base {
     const name = `separators.${field}`
     this.__currentField = name
 
+    const separator = true
+
     const schema = this.$self()
     const label = this.$lang(`domains.${schema.domain}.${name}`)
 
     this.addField(name)
       .setIs('AppSeparator')
-      .fieldAppendAttrs({ label })
+      .fieldAppendAttrs({ label, separator })
       .fieldAvoid()
 
     return this
