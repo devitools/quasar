@@ -127,6 +127,10 @@ export default {
         display: display
       }
       this.$keyboard = new Keyboard(this.$refs.keyboard, options)
+
+      if (this.value) {
+        this.$keyboard.setInput(this.value)
+      }
     },
     /**
      * @param {string} input
