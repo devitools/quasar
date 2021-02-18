@@ -5,6 +5,7 @@
         :domain="domain"
         :fields="fields"
         :readonly="readonly"
+        :scope="scope"
       />
 
       <template v-if="length > 0">

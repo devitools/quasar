@@ -16,6 +16,8 @@
 </template>
 
 <script type="text/javascript">
+import { SCOPES } from '@devitools/Agnostic/enum'
+
 export default {
   /**
    */
@@ -34,6 +36,10 @@ export default {
     readonly: {
       type: Boolean,
       required: false
+    },
+    scope: {
+      type: String,
+      default: () => SCOPES.SCOPE_ADD
     }
   },
   /**
@@ -53,22 +59,23 @@ export default {
         field.$layout.formWidth ? `width-${field.$layout.formWidth}` : 'width-100',
         `$key-${field.$key}`
       ]
-    }
-  },
-  /**
-   */
-  watch: {
-    fields: {
-      immediate: true,
-      handler (fields) {
-        const components = Object.values(fields()).filter((field) => {
-          if (field.hasOwnProperty('$visible')) {
-            return field.$visible.call(this)
-          }
-          return !field.$layout.formHidden
-        })
+    },
+    /**
+     */
+    updateComponents () {
+      const components = Object.values(this.fields()).filter((field) => {
+        if (field.hasOwnProperty('$visible')) {
+          return field.$visible.call(this)
+        }
 
-        this.components = components.map((component) => {
+        if (!field.scopes.includes(this.scope)) {
+          return false
+        }
+        return !field.$layout.formHidden
+      })
+
+      this.components = components
+        .map((component) => {
           return {
             $key: component.$key,
             $class: this.generateClassNames(component),
@@ -78,6 +85,22 @@ export default {
             ])
           }
         })
+    }
+  },
+  /**
+   */
+  watch: {
+    fields: {
+      immediate: true,
+      deep: true,
+      handler () {
+        this.updateComponents()
+      }
+    },
+    scope: {
+      immediate: true,
+      handler () {
+        this.updateComponents()
       }
     }
   }

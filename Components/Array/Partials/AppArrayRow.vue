@@ -5,15 +5,12 @@
   >
     <template v-if="editable || fluent">
       <div class="AppArrayForm__form__inline field width-100">
+        <!--suppress RequiredAttributes -->
         <AppForm
           ref="form"
           v-bind="bind"
-          :scope="scope"
           v-model="record"
           @input="fluentRow($event)"
-          :builtin="true"
-          :debugger-allowed="false"
-          :filler-allowed="false"
         />
         <div
           v-if="!fluent"
@@ -184,10 +181,14 @@ export default {
      */
     bind () {
       return {
+        builtin: true,
+        'debugger-allowed': false,
         domain: this.domain,
         fields: this.fields,
+        'filler-allowed': false,
         hooks: this.hooks,
-        primaryKey: this.primaryKey
+        primaryKey: this.primaryKey,
+        scope: this.scope
       }
     },
     /**
@@ -289,6 +290,24 @@ export default {
         classNames.push('text-uppercase')
       }
       return classNames
+    },
+    /**
+     */
+    updateComponents () {
+      this.components = Object.values(this.fields())
+        .filter((field) => {
+          if (field.hasOwnProperty('$visible')) {
+            return field.$visible.call(this)
+          }
+          if (!field.scopes.includes(this.scope)) {
+            return false
+          }
+          return !field.$layout.formHidden
+        })
+        .map((component) => {
+          const $class = this.generateClassNames(component, true)
+          return { ...component, $class }
+        })
     }
   },
   /**
@@ -305,18 +324,15 @@ export default {
     },
     fields: {
       immediate: true,
-      handler (fields) {
-        this.components = Object.values(fields())
-          .filter((field) => {
-            if (field.hasOwnProperty('$visible')) {
-              return field.$visible.call(this)
-            }
-            return !field.$layout.formHidden
-          })
-          .map((component) => {
-            const $class = this.generateClassNames(component, true)
-            return { ...component, $class }
-          })
+      deep: true,
+      handler () {
+        this.updateComponents()
+      }
+    },
+    scope: {
+      immediate: true,
+      handler () {
+        this.updateComponents()
       }
     }
   }
