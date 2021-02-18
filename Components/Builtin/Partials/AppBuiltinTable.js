@@ -24,6 +24,10 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    },
+    headless: {
+      type: Boolean,
+      default: false
     }
   },
   /**
@@ -50,7 +54,7 @@ export default {
      * @returns {*}
      */
     renderTableSlots (h) {
-      if (this.readonly) {
+      if (this.readonly || this.headless) {
         return {
           /** @counter */
           [`body-cell-${counter.name}`]: (props) => {

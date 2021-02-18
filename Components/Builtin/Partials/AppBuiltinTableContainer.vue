@@ -51,6 +51,10 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    },
+    headless: {
+      type: Boolean,
+      default: false
     }
   },
   /**
@@ -73,6 +77,7 @@ export default {
      */
     bind () {
       return {
+        headless: this.headless,
         readonly: this.readonly,
         actions: this.$props.actions || this.$attrs.actions,
         builtin: this.$props.builtin || this.$attrs.builtin,
