@@ -15,7 +15,9 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionNoMinWidth()
       .actionAttrsAppendAttrs(INTERNAL_ATTRS)
       .actionOn('click', function () {
-        this.actionBuiltinAdd()
+        this.item = this.$util.clone(this.defaults)
+        this.scope = SCOPES_BUILTIN.SCOPE_BUILTIN_ADD
+        this.formActive = true
       })
 
     this.addAction('builtinCancel')
@@ -26,7 +28,8 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionAttrsAppendAttrs(INTERNAL_ATTRS)
       .actionFloatLeft()
       .actionOn('click', function () {
-        this.actionBuiltinCancel()
+        this.item = {}
+        this.formActive = false
       })
 
     this.addAction('builtinBack')
@@ -36,7 +39,7 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionNoMinWidth()
       .actionAttrsAppendAttrs(INTERNAL_ATTRS)
       .actionOn('click', function () {
-        this.actionBuiltinBack()
+        this.formActive = false
       })
 
     this.addAction('builtinApply')
@@ -47,7 +50,31 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionAttrsAppendAttrs(INTERNAL_ATTRS)
       .actionFloatLeft()
       .actionOn('click', function () {
-        this.actionBuiltinApply()
+        if (!this.$refs.form.isValidForm()) {
+          const message = this.$lang([
+            'agnostic.components.builtin.actions.builtinApply.validation',
+            `domains.${this.domain}.components.builtin.actions.builtinApply.validation`
+          ])
+          this.$message.error(message)
+          return false
+        }
+
+        const record = this.$util.clone(this.item)
+
+        if (this.scope === SCOPES_BUILTIN.SCOPE_BUILTIN_ADD) {
+          this.updateValue([...this.items, record])
+        }
+
+        record.__id = this.__currentItem
+
+        if (this.scope === SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT) {
+          const index = this.getCurrentIndex(record)
+          this.items.splice(index, 1, record)
+          this.updateValue(this.items)
+        }
+
+        this.formActive = false
+        window.setTimeout(() => { this.item = {} }, 100)
       })
 
     this.addAction('builtinView')
@@ -58,7 +85,7 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionAttrsAppendAttrs(INTERNAL_ATTRS)
       .actionOn('click', function (paramaters) {
         const { context: { record } } = paramaters
-        this.actionBuiltinView(record)
+        this.setItem(record, SCOPES_BUILTIN.SCOPE_BUILTIN_VIEW)
       })
 
     this.addAction('builtinEdit')
@@ -69,7 +96,7 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionAttrsAppendAttrs(INTERNAL_ATTRS)
       .actionOn('click', function (paramaters) {
         const { context: { record } } = paramaters
-        this.actionBuiltinEdit(record)
+        this.setItem(this.$util.clone(record), SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT)
       })
 
     this.addAction('builtinDestroy')
@@ -79,9 +106,27 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionNoMinWidth()
       .actionAttrsAppendAttrs(INTERNAL_ATTRS)
       .actionFloatRight()
-      .actionOn('click', function (paramaters) {
+      .actionOn('click', async function (paramaters) {
         const { context: { record } } = paramaters
-        this.actionBuiltinDestroy(record)
+        const message = this.$lang([
+          'agnostic.components.builtin.actions.builtinDestroy.message',
+          `domains.${this.domain}.components.builtin.actions.builtinDestroy.message`
+        ])
+        const title = this.$lang([
+          'agnostic.components.builtin.actions.builtinDestroy.title',
+          `domains.${this.domain}.components.builtin.actions.builtinDestroy.title`
+        ])
+        try {
+          await this.$confirm(message, { title })
+        } catch (e) {
+          return
+        }
+
+        this.formActive = false
+
+        const index = this.getCurrentIndex(record)
+        this.items.splice(index, 1)
+        this.updateValue(this.items)
       })
   }
 }

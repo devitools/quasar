@@ -12,10 +12,7 @@
         :active.sync="formActive"
         :scope="scope"
         :item.sync="item"
-        @actionCancel="actionCancel"
-        @actionBack="actionBack"
-        @actionApply="actionApply"
-        @actionDestroy="actionDestroy"
+        @action="resolveAction"
         @broadcast:action="$emit('broadcast:action', $event)"
       />
     </div>
@@ -28,10 +25,7 @@
       <AppBuiltinTableContainer
         v-bind="attributes"
         :items="items"
-        @actionBuiltinAdd="actionAdd"
-        @actionEdit="actionEdit"
-        @actionView="actionView"
-        @actionDestroy="actionDestroy"
+        @action="resolveAction"
         @broadcast:action="$emit('broadcast:action', $event)"
       />
     </div>

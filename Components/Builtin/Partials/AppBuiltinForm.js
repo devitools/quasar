@@ -52,27 +52,6 @@ export default {
      */
     renderFormBodyStyles () {
       return { height: `calc(${this.height} - ${APP_BUILT_IN_FORM_HEIGHT_COMPENSATION})` }
-    },
-    /**
-     */
-    actionBuiltinBack () {
-      this.$emit('actionBuiltinBack')
-    },
-    /**
-     */
-    actionBuiltinCancel () {
-      this.$emit('actionBuiltinCancel')
-    },
-    /**
-     */
-    actionBuiltinApply () {
-      this.$emit('actionBuiltinApply')
-    },
-    /**
-     * @param {Object} record
-     */
-    actionBuiltinDestroy (record) {
-      this.$emit('actionBuiltinDestroy', record)
     }
   },
   watch: {

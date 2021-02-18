@@ -112,29 +112,6 @@ export default {
 
       return h(AppTable, { class: classes, props, attrs, style, scopedSlots, on })
     },
-    /**
-     */
-    actionBuiltinAdd () {
-      this.$emit('actionBuiltinAdd')
-    },
-    /**
-     * @param {Object} record
-     */
-    actionBuiltinEdit (record) {
-      this.$emit('actionBuiltinEdit', record)
-    },
-    /**
-     * @param {Object} record
-     */
-    actionBuiltinView (record) {
-      this.$emit('actionBuiltinView', record)
-    },
-    /**
-     * @param {Object} record
-     */
-    actionBuiltinDestroy (record) {
-      this.$emit('actionBuiltinDestroy', record)
-    }
   },
   /**
    * @param {function} h

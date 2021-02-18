@@ -9,10 +9,7 @@
     :debugger-allowed="false"
     :size="size"
     selection="none"
-    @actionBuiltinAdd="$emit('actionBuiltinAdd')"
-    @actionBuiltinEdit="$emit('actionEdit', $event)"
-    @actionBuiltinView="$emit('actionView', $event)"
-    @actionBuiltinDestroy="$emit('actionDestroy', $event)"
+    @action="$emit('action', $event)"
   />
 </template>
 
