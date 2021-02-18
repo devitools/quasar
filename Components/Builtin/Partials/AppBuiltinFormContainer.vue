@@ -19,10 +19,7 @@
       :builtin="true"
       :debugger-allowed="false"
       @input="$emit('update:item', $event)"
-      @actionBuiltinCancel="$emit('actionCancel')"
-      @actionBuiltinBack="$emit('actionBack')"
-      @actionBuiltinApply="$emit('actionApply')"
-      @actionBuiltinDestroy="$emit('actionDestroy', $event)"
+      @action="$emit('action', $event)"
       @broadcast:action="$emit('broadcast:action', $event)"
     />
   </div>

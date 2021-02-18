@@ -10,6 +10,7 @@
     :size="size"
     selection="none"
     @action="$emit('action', $event)"
+    @broadcast:action="$emit('broadcast:action', $event)"
   />
 </template>
 

@@ -35,7 +35,7 @@
 <script type="text/javascript">
 import { displayKey, primaryKey } from 'src/settings/schema'
 
-import { SCOPES_BUILTIN } from '../../Agnostic/enum'
+import { SCOPES_BUILTIN, scopesBuiltin } from '../../Agnostic/enum'
 
 import Handler from './Mixin/AppBuiltinActionHandler'
 
@@ -97,7 +97,7 @@ export default {
    */
   data () {
     return {
-      scope: SCOPES_BUILTIN.SCOPE_ADD,
+      scope: SCOPES_BUILTIN.SCOPE_BUILTIN_INDEX,
       path: '',
       domain: '',
       table: {},
@@ -145,16 +145,31 @@ export default {
      * @return {Array}
      */
     builtinActions () {
-      const allowed = [
-        'builtinAdd',
-        'builtinBack',
-        'builtinCancel',
-        'builtinApply',
-        'builtinView',
-        'builtinEdit',
-        'builtinDestroy'
-      ]
-      return this.actions().filter((action) => allowed.includes(action.$key))
+      const allowed = scopesBuiltin()
+      const on = (action) => {
+        const reduce = (accumulator, event) => {
+          const handler = function (parameters) {
+            this.$emit('action', {
+              $key: action.$key,
+              event,
+              parameters
+            })
+          }
+          return {
+            ...accumulator,
+            [event]: handler
+          }
+        }
+        return Object.keys(action.on).reduce(reduce, {})
+      }
+
+      return this.actions()
+        .filter((action) => allowed.includes(...action.scopes))
+        .map((action) => {
+          const mapped = { ...action }
+          mapped.on = on(action)
+          return mapped
+        })
     }
   },
   watch: {
@@ -175,6 +190,17 @@ export default {
         this.actions = provide['actions']
         this.hooks = provide['hooks']
         this.watches = provide['watches']
+      }
+    },
+    actions: {
+      immediate: true,
+      handler () {
+        this.listeners = this.actions().reduce((accumulator, action) => {
+          return {
+            ...accumulator,
+            [action.$key]: { ...action.on }
+          }
+        }, {})
       }
     }
   }
@@ -199,6 +225,7 @@ export default {
     overflow: hidden;
     opacity: 1;
     transition: opacity 0.5s;
+
     &.AppBuiltinTable__container--hidden {
       opacity: 0;
     }

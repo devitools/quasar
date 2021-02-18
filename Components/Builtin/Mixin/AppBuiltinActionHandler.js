@@ -20,7 +20,21 @@ export default {
   /**
    */
   methods: {
-    resolveAction ($event) {
+    /**
+     * @param {{$key: string, event: string, parameters: Record<string,unknown>}} config
+     */
+    resolveAction (config) {
+      const {
+        $key,
+        parameters,
+        event
+      } = config
+      const listener = this.listeners[$key] || {}
+      const handler = listener[event]
+      if (typeof handler !== 'function') {
+        return
+      }
+      handler.call(this, parameters)
     },
     /**
      * @param {Object} record
@@ -57,9 +71,15 @@ export default {
         this.items = value.map((item, index) => {
           const __id = item.__id || item[primaryKey] || `${__unique}__${index}`
           if (this.item.__id === __id) {
-            update = { ...this.$util.clone(item), __id }
+            update = {
+              ...this.$util.clone(item),
+              __id
+            }
           }
-          return { ...item, __id }
+          return {
+            ...item,
+            __id
+          }
         })
 
         if (!update) {

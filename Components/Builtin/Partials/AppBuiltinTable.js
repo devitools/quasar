@@ -41,13 +41,15 @@ export default {
         return
       }
 
-      if (!this.readonly) {
+      if (this.readonly) {
         this.buttons = actions.reduce(this.buttonReduce, {})
         return
       }
-      const editable = ['builtinAdd', 'builtinApply', 'builtinEdit', 'builtinDestroy']
-      const filter = (action) => !editable.includes(action.$key)
-      this.buttons = actions.filter(filter).reduce(this.buttonReduce, {})
+
+      const filter = (action) => action.scopes.includes(this.scope)
+      this.buttons = actions
+        .filter(filter)
+        .reduce(this.buttonReduce, {})
     },
     /**
      * @param h
