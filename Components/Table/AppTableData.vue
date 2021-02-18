@@ -204,4 +204,18 @@ export default {
   box-shadow: none;
   border: 1px solid #c2c2c2;
 }
+
+thead {
+  position: sticky;
+  zoom: 1;
+  top: 0;
+  overflow: hidden;
+  height: 40px;
+  z-index: 1000;
+  opacity: 1;
+  color: #4f4f4f;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+  background: linear-gradient(180deg, #f7f7f7 0,#f1f1f1 20%, #ededed 50%, #e0e0e0 100%);
+  text-transform: none;
+}
 </style>
