@@ -45,7 +45,7 @@ export default {
   props: {
     value: {
       type: [Number, String],
-      default: 10
+      default: 0
     },
     min: {
       type: Number,

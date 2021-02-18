@@ -46,12 +46,19 @@ export default {
       this.fetching = true
       this.$payload = this.$util.clone(record)
       const recordName = this.$options.recordName || 'record'
+      const unavailable = Symbol('unavailable')
+
       Object.keys(this[recordName]).forEach((key) => {
-        const value = this.$util.get(record, key)
+        const value = this.$util.get(record, key, unavailable)
+        if (value === unavailable) {
+          return
+        }
+
         if (this.components[key] && this.components[key].$parseInput) {
           this[recordName][key] = this.components[key].$parseInput(value)
           return
         }
+
         this[recordName][key] = value
       })
       const handler = () => (this.fetching = false)
