@@ -24,5 +24,13 @@ export default {
       records[index] = record
       this.updateValue(index, records)
     }
+  },
+  /**
+   */
+  mounted () {
+    if (!this.startNoEmpty || this.records.length) {
+      return
+    }
+    this.addItem()
   }
 }

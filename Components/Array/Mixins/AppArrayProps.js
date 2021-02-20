@@ -52,6 +52,10 @@ export default {
     scope: {
       type: String,
       default: () => SCOPES.SCOPE_ADD
+    },
+    startNoEmpty: {
+      type: Boolean,
+      default: false
     }
   }
 }
