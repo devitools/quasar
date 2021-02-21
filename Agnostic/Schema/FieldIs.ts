@@ -125,7 +125,7 @@ export default abstract class FieldIs extends Base {
    * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
-  fieldIsSelect (this: Skeleton, options: Record<string, unknown>[] = [], attrs: Record<string, unknown> = {}) {
+  fieldIsSelect (options: Record<string, unknown>[] = [], attrs: Record<string, unknown> = {}) {
     const currentField = this.__currentField
 
     if (!options.length) {
@@ -148,6 +148,7 @@ export default abstract class FieldIs extends Base {
 
     this.setOn('filter', fieldIsSelectFilter(currentField))
 
+    // @ts-ignore
     this.addWatch(`record.${currentField}`, fieldIsSelectWatch(currentField), { immediate: true })
 
     const { allowNew } = attrs
