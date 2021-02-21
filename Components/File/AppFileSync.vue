@@ -3,6 +3,11 @@
     ref="file"
     v-bind="bind"
     :value="input"
+    :accept="accept"
+    :multiple="multiple"
+    :max-files="maxFiles"
+    :max-file-size="maxFileSize"
+    :max-total-size="maxTotalSize"
     @input="updateValue"
   >
     <template v-slot:prepend>
@@ -43,6 +48,26 @@ export default {
   /**
    */
   props: {
+    accept: {
+      type: String,
+      default: 'image/*'
+    },
+    multiple: {
+      type: Boolean,
+      default: false
+    },
+    maxFiles: {
+      type: [Number, String],
+      default: 1
+    },
+    maxFileSize: {
+      type: [Number, String],
+      default: undefined
+    },
+    maxTotalSize: {
+      type: [Number, String],
+      default: undefined
+    },
     value: {
       type: [File, FileList, Array, Object, String],
       default: null
