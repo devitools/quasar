@@ -24,11 +24,11 @@ export default class AppRouterGroup {
 
   /**
    * @param {string|Record<string|unknown>} source
-   * @param {function} component
+   * @param {function} [component]
    * @param {Object} [options]
    * @returns {AppRouterGroup}
    */
-  route (source, component, options = {}) {
+  route (source, component = null, options = {}) {
     const { name } = options
     this.routes([route(source, component, name, options)])
     return this
