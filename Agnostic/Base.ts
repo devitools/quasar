@@ -338,6 +338,7 @@ export default abstract class Base {
     const properties = components[component]
     if (!properties) {
       field.is = component
+      Object.assign(field.attrs, attrs)
       return this
     }
 
