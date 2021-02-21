@@ -107,7 +107,7 @@ export default abstract class Fields extends Base {
 
   /**
    * @param {string} group
-   * @returns {Schema}
+   * @returns {this}
    */
   fieldGroup (group: string) {
     const field = this.__currentField
@@ -120,7 +120,7 @@ export default abstract class Fields extends Base {
   /**
    * @deprecated
    * @param {Function} configure
-   * @returns {Schema}
+   * @returns {this}
    */
   fieldConfigure (configure: Function) {
     const name = this.__currentField
@@ -130,15 +130,17 @@ export default abstract class Fields extends Base {
 
   /**
    * @param {string} type
-   * @returns {Schema}
+   * @returns {this}
    */
   fieldType (type: string) {
-    return this.setAttrs({ type })
+    const name = this.__currentField
+    this.__fields[name].$type = type
+    return this
   }
 
   /**
    * @param {Record<string, unknown>} attrs
-   * @returns {Schema}
+   * @returns {this}
    */
   fieldAppendAttrs (attrs: Record<string, unknown>) {
     return this.setAttrs(attrs)
@@ -146,7 +148,7 @@ export default abstract class Fields extends Base {
 
   /**
    * @param {Boolean} primaryKey
-   * @returns {Schema}
+   * @returns {this}
    */
   fieldPrimaryKey (primaryKey = true) {
     const name = this.__currentField
@@ -158,7 +160,7 @@ export default abstract class Fields extends Base {
    * @param {string} event
    * @param {Function} callable
    * @param {boolean} reset
-   * @returns {Schema}
+   * @returns {this}
    */
   fieldOn (event: string, callable: Function, reset = false) {
     return this.setOn(event, callable, reset)
@@ -167,7 +169,7 @@ export default abstract class Fields extends Base {
   /**
    * @param {Function} callable
    * @param {Record<string, unknown>} options
-   * @return {Schema}
+   * @return {this}
    */
   fieldWatch (this: Schema, callable: Function, options: Record<string, unknown> = {}) {
     this.addWatch(`record.${this.__currentField}`, callable, options)
