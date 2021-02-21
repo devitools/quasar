@@ -85,7 +85,10 @@ export const permissionEntry = (view) => {
  * @returns {{level: string, domain: string, namespace: string, icon: string, label: string}[]}
  */
 export const permissionLevels = (domain, just = []) => {
-  const rules = {
+  /**
+   * @type {Object}
+   */
+  let rules = {
     [RULES.LEVEL_INDEX]: permissionLevel(domain, 'dvr', RULES.LEVEL_INDEX),
     [RULES.LEVEL_TRASH]: permissionLevel(domain, 'restore', RULES.LEVEL_TRASH),
     [RULES.LEVEL_ADD]: permissionLevel(domain, 'add', RULES.LEVEL_ADD),
@@ -93,6 +96,13 @@ export const permissionLevels = (domain, just = []) => {
     [RULES.LEVEL_EDIT]: permissionLevel(domain, 'edit', RULES.LEVEL_EDIT),
     [RULES.LEVEL_DESTROY]: permissionLevel(domain, 'delete', RULES.LEVEL_DESTROY)
   }
+  try {
+    const level = require('src/settings/level')
+    rules = level(domain)
+  } catch (ex) {
+    // silent is gold
+  }
+
   const children = Object.values(rules)
 
   if (!just || !just.length) {
