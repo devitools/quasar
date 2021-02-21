@@ -92,3 +92,10 @@ export default {
   }
 }
 </script>
+
+<style>
+i.q-icon-inline {
+  font-size: 1.6rem;
+  color: #767676;
+}
+</style>
