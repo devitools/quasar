@@ -159,6 +159,14 @@ export type Payload = {
 }
 
 /**
+ * @typedef {EventContext}
+ */
+export type EventContext = {
+  $event: unknown
+  context: Context
+}
+
+/**
  * @typedef {Context}
  */
 export type Context = {
