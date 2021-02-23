@@ -25,7 +25,7 @@ export const format = (value, pattern) => {
  * @returns {string}
  */
 export const dateFormatter = (string, output = 'DD/MM/YYYY', format) => {
-  if (string.includes('0000-00-00')) {
+  if (!string || String(string).includes('0000-00-00')) {
     return '-'
   }
   const date = DateTime.fromFormat(string, format)
