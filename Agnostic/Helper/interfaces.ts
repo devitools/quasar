@@ -169,6 +169,15 @@ export type EventContext = {
 }
 
 /**
+ * @typedef {ConfigureContext}
+ */
+export type ConfigureContext = {
+  scope: string
+  position: string
+  context: Context
+}
+
+/**
  * @typedef {Context}
  */
 export type Context = {
