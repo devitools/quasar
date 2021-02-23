@@ -1,5 +1,6 @@
 import { Store } from 'vuex'
 import { QVueGlobals } from 'quasar'
+import Schema from '../Schema'
 
 /**
  * @interface {Provide}
@@ -164,6 +165,7 @@ export type Payload = {
 export type EventContext = {
   $event: unknown
   context: Context
+  schema: Schema
 }
 
 /**
@@ -202,6 +204,7 @@ export type RouteRecord = {
   path: string
   meta: Record<string, unknown>
   query: Record<string, unknown>
+  params: Record<string, unknown>
 }
 
 /**
@@ -217,7 +220,7 @@ export interface Component {
   getActionPath(): string
   getRecord(): Record<string, unknown>
   $browse(target: undefined | number | string | Record<string, unknown>, options?: Record<string, unknown> | boolean): void
-  loadingShow (wait: boolean): void
+  loadingShow (wait?: boolean): void
   loadingHide (): void
   withRecord (context: Context, success: Function, noItems?: Function, tooManySelected?: Function): void
   actionSchemaConfirm (payload: Record<string, unknown>, action: Function, alias: string): void
@@ -249,8 +252,9 @@ export interface Component {
  * @typedef {SchemaForm}
  */
 export interface SchemaForm extends Component {
+  showPlaceholderContent: boolean
   $payload: Record<string, unknown>
-  fetchRecord(): Promise<Record<string, unknown>>
+  fetchRecord(id: string | number): Promise<Record<string, unknown>>
 }
 
 /**

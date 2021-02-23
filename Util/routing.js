@@ -10,7 +10,7 @@ export const redirect = (path, redirect) => {
 }
 
 /**
- * @param {string} source
+ * @param {string | Object} source
  * @param {function} component
  * @param {string} [name]
  * @param {Object} [meta]
