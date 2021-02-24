@@ -1,21 +1,24 @@
 <!--suppress ES6ModulesDependencies -->
 <template>
   <div class="AppBuiltin">
-    <div
-      class="AppBuiltinForm__container"
-      :class="{ 'AppBuiltinForm__container--active': formActive }"
+    <QDialog
+      class="AppBuiltinFormModal__container"
+      v-model="formActive"
+      persistent
     >
-      <AppBuiltinFormContainer
-        ref="form"
-        v-if="formActive"
-        v-bind="attributes"
-        :active.sync="formActive"
-        :scope="scope"
-        :item.sync="item"
-        @action="resolveAction"
-        @broadcast:action="$emit('broadcast:action', $event)"
-      />
-    </div>
+      <div class="AppBuiltinFormModal__container__wrapper">
+        <AppBuiltinFormContainer
+          ref="form"
+          v-if="formActive"
+          v-bind="attributes"
+          :active.sync="formActive"
+          :scope="scope"
+          :item.sync="item"
+          @action="resolveAction"
+          @broadcast:action="$emit('broadcast:action', $event)"
+        />
+      </div>
+    </QDialog>
 
     <div
       class="AppBuiltinTable__container"
@@ -33,6 +36,7 @@
 </template>
 
 <script type="text/javascript">
+import { QDialog } from 'quasar'
 import { displayKey, primaryKey } from 'src/settings/schema'
 
 import { SCOPES_BUILTIN, scopesBuiltin } from '../../Agnostic/enum'
@@ -54,6 +58,7 @@ export default {
   /**
    */
   components: {
+    QDialog,
     AppBuiltinFormContainer,
     AppBuiltinTableContainer
   },
@@ -208,8 +213,8 @@ export default {
 </script>
 
 <style
-  scoped
   lang="stylus"
+  rel="stylesheet/stylus"
 >
 .AppBuiltin {
   border-width: 1px;
@@ -227,7 +232,7 @@ export default {
     transition: opacity 0.5s;
 
     &.AppBuiltinTable__container--hidden {
-      opacity: 0;
+      opacity: 0.8;
     }
   }
 
@@ -250,5 +255,11 @@ export default {
       transform: translateX(0);
     }
   }
+}
+
+.AppBuiltinFormModal__container__wrapper {
+  width: 1024px;
+  max-width: unset !important;
+  max-height: 90vw;
 }
 </style>

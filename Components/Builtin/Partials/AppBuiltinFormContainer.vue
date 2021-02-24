@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { QSpace, QBtn } from 'quasar'
+import { QBtn, QSpace } from 'quasar'
 
 import Props from '../../Schema/Contracts/Props'
 import AppBuiltinForm from './AppBuiltinForm'
@@ -118,7 +118,10 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style
+  lang="stylus"
+  rel="stylesheet/stylus"
+>
 .AppBuiltinFormContainer {
   min-height: 300px;
 
@@ -135,11 +138,13 @@ export default {
     flex-wrap: wrap;
     align-items: center;
     /*background: linear-gradient(180deg, #f7f7f7 0, #f1f1f1 20px, #ecebeb 50px, #e0e0e0 52px);*/
-    background: #dddddd;
-    color: #424242;
+    background: var(--q-color-primary);
+    color: #ffffff;
   }
 
   > .AppBuiltinForm {
+    background: #ffffff;
+
     > .AppBuiltinForm__wrapper {
       min-height: 250px;
 
@@ -150,16 +155,16 @@ export default {
       }
 
       > .app-form-buttons {
-        padding: 4px;
+        padding: 10px;
         border-width: 1px 0 0 0;
         border-style: solid;
-        border-color #ddd
+        border-color #dddddd;
 
         > button {
+          padding: 4px;
           margin: 0 10px 0 0;
           font-size: 0.8rem;
           min-width: 140px;
-          min-height: 36px;
 
           &.button-position-right {
             float: right;

@@ -93,25 +93,32 @@ export default {
       },
       actions: {
         builtinAdd: {
+          label: 'Add',
           tooltip: 'Create a new item in the item list'
         },
         builtinBack: {
+          label: 'Back',
           tooltip: 'Back to the list of items'
         },
         builtinCancel: {
+          label: 'Close',
           tooltip: 'Undo changes and return to the list of items'
         },
         builtinApply: {
+          label: 'Apply',
           tooltip: 'Apply the change to the item list',
           validation: 'Check highlighted fields'
         },
         builtinView: {
+          label: 'View',
           tooltip: 'View this item in the item list'
         },
         builtinEdit: {
+          label: 'Edit',
           tooltip: 'Edit this item in the item list'
         },
         builtinDestroy: {
+          label: 'Delete',
           tooltip: 'Remove this item from the item list',
           title: 'Remove',
           message: 'Do you want to remove this item from the item list?'

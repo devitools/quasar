@@ -1,5 +1,4 @@
 import { POSITIONS, SCOPES_BUILTIN } from '../../../Agnostic/enum'
-import { INTERNAL_ATTRS } from 'src/settings/action'
 
 /**
  * @class {ConfigureActionsSchemaBuiltin}
@@ -12,43 +11,77 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_INDEX])
       .actionPositions([POSITIONS.POSITION_TABLE_TOP])
       .actionIcon('add')
-      .actionNoMinWidth()
-      .actionAttrsAppendAttrs(INTERNAL_ATTRS)
       .actionOn('click', function () {
         this.item = this.$util.clone(this.defaults)
         this.scope = SCOPES_BUILTIN.SCOPE_BUILTIN_ADD
         this.formActive = true
       })
 
+    this.addAction('builtinView')
+      .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_INDEX])
+      .actionPositions([POSITIONS.POSITION_TABLE_CELL])
+      .actionIcon('visibility')
+      .actionOn('click', function (paramaters) {
+        const { context: { record } } = paramaters
+        this.setItem(record, SCOPES_BUILTIN.SCOPE_BUILTIN_VIEW)
+      })
+
+    this.addAction('builtinEdit')
+      .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_INDEX])
+      .actionPositions([POSITIONS.POSITION_TABLE_CELL])
+      .actionIcon('edit')
+      .actionOn('click', function (paramaters) {
+        const { context: { record } } = paramaters
+        this.setItem(this.$util.clone(record), SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT)
+      })
+
     this.addAction('builtinCancel')
-      .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_ADD, SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT])
+      .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_VIEW, SCOPES_BUILTIN.SCOPE_BUILTIN_ADD, SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT])
       .actionPositions([POSITIONS.POSITION_FORM_FOOTER])
       .actionIcon('cancel')
-      .actionNoMinWidth()
-      .actionAttrsAppendAttrs(INTERNAL_ATTRS)
-      .actionFloatLeft()
+      .actionAttrsAppendAttrs({ flat: true })
+      .actionColor('grey-7')
       .actionOn('click', function () {
         this.item = {}
         this.formActive = false
       })
 
-    this.addAction('builtinBack')
-      .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_VIEW])
-      .actionPositions([POSITIONS.POSITION_FORM_FOOTER])
-      .actionIcon('reply')
-      .actionNoMinWidth()
-      .actionAttrsAppendAttrs(INTERNAL_ATTRS)
-      .actionOn('click', function () {
+    this.addAction('builtinDestroy')
+      .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_INDEX, SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT])
+      .actionPositions([POSITIONS.POSITION_TABLE_CELL, POSITIONS.POSITION_FORM_FOOTER])
+      .actionIcon('delete')
+      .actionColor('negative')
+      .actionAttrsAppendAttrs({ flat: true })
+      .actionOn('click', async function (paramaters) {
+        const { context: { record } } = paramaters
+        const message = this.$lang([
+          'agnostic.components.builtin.actions.builtinDestroy.message',
+          `domains.${this.domain}.components.builtin.actions.builtinDestroy.message`
+        ])
+        const title = this.$lang([
+          'agnostic.components.builtin.actions.builtinDestroy.title',
+          `domains.${this.domain}.components.builtin.actions.builtinDestroy.title`
+        ])
+        try {
+          await this.$confirm(message, { title })
+        } catch (e) {
+          return
+        }
+
         this.formActive = false
+
+        const index = this.getCurrentIndex(record)
+        this.items.splice(index, 1)
+        this.updateValue(this.items)
       })
 
     this.addAction('builtinApply')
       .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_ADD, SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT])
       .actionPositions([POSITIONS.POSITION_FORM_FOOTER])
       .actionIcon('done')
-      .actionNoMinWidth()
-      .actionAttrsAppendAttrs(INTERNAL_ATTRS)
-      .actionFloatLeft()
+      .actionColor('primary')
+      .actionAttrsAppendAttrs({ flat: true })
+      .actionFloatRight()
       .actionOn('click', function () {
         if (!this.$refs.form.isValidForm()) {
           const message = this.$lang([
@@ -75,58 +108,6 @@ export default class ConfigureActionsSchemaBuiltin {
 
         this.formActive = false
         window.setTimeout(() => { this.item = {} }, 100)
-      })
-
-    this.addAction('builtinView')
-      .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_INDEX])
-      .actionPositions([POSITIONS.POSITION_TABLE_CELL])
-      .actionIcon('visibility')
-      .actionNoMinWidth()
-      .actionAttrsAppendAttrs(INTERNAL_ATTRS)
-      .actionOn('click', function (paramaters) {
-        const { context: { record } } = paramaters
-        this.setItem(record, SCOPES_BUILTIN.SCOPE_BUILTIN_VIEW)
-      })
-
-    this.addAction('builtinEdit')
-      .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_INDEX])
-      .actionPositions([POSITIONS.POSITION_TABLE_CELL])
-      .actionIcon('edit')
-      .actionNoMinWidth()
-      .actionAttrsAppendAttrs(INTERNAL_ATTRS)
-      .actionOn('click', function (paramaters) {
-        const { context: { record } } = paramaters
-        this.setItem(this.$util.clone(record), SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT)
-      })
-
-    this.addAction('builtinDestroy')
-      .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_INDEX, SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT])
-      .actionPositions([POSITIONS.POSITION_TABLE_CELL, POSITIONS.POSITION_FORM_FOOTER])
-      .actionIcon('delete')
-      .actionNoMinWidth()
-      .actionAttrsAppendAttrs(INTERNAL_ATTRS)
-      .actionFloatRight()
-      .actionOn('click', async function (paramaters) {
-        const { context: { record } } = paramaters
-        const message = this.$lang([
-          'agnostic.components.builtin.actions.builtinDestroy.message',
-          `domains.${this.domain}.components.builtin.actions.builtinDestroy.message`
-        ])
-        const title = this.$lang([
-          'agnostic.components.builtin.actions.builtinDestroy.title',
-          `domains.${this.domain}.components.builtin.actions.builtinDestroy.title`
-        ])
-        try {
-          await this.$confirm(message, { title })
-        } catch (e) {
-          return
-        }
-
-        this.formActive = false
-
-        const index = this.getCurrentIndex(record)
-        this.items.splice(index, 1)
-        this.updateValue(this.items)
       })
   }
 }
