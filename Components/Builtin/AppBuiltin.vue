@@ -134,6 +134,7 @@ export default {
         settings: this.settings,
         primaryKey: this.primaryKey,
         displayKey: this.displayKey,
+        groupType: this.groupType,
         fields: this.fields,
         groups: this.groups,
         actions: this.builtinActions,
@@ -191,6 +192,7 @@ export default {
         this.primaryKey = provide['primaryKey']
         this.displayKey = provide['displayKey']
         this.fields = provide['fields']
+        this.groupType = provide['groupType']
         this.groups = provide['groups']
         this.actions = provide['actions']
         this.hooks = provide['hooks']
