@@ -46,12 +46,6 @@ export default {
      */
     renderFormBodyClassNames () {
       return 'AppBuiltinForm__body'
-    },
-    /**
-     * @return {string|Array|Object}
-     */
-    renderFormBodyStyles () {
-      return { height: `calc(${this.height} - ${APP_BUILT_IN_FORM_HEIGHT_COMPENSATION})` }
     }
   },
   watch: {

@@ -38,11 +38,21 @@ export default {
      * @returns {*}
      */
     getRecord () {
-      const reduce = (accumulator, key) => {
-        accumulator = this.$util.set(accumulator, key, this.record[key])
+      let avoids = []
+      if (typeof this.avoids === 'function') {
+        avoids = this.avoids()
+      }
+
+      const reduce = (accumulator, [key, value]) => {
+        if (avoids.includes(key)) {
+          return accumulator
+        }
+
+        accumulator = this.$util.set(accumulator, key, value)
         return accumulator
       }
-      return Object.keys(this.record).reduce(reduce, this.$util.clone(this.record))
+      return Object.entries(this.record)
+        .reduce(reduce, {})
     }
   }
 }

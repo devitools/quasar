@@ -3,7 +3,7 @@
     ref="file"
     v-bind="bind"
     :value="input"
-    :accept="accept"
+    :accept="acceptable"
     :multiple="multiple"
     :max-files="maxFiles"
     :max-file-size="maxFileSize"
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { QFile, QIcon, QBtn } from 'quasar'
+import { QBtn, QFile, QIcon } from 'quasar'
 import AppTooltip from '../Tooltip/AppTooltip'
 
 export default {
@@ -44,13 +44,18 @@ export default {
   name: 'AppFileSync',
   /**
    */
-  components: { QFile, QIcon, QBtn, AppTooltip },
+  components: {
+    QFile,
+    QIcon,
+    QBtn,
+    AppTooltip
+  },
   /**
    */
   props: {
     accept: {
-      type: String,
-      default: 'image/*'
+      type: [String, Array],
+      default: () => ''
     },
     multiple: {
       type: Boolean,
@@ -88,15 +93,37 @@ export default {
   /**
    */
   computed: {
+    /**
+     * @return {Record<string,unknown>}
+     */
     bind () {
-      return { ...this.$attrs, ...this.$props, label: !this.value ? this.placeholder : '' }
+      return {
+        ...this.$attrs,
+        ...this.$props,
+        label: !this.value ? this.placeholder : ''
+      }
     },
+    /**
+     * @return {string|File}
+     */
     input () {
       if (typeof this.value === 'string') {
         const extension = this.value.split('.').pop()
         return new File(['empty'], `${this.$lang(this.downloadName)}.${extension}`)
       }
       return this.value
+    },
+    /**
+     * @return {string}
+     */
+    acceptable () {
+      if (Array.isArray(this.accept)) {
+        return this.accept.join(',')
+      }
+      if (typeof this.accept === 'string') {
+        return this.accept
+      }
+      return ''
     }
   },
   /**

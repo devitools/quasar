@@ -44,6 +44,11 @@ export default {
      * @private
      */
     __getField ($key) {
+      if (this.settings?.prefix) {
+        const prefixed = `${this.settings.prefix}_`
+        $key = $key.startsWith(prefixed) ? $key : `${prefixed}${$key}`
+      }
+
       if (this.components && this.components[$key]) {
         return this.components[$key]
       }
@@ -166,6 +171,10 @@ export default {
      * @return {this}
      */
     $getField ($key) {
+      if (this.settings?.prefix) {
+        const prefixed = `${this.settings.prefix}_`
+        $key = $key.startsWith(prefixed) ? $key : `${prefixed}${$key}`
+      }
       this.__currentField = $key
       return this
     },

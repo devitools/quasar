@@ -15,6 +15,7 @@ export interface Provide {
   fields: Function
   actions: Function
   watches: Function
+  avoids: Function
   settings?: Record<string, unknown>
 }
 
@@ -219,13 +220,13 @@ export type RouteRecord = {
 /**
  * @interface {Component}
  */
-export interface Component {
+export interface Component extends Vue {
   scope: string
   domain: string
   primaryKey: string
   payload: Record<string, unknown>
+  settings: Record<string, unknown>
   $store: Store<unknown>
-  $route: RouteRecord
   getActionPath(): string
   getRecord(): Record<string, unknown>
   $browse(target: undefined | number | string | Record<string, unknown>, options?: Record<string, unknown> | boolean): void
@@ -233,6 +234,7 @@ export interface Component {
   loadingHide (): void
   withRecord (context: Context, success: Function, noItems?: Function, tooManySelected?: Function): void
   actionSchemaConfirm (payload: Record<string, unknown>, action: Function, alias: string): void
+  getComponent (field: string): Promise<unknown>
   $setIs (is: string): Component
   $setLayout (property: string, value: number | string): Component
   $getLayout (property: string): Component

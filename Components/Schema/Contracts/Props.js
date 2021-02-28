@@ -70,6 +70,10 @@ export default {
     fillerAllowed: {
       type: Boolean,
       default: true
+    },
+    avoids: {
+      type: Function,
+      default: () => ({})
     }
   }
 }

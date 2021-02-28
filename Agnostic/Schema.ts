@@ -85,7 +85,8 @@ abstract class Schema extends Skeleton {
       fields: () => this.getFields(),
       actions: () => this.getActions(),
       hooks: () => this.getHooks(),
-      watches: () => this.getWatches()
+      watches: () => this.getWatches(),
+      avoids: () => this.getAvoids()
     }
   }
 }
