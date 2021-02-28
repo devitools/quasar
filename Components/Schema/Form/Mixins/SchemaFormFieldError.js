@@ -52,6 +52,8 @@ export default {
           const paths = [
             preference,
             `domains.${domain}.validation.${field}.${validation}`,
+            `domains.${this.domain}.validation.${field}.${validation}`,
+            `domains.${this.domain}.validations.${field}.${validation}`,
             `validation.${validation}`
           ]
           const message = replacement(this.$lang(paths, preference), replaces) || preference
