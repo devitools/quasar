@@ -226,6 +226,7 @@ export interface Component extends Vue {
   primaryKey: string
   payload: Record<string, unknown>
   settings: Record<string, unknown>
+  value: Record<string, unknown>
   $store: Store<unknown>
   getActionPath(): string
   getRecord(): Record<string, unknown>
