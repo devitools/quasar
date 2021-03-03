@@ -24,6 +24,11 @@ export default abstract class Base {
   /**
    * @type {string}
    */
+  static remoteKey = ''
+
+  /**
+   * @type {string}
+   */
   static domain = ''
 
   /**

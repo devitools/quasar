@@ -1,4 +1,4 @@
-import { searchKey } from 'src/settings/schema'
+import { remoteKey, searchKey } from 'src/settings/schema'
 
 import Base from './Base'
 
@@ -135,7 +135,10 @@ abstract class Skeleton extends Base {
       format: undefined,
       remote: (filter = '', pagination = undefined, query: Record<string, unknown> = {}) => {
         const where = { ...query }
-        if (filter) {
+
+        if (this.remoteKey) {
+          where[remoteKey] = withSeparator(filter, this.remoteKey)
+        } else if (filter) {
           where[this.displayKey] = withSeparator(filter, OPERATORS.LIKE)
         }
 
