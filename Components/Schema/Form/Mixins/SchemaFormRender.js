@@ -1,7 +1,6 @@
 import { QBtn } from 'quasar'
 // app
 import { POSITIONS } from '../../../../Agnostic/enum'
-import $emporium from '../../../../emporium'
 // components
 import SkeletonSchemaForm from '../../SkeletonSchemaForm'
 import SchemaDebugger from '../../Debugger/SchemaDebugger'
@@ -34,14 +33,16 @@ export default {
      * @returns {VNode}
      */
     renderFormBody (h) {
+      const slotScope = () => ({
+        domain: this.domain,
+        scope: this.scope,
+        components: this.getComponents(''),
+        record: this.record
+      })
+
       if (this.$scopedSlots['form-body']) {
         // noinspection JSValidateTypes
-        return this.$scopedSlots['form-body']({
-          domain: this.domain,
-          scope: this.scope,
-          components: this.getComponents(''),
-          record: this.record
-        })
+        return this.$scopedSlots['form-body'](slotScope())
       }
 
       const data = {
@@ -61,6 +62,10 @@ export default {
       }
       if (this.settings?.noGroupPosition === 'after') {
         children.push(this.renderFormBodyComponents(h, this.getComponents()))
+      }
+
+      if (this.$scopedSlots['form-footer']) {
+        children.push(this.$scopedSlots['form-footer'](slotScope()))
       }
 
       return h('div', data, children)
