@@ -71,6 +71,10 @@ export default {
       type: Boolean,
       default: true
     },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
     avoids: {
       type: Function,
       default: () => ({})

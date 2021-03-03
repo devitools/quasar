@@ -81,6 +81,10 @@ export default {
       type: Array,
       default: () => ([])
     },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
     disable: {
       type: Boolean,
       default: false

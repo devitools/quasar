@@ -30,6 +30,10 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_INDEX])
       .actionPositions([POSITIONS.POSITION_TABLE_CELL])
       .actionIcon('edit')
+      .actionConfigure(function (action) {
+        action.hidden = this.readonly
+        return action
+      })
       .actionOn('click', function (paramaters) {
         const { context: { record } } = paramaters
         this.setItem(this.$util.clone(record), SCOPES_BUILTIN.SCOPE_BUILTIN_EDIT)
@@ -52,6 +56,10 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionIcon('delete')
       .actionColor('negative')
       .actionAttrsAppendAttrs({ flat: true })
+      .actionConfigure(function (action) {
+        action.hidden = this.readonly
+        return action
+      })
       .actionOn('click', async function (paramaters) {
         const { context: { record } } = paramaters
         const message = this.$lang([
@@ -82,6 +90,10 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionColor('primary')
       .actionAttrsAppendAttrs({ flat: true })
       .actionFloatRight()
+      .actionConfigure(function (action) {
+        action.hidden = this.readonly
+        return action
+      })
       .actionOn('click', function () {
         if (!this.$refs.form.isValidForm()) {
           const message = this.$lang([
