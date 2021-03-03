@@ -52,6 +52,7 @@ export default {
           const paths = [
             preference,
             `domains.${domain}.validation.${field}.${validation}`,
+            `domains.${domain}.validations.${field}.${validation}`,
             `domains.${this.domain}.validation.${field}.${validation}`,
             `domains.${this.domain}.validations.${field}.${validation}`,
             `validation.${validation}`
@@ -65,8 +66,10 @@ export default {
         const error = this.errors[field]
         const validation = error.validation
         const paths = [
-          `domains.${domain}.validations.${field}.${validation}`,
           `domains.${domain}.validation.${field}.${validation}`,
+          `domains.${domain}.validations.${field}.${validation}`,
+          `domains.${this.domain}.validation.${field}.${validation}`,
+          `domains.${this.domain}.validations.${field}.${validation}`,
           `validation.${validation}`
         ]
         const message = this.$lang(paths, validation)

@@ -201,6 +201,15 @@ export default {
       return this
     },
     /**
+     * @param {string} validation
+     * @param {Record<string, unknown>} parameters
+     * @return {this}
+     */
+    $setError (validation = '', parameters = {}) {
+      this.setFieldError(this.__currentField, validation ? { validation, parameters } : null)
+      return this
+    },
+    /**
      * @param {string} property
      * @param {*} value
      * @return {this}

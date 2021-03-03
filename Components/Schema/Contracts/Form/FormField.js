@@ -6,22 +6,18 @@ export default {
    */
   methods: {
     /**
-     * @param {string} component
-     * @param {Boolean} error
-     * @param {string} [message
+     * @see SchemaFormFieldError
+     *
+     * @param {string} field
+     * @param {{validation: string, parameters: Record<string, unknown>}} error
      */
-    setFieldError (component, error = true, message = '') {
+    setFieldError (field, error) {
       if (!error) {
-        this.errors[component] = ''
+        this.errors[field] = ''
         return
       }
-      let fallback = message
-      const paths = [`domains.${this.domain}.errors.${component}`]
-      if (message.split('.').length > 1) {
-        paths.push(message)
-        fallback = ''
-      }
-      this.errors[component] = this.$lang(paths, fallback)
+
+      this.$set(this.errors, field, error)
     }
   }
 }

@@ -248,6 +248,7 @@ export interface Component extends Vue {
   $fieldFormOrder (formOrder: number, updateOthers?: boolean): Component
   $fieldTableHidden (tableHidden?: boolean): Component
   $fieldTableWhere (tableWhere?: string | null): Component
+  $setError (validation?: string, parameters?: Record<string, unknown>): Component
   $getValue (): unknown
   $setValue (value: unknown): Component
   $confirm (message: string | Record<string, unknown>, options?: Record<string, unknown>): Promise<Record<string, unknown>>
