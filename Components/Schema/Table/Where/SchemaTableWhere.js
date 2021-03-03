@@ -216,6 +216,7 @@ export default {
      */
     renderSideButtons (h) {
       const attrs = {
+        component: this,
         scope: this.scope,
         buttons: this.buttons,
         context: { record: this.record },

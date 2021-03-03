@@ -46,6 +46,10 @@ export default {
     },
     locked: {
       default: false
+    },
+    component: {
+      type: Object,
+      default: undefined
     }
   },
   /**

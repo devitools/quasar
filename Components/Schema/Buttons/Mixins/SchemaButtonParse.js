@@ -40,7 +40,7 @@ export default {
       if (button.configure && typeof button.configure === 'function') {
         const clone = this.$util.clone(button)
         const parameters = { context: this.context, position: this.position, scope: this.scope }
-        action = button.configure.call(this, clone, parameters)
+        action = button.configure.call(this.component ?? this, clone, parameters)
       }
       return {
         ...action,

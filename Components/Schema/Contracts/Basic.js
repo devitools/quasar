@@ -79,6 +79,7 @@ export default {
      */
     renderSchemaButtons (h, position, context, override = {}, type = 'default') {
       const attrs = {
+        component: this,
         type: type,
         scope: this.scope,
         locked: this.locked,
