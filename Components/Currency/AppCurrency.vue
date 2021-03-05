@@ -129,10 +129,10 @@ export default {
      * @param {number | string} value
      */
     updateValue (value) {
-      if (this.currency === value) {
+      if (Number(this.currency) === Number(value)) {
         return
       }
-      this.$emit('input', value)
+      this.$emit('input', Number(value))
     }
   },
   /**
