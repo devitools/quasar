@@ -1,4 +1,4 @@
-import { QBtn, QIcon, QInput, QSelect, QSpace, QTd } from 'quasar'
+import { QIcon, QInput, QSelect, QSpace, QTd } from 'quasar'
 
 import { counter, filterKey, renderField } from 'src/settings/schema'
 import { attrs as defaultAttrs } from 'src/settings/components'
@@ -6,6 +6,8 @@ import { tableShowColumnsSelector, tableShowFilters, tableShowSearch } from 'src
 
 import { POSITIONS } from '../../../../Agnostic/enum'
 import { write } from '../../../../Util/storage'
+
+import SchemaTablePagination from '../Components/SchemaTablePagination'
 
 /**
  * @mixin {SchemaTableSlots}
@@ -24,18 +26,26 @@ export default {
      * @returns {*}
      */
     renderTableSlots (h) {
-      return {
-        top: (props) => {
-          return this.renderTableTop(h, props)
-        },
-        /** @counter */
-        [`body-cell-${counter.name}`]: (props) => {
-          return this.renderTableCellButtons(h, props)
-        },
-        pagination: (props) => {
+      const slots = {}
+      slots.top = (props) => {
+        return this.renderTableTop(h, props)
+      }
+
+      /** @counter */
+      slots[`body-cell-${counter.name}`] = (props) => {
+        return this.renderTableCellButtons(h, props)
+      }
+
+      if (!this.$scopedSlots.bottom) {
+        slots.pagination = (props) => {
           return this.renderTablePagination(h, props)
         }
+        return slots
       }
+
+      slots.bottom = this.$scopedSlots.bottom
+
+      return slots
     },
     /**
      * @param {function} h
@@ -191,67 +201,14 @@ export default {
      * @returns {*}
      */
     renderTablePagination (h, props) {
-      const texts = [
-        props.pagination.rowsPerPage * (props.pagination.page - 1) + 1, '-'
-      ]
-      let fragment = props.pagination.rowsPerPage * (props.pagination.page)
-      if (props.isLastPage) {
-        fragment = props.pagination.rowsNumber
+      const on = {
+        'trigger:first-page': this.firstPage,
+        'trigger:previous-page': this.previousPage,
+        'trigger:next-page': this.nextPage,
+        'trigger:last-page': this.lastPage
       }
-      texts.push(fragment)
-      texts.push('/')
-      texts.push(props.pagination.rowsNumber)
-
-      const button = {
-        round: true,
-        dense: true,
-        flat: true,
-        textColor: 'grey-8'
-      }
-
-      const first = {
-        attrs: {
-          ...button,
-          disable: props.isFirstPage,
-          icon: 'first_page'
-        },
-        on: { click: this.firstPage }
-      }
-
-      const previous = {
-        attrs: {
-          ...button,
-          disable: props.isFirstPage,
-          icon: 'chevron_left'
-        },
-        on: { click: this.previousPage }
-      }
-
-      const next = {
-        attrs: {
-          ...button,
-          disable: props.isLastPage,
-          icon: 'chevron_right'
-        },
-        on: { click: this.nextPage }
-      }
-
-      const last = {
-        attrs: {
-          ...button,
-          disable: props.isLastPage,
-          icon: 'last_page'
-        },
-        on: { click: this.lastPage }
-      }
-
       return [
-        h('span', { class: 'q-table__bottom-item' }, texts.join(' ')),
-        h(QBtn, first),
-        h(QBtn, previous),
-        h('span', { class: 'text-center' }, `${props.pagination.page} / ${props.pagination.pagesNumber}`),
-        h(QBtn, next),
-        h(QBtn, last)
+        h(SchemaTablePagination, { props, on })
       ]
     }
   },

@@ -122,6 +122,8 @@ export default {
      * @param {Object} response
      */
     successFetchRecords (response) {
+      this.$payload = response
+
       this.loadingHide()
 
       this.data = response.rows
