@@ -113,7 +113,7 @@ export default {
       const on = this.renderTableOn()
 
       return h(AppTable, { class: classes, props, attrs, style, scopedSlots, on })
-    },
+    }
   },
   /**
    * @param {function} h
