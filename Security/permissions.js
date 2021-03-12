@@ -97,6 +97,7 @@ export const permissionLevels = (domain, just = []) => {
     [RULES.LEVEL_DESTROY]: permissionLevel(domain, 'delete', RULES.LEVEL_DESTROY)
   }
   try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const level = require('src/settings/level')
     rules = level(domain)
   } catch (ex) {
