@@ -10,6 +10,7 @@
         unelevated
         style="margin: 0 0 0 -11px; height: 38px;"
         dense
+        :disabled="$attrs.readonly"
         color="primary"
         icon="remove"
         @click="minus"
@@ -21,6 +22,7 @@
         unelevated
         style="margin: 0 -11px 0 0; height: 38px;"
         dense
+        :disabled="$attrs.readonly"
         color="primary"
         icon="add"
         @click="plus"
@@ -31,7 +33,6 @@
 
 <script>
 import { QBtn, QInput } from 'quasar'
-import { attrs } from 'src/settings/components'
 
 export default {
   /**
