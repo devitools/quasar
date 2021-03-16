@@ -65,6 +65,10 @@ export default {
   watch: {
     value: {
       handler (value) {
+        if (!Array.isArray(value)) {
+          return
+        }
+
         let update
         const __unique = unique()
 
