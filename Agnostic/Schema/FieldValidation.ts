@@ -225,6 +225,22 @@ export default abstract class FieldTable extends Base {
   }
 
   /**
+   * @return {this}
+   */
+  validationDate (): this {
+    const handler = helpers.withParams({}, (value: string|unknown|undefined) => {
+      if (!value) {
+        return true
+      }
+      if (typeof value !== 'string') {
+        return false
+      }
+      return /\d{4}-[01]\d-[0-3]\d/.test(value)
+    })
+    return this.validationAs('date', handler)
+  }
+
+  /**
    * @returns {this}
    */
   validationClear (): this {
