@@ -47,7 +47,8 @@ export const actionEntry = (domain, to, icon, namespace = undefined, options = {
     path: to,
     icon: icon,
     separated: separated,
-    meta
+    filters: options?.filters ?? [],
+    meta: meta
   }
 }
 
@@ -58,9 +59,10 @@ export const actionEntry = (domain, to, icon, namespace = undefined, options = {
  */
 export const action = (index, separated = false) => {
   let to = index.path
-  const { query, i18n, meta } = index
+  const { query, i18n, meta, filters } = index
   if (query) {
     to = { path: to, query }
   }
-  return actionEntry(index.domain, to, index.icon, index.namespace, { separated, i18n, meta })
+  const options = { separated, i18n, meta, filters }
+  return actionEntry(index.domain, to, index.icon, index.namespace, options)
 }
