@@ -1,3 +1,5 @@
+import $emporium from '../../../../emporium'
+
 /**
  * @mixin {FormError}
  */
@@ -10,6 +12,20 @@ export default {
      */
     hasErrors () {
       return Object.keys(this.errors).filter((key) => this.errors[key]).length > 0
+    },
+    /**
+     * @returns {boolean}
+     */
+    hasPending () {
+      if (!$emporium.state.pending) {
+        return false
+      }
+      const property = $emporium.state.pending
+      this.errors[property] = {
+        validation: 'required',
+        parameters: {}
+      }
+      return true
     },
     /**
      */

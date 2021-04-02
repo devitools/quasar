@@ -11,7 +11,8 @@ const $emporium = $store({
     filling: read('filling', true) || false,
     profiling: read('profiling', true) || false,
     purging: read('purging', true) || false,
-    modified: false
+    modified: false,
+    pending: ''
   },
   // the mutations to call with commit
   // ex.: $store.commit('updateVersion')
@@ -50,10 +51,23 @@ const $emporium = $store({
     },
     /**
      * @param {Object} state
-     * @param {string} modified
+     * @param {boolean} modified
      */
     updateModified (state, modified) {
+      if (modified === false && state.modified !== '') {
+        state.modified = ''
+      }
       state.modified = modified
+    },
+    /**
+     * @param {Object} state
+     * @param {string} pending
+     */
+    updatePending (state, pending) {
+      if (pending !== '' && state.modified === false) {
+        state.modified = true
+      }
+      state.pending = pending
     }
   }
 })

@@ -10,7 +10,7 @@
           ref="form"
           v-bind="bind"
           v-model="record"
-          @input="fluentRow($event)"
+          @input="updateRowValue($event)"
         />
         <div
           v-if="!fluent"
@@ -102,6 +102,7 @@ import { QBtn } from 'quasar'
 
 import { ICON_GROUP_ACTIONS, INTERNAL_ATTRS } from 'src/settings/action'
 
+import $emporium from '../../../emporium'
 import AppForm from '../../../Components/Form/AppForm'
 import { SCOPES } from '../../../Agnostic/enum'
 import { confirm } from '../../../dialog'
@@ -164,6 +165,10 @@ export default {
     scope: {
       type: String,
       default: () => SCOPES.SCOPE_ADD
+    },
+    name: {
+      type: String,
+      default: ''
     }
   },
   /**
@@ -265,8 +270,9 @@ export default {
     /**
      * @param {Record<string, unknown>} input
      */
-    fluentRow (input) {
+    updateRowValue (input) {
       if (!this.fluent) {
+        $emporium.commit('updatePending', this.name)
         return
       }
       this.$emit('input', input)
@@ -275,6 +281,7 @@ export default {
      * @param {Record<string, unknown>} input
      */
     updateValue (input) {
+      $emporium.commit('updatePending', '')
       this.$emit('input', input)
     },
     /**

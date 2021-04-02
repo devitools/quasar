@@ -75,7 +75,7 @@ export default {
       const input = ($event) => this.componentInput($event, field)
       const ref = this.componentRef(field)
       const tabIndex = this.componentTabIndex()
-      const attrs = { domain: field.attrs.domain || this.domain, inheritErrors: error }
+      const attrs = { domain: field.attrs.domain || this.domain, inheritErrors: error, name: field.$key }
       let readonly = 'readonly'
       if (!field.attrs.useReadonly) {
         readonly = 'disable'

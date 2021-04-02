@@ -6,6 +6,7 @@ import FormFetch from './Form/FormFetch'
 import FormField from './Form/FormField'
 import FormRecord from './Form/FormRecord'
 import FormValidation from './Form/FormValidation'
+import $emporium from 'app/@devitools/emporium'
 
 /**
  * @typedef {Object} Form
@@ -62,7 +63,7 @@ export default {
      */
     formCheckIntegrity (schema, fail) {
       this.$v.$touch()
-      if (this.$v.$error || this.hasErrors()) {
+      if (this.$v.$error || this.hasErrors() || this.hasPending()) {
         this.$message.warning(this.$lang(fail))
         return false
       }

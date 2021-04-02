@@ -56,6 +56,10 @@ export default {
     startNoEmpty: {
       type: Boolean,
       default: false
+    },
+    name: {
+      type: String,
+      default: ''
     }
   }
 }

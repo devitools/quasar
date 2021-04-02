@@ -25,6 +25,7 @@
           :domain="domain"
           :primary-key="primaryKey"
           :hooks="hooks"
+          :name="name"
           :readonly="readonly"
           :scope="scope"
           :static="static"
