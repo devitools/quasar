@@ -255,7 +255,7 @@ export default {
     /**
      * @param {string} filter
      */
-    applyFilter (filter = undefined) {
+    tableFetchApplyFilter (filter = undefined) {
       if (filter !== undefined) {
         this[filterKey] = filter
       }

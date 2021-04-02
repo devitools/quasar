@@ -148,12 +148,21 @@ export default {
         autofocus: this.$q.platform.is.desktop,
         dense: true,
         clearable: true,
-        debounce: 1000,
+        debounce: 2000,
         placeholder: this.$lang('agnostic.table.search'),
         ...defaultAttrs
       }
       const props = { value: this[filterKey] }
-      const on = { input: (filter) => this.applyFilter(filter) }
+      const keypress = ($event) => {
+        if ($event.key !== 'Enter') {
+          return
+        }
+        this.tableFetchApplyFilter($event.target.value)
+      }
+      const on = {
+        input: this.tableFetchApplyFilter,
+        keypress
+      }
       const scopedSlots = {
         append: () => h(QIcon, { attrs: { name: 'search' } })
       }
