@@ -33,6 +33,11 @@ abstract class Schema extends Skeleton {
   static noGroupPosition = 'before'
 
   /**
+   * @type {string}
+   */
+  static selection?: string
+
+  /**
    * Bootstrap everything
    * @param {SchemaForm | SchemaTable} $component
    */
@@ -75,7 +80,8 @@ abstract class Schema extends Skeleton {
         useUuid: schema.useUuid,
         showPlaceholderContent: schema.showPlaceholderContent,
         useModified: schema.useModified,
-        noGroupPosition: schema.noGroupPosition
+        noGroupPosition: schema.noGroupPosition,
+        selection: schema.selection
       },
       domain: schema.domain,
       primaryKey: schema.primaryKey,

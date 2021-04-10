@@ -71,7 +71,7 @@ export default {
       grid: false,
       rowKey: this.primaryKey,
       separator: 'horizontal',
-      selection: this.selection
+      selection: this.settings?.selection ?? this.selection
     }
 
     // noinspection JSValidateTypes
