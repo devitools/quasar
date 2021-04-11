@@ -6,7 +6,6 @@ import FormFetch from './Form/FormFetch'
 import FormField from './Form/FormField'
 import FormRecord from './Form/FormRecord'
 import FormValidation from './Form/FormValidation'
-import $emporium from 'app/@devitools/emporium'
 
 /**
  * @typedef {Object} Form
