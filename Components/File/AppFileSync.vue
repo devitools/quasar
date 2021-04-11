@@ -17,7 +17,9 @@
         flat
         icon="attach_file"
         @click="pickFiles"
-      />
+      >
+        <AppTooltip v-if="!bind.readonly">{{ $lang('agnostic.components.file.upload') }}</AppTooltip>
+      </QBtn>
     </template>
     <template
       v-slot:after

@@ -64,6 +64,7 @@ export default {
       button: 'Selecione uma imagem'
     },
     file: {
+      upload: 'Clique aqui para importar o arquivo',
       download: 'Clique aqui para baixar o arquivo',
       downloadName: 'arquivo'
     },
