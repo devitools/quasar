@@ -10,7 +10,10 @@
     :max-total-size="maxTotalSize"
     @input="updateValue"
   >
-    <template v-slot:prepend>
+    <template
+      v-slot:prepend
+      v-if="!readonly"
+    >
       <QBtn
         round
         dense
@@ -18,12 +21,12 @@
         icon="attach_file"
         @click="pickFiles"
       >
-        <AppTooltip v-if="!bind.readonly">{{ $lang('agnostic.components.file.upload') }}</AppTooltip>
+        <AppTooltip>{{ $lang('agnostic.components.file.upload') }}</AppTooltip>
       </QBtn>
     </template>
     <template
       v-slot:after
-      v-if="typeof value === 'string'"
+      v-if="typeof value === 'string' && value"
     >
       <QIcon
         name="cloud_download"
@@ -79,17 +82,21 @@ export default {
       type: [File, FileList, Array, Object, String],
       default: null
     },
-    downloadFile: {
-      type: Function,
-      required: true
-    },
     placeholder: {
       type: String,
       default: ''
     },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
     downloadName: {
       type: String,
-      default: 'agnostic.components.file.downloadName'
+      default: ''
+    },
+    downloadFile: {
+      type: Function,
+      required: true
     }
   },
   /**
@@ -99,21 +106,33 @@ export default {
      * @return {Record<string,unknown>}
      */
     bind () {
+      let label = ''
+      if (!this.value && !this.readonly) {
+        label = this.placeholder
+      }
       return {
         ...this.$attrs,
         ...this.$props,
-        label: !this.value ? this.placeholder : ''
+        label
       }
     },
     /**
-     * @return {string|File}
+     * @return {string|File|undefined}
      */
     input () {
-      if (typeof this.value === 'string') {
+      if (typeof this.value !== 'string') {
+        return this.value
+      }
+      if (!this.value) {
+        return undefined
+      }
+      if (this.downloadName) {
         const extension = this.value.split('.').pop()
         return new File(['empty'], `${this.$lang(this.downloadName)}.${extension}`)
       }
-      return this.value
+      const pieces = this.value.split('/')
+      const file = pieces.pop()
+      return new File(['empty'], file)
     },
     /**
      * @return {string}
