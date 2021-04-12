@@ -276,3 +276,12 @@ export interface SchemaForm extends Component {
 export interface SchemaTable extends Component {
   fetchRecords (): Promise<Record<string, unknown>>
 }
+
+/**
+ * @typedef {UserEvent}
+ */
+export type UserEvent<T extends HTMLElement> = Event & {
+  target: T
+  // probably you might want to add the currentTarget as well
+  currentTarget: T
+}

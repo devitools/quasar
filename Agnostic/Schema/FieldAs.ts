@@ -1,9 +1,11 @@
 import { primaryKey } from 'src/settings/schema'
 
 import Base from '../Base'
-import { format } from '../../Util/formatter'
-import { uuid } from '../../Util/general'
 import Skeleton from '../Skeleton'
+import Schema from '../../Agnostic/Schema'
+import { Payload, UserEvent } from '../../Agnostic/Helper/interfaces'
+
+import { format } from '../../Util/formatter'
 
 /**
  * @class {FieldAs}
@@ -11,7 +13,7 @@ import Skeleton from '../Skeleton'
 export default abstract class FieldAs extends Base {
   /**
    * @param {Object} options
-   * @returns {Schema}
+   * @returns {this}
    */
   fieldAsPrimaryKey (this: Skeleton, options: Record<string, unknown> = {}) {
     options = {
@@ -37,7 +39,7 @@ export default abstract class FieldAs extends Base {
 
   /**
    * @param {Object} attrs
-   * @returns {Schema}
+   * @returns {this}
    */
   fieldAsZip (attrs = {}) {
     this.fieldAsMasked('#####-###', { placeholder: '39500-201' })
@@ -47,7 +49,7 @@ export default abstract class FieldAs extends Base {
 
   /**
    * @param {Object} attrs
-   * @returns {Schema}
+   * @returns {this}
    */
   fieldAsPhone (attrs = {}) {
     this.fieldAsMasked('(##) ####-####', { placeholder: '(21) 3289-3950' })
@@ -57,10 +59,37 @@ export default abstract class FieldAs extends Base {
 
   /**
    * @param {Object} attrs
-   * @returns {Schema}
+   * @returns {this}
    */
   fieldAsCell (attrs = {}) {
     this.fieldAsMasked('(##) #####-####', { placeholder: '(44) 98956-3049' })
+    this.setType('string')
+    return this
+  }
+
+  /**
+   * @param {Object} attrs
+   * @returns {this}
+   */
+  fieldAsPhoneMultiMask (this: Schema, attrs = {}) {
+    this.fieldAsMasked('(##) #####-####', { placeholder: '(44) 98956-3049' })
+      .fieldOn('keypress', function (payload: Payload) {
+        const $event = payload.$event as UserEvent<HTMLInputElement>
+        const value = String($event.target.value)
+        let mask = '(##) ####-####'
+        if (value.length >= 14) {
+          mask = '(##) #####-####'
+        }
+        payload.field.attrs.mask = mask
+      })
+      .fieldOn('input', function (payload: Payload) {
+        const $event = payload.$event as UserEvent<HTMLInputElement>
+        const value = String($event)
+        if (value.length >= 11) {
+          return
+        }
+        payload.field.attrs.mask = '(##) ####-####'
+      })
     this.setType('string')
     return this
   }
@@ -80,7 +109,7 @@ export default abstract class FieldAs extends Base {
    *
    * @param {string} mask
    * @param {Record<string, unknown>} attrs
-   * @returns {Schema}
+   * @returns {this}
    */
   fieldAsMasked (mask: string, attrs: Record<string, unknown> = {}) {
     let { placeholder, tableFormat } = attrs
