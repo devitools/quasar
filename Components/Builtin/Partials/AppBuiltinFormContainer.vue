@@ -3,13 +3,6 @@
   <div class="AppBuiltinFormContainer">
     <div class="AppBuiltinFormContainer__bar">
       <span>{{ title }}</span>
-      <QSpace />
-      <QBtn
-        icon="close"
-        dense
-        flat
-        @click="closeForm"
-      />
     </div>
     <AppBuiltinForm
       ref="form"
@@ -26,8 +19,6 @@
 </template>
 
 <script>
-import { QBtn, QSpace } from 'quasar'
-
 import Props from '../../Schema/Contracts/Props'
 import AppBuiltinForm from './AppBuiltinForm'
 
@@ -40,9 +31,7 @@ export default {
   /**
    */
   components: {
-    AppBuiltinForm,
-    QSpace,
-    QBtn
+    AppBuiltinForm
   },
   /**
    */
@@ -134,10 +123,9 @@ export default {
     border-style: solid;
     border-color: #ddd;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     flex-wrap: wrap;
     align-items: center;
-    /*background: linear-gradient(180deg, #f7f7f7 0, #f1f1f1 20px, #ecebeb 50px, #e0e0e0 52px);*/
     background: var(--q-color-primary);
     color: #ffffff;
   }
