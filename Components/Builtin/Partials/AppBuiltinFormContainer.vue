@@ -123,7 +123,7 @@ export default {
     border-style: solid;
     border-color: #ddd;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     flex-wrap: wrap;
     align-items: center;
     background: var(--q-color-primary);
