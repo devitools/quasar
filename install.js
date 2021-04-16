@@ -2,6 +2,8 @@ import './polyfill'
 
 import validation from 'vuelidate'
 
+import $emporium from './emporium'
+
 import * as messages from './message'
 
 import $lang from './Lang'
@@ -154,6 +156,43 @@ export default ({ Vue }) => {
   Object.defineProperty(Vue.prototype, '$performance', {
     get () {
       return $performance
+    }
+  })
+
+  /**
+   */
+  Object.defineProperty(Vue.prototype, '$dialog', {
+    get () {
+      return {
+        show: (component, modal, props = {}, container = {}, dialog = {}) => {
+          const config = {
+            visible: true,
+            component: component,
+            props: {
+              ...props,
+              modal
+            },
+            container: {
+              style: {
+                width: '1280px',
+                'max-width': '92vw'
+              },
+              ...container
+            },
+            dialog: dialog
+          }
+          $emporium.commit('updateModal', config)
+        },
+        hide: () => {
+          $emporium.commit('updateModal', {
+            visible: false,
+            component: undefined,
+            props: {},
+            container: {},
+            dialog: {}
+          })
+        }
+      }
     }
   })
 }

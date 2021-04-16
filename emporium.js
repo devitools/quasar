@@ -12,6 +12,7 @@ const $emporium = $store({
     profiling: read('profiling', true) || false,
     purging: read('purging', true) || false,
     modified: false,
+    modal: {},
     pending: ''
   },
   // the mutations to call with commit
@@ -58,6 +59,13 @@ const $emporium = $store({
         state.modified = ''
       }
       state.modified = modified
+    },
+    /**
+     * @param {Object} state
+     * @param {Record<string,unknown>} modal
+     */
+    updateModal (state, modal) {
+      state.modal = modal
     },
     /**
      * @param {Object} state

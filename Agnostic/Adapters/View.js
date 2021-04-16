@@ -52,7 +52,8 @@ export default {
         scope: this.$route.meta.scope,
         ...provide,
         ...props,
-        schema: this.$options.name
+        schema: this.$options.name,
+        ...this.$attrs
       }
     },
     /**

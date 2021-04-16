@@ -23,6 +23,10 @@ export default {
     scope: {
       type: String,
       required: true
+    },
+    modal: {
+      type: Object,
+      default: () => undefined
     }
   },
   /**
