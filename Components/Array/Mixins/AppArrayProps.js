@@ -60,6 +60,13 @@ export default {
     name: {
       type: String,
       default: ''
+    },
+    overrides: {
+      type: Object,
+      default: () => ({
+        fields: () => undefined,
+        actions: () => undefined
+      })
     }
   }
 }

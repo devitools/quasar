@@ -54,6 +54,10 @@ export default {
      */
     renderComponents () {
       this.components = this.performRenderComponents(this.fields())
+      if (typeof this.overrides?.fields !== 'function') {
+        return
+      }
+      this.overrides.fields(this.components)
     },
     /**
      * @param {Object} fields

@@ -169,6 +169,13 @@ export default {
     name: {
       type: String,
       default: ''
+    },
+    overrides: {
+      type: Object,
+      default: () => ({
+        fields: () => undefined,
+        actions: () => undefined
+      })
     }
   },
   /**
@@ -193,7 +200,8 @@ export default {
         'filler-allowed': false,
         hooks: this.hooks,
         primaryKey: this.primaryKey,
-        scope: this.scope
+        scope: this.scope,
+        overrides: this.overrides
       }
     },
     /**

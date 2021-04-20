@@ -26,6 +26,7 @@
           :primary-key="primaryKey"
           :hooks="hooks"
           :name="name"
+          :overrides="overrides"
           :readonly="readonly"
           :scope="scope"
           :static="static"

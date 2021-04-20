@@ -27,6 +27,13 @@ export default {
     modal: {
       type: Object,
       default: () => undefined
+    },
+    overrides: {
+      type: Object,
+      default: () => ({
+        fields: () => undefined,
+        actions: () => undefined
+      })
     }
   },
   /**
@@ -199,6 +206,12 @@ export default {
           this.$watch(key, handler.bind(this), { immediate, deep })
         }
       }
+    },
+    /**
+     * @param {function(components: Record<string, unknown>)} callback
+     */
+    configureComponents (callback) {
+      callback(this.components)
     }
   }
 }
