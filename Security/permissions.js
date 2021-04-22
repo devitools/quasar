@@ -114,12 +114,12 @@ export const permissionLevels = (domain, just = []) => {
 
 /**
  * @param {string} domain
- * @param {string[]} just
+ * @param {string[]} allowed
  * @param {[]} levels
  * @return {{children: [{namespace: string, label: string}], icon: string, namespace: string, label: string}}
  */
-export const permissionActions = (domain, just = [], levels = []) => {
-  const actions = permissionLevels(domain, just)
+export const permissionActions = (domain, allowed = [], levels = []) => {
+  const actions = permissionLevels(domain, allowed)
   if (levels.length) {
     actions.push(...levels)
   }
@@ -133,15 +133,15 @@ export const permissionActions = (domain, just = [], levels = []) => {
 
 /**
  * @param {{icon?: string, domain?: string, path?: string, table?: Function, form?: Function}} index
- * @param {string[]} filterBy
- * @param {[]} levels
+ * @param {string[]} allowedLevels
+ * @param {[]} extraLevels
  * @param {[]} additional
  * @return {{children: [{icon: string, namespace: string, label: string}, {children: {namespace: string, label: string}[], icon: string, namespace: string, label: string}], namespace: *, icon: *, label: *}}
  */
-export const permission = (index, filterBy = [], levels = [], additional = []) => {
+export const permission = (index, allowedLevels = [], extraLevels = [], additional = []) => {
   const children = [
     permissionAvailable(index.domain),
-    permissionActions(index.domain, filterBy, levels)
+    permissionActions(index.domain, allowedLevels, extraLevels)
   ]
   if (additional.length) {
     children.push(...additional)
