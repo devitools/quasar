@@ -15,6 +15,16 @@
         :props="props"
         :style="{ padding: 0 }"
       >
+        <template v-for="(action, index) in actions">
+          <QBtn
+            :key="index"
+            flat
+            dense
+            round
+            v-bind="action"
+            @click="execute(action, props.row)"
+          />
+        </template>
         <QBtn
           v-if="isRemovable(props)"
           icon="delete"
@@ -71,6 +81,10 @@ export default {
       type: Array,
       default: () => ([])
     },
+    actions: {
+      type: Array,
+      default: () => ([])
+    },
     height: {
       type: String,
       default: () => ('')
@@ -86,6 +100,10 @@ export default {
     removable: {
       type: Function,
       default: () => undefined
+    },
+    hideRemove: {
+      type: Boolean,
+      default: () => false
     },
     hideBottom: {
       type: Boolean,
@@ -121,6 +139,9 @@ export default {
   /**
    */
   methods: {
+    execute (action, row) {
+      this.$emit('execute', { action, row })
+    },
     /**
      * @param {number} index
      * @return {Promise<void>}
@@ -159,6 +180,9 @@ export default {
      * @param {Record<string, unknown>} row
      */
     isRemovable ({ row }) {
+      if (this.hideRemove) {
+        return false
+      }
       if (typeof this.removable !== 'function') {
         return true
       }
