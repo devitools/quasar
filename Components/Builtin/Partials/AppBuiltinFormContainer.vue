@@ -62,6 +62,13 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    },
+    overrides: {
+      type: Object,
+      default: () => ({
+        fields: () => undefined,
+        actions: () => undefined
+      })
     }
   },
   /**

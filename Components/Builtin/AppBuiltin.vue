@@ -100,6 +100,13 @@ export default {
     defaults: {
       type: Object,
       default: () => ({})
+    },
+    overrides: {
+      type: Object,
+      default: () => ({
+        fields: () => undefined,
+        actions: () => undefined
+      })
     }
   },
   /**
@@ -144,7 +151,8 @@ export default {
         actions: this.builtinActions,
         hooks: this.hooks,
         watches: this.watches,
-        domain: this.domain
+        domain: this.domain,
+        overrides: this.overrides
       }
     }
   },
