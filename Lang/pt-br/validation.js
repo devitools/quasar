@@ -23,6 +23,7 @@ export default {
   notFound: 'Registro não encontrado',
   maxFileSize: 'O arquivo não deve ser maior que {size}kb',
   url: 'O valor deve ser uma URL válida',
+  date: 'O valor deve ser uma data válida',
 
   requiredIf: 'configure [validations.{field}.requiredIf] no arquivo de i18n do schema',
   requiredUnless: 'configure [validations.{field}.requiredUnless] no arquivo de i18n do schema',
