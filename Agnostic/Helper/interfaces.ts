@@ -230,6 +230,7 @@ export interface Component extends Vue {
   $store: Store<unknown>
   getActionPath(): string
   getRecord(): Record<string, unknown>
+  $static(path: string, external?: boolean): string
   $browse(target: undefined | number | string | Record<string, unknown>, options?: Record<string, unknown> | boolean): void
   loadingShow (wait?: boolean): void
   loadingHide (): void
