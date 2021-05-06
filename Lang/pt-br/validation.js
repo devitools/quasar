@@ -19,7 +19,7 @@ export default {
   email: 'O valor informado deve ser um email válido',
   ipAddress: 'O valor deve ser um IP válido',
   macAddress: 'O valor deve ser um MAC address válido',
-  password: 'Password must have letters, numbers and at least six chars',
+  password: 'Senha deve conter letras, números e pelo menos 6 caracteres',
   notFound: 'Registro não encontrado',
   maxFileSize: 'O arquivo não deve ser maior que {size}kb',
   url: 'O valor deve ser uma URL válida',
