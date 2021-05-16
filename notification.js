@@ -8,9 +8,9 @@ export function notify (title, message, click, details = {}) {
   const options = {
     body: message,
     icon: '/statics/icons/android-chrome-384x384.png',
-    image: '/statics/dashboard/varejo_logo.png',
+    image: '/statics/logotypes/gourmet_text.png',
     vibrate: [200, 100, 200, 100, 200, 100, 200],
-    tag: 'visualon',
+    tag: 'tigoo',
     requireInteraction: false,
     ...details
   }
