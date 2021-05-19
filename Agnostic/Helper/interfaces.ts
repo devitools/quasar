@@ -198,6 +198,17 @@ export interface Message {
 }
 
 /**
+ * @interface {Util}
+ */
+export interface Util {
+  clone (element: Record<string, unknown>, action?: Record<string, unknown>): unknown
+  get (element: string | Record<string, unknown> | unknown, path: string, fallback?: Record<string, unknown>): unknown
+  set (element: string | Record<string, unknown>, path?: Record<string, unknown>, value?: Record<string, unknown>): Record<string, unknown>
+  uuid (): string
+  run (value: Function | Object): Function
+}
+
+/**
  * @interface {Clipboard}
  */
 export interface Clipboard {
@@ -230,6 +241,7 @@ export interface Component extends Vue {
   $store: Store<unknown>
   getActionPath(): string
   getRecord(): Record<string, unknown>
+  $util: Util
   $static(path: string, external?: boolean): string
   $browse(target: undefined | number | string | Record<string, unknown>, options?: Record<string, unknown> | boolean): void
   loadingShow (wait?: boolean): void
