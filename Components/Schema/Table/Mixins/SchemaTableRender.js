@@ -131,7 +131,8 @@ export default {
         domain: this.domain,
         fields: this.fields,
         actions: this.actions,
-        scope: this.scope
+        scope: this.scope,
+        schema: this.schema
       }
       const on = { input: (value) => this.applySearch(value) }
       return h(SchemaTableWhere, { attrs, on })

@@ -56,6 +56,10 @@ export default {
     actions: {
       type: Function,
       default: () => ([])
+    },
+    schema: {
+      type: String,
+      default: () => '*'
     }
   },
   /**
@@ -65,10 +69,14 @@ export default {
 
     const components = Object.values(fields)
       .filter((field) => {
+        const tableWhere = !!field.$layout.tableWhere
+        if (!tableWhere) {
+          return false
+        }
         if (field.hasOwnProperty('$visible')) {
           return field.$visible.call(this)
         }
-        return !!field.$layout.tableWhere
+        return true
       })
       .reduce((accumulator, field) => {
         accumulator[field.$key] = field
