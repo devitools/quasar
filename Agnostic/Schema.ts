@@ -62,6 +62,7 @@ abstract class Schema extends Skeleton {
       this.addField(element.name)
         .fieldScopes([SCOPES.SCOPE_INDEX, SCOPES.SCOPE_VIEW])
         .fieldAppendAttrs({ borderLess: true, printable: true })
+        .fieldTableOrder(200 + index)
         .fieldFormDisabled()
         .fieldFormHidden()
         .fieldFormWidth(index === 0 || index === 3 ? 34 : 33)
