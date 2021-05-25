@@ -1,11 +1,11 @@
-import { QIcon, QInput, QSelect, QSpace, QTd } from 'quasar'
+import { QBtn, QIcon, QInput, QSelect, QSpace, QTd } from 'quasar'
 
 import { counter, filterKey, renderField } from 'src/settings/schema'
 import { attrs as defaultAttrs } from 'src/settings/components'
 import { tableShowColumnsSelector, tableShowFilters, tableShowSearch } from 'src/settings/table'
 
 import { POSITIONS } from '../../../../Agnostic/enum'
-import { write } from '../../../../Util/storage'
+import { erase, write } from '../../../../Util/storage'
 
 import SchemaTablePagination from '../Components/SchemaTablePagination'
 
@@ -79,6 +79,7 @@ export default {
      * @returns {*}
      */
     renderTableColumnsSelector (h) {
+      const domProps = { id: 'selector' }
       const attrs = {
         'display-value': this.$lang('agnostic.table.columns'),
         multiple: true,
@@ -111,13 +112,32 @@ export default {
         }
       }
 
-      return h(QSelect, {
-        domProps: { id: 'selector' },
+      const scopedSlots = {
+        prepend: () => {
+          const attrs = { icon: 'close', flat: true, round: true, size: 'sm' }
+          const style = { 'margin-left': '-8px' }
+          const on = {
+            click: ($event) => {
+              $event.preventDefault()
+              $event.stopPropagation()
+              erase(`${this.schema}:visible-columns`)
+              this.visibleColumns = this.parseVisibleColumns()
+            }
+          }
+          const options = { attrs, style, on }
+          return h(QBtn, options)
+        }
+      }
+
+      const options = {
+        domProps,
         attrs,
         props,
         on,
-        style
-      })
+        style,
+        scopedSlots
+      }
+      return h(QSelect, options)
     },
     /**
      * @param {function} h

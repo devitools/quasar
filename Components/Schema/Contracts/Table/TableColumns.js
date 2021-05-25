@@ -30,9 +30,15 @@ export default {
         visibleColumns = read(`${this.schema}:visible-columns`, true)
       }
       if (!visibleColumns) {
-        visibleColumns = this.columns.filter((column) => !column.hidden).map((column) => column.name)
+        visibleColumns = this.parseVisibleColumns()
       }
       this.visibleColumns = visibleColumns
+    },
+    /**
+     * @return {*[]}
+     */
+    parseVisibleColumns () {
+      return this.columns.filter((column) => !column.hidden).map((column) => column.name)
     },
     /**
      * @param {Object} field
