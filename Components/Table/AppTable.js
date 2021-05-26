@@ -53,10 +53,18 @@ export default {
           if (col.format) {
             domProps.innerHTML = value
           }
+          let staticClass = col.__tdClass
+          if (typeof staticClass === 'function') {
+            staticClass = staticClass()
+          }
+          let classes = col.classes
+          if (Array.isArray(col.classes)) {
+            classes = col.classes.join(' ')
+          }
           const data = {
-            staticClass: col.__tdClass,
+            staticClass,
             style: col.style,
-            class: Array.isArray(col.classes) ? col.classes.join(' ') : col.classes,
+            class: classes,
             domProps
           }
           return h('td', data, value)
