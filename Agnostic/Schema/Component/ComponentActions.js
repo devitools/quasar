@@ -294,6 +294,13 @@ export default class ComponentActions {
   }
 
   /**
+   */
+  actionValidationClear () {
+    this.errors = {}
+    this.$v.$reset()
+  }
+
+  /**
    * @component {SchemaTableWhere}
    */
   actionSearch () {

@@ -25,6 +25,9 @@ export default {
     deletedBy: 'Apagado por'
   },
   components: {
+    validation: {
+      title: 'Mensagens de Validação'
+    },
     array: {
       empty: 'Use o botão {button} abaixo para adicionar elementos',
       remove: 'Remove este elemento da lista',

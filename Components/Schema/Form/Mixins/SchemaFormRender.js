@@ -1,9 +1,11 @@
 import { QBtn } from 'quasar'
 // app
 import { POSITIONS } from '../../../../Agnostic/enum'
+import { is } from '../../../../Util/general'
 // components
 import SkeletonSchemaForm from '../../SkeletonSchemaForm'
 import SchemaDebugger from '../../Debugger/SchemaDebugger'
+import SchemaFormValidationPanel from '../Components/SchemaFormValidationPanel'
 
 /**
  * @mixin {SchemaFormRender}
@@ -27,6 +29,63 @@ export default {
       ]
 
       return h('div', data, children)
+    },
+    /**
+     * @param h
+     * @return {*}
+     */
+    renderFormValidationPanel (h) {
+      const domain = this.domain
+
+      const getManualErrors = (accumulator, [key, message]) => {
+        if (!is(message)) {
+          return accumulator
+        }
+        accumulator[key] = message
+        return accumulator
+      }
+      const manual = Object
+        .entries(this.errors)
+        .reduce(getManualErrors, {})
+
+      const getAutomaticErrors = (accumulator, [key, message]) => {
+        if (!message?.$error) {
+          return accumulator
+        }
+        const params = message?.$params
+        if (!params) {
+          return accumulator
+        }
+        const rules = Object.values(params)
+        const messages = []
+        for (const rule of rules) {
+          if (message[rule.type]) {
+            continue
+          }
+          messages.push(rule)
+        }
+        if (!messages.length) {
+          return accumulator
+        }
+        accumulator[key] = messages
+        return accumulator
+      }
+      const automatic = Object
+        .entries(this.$v.record)
+        .reduce(getAutomaticErrors, {})
+
+      const errors = { ...manual, ...automatic }
+
+      const operations = {
+        component: this,
+        scope: this.scope,
+        buttons: this.buttons,
+        context: { record: this.record },
+        position: POSITIONS.POSITION_FORM_VALIDATION
+      }
+      const attrs = { domain, errors, operations }
+      const data = { attrs }
+      return h(SchemaFormValidationPanel, data)
     },
     /**
      * @param {function} h
@@ -178,6 +237,7 @@ export default {
       attrs: this.renderFormAttributes()
     }
     const children = [
+      this.renderFormValidationPanel(h),
       this.renderForm(h)
     ]
 

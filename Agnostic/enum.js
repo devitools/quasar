@@ -84,7 +84,8 @@ export const POSITIONS = Object.freeze({
   POSITION_TABLE_CELL: 'table-cell',
   POSITION_TABLE_FLOAT: 'table-float',
   POSITION_TABLE_SEARCH: 'table-search',
-  POSITION_FORM_FOOTER: 'form-footer'
+  POSITION_FORM_FOOTER: 'form-footer',
+  POSITION_FORM_VALIDATION: 'form-validation'
 })
 
 /**

@@ -93,5 +93,9 @@ export default {
   searchClear: {
     label: 'Limpar',
     tooltip: 'Limpa todos os filtros aplicados'
+  },
+  validationClear: {
+    label: 'Limpar',
+    tooltip: 'Remove todas as mensagens de validação'
   }
 }
