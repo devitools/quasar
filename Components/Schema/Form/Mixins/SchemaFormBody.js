@@ -102,13 +102,14 @@ export default {
     renderFormBodyTabs (h, groups) {
       const tabs = []
       const panes = []
-      Object.entries(groups).forEach((entry) => {
+      const entries = Object.entries(groups)
+      for (const entry of entries) {
         const [key, group] = entry
         const { hidden, label, pane } = group
 
         const components = this.getComponents(key)
         if (!components) {
-          return
+          continue
         }
 
         const entries = Object.entries(components)
@@ -122,7 +123,7 @@ export default {
         }, 0)
 
         if (hidden || visible === 0) {
-          return
+          continue
         }
 
         if (!this.groupSelected) {
@@ -160,7 +161,7 @@ export default {
           this.renderFormBodyComponents(h, this.getComponents(key))
         ]
         panes.push(h(QTabPanel, data, children))
-      })
+      }
 
       const tabsData = {
         domProps: { value: this.groupSelected },
