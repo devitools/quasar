@@ -43,13 +43,6 @@
 
         <div class="q-pl-md q-pr-md q-pt-sm q-pb-md">
           <SchemaButtons v-bind="operations" />
-<!--          <QBtn-->
-<!--            class="full-width"-->
-<!--            icon="clear"-->
-<!--            color="negative"-->
-<!--            label="Limpar Validações"-->
-<!--            @click="clear()"-->
-<!--          />-->
         </div>
       </div>
     </QDialog>
