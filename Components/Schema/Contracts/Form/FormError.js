@@ -63,6 +63,9 @@ export default {
         const rules = Object.values(params)
         const messages = []
         for (const rule of rules) {
+          if (!rule) {
+            continue
+          }
           if (message[rule.type]) {
             continue
           }
