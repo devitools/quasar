@@ -1,4 +1,4 @@
-import { QIcon, QSeparator, QTab, QTabPanel, QTabPanels, QTabs } from 'quasar'
+import { QBadge, QIcon, QSeparator, QTab, QTabPanel, QTabPanels, QTabs } from 'quasar'
 import $emporium from '../../../../emporium'
 import SchemaComponents from '../SchemaFormComponents'
 
@@ -135,6 +135,16 @@ export default {
             name: key,
             slot: 'title',
             label: label
+          },
+          scopedSlots: {
+            /*default: () => {
+              const errors = this.getErrors()
+              const total = Object.keys(errors).length
+              if (!total) {
+                return
+              }
+              return h(QBadge, { attrs: { color: 'red', floating: true, style: 'right: -24px' } }, total)
+            }*/
           }
         }
         tabs.push(h(QTab, tab))

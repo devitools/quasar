@@ -1,4 +1,5 @@
 import $emporium from '../../../../emporium'
+import { is } from 'app/@devitools/Util/general'
 
 /**
  * @mixin {FormError}
@@ -35,6 +36,49 @@ export default {
         return errors
       }
       this.errors = Object.values(this.components).reduce(reduceErrors, {})
+    },
+    /**
+     * @return {Record<string, Record<string,unknown> | Record<string,unknown>[]>}
+     */
+    getErrors () {
+      const getManualErrors = (accumulator, [key, message]) => {
+        if (!is(message)) {
+          return accumulator
+        }
+        accumulator[key] = message
+        return accumulator
+      }
+      const manual = Object
+        .entries(this.errors)
+        .reduce(getManualErrors, {})
+
+      const getAutomaticErrors = (accumulator, [key, message]) => {
+        if (!message?.$error) {
+          return accumulator
+        }
+        const params = message?.$params
+        if (!params) {
+          return accumulator
+        }
+        const rules = Object.values(params)
+        const messages = []
+        for (const rule of rules) {
+          if (message[rule.type]) {
+            continue
+          }
+          messages.push(rule)
+        }
+        if (!messages.length) {
+          return accumulator
+        }
+        accumulator[key] = messages
+        return accumulator
+      }
+      const automatic = Object
+        .entries(this.$v.record)
+        .reduce(getAutomaticErrors, {})
+
+      return { ...manual, ...automatic }
     }
   }
 }

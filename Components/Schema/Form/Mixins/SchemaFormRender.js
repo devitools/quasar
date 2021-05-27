@@ -31,50 +31,13 @@ export default {
       return h('div', data, children)
     },
     /**
-     * @param h
+     * @param creator
      * @return {*}
      */
-    renderFormValidationPanel (h) {
+    renderFormValidationPanel (creator) {
       const domain = this.domain
 
-      const getManualErrors = (accumulator, [key, message]) => {
-        if (!is(message)) {
-          return accumulator
-        }
-        accumulator[key] = message
-        return accumulator
-      }
-      const manual = Object
-        .entries(this.errors)
-        .reduce(getManualErrors, {})
-
-      const getAutomaticErrors = (accumulator, [key, message]) => {
-        if (!message?.$error) {
-          return accumulator
-        }
-        const params = message?.$params
-        if (!params) {
-          return accumulator
-        }
-        const rules = Object.values(params)
-        const messages = []
-        for (const rule of rules) {
-          if (message[rule.type]) {
-            continue
-          }
-          messages.push(rule)
-        }
-        if (!messages.length) {
-          return accumulator
-        }
-        accumulator[key] = messages
-        return accumulator
-      }
-      const automatic = Object
-        .entries(this.$v.record)
-        .reduce(getAutomaticErrors, {})
-
-      const errors = { ...manual, ...automatic }
+      const errors = this.getErrors()
 
       const operations = {
         component: this,
@@ -85,7 +48,7 @@ export default {
       }
       const attrs = { domain, errors, operations }
       const data = { attrs }
-      return h(SchemaFormValidationPanel, data)
+      return creator(SchemaFormValidationPanel, data)
     },
     /**
      * @param {function} h
@@ -224,11 +187,11 @@ export default {
     }
   },
   /**
-   * @param {function} h
+   * @param {function} creator
    */
-  render (h) {
+  render (creator) {
     if ((!this.domain && this.settings?.showPlaceholderContent) || this.showPlaceholderContent) {
-      return this.renderLoading(h)
+      return this.renderLoading(creator)
     }
 
     const data = {
@@ -237,18 +200,23 @@ export default {
       attrs: this.renderFormAttributes()
     }
     const children = [
-      this.renderFormValidationPanel(h),
-      this.renderForm(h)
+      this.renderFormValidationPanel(creator),
+      this.renderForm(creator)
     ]
 
     if (this.filling) {
-      children.push(this.renderFormFiller(h))
+      children.push(this.renderFormFiller(creator))
     }
 
     if (this.debugging) {
-      children.push(this.renderFormDebuggers(h))
+      children.push(this.renderFormDebuggers(creator))
     }
 
-    return h('div', data, children)
+    return creator('div', data, children)
   }
 }
+/**
+ * template direto
+ * template com .vue
+ * render function
+ */
