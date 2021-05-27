@@ -113,14 +113,15 @@ export default {
         }
 
         const entries = Object.entries(components)
-        const visible = entries.reduce((accumulator, entry) => {
+        const countVisibleComponents = (accumulator, entry) => {
           const [, field] = entry
           const { $layout: { formHidden } } = field
           if (formHidden === false) {
             accumulator++
           }
           return accumulator
-        }, 0)
+        }
+        const visible = entries.reduce(countVisibleComponents, 0)
 
         if (hidden || visible === 0) {
           continue
