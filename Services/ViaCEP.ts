@@ -15,6 +15,17 @@ interface ViaCEPResponse {
   gia: string
 }
 
+export type Localization = {
+  zip: string
+  address: string
+  complement: string
+  neighborhood: string
+  city: string
+  state: string
+  ibge: string
+  gia: string
+}
+
 /**
  * @link https://viacep.com.br
  *
@@ -36,7 +47,7 @@ export default class ViaCEP {
   /**
    * @param {string} cep
    */
-  query (cep: string) {
+  query (cep: string): Promise<Localization> {
     return new Promise((resolve) => {
       // @ts-ignore
       window.callbackViaCEP = function (response: ViaCEPResponse) {

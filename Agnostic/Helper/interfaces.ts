@@ -268,7 +268,8 @@ export interface Component extends Vue {
   $alert (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
   $lang (path: string, fallback?: string | string[]): string | Record<string, unknown>
   $can (namespace: string): boolean
-  $user(property: string): string | number | boolean | Record<string, unknown> | undefined
+  $user (property: string): string | number | boolean | Record<string, unknown> | undefined
+  $setFocus (name: string): void
   $message: Message
   $clipboard: Clipboard
   $q: QVueGlobals
