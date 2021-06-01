@@ -21,8 +21,9 @@
         flat
         round
         icon="zoom_in"
-      >
-        <QPopupProxy>
+        @click="previewOpen"
+      />
+        <QPopupProxy v-model="openPreview">
           <QList :class="{ 'uppercase': uppercase }">
             <component
               :is="component"
@@ -30,7 +31,6 @@
             />
           </QList>
         </QPopupProxy>
-      </QBtn>
     </template>
 
     <template
