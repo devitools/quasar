@@ -149,6 +149,7 @@ export default {
   data: () => ({
     options: [],
     loading: false,
+    openPreview: false,
     searching: false
   }),
   /**
@@ -252,6 +253,14 @@ export default {
         return
       }
       this.openDialog = true
+    },
+    /**
+     * @param {Event} $event
+     */
+    previewOpen ($event) {
+      $event.preventDefault()
+      $event.stopPropagation()
+      this.openPreview = true
     }
   },
   /**

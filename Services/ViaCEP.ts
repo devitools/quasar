@@ -13,6 +13,7 @@ interface ViaCEPResponse {
   unidade: string
   ibge: string
   gia: string
+  erro?: boolean
 }
 
 export type Localization = {
@@ -48,9 +49,14 @@ export default class ViaCEP {
    * @param {string} cep
    */
   query (cep: string): Promise<Localization> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       // @ts-ignore
       window.callbackViaCEP = function (response: ViaCEPResponse) {
+        if (response.erro) {
+          reject()
+          return
+        }
+
         resolve({
           zip: response.cep,
           address: response.logradouro,

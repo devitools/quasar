@@ -6,7 +6,10 @@
       v-model="formActive"
       persistent
     >
-      <div class="AppBuiltinFormModal__container__wrapper">
+      <div
+        class="AppBuiltinFormModal__container__wrapper"
+        :domain="attributes.domain"
+      >
         <AppBuiltinFormContainer
           ref="form"
           v-if="formActive"
@@ -23,7 +26,7 @@
     <div
       class="AppBuiltinTable__container"
       :class="{ 'AppBuiltinTable__container--hidden': formActive }"
-      :style="{ height }"
+      :domain="attributes.domain"
     >
       <AppBuiltinTableContainer
         v-bind="attributes"

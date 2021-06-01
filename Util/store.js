@@ -8,7 +8,7 @@ Vue.use(Vuex)
  * Useful to reduce boilerplate.. simple and functional
  * Besides the store is standalone and works fine in a lot of places
  * @param {*} options
- * @returns {Object}
+ * @return {*}
  */
 export default (options) => {
   const { state, mutations } = options

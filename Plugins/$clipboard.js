@@ -19,9 +19,14 @@ export default {
     if (!clipboard.hasOwnProperty(index)) {
       return undefined
     }
-    const clone = JSON.parse(JSON.stringify(clipboard[index]))
-    delete clipboard[index]
-    return clone
+    try {
+      const clone = JSON.parse(JSON.stringify(clipboard[index]))
+      delete clipboard[index]
+      return clone
+    } catch (e) {
+      // silent is gold
+    }
+    return undefined
   },
   /**
    */

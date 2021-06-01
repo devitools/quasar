@@ -140,10 +140,10 @@ export default abstract class Base {
 
   /**
    * @param {string | string[]} key
-   * @param {unknown} [fallback]
+   * @param {string | string[] | unknown} [fallback]
    * @returns {string | string[] | Record<string, unknown>}
    */
-  $lang (key: string | string[], fallback: unknown = ''): string | string[] | Record<string, unknown> |
+  $lang (key: string | string[], fallback: string | string[] | unknown = ''): string | string[] | Record<string, unknown> |
     Record<string, unknown>[] {
     if (typeof key === 'string') {
       key = [key, `domains.${this.$self().domain}.${key}`]
@@ -213,7 +213,11 @@ export default abstract class Base {
     const created = this.__fields[name].$created || []
     Object.entries(scopes).forEach((entry) => {
       const [scope, value] = entry
-      created.push({ path, scope, value })
+      created.push({
+        path,
+        scope,
+        value
+      })
     })
     return this
   }

@@ -22,8 +22,8 @@ export const getLocale = () => {
  * Lang is a featured i18n engine
  * We can change the locale and add more messages in realtime
  * I do not like some things in vue-i18n and other libs that I've tested, so that's it
- * @param {string|array} path
- * @param {string} fallback
+ * @param {string|string[]} path
+ * @param {string|string[]|unknown} fallback
  * @returns {*}
  */
 export default (path, fallback = '') => {

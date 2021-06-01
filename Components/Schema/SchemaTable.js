@@ -10,8 +10,15 @@ import SchemaTableSlots from './Table/Mixins/SchemaTableSlots'
  * @component {SchemaTable}
  */
 export default {
+  /**
+   */
   name: 'SchemaTable',
   /**
    */
-  mixins: [Dynamic, Table, SchemaTableSlots, SchemaTableRender]
+  mixins: [Dynamic, Table, SchemaTableSlots, SchemaTableRender],
+  /**
+   */
+  created () {
+    this.$payload = {}
+  }
 }
