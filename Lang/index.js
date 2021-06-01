@@ -23,7 +23,7 @@ export const getLocale = () => {
  * We can change the locale and add more messages in realtime
  * I do not like some things in vue-i18n and other libs that I've tested, so that's it
  * @param {string|array} path
- * @param {unknown} fallback
+ * @param {string} fallback
  * @returns {*}
  */
 export default (path, fallback = '') => {

@@ -1,5 +1,5 @@
 import $emporium from '../../../../emporium'
-import { is } from 'app/@devitools/Util/general'
+import { is } from '../../../../Util/general'
 
 /**
  * @mixin {FormError}
