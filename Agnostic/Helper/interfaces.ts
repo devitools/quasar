@@ -232,26 +232,30 @@ export type RouteRecord = {
  * @interface {Component}
  */
 export interface Component extends Vue {
+  $q: QVueGlobals
+
   scope: string
   domain: string
   primaryKey: string
   payload: Record<string, unknown>
   settings: Record<string, unknown>
   value: Record<string, unknown>
-  $store: Store<unknown>
+
   getActionPath(): string
   getRecord(): Record<string, unknown>
-  $util: Util
-  $static(path: string, external?: boolean): string
-  $browse(target: undefined | number | string | Record<string, unknown>, options?: Record<string, unknown> | boolean): void
   loadingShow (wait?: boolean): void
   loadingHide (): void
   withRecord (context: Context, success: Function, noItems?: Function, tooManySelected?: Function): void
   actionSchemaConfirm (payload: Record<string, unknown>, action: Function, alias: string): void
   getComponent (field: string): Promise<unknown>
+
+  $static(path: string, external?: boolean): string
+  $browse(target: undefined | number | string | Record<string, unknown>, options?: Record<string, unknown> | boolean): void
+
   $setIs (is: string): Component
   $setLayout (property: string, value: number | string): Component
   $getLayout (property: string): Component
+
   $getField (name: string): Component
   $fieldFormHidden (formHidden?: boolean): Component
   $fieldFormWidth (formWidth: number): Component
@@ -261,6 +265,25 @@ export interface Component extends Vue {
   $fieldFormOrder (formOrder: number, updateOthers?: boolean): Component
   $fieldTableHidden (tableHidden?: boolean): Component
   $fieldTableWhere (tableWhere?: string | null): Component
+
+  $getAction (key: string): Component
+  $actionOrder (order: number): Component
+  $actionLabel (label: string): Component
+  $actionIcon (icon?: string): Component
+  $actionTooltip (tooltip?: string): Component
+  $actionColor (color: string): Component
+  $actionTextColor (textColor: string): Component
+  $actionDisabled (disabled?: boolean): Component
+  $actionFloatRight (): Component
+  $actionFloatLeft (): Component
+  $actionNoMinWidth (): Component
+  $actionAddClassName (className: string): Component
+  $actionHidden (hidden ?: boolean): Component
+  $actionDropdown (actions: Action[]): Component
+  $actionValidate (validate: () => boolean): Component
+  $actionConfigure (configure: () => boolean): Component
+  $actionOn (event: string, handler: () => boolean): Component
+
   $setError (validation?: string, parameters?: Record<string, unknown>): Component
   $getValue (): unknown
   $setValue (value: unknown): Component
@@ -270,9 +293,13 @@ export interface Component extends Vue {
   $can (namespace: string): boolean
   $user (property: string): string | number | boolean | Record<string, unknown> | undefined
   $setFocus (name: string): void
+
   $message: Message
   $clipboard: Clipboard
-  $q: QVueGlobals
+  $store: Store<unknown>
+  $util: Util
+
+  createdHook(schema: unknown): void
 }
 
 /**
@@ -280,7 +307,6 @@ export interface Component extends Vue {
  */
 export interface SchemaForm extends Component {
   showPlaceholderContent: boolean
-  $payload: Record<string, unknown>
   fetchRecord(id: string | number): Promise<Record<string, unknown>>
 }
 

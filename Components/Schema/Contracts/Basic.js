@@ -40,7 +40,8 @@ export default {
    * @returns {Object}
    */
   data: () => ({
-    customActionPath: undefined
+    customActionPath: undefined,
+    payload: {}
   }),
   /**
    */

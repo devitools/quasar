@@ -23,6 +23,9 @@ export default {
     deletedBy: 'Deleted by'
   },
   components: {
+    validation: {
+      title: 'Validation Messages'
+    },
     array: {
       empty: 'Use the button {button} to add items',
       remove: 'Remove this element from the list',
