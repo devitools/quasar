@@ -64,6 +64,23 @@ export default {
     image: {
       button: 'Select an image'
     },
+    photo: {
+      submit: 'Upload Photo',
+      cropping: 'Crop Photo',
+      alt: 'Photo',
+      noPhoto: 'Unavailable Photo',
+      actions: {
+        openCropper: 'Add Photo',
+        selectPhoto: 'Select photo from device',
+        close: 'Close'
+      },
+      dragAndDrop: {
+        action: 'Drag and drop',
+        clickHere: 'click here',
+        body1: 'your image here, or',
+        body2: 'to select a file in your device'
+      }
+    },
     file: {
       upload: 'Click here to upload the file',
       download: 'Click here to download the file',

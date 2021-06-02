@@ -66,6 +66,23 @@ export default {
     image: {
       button: 'Selecione uma imagem'
     },
+    photo: {
+      submit: 'Enviar Foto',
+      cropping: 'Cortar Foto',
+      alt: 'Foto',
+      noPhoto: 'Foto Indisponível',
+      actions: {
+        openCropper: 'Adicionar Foto',
+        selectPhoto: 'Selecionar Foto do Computador',
+        close: 'Fechar'
+      },
+      dragAndDrop: {
+        action: 'Arraste e solte',
+        clickHere: 'clique aqui',
+        body1: 'sua imagem aqui, ou',
+        body2: 'para selecionar o arquivo no seu dispositivo'
+      }
+    },
     file: {
       upload: 'Clique aqui para importar o arquivo',
       download: 'Clique aqui para baixar o arquivo',

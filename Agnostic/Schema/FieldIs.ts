@@ -366,6 +366,15 @@ export default abstract class FieldIs extends Base {
    * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
+  fieldIsPhoto (attrs = {}) {
+    this.setComponent('photo', attrs, 'string')
+    return this
+  }
+
+  /**
+   * @param {Record<string, unknown>} attrs
+   * @returns {Schema}
+   */
   fieldIsFile (attrs = {}) {
     this.setComponent('file', attrs, 'file')
     return this
