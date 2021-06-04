@@ -21,5 +21,10 @@ export default {
    */
   data: () => ({
     groupSelected: ''
-  })
+  }),
+  /**
+   */
+  created () {
+    this.$payload = {}
+  },
 }

@@ -52,8 +52,8 @@
 <script>
 import { QBtn, QDialog } from 'quasar'
 import { is } from '../../../../Util/general'
-import SchemaButtons from '../../Buttons/SchemaButtons'
 import { replacement } from '../../../../Util/string'
+import SchemaButtons from '../../Buttons/SchemaButtons'
 
 export default {
   /**
