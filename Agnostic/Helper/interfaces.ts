@@ -298,6 +298,7 @@ export interface Component extends Vue {
   $clipboard: Clipboard
   $store: Store<unknown>
   $util: Util
+  $payload: Record<string, unknown>
 
   createdHook(schema: unknown): void
 }
