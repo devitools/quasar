@@ -7,7 +7,7 @@ import { toast } from '../message'
 import $lang from '../Lang'
 
 /**
- * @param {unknown} element
+ * @param {*} element
  * @param {String|Array} path
  * @param {*} fallback
  * @returns {*}

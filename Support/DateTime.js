@@ -164,6 +164,52 @@ export default class DateTime extends Date {
   }
 
   /**
+   * @return {boolean}
+   */
+  __isLeapYear (year) {
+    return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0))
+  }
+
+  /**
+   * @return {*}
+   */
+  __getDaysInMonth (year, month) {
+    return [31, (this.__isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month]
+  }
+
+  /**
+   * @return {*}
+   */
+  isLeapYear () {
+    return this.__isLeapYear(this.getFullYear())
+  }
+
+  /**
+   * @return {*}
+   */
+  getDaysInMonth () {
+    return this.__getDaysInMonth(this.getFullYear(), this.getMonth())
+  }
+
+  /**
+   * @param value
+   * @param followLast
+   * @return {DateTime}
+   */
+  addMonths (value, followLast) {
+    const current = this.getDate()
+    this.setDate(1)
+    const wasLast = current === this.getDaysInMonth()
+    this.setMonth(this.getMonth() + value)
+    if (followLast && wasLast) {
+      this.setDate(this.getDaysInMonth())
+      return this
+    }
+    this.setDate(Math.min(current, this.getDaysInMonth()))
+    return this
+  }
+
+  /**
    * @param {string} base
    * @param {string} compare
    * @param {string} format

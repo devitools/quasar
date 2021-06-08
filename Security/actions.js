@@ -15,13 +15,20 @@ export const actionMenu = (domain, path, icon, separated = false) => {
 }
 
 /**
- * @param {string} domain
+ * @param {string|{icon?: string, domain?: string, children?: *[]}} settings
  * @param {string} icon
  * @param {[]} children
  * @param {boolean} separated
  * @returns {{children: *, label: *, icon: *, separated: boolean}}
  */
-export const actionGroup = (domain, icon, children, separated = false) => {
+export const actionGroup = (settings, icon = '', children = [], separated = false) => {
+  let domain = settings
+  if (typeof settings === 'object') {
+    domain = settings?.domain
+    icon = settings?.icon
+    children = settings?.children
+    separated = settings?.separated
+  }
   return {
     label: $lang(`menu.${domain}`, `menu.${domain}`),
     icon,
@@ -53,7 +60,7 @@ export const actionEntry = (domain, to, icon, namespace = undefined, options = {
 }
 
 /**
- * @param {{path: string, icon: string, domain: string, meta: unknown}} index
+ * @param {{icon?: string, domain?: string, path?: string, table?: Function, form?: Function}} index
  * @param {boolean} separated
  * @returns {{path: *, label: string, namespace: string, separated: boolean}}
  */

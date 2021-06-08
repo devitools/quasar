@@ -2,12 +2,18 @@ import { RULES } from 'src/settings/schema'
 import $lang from '../Lang'
 
 /**
- * @param {string} namespace
+ * @param {string|{icon?: string, domain?: string, children?: *[]}} settings
  * @param {string} icon
  * @param {[]} children
  * @returns {{children: *, namespace: *, icon: *, label: *}}
  */
-export const permissionGroup = (namespace, icon, children) => {
+export const permissionGroup = (settings, icon = '', children = []) => {
+  let namespace = settings
+  if (typeof settings === 'object') {
+    namespace = settings?.domain
+    icon = settings?.icon
+    children = settings?.children
+  }
   return {
     label: $lang(`permissions.${namespace}`, `permissions.${namespace}`),
     namespace,

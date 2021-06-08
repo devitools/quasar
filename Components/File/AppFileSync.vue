@@ -25,16 +25,20 @@
       </QBtn>
     </template>
     <template
-      v-slot:after
+      v-slot:append
       v-if="typeof value === 'string' && value"
     >
-      <QIcon
-        name="cloud_download"
-        class="cursor-pointer"
-        @click="download"
-      >
-        <AppTooltip>{{ $lang('agnostic.components.file.download') }}</AppTooltip>
-      </QIcon>
+      <div class="q-mr-sm">
+        <QBtn
+          round
+          dense
+          flat
+          icon="cloud_download"
+          @click="download"
+        >
+          <AppTooltip>{{ $lang('agnostic.components.file.download') }}</AppTooltip>
+        </QBtn>
+      </div>
     </template>
   </QFile>
 </template>
@@ -172,8 +176,11 @@ export default {
       this.$refs.file.pickFiles()
     },
     /**
+     * @param {Event} $event
      */
-    download () {
+    download ($event) {
+      $event.stopPropagation()
+      $event.preventDefault()
       // noinspection JSCheckFunctionSignatures
       this.downloadFile(this.value, this.model)
     }
