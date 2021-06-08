@@ -1,4 +1,6 @@
-import Chart from 'chart.js'
+import { Chart, LinearScale, LineController, LineElement, PointElement, Title } from 'chart.js'
+
+Chart.register(LineController, LineElement, PointElement, LinearScale, Title)
 
 export default {
   props: {
@@ -46,7 +48,11 @@ export default {
     },
     createChart (options = {}) {
       const ctx = this.$refs.chart.getContext('2d')
-      this.$chart = new Chart(ctx, { type: this.$options.type, data: this.data, options: { ...this.options, ...options } })
+      this.$chart = new Chart(ctx, {
+        type: this.$options.type,
+        data: this.data,
+        options: { ...this.options, ...options }
+      })
       return this.$chart
     }
   },
