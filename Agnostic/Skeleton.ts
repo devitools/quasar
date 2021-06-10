@@ -142,7 +142,7 @@ abstract class Skeleton extends Base {
         if (this.remoteKey) {
           where[remoteKey] = withSeparator(filter, this.remoteKey)
         } else if (filter) {
-          where[this.displayKey] = withSeparator(filter, String(operator))
+          where[this.displayKey] = operator ? withSeparator(filter, String(operator)) : filter
         }
 
         const parameters = { [searchKey]: where }
