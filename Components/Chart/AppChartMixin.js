@@ -1,6 +1,4 @@
-import { Chart, LinearScale, LineController, LineElement, PointElement, Title } from 'chart.js'
-
-Chart.register(LineController, LineElement, PointElement, LinearScale, Title)
+import Chart from 'chart.js'
 
 export default {
   props: {
