@@ -117,12 +117,15 @@ abstract class Skeleton extends Base {
    * @returns {Record<string, unknown>}
    */
   static provideRemote (options: Record<string, unknown> = {}): Record<string, unknown> {
-    let { widget, path, query } = options
+    let { widget, path, query, operator } = options
     if (widget === undefined) {
       widget = false
     }
     if (path === undefined) {
       path = ''
+    }
+    if (operator === undefined) {
+      operator = OPERATORS.LIKE
     }
 
     return {
@@ -139,7 +142,7 @@ abstract class Skeleton extends Base {
         if (this.remoteKey) {
           where[remoteKey] = withSeparator(filter, this.remoteKey)
         } else if (filter) {
-          where[this.displayKey] = withSeparator(filter, OPERATORS.LIKE)
+          where[this.displayKey] = withSeparator(filter, String(operator))
         }
 
         const parameters = { [searchKey]: where }
