@@ -11,6 +11,7 @@ import { fieldIsSelectFilter, fieldIsSelectNewValue, fieldIsSelectWatch } from '
 import { fieldIsEmbedWatch } from './Component/embed'
 import { Component, Payload } from '../../Agnostic/Helper/interfaces'
 import Skeleton from '../Skeleton'
+import { isArray } from 'app/@devitools/Util/general'
 
 /**
  * @class {FieldIs}
@@ -104,21 +105,27 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Record<string, unknown>[]} options
+   * @param {Record<string, unknown>[] | Record<string, unknown>} options
    * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
-  fieldIsRadio (options: Record<string, unknown>[] = [], attrs: Record<string, unknown> = {}) {
-    const self = this.$self()
-    if (!options.length) {
-      // @ts-ignore
-      options = this.$lang(`domains.${self.domain}.fields.${this.__currentField}.options`, [])
-    }
+  fieldIsRadio (options: Record<string, unknown>[] | Record<string, unknown> = [], attrs: Record<string, unknown> = {}) {
+    const currentField = this.__currentField
+
     if (!Array.isArray(options)) {
+      attrs = options
+      options = []
+    }
+    if (options.length === 0) {
+      options = this.$lang(`fields.${currentField}.options`, []) as Record<string, unknown>[]
+    }
+    if (options.length === 0) {
       options = yesNo
     }
+
     this.setComponent('radio', { ...attrs, options }, 'options')
-    this.setLayout({ tableWhere: OPERATORS.EQUAL, tableFormat: optionsFormatter(options) })
+    const tableFormat = this.generateOptionsTableFormat(attrs)
+    this.setLayout({ tableFormat })
     return this
   }
 
@@ -127,36 +134,14 @@ export default abstract class FieldIs extends Base {
    * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
-  fieldIsSelect (options?: Record<string, unknown>[] | Record<string, unknown>, attrs: Record<string, unknown> = {}) {
+  fieldIsSelect (options: Record<string, unknown>[] | Record<string, unknown> = [], attrs: Record<string, unknown> = {}) {
     const currentField = this.__currentField
 
-    type Option = { value: unknown, label: string }
-    type Keys = string | number
-    type Styles = string | Record<string, string>
-    type ClassNames = string | string[]
-
-    let formatStyle: Styles
-    let formatStyles: Record<Keys, Styles>
-    let formatClass: ClassNames
-    let formatClasses: Record<Keys, ClassNames>
     if (!Array.isArray(options)) {
-      if (options?.formatStyle) {
-        formatStyle = options.formatStyle as Styles
-        delete options.formatStyle
-      }
-      if (options?.formatStyles) {
-        formatStyles = options.formatStyles as Record<Keys, Styles>
-        delete options.formatStyles
-      }
-      if (options?.formatClass) {
-        formatClass = options.formatClass as ClassNames
-        delete options.formatClass
-      }
-      if (options?.formatClasses) {
-        formatClasses = options.formatClasses as Record<Keys, ClassNames>
-        delete options.formatClasses
-      }
-
+      attrs = options
+      options = []
+    }
+    if (options.length === 0) {
       options = this.$lang(`fields.${currentField}.options`, []) as Record<string, unknown>[]
     }
 
@@ -183,9 +168,48 @@ export default abstract class FieldIs extends Base {
       this.setOn('new-value', fieldIsSelectNewValue())
     }
 
-    const label = (options: Option[], value: unknown) => {
-      const element = options.find((option) => {
-        return String(option.value).trim() === String(value).trim()
+    const tableFormat = this.generateOptionsTableFormat(attrs)
+    this.setLayout({ tableFormat })
+    return this
+  }
+
+  /**
+   * @param {Record<string, unknown>} attrs
+   * @private
+   */
+  private generateOptionsTableFormat(attrs: Record<string, unknown>) {
+    const currentField = this.__currentField
+
+    type Option = { value: unknown, label: string }
+    type Keys = string | number
+    type Styles = string | Record<string, string>
+    type ClassNames = string | string[]
+
+    if (typeof attrs !== 'object') {
+      attrs = {}
+    }
+
+    let formatStyle: Styles
+    let formatStyles: Record<Keys, Styles>
+    let formatClass: ClassNames
+    let formatClasses: Record<Keys, ClassNames>
+
+    if (attrs?.formatStyle) {
+      formatStyle = attrs.formatStyle as Styles
+    }
+    if (attrs?.formatStyles) {
+      formatStyles = attrs.formatStyles as Record<Keys, Styles>
+    }
+    if (attrs?.formatClass) {
+      formatClass = attrs.formatClass as ClassNames
+    }
+    if (attrs?.formatClasses) {
+      formatClasses = attrs.formatClasses as Record<Keys, ClassNames>
+    }
+
+    const label = (candidates: Option[], value: unknown) => {
+      const element = candidates.find((option) => {
+        return option.value === value
       })
       if (element && element.label) {
         return element.label
@@ -193,7 +217,12 @@ export default abstract class FieldIs extends Base {
       return value
     }
 
-    const tableFormat = function (value: Keys, row: Record<string, unknown>, col: { options: Option[] }) {
+    return function (value: Keys, row: Record<string, unknown>, col: { options: Option[] }) {
+      if (!formatClass && !formatClasses && !formatStyle && !formatStyles) {
+        const formatter = optionsFormatter(col.options)
+        return formatter(value)
+      }
+
       const classNameValue = [
         'q-td-highlight',
         `${currentField}--${value}`,
@@ -209,9 +238,6 @@ export default abstract class FieldIs extends Base {
       const content = label(col.options, value)
       return `<div class="${className}" style="${style}">${content}</div>`
     }
-
-    this.setLayout({ tableFormat })
-    return this
   }
 
   /**
