@@ -9,9 +9,8 @@ import { classify, stylize } from '../../Util/ui'
 
 import { fieldIsSelectFilter, fieldIsSelectNewValue, fieldIsSelectWatch } from './Component/select'
 import { fieldIsEmbedWatch } from './Component/embed'
-import { Component, Payload } from '../../Agnostic/Helper/interfaces'
+import { ClassNames, Component, Keys, Option, Payload, Styles } from '../../Agnostic/Helper/interfaces'
 import Skeleton from '../Skeleton'
-import { isArray } from 'app/@devitools/Util/general'
 
 /**
  * @class {FieldIs}
@@ -179,11 +178,6 @@ export default abstract class FieldIs extends Base {
    */
   private generateOptionsTableFormat(attrs: Record<string, unknown>) {
     const currentField = this.__currentField
-
-    type Option = { value: unknown, label: string }
-    type Keys = string | number
-    type Styles = string | Record<string, string>
-    type ClassNames = string | string[]
 
     if (typeof attrs !== 'object') {
       attrs = {}
