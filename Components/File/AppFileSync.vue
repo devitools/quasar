@@ -33,19 +33,35 @@
           round
           dense
           flat
+          icon="wysiwyg"
+          @click="preview"
+        >
+          <AppTooltip>{{ $lang('agnostic.components.file.download') }}</AppTooltip>
+        </QBtn>
+        <QBtn
+          round
+          dense
+          flat
           icon="cloud_download"
           @click="download"
         >
           <AppTooltip>{{ $lang('agnostic.components.file.download') }}</AppTooltip>
         </QBtn>
+        <QDialog v-model="previewing">
+          <AppFilePreview
+            :value="previewURL"
+            @close="previewing = false"
+          />
+        </QDialog>
       </div>
     </template>
   </QFile>
 </template>
 
 <script>
-import { QBtn, QFile, QIcon } from 'quasar'
+import { QBtn, QDialog, QFile, QIcon } from 'quasar'
 import AppTooltip from '../Tooltip/AppTooltip'
+import AppFilePreview from './AppFilePreview'
 
 export default {
   /**
@@ -54,9 +70,11 @@ export default {
   /**
    */
   components: {
+    AppFilePreview,
+    QBtn,
+    QDialog,
     QFile,
     QIcon,
-    QBtn,
     AppTooltip
   },
   /**
@@ -107,7 +125,7 @@ export default {
    */
   computed: {
     /**
-     * @return {Record<string,unknown>}
+     * @return {*}
      */
     bind () {
       let label = ''
@@ -154,7 +172,9 @@ export default {
   /**
    */
   data: () => ({
-    model: null
+    model: null,
+    previewing: false,
+    previewURL: ''
   }),
   /**
    */
@@ -183,6 +203,15 @@ export default {
       $event.preventDefault()
       // noinspection JSCheckFunctionSignatures
       this.downloadFile(this.value, this.model)
+    },
+    /**
+     * @param {Event} $event
+     */
+    preview ($event) {
+      $event.stopPropagation()
+      $event.preventDefault()
+      this.previewing = true
+      this.previewURL = this.$static(this.value, true)
     }
   }
 }
