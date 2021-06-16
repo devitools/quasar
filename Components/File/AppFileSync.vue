@@ -36,7 +36,7 @@
           icon="wysiwyg"
           @click="preview"
         >
-          <AppTooltip>{{ $lang('agnostic.components.file.download') }}</AppTooltip>
+          <AppTooltip>{{ $lang('agnostic.components.file.preview') }}</AppTooltip>
         </QBtn>
         <QBtn
           round
