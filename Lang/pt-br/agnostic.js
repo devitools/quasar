@@ -68,7 +68,7 @@ export default {
     },
     file: {
       upload: 'Clique aqui para importar o arquivo',
-      preview: 'Clique para visualizar o arquivo',
+      preview: 'Clique aqui para visualizar o arquivo',
       download: 'Clique aqui para baixar o arquivo',
       downloadName: 'arquivo'
     },

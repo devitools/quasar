@@ -11,7 +11,7 @@
     @input="updateValue"
   >
     <template
-      v-slot:prepend
+      #prepend
       v-if="!readonly"
     >
       <QBtn
@@ -25,7 +25,7 @@
       </QBtn>
     </template>
     <template
-      v-slot:append
+      #append
       v-if="typeof value === 'string' && value"
     >
       <div class="q-mr-sm">
