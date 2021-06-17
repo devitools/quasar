@@ -274,6 +274,14 @@ export default abstract class FieldIs extends Base {
     return this
   }
 
+  fieldIsDateRange (attrs = {}) {
+    this.setComponent('dateRange')
+    this.setAttrs({ ...attrs })
+    this.setType('string')
+    this.configureDateTableFormat()
+    return this
+  }
+
   /**
    * @param {Record<string, unknown>} attrs
    * @returns {Schema}
