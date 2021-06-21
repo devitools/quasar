@@ -1,7 +1,6 @@
 import { QBtn } from 'quasar'
 // app
 import { POSITIONS } from '../../../../Agnostic/enum'
-import { is } from '../../../../Util/general'
 // components
 import SkeletonSchemaForm from '../../SkeletonSchemaForm'
 import SchemaDebugger from '../../Debugger/SchemaDebugger'
@@ -215,8 +214,3 @@ export default {
     return creator('div', data, children)
   }
 }
-/**
- * template direto
- * template com .vue
- * render function
- */

@@ -1,28 +1,28 @@
 /**
  */
 export default {
-  fail: 'Ops, can not execute the operation',
-  validation: 'Check highlighted fields',
+  fail: 'Ops, não foi possível realizar a operação',
+  validation: 'Verifique os campos destacados',
   actions: {
     submit: {
-      label: 'Submit',
-      tooltip: 'Submit the form to generate the view of report'
+      label: 'Executar',
+      tooltip: 'Executa o relatório passando os filtros informados'
     },
     printing: {
-      label: 'Print',
-      tooltip: 'Submit the form and start the print dialog'
+      label: 'Imprimir',
+      tooltip: 'Executa o relatório e solicita uma impressão assim que o mesmo é impresso na tela'
     },
     return: {
-      label: 'Back',
-      tooltip: 'Back to form'
+      label: 'Voltar',
+      tooltip: 'Volta para a tela de filtros'
     },
     printer: {
-      label: 'Print',
-      tooltip: ''
+      label: 'Imprimir',
+      tooltip: 'Imprime o relatório que acabou de ser executado e está visível'
     },
     csv: {
-      label: 'CSV',
-      tooltip: 'Submit the form and download the data in CSV format'
+      label: 'Download',
+      tooltip: 'Solicita o download dos dados aplicando os filtros informados'
     }
   }
 }
