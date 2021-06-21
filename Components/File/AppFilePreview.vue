@@ -24,7 +24,6 @@
       v-show="ready"
       :src="value"
       @load="ready = true"
-      frameborder="0"
     />
   </div>
 </template>
@@ -68,8 +67,9 @@ export default {
   iframe, article {
     width: 100%;
     height: 80vh;
-    border: 0;
     background: #9a9a9a;
+    border: 1px solid #9a9a9a;
+    border-radius: 4px;
   }
 
   iframe {
