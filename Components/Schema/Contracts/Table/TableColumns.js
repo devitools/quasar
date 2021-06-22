@@ -12,7 +12,7 @@ export default {
      * @param {Record<string, unknown>} options
      */
     renderColumns (options = {}) {
-      const { ignore = undefined, primaryKeyLast = false } = options
+      const { ignore = undefined, primaryKeyLast = false, useCounter = true } = options
 
       const fields = this.fields()
       const columns = Object
@@ -21,8 +21,10 @@ export default {
         .map((accumulator, field) => this.columnsMap(accumulator, field), [])
         .sort((a, b) => this.columnsSort(a, b, primaryKeyLast))
 
-      /** @counter */
-      columns.unshift(counter)
+      if (useCounter) {
+        /** @counter */
+        columns.unshift(counter)
+      }
       this.columns = columns
 
       let visibleColumns
