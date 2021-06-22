@@ -509,4 +509,13 @@ export default abstract class FieldIs extends Base {
     this.setLayout({ tableAlign: 'right' })
     return this
   }
+
+  /**
+   * @param {Record<string, unknown>} attrs
+   * @returns {Schema}
+   */
+  fieldIsTable (attrs = {}) {
+    this.setComponent('table', { value: [], ...attrs }, 'array')
+    return this
+  }
 }
