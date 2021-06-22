@@ -96,6 +96,17 @@ abstract class Schema extends Skeleton {
       avoids: () => this.getAvoids()
     }
   }
+
+  /**
+   * @param {Record<string, unknown>} attrs
+   * @return {{providing: () => Provide}}
+   */
+  static provider (attrs: Record<string, unknown> = {}): { providing: () => Provide } {
+    return {
+      providing: () => this.build().provide(),
+      ...attrs
+    }
+  }
 }
 
 /**
