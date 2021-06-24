@@ -48,6 +48,9 @@ export default {
      * @return {boolean}
      */
     columnsFilter (field, ignore) {
+      if (field.hasOwnProperty('$visible')) {
+        return field.$visible.call(this)
+      }
       if (field?.attrs?.separator) {
         return false
       }
@@ -122,9 +125,6 @@ export default {
     parseFieldHidden (field) {
       if (!field.scopes.includes(this.scope)) {
         return true
-      }
-      if (field.hasOwnProperty('$visible')) {
-        return !field.$visible.call(this)
       }
       if (this.override[field.$key] && this.override[field.$key].$layout.hasOwnProperty('tableHidden')) {
         return this.override[field.$key].$layout.tableHidden
