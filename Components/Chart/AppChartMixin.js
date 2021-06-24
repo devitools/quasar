@@ -29,7 +29,6 @@ export default {
      */
     config () {
       return {
-        ...this.options,
         responsive: true,
         lineTension: 1,
         scales: {
@@ -42,7 +41,8 @@ export default {
         },
         animation: {
           onComplete: () => this.$emit('chart:ready')
-        }
+        },
+        ...this.options
       }
     }
   },
