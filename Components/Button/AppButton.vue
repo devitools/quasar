@@ -61,7 +61,8 @@ export default {
      */
     bind () {
       const flat = this.link
-      return { flat, ...this.$attrs, ...this.$props }
+      const disable = this.$attrs['readonly']
+      return { flat, disable, ...this.$attrs, ...this.$props }
     },
     /**
      * @returns {Array}
