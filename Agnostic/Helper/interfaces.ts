@@ -225,7 +225,7 @@ export interface Util {
   get (element: string | Record<string, unknown> | unknown, path: string, fallback?: Record<string, unknown>): unknown
   set (element: string | Record<string, unknown>, path?: Record<string, unknown>, value?: Record<string, unknown>): Record<string, unknown>
   uuid (): string
-  run (value: Function | Object): Function
+  run (value: Function | unknown): Function
 }
 
 /**
@@ -298,7 +298,7 @@ export interface Component extends Vue {
   $actionFloatLeft (): Component
   $actionNoMinWidth (): Component
   $actionAddClassName (className: string): Component
-  $actionHidden (hidden ?: boolean): Component
+  $actionHidden (hidden?: boolean): Component
   $actionDropdown (actions: Action[]): Component
   $actionValidate (validate: () => boolean): Component
   $actionConfigure (configure: () => boolean): Component

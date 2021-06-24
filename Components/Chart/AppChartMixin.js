@@ -1,6 +1,8 @@
 import Chart from 'chart.js'
 
 export default {
+  /**
+   */
   props: {
     data: {
       type: Object,
@@ -9,7 +11,7 @@ export default {
     options: {
       type: Object,
       default () {
-        return this.initOptions()
+        return {}
       }
     },
     container: {
@@ -19,8 +21,13 @@ export default {
       }
     }
   },
-  methods: {
-    initOptions () {
+  /**
+   */
+  computed: {
+    /**
+     * @return {*}
+     */
+    config () {
       return {
         responsive: true,
         lineTension: 1,
@@ -31,16 +38,26 @@ export default {
               beginAtZero: true
             }
           }]
-        }
+        },
+        animation: {
+          onComplete: () => this.$emit('chart:ready')
+        },
+        ...this.options
       }
-    },
+    }
+  },
+  methods: {
+    /**
+     * @param data
+     * @return {*}
+     */
     updateChart (data) {
       if (this.$chart) {
         this.$chart.data.datasets = data.datasets
         if (data.labels) {
           this.$chart.data.labels = data.labels
         }
-        this.$chart.update()
+        this.$chart.update(this.config)
         return this.$chart
       }
     },
@@ -49,7 +66,7 @@ export default {
       this.$chart = new Chart(ctx, {
         type: this.$options.type,
         data: this.data,
-        options: { ...this.options, ...options }
+        options: { ...this.config, ...options }
       })
       return this.$chart
     }

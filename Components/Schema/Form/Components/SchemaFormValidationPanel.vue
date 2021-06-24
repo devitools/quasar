@@ -37,7 +37,9 @@
             class="q-mb-sm"
           >
             <strong>&bullet; {{ label(key, error) }}</strong>
-            <div class="q-pl-sm">{{ message(key, error) }}</div>
+            <div class="q-pl-sm">
+              {{ message(key, error) }}
+            </div>
           </div>
         </div>
 

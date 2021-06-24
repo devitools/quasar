@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { QBtn, QDialog, QFile, QIcon } from 'quasar'
+import { QBtn, QDialog, QFile } from 'quasar'
 import AppTooltip from '../Tooltip/AppTooltip'
 import AppFilePreview from './AppFilePreview'
 
@@ -74,7 +74,6 @@ export default {
     QBtn,
     QDialog,
     QFile,
-    QIcon,
     AppTooltip
   },
   /**

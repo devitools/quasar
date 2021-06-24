@@ -15,9 +15,9 @@
         :props="props"
         :style="{ padding: 0 }"
       >
-        <template v-for="(action, index) in actions">
+        <template v-for="(action, key) in actions">
           <QBtn
-            :key="index"
+            :key="key"
             flat
             dense
             round
