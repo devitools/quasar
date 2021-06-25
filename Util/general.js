@@ -105,7 +105,10 @@ export const browse = (target, options = undefined) => {
   }
 
   if (typeof target === 'string') {
-    target = { path: target, query: {} }
+    target = {
+      path: target,
+      query: {}
+    }
   }
 
   if (options === true || (options && typeof options === 'object' && options.keep)) {
@@ -566,4 +569,22 @@ export const copyContent = (element, i18n = 'app.clipboard.copy') => {
   } catch (e) {
     // silent is gold
   }
+}
+
+/**
+ * @param {string} input
+ * @return {Record<string, string>}
+ */
+export const styleStringToObject = (input) => {
+  if (typeof input !== 'string') {
+    return
+  }
+  const result = {}
+  const attributes = input.split(';')
+
+  for (let counter = 0; counter < attributes.length; counter++) {
+    const entry = attributes[counter].split(':')
+    result[entry.splice(0, 1)[0]] = entry.join(':')
+  }
+  return result
 }

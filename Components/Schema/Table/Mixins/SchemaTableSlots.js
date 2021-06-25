@@ -6,6 +6,7 @@ import { tableShowColumnsSelector, tableShowFilters, tableShowSearch } from 'src
 
 import { POSITIONS } from '../../../../Agnostic/enum'
 import { erase, write } from '../../../../Util/storage'
+import { styleStringToObject } from '../../../../Util/general'
 
 import SchemaTablePagination from '../Components/SchemaTablePagination'
 
@@ -205,8 +206,9 @@ export default {
         this.counter = 0
       }
 
+      const style = styleStringToObject(counter.style)
       const data = {
-        style: { position: 'relative' }
+        style: { position: 'relative', ...style }
       }
       const children = []
       if (this.$q.platform.is.desktop) {
