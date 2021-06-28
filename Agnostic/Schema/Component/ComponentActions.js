@@ -22,7 +22,8 @@ export default class ComponentActions {
     if (name !== 'SchemaForm') {
       return
     }
-    return this.$store.dispatch('app/setPrint', {
+    return $emporium.commit('updatePrinting', {
+      user: this.$util.get(this.$store.getters['auth/getUser'], 'name'),
       domain: this.domain,
       components: this.components,
       record: this.record
@@ -50,7 +51,12 @@ export default class ComponentActions {
    * @param {function(string)} after
    * @returns {Object}
    */
-  actionCreate ({ schema, record, executor, after }) {
+  actionCreate ({
+    schema,
+    record,
+    executor,
+    after
+  }) {
     if (!schema.service) {
       return reject({ error: 'destroy.invalid-service' })
     }
@@ -105,7 +111,13 @@ export default class ComponentActions {
    * @param {string} alias
    * @returns {Object}
    */
-  actionUpdate ({ schema, record, executor, after, alias }) {
+  actionUpdate ({
+    schema,
+    record,
+    executor,
+    after,
+    alias
+  }) {
     if (!schema.service) {
       return reject({ error: 'destroy.invalid-service' })
     }
@@ -155,7 +167,14 @@ export default class ComponentActions {
    * @param {boolean} erase
    * @returns {Promise<any>|undefined}
    */
-  actionDestroy ({ schema, record, records, executor, after, erase }) {
+  actionDestroy ({
+    schema,
+    record,
+    records,
+    executor,
+    after,
+    erase
+  }) {
     if (!schema.service) {
       return reject({ error: 'destroy.invalid-service' })
     }

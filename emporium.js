@@ -13,7 +13,9 @@ const $emporium = $store({
     purging: read('purging', true) || false,
     modified: false,
     modal: {},
-    pending: ''
+    pending: '',
+    printing: undefined,
+    version: window.localStorage.getItem('version') ?? ''
   },
   // the mutations to call with commit
   // ex.: $store.commit('updateVersion')
@@ -76,6 +78,21 @@ const $emporium = $store({
         state.modified = true
       }
       state.pending = pending
+    },
+    /**
+     * @param {Object} state
+     * @param {Object} printing
+     */
+    updatePrinting (state, printing) {
+      state.printing = printing
+    },
+    /**
+     * @param {Object} state
+     * @param {string} version
+     */
+    updateVersion (state, version) {
+      state.version = version
+      window.localStorage.setItem('version', version)
     }
   }
 })
