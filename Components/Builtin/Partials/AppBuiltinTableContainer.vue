@@ -75,6 +75,8 @@ export default {
      */
     bind () {
       return {
+        ...this.$attrs,
+        ...this.$props,
         headless: this.headless,
         readonly: this.readonly,
         actions: this.$props.actions || this.$attrs.actions,
