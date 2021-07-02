@@ -18,13 +18,13 @@ export default {
      * @returns {boolean}
      */
     hasSections () {
-      return is(this.grouping) && this.groupType === 'sections'
+      return is(this.grouping) && this.groupingType === 'sections'
     },
     /**
      * @returns {boolean}
      */
     hasTabs () {
-      return is(this.grouping) && this.groupType === 'tabs'
+      return is(this.grouping) && this.groupingType === 'tabs'
     }
   },
   /**
@@ -128,7 +128,7 @@ export default {
       if (group === undefined) {
         const reduce = (accumulator, key) => {
           const field = this.components[key]
-          if (!field.group || this.groupType === 'none') {
+          if (!field.group || this.groupingType === 'none') {
             accumulator[key] = field
           }
           return accumulator

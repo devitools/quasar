@@ -310,6 +310,8 @@ export interface SchemaForm extends Component {
   showPlaceholderContent: boolean
   useFormReadonly: boolean
   fetchRecord(id: string | number): Promise<Record<string, unknown>>
+
+  $groupType (type: string): this
 }
 
 /**
