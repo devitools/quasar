@@ -28,6 +28,12 @@ export default {
     validation: {
       title: 'Mensagens de Validação'
     },
+    remote: {
+      confirm: 'Confirmar',
+      clear: 'Limpar',
+      cancel: 'Cancelar',
+      search: 'Pesquisar'
+    },
     array: {
       empty: 'Use o botão {button} abaixo para adicionar elementos',
       remove: 'Remove este elemento da lista',

@@ -12,7 +12,7 @@
       :visible-columns="visibleColumns"
       @request="onRequest"
       binary-state-sort
-      row-key="uuid"
+      :row-key="rowKey"
       selection="multiple"
     >
       <template v-slot:top-left>
@@ -63,12 +63,19 @@
 </template>
 
 <script>
+import { QBtn, QIcon } from 'quasar'
 import { attrs } from 'src/settings/components'
 
 export default {
   /**
    */
   name: 'SelectRemoteWidgetTable',
+  /**
+   */
+  components: {
+    QBtn,
+    QIcon
+  },
   /**
    */
   props: {
@@ -91,6 +98,14 @@ export default {
     search: {
       type: String,
       default: ''
+    },
+    rowsPerPage: {
+      type: Number,
+      default: 10
+    },
+    rowKey: {
+      type: String,
+      default: 'uuid'
     }
   },
   /**
@@ -105,7 +120,7 @@ export default {
         sortBy: '',
         descending: false,
         page: 1,
-        rowsPerPage: 10,
+        rowsPerPage: this.rowsPerPage,
         rowsNumber: 10
       }
     }
@@ -141,7 +156,13 @@ export default {
      * @param {Object} props
      */
     onRequest (props) {
-      const { page, rowsPerPage, rowsNumber, sortBy, descending } = props.pagination
+      const {
+        page,
+        rowsPerPage,
+        rowsNumber,
+        sortBy,
+        descending
+      } = props.pagination
       const filter = props.filter
       this.loading = true
       const done = (pagination = {}) => {
@@ -150,7 +171,15 @@ export default {
           this.pagination[prop] = pagination[prop]
         })
       }
-      this.$emit('request', { filter, page, rowsPerPage, rowsNumber, sortBy, descending, done })
+      this.$emit('request', {
+        filter,
+        page,
+        rowsPerPage,
+        rowsNumber,
+        sortBy,
+        descending,
+        done
+      })
     }
   },
   /**
@@ -169,7 +198,10 @@ export default {
     /**
      */
     search () {
-      this.onRequest({ filter: '', pagination: { ...this.pagination } })
+      this.onRequest({
+        filter: '',
+        pagination: { ...this.pagination }
+      })
     }
   }
 }
