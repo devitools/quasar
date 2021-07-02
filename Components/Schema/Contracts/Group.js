@@ -4,10 +4,23 @@
 export default {
   /**
    */
+  data: () => ({
+    groupingType: 'none'
+  }),
+  /**
+   */
   methods: {
     /**
+     * @param {string} type
+     * @return {SchemaForm}
+     */
+    $groupType (type) {
+      this.groupingType = type
+      return this
+    },
+    /**
      * @param {string} group
-     * @returns {Object}
+     * @returns {SchemaForm}
      */
     $getGroup (group) {
       this.__currentGroup = group
@@ -15,7 +28,7 @@ export default {
     },
     /**
      * @param {boolean} hidden
-     * @return {this}
+     * @return {SchemaForm}
      */
     $groupHidden (hidden = true) {
       return this._setGroup('hidden', hidden)
@@ -23,11 +36,21 @@ export default {
     /**
      * @param {string} property
      * @param {Any} value
-     * @return {this}
+     * @return {SchemaForm}
      */
     _setGroup (property, value) {
       this.grouping[this.__currentGroup][property] = value
       return this
+    }
+  },
+  /**
+   */
+  watch: {
+    groupType: {
+      immediate: true,
+      handler (type) {
+        this.$groupType(type)
+      }
     }
   }
 }
