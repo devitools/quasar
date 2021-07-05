@@ -47,6 +47,10 @@ export default {
     value: {
       required: true
     },
+    row: {
+      type: Object,
+      default: () => ({})
+    },
     field: {
       type: Object,
       required: true
@@ -57,7 +61,11 @@ export default {
   computed: {
     output () {
       if (typeof this.field.$layout.tableFormat === 'function') {
-        return String(this.field.$layout.tableFormat(this.value))
+        let options = this.field?.attrs?.options ?? []
+        if (!Array.isArray(options)) {
+          options = []
+        }
+        return String(this.field.$layout.tableFormat(this.value, this.row, { options }))
       }
 
       if (typeof this.value !== 'undefined' && this.value !== null) {

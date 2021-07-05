@@ -44,6 +44,7 @@
           <div class="AppArrayForm__td_value">
             <AppArrayValue
               :field="field"
+              :row="value"
               :value="value[field.$key]"
             />
           </div>
