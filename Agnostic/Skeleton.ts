@@ -117,7 +117,7 @@ abstract class Skeleton extends Base {
    * @returns {Record<string, unknown>}
    */
   static provideRemote (options: Record<string, unknown> = {}): Record<string, unknown> {
-    let { widget, path, query, operator } = options
+    let { widget, path, query, operator, component, format } = options
     if (widget === undefined) {
       widget = false
     }
@@ -132,10 +132,11 @@ abstract class Skeleton extends Base {
       widget: widget,
       path: path,
       query: query,
+      format: format,
+      component: component,
       keyValue: this.primaryKey,
       keyLabel: this.displayKey,
       domain: this.domain,
-      format: undefined,
       remote: (filter = '', pagination = undefined, query: Record<string, unknown> = {}) => {
         const where = { ...query }
 
