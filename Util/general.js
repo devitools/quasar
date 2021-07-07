@@ -588,3 +588,31 @@ export const styleStringToObject = (input) => {
   }
   return result
 }
+
+/**
+ * @param {*} input
+ * @return {*}
+ */
+export const flattenObject = (input) => {
+  const toReturn = {}
+
+  for (let i in input) {
+    if (!input.hasOwnProperty(i)) {
+      continue
+    }
+
+    if ((typeof input[i]) == 'object') {
+      const flatObject = flattenObject(input[i])
+      for (let x in flatObject) {
+        if (!flatObject.hasOwnProperty(x)) {
+          continue
+        }
+
+        toReturn[i + '.' + x] = flatObject[x]
+      }
+    } else {
+      toReturn[i] = input[i]
+    }
+  }
+  return toReturn
+}

@@ -12,6 +12,12 @@ export default {
   /**
    */
   [SCOPES.SCOPE_ADD] () {
+    const { duplicate: record } = this.$store.getters['app/getClipboard'] ?? {}
+    if (!record || typeof record !== 'object') {
+      return
+    }
+    this.$store.dispatch('app/clearClipboard')
+    this.successFetchRecord(record)
     /*
     if (this.settings.useUuid) {
       this.record[this.primaryKey] = this.$util.uuid()

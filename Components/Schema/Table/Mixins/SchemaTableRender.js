@@ -1,5 +1,7 @@
 // settings
 import { searchKey } from 'src/settings/schema'
+import { TOOLTIP_CONTENT_CLASS } from 'src/settings/tooltip'
+
 // app
 import { POSITIONS, SCOPES } from '../../../../Agnostic/enum'
 // components
@@ -142,17 +144,18 @@ export default {
      * @return {VNode}
      */
     renderFloatActionButtons (h) {
-      return this.renderSchemaButtons(
-        h,
-        POSITIONS.POSITION_TABLE_FLOAT,
-        {
-          floating: true,
-          record: this.record,
-          records: this.selected
-        },
-        { label: '' },
-        'fab-bottom'
-      )
+      const position = POSITIONS.POSITION_TABLE_FLOAT
+      const context = {
+        floating: true,
+        record: this.record,
+        records: this.selected
+      }
+      const override = {
+        'external-label': true,
+        'label-position': 'left',
+        'label-class': TOOLTIP_CONTENT_CLASS
+      }
+      return this.renderSchemaButtons(h, position, context, override, 'fab-bottom')
     },
     /**
      * @param {function} h
