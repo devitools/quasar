@@ -25,7 +25,7 @@ export default class Address extends Http {
   /**
    * @var {string}
    */
-  uri = '/service/address/{zipCode}'
+  uri = '/api/service/address/{zipcode}'
 
   /**
    * @returns {Address}
@@ -35,10 +35,11 @@ export default class Address extends Http {
   }
 
   /**
-   * @param {string} zipCode
+   * @param {string} zipcode
    */
-  query (zipCode: string): Promise<Localization> {
-    const url = replacement(this.uri, { zipCode })
+  query (zipcode: string): Promise<Localization> {
+    const url = replacement(this.uri, { zipcode })
     return this.get(url)
+      .then(({ data }) => data)
   }
 }
