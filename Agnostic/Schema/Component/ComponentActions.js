@@ -286,8 +286,11 @@ export default class ComponentActions {
   }
 
   /**
+   * @param {EventContext} payload
    */
-  actionRefresh () {
+  actionRefresh (payload) {
+    const { schema } = payload
+    schema.$service().invalidate()
     this.fetchRecords()
   }
 
