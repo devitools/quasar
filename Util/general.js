@@ -52,7 +52,7 @@ export const get = (element, path, fallback = undefined) => {
  * @param {Record<string, unknown>|Object|Array} element
  * @param {string|Array} path
  * @param {*} value
- * @returns {Record<string, unknown>|Object|Array}
+ * @returns {Record<string, unknown>}
  */
 export const set = (element, path, value) => {
   if (Object(element) !== element) {
@@ -70,7 +70,7 @@ export const set = (element, path, value) => {
    * @param {*} key
    */
   const reducer = (accumulator, current, key) => {
-     // No: assign a new plain object
+    // No: assign a new plain object
     return Object(
       accumulator[current]) === accumulator[current] // Does the key exist and is its value an object?
       // Yes: then follow that path

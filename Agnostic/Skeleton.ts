@@ -66,7 +66,7 @@ abstract class Skeleton extends Base {
   }
 
   /**
-   * @param {Object} record
+   * @param {Record<string, unknown>} record
    * @param {boolean} creating
    * @return {Record<string, unknown>}
    */
