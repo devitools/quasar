@@ -290,7 +290,11 @@ export default class ComponentActions {
    */
   actionRefresh (payload) {
     const { schema } = payload
-    schema.$service().invalidate()
+    try {
+      schema.$service().invalidate()
+    } catch (e) {
+      // silence is gold
+    }
     this.fetchRecords()
   }
 

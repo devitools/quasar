@@ -84,7 +84,6 @@ export default {
       const attrs = {
         'display-value': this.$lang('agnostic.table.columns'),
         multiple: true,
-        borderless: true,
         dense: true,
         'options-dense': true,
         'emit-value': true,
