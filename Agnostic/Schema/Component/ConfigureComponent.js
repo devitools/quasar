@@ -34,6 +34,12 @@ export default class ConfigureComponent {
         initialize[this.scope].call(this, schema)
       }
 
+      const suffix = this.scope.toCamelCase(true)
+      const method = `createdHook${suffix}`
+      if (typeof schema[method] === 'function') {
+        schema[method].call(this, schema)
+      }
+
       // call global prototype configure
       /**
        * @fires.createdHook
