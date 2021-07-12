@@ -41,8 +41,6 @@ export default {
      * @param {Object} record
      */
     successFetchRecord (record) {
-      this.loadingHide()
-
       this.fetching = true
       this.$payload = this.$util.clone(record)
       const recordName = this.$options.recordName || 'record'
