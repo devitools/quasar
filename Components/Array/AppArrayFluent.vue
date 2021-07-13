@@ -29,6 +29,7 @@
           :readonly="readonly"
           :static="static"
           :fluent="true"
+          :properties="properties"
           @input="updateItem(index, $event)"
           @remove="removeItem(index)"
         />

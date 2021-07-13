@@ -119,7 +119,11 @@ export default {
   INTERNAL_ATTRS,
   /**
    */
-  components: { AppArrayValue, AppForm, QBtn },
+  components: {
+    AppArrayValue,
+    AppForm,
+    QBtn
+  },
   /**
    */
   props: {
@@ -177,6 +181,10 @@ export default {
         fields: () => undefined,
         actions: () => undefined
       })
+    },
+    properties: {
+      type: Object,
+      default: () => ({})
     }
   },
   /**
@@ -194,6 +202,7 @@ export default {
      */
     bind () {
       return {
+        ...this.properties,
         builtin: true,
         'debugger-allowed': false,
         domain: this.domain,
@@ -322,7 +331,10 @@ export default {
         })
         .map((component) => {
           const $class = this.generateClassNames(component, true)
-          return { ...component, $class }
+          return {
+            ...component,
+            $class
+          }
         })
     }
   },
@@ -395,10 +407,11 @@ export default {
 
   > .AppArrayForm__form__inline {
     padding: 0 !important;
+
     > .AppForm > .AppForm__wrapper > .AppForm__body > .form {
       padding: 0 !important;
     }
-}
+  }
 
   @extend .AppArray__element--color
   border-width: 1px 0 0 0;
