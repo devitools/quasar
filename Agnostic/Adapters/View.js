@@ -16,7 +16,7 @@ export default {
     return {
       bind: {
         key: this.$util.uuid(),
-        scope: this.$route.meta.scope,
+        scope: this.$route.meta.scope ?? '',
         report: '',
         path: '',
         groupType: '',
