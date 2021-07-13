@@ -10,10 +10,7 @@
 
       <template v-if="length > 0">
         <div class="AppArray__body">
-          <slot
-            name="body"
-            v-bind="{ properties }"
-          />
+          <slot name="body" />
         </div>
       </template>
 
@@ -51,16 +48,6 @@ export default {
     length: {
       type: Number,
       default: 0
-    }
-  },
-  /**
-   */
-  computed: {
-    /**
-     * @return {*}
-     */
-    properties () {
-      return { ...this.$attrs, ...this.$props }
     }
   }
 }

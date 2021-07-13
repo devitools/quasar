@@ -31,6 +31,7 @@
           :scope="scope"
           :static="static"
           :editable="editable[record.__uuid]"
+          :properties="properties"
           @edit="setEditable(record.__uuid, $event)"
           @input="updateItem(index, $event)"
           @cancel="cancelItem(index)"
@@ -68,7 +69,17 @@ export default {
   mixins: [AppArrayBasic, AppArrayProps, AppArrayAdd, AppArrayLazy],
   /**
    */
-  components: { AppArray, AppArrayRow, QBtn }
+  components: { AppArray, AppArrayRow, QBtn },
+  /**
+   */
+  computed: {
+    /**
+     * @return {*}
+     */
+    properties () {
+      return { ...this.$attrs, ...this.$props }
+    }
+  }
 }
 </script>
 

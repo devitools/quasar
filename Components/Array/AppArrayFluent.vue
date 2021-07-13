@@ -65,7 +65,17 @@ export default {
   mixins: [AppArrayBasic, AppArrayProps, AppArrayAdd, AppArrayFluent],
   /**
    */
-  components: { AppArray, AppArrayRow, QBtn }
+  components: { AppArray, AppArrayRow, QBtn },
+  /**
+   */
+  computed: {
+    /**
+     * @return {*}
+     */
+    properties () {
+      return { ...this.$attrs, ...this.$props }
+    }
+  }
 }
 </script>
 

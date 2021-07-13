@@ -67,10 +67,6 @@ export default {
         fields: () => undefined,
         actions: () => undefined
       })
-    },
-    properties: {
-      type: Object,
-      default: () => ({})
     }
   }
 }
