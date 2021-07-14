@@ -53,7 +53,7 @@ export default {
       const records = [...this.records]
       this.dropEditable(records[index])
       records.splice(index, 1)
-      this.records = records
+      this.$emit('input', records)
     }
   }
 }

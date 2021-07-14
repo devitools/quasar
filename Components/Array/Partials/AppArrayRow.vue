@@ -192,7 +192,8 @@ export default {
   data: () => ({
     components: {},
     record: {},
-    visible: false
+    visible: false,
+    NEW: false
   }),
   /**
    */
@@ -233,9 +234,15 @@ export default {
      */
     resetRow () {
       this.$emit('edit', false)
-      if (this.record.__new) {
+      if (this.NEW) {
         this.cancelRow()
       }
+      this.clearRow()
+    },
+    /**
+     */
+    clearRow () {
+      $emporium.commit('updatePending', '')
       this.record = {}
     },
     /**
@@ -256,6 +263,7 @@ export default {
     /**
      */
     cancelRow () {
+      $emporium.commit('updatePending', '')
       this.$emit('cancel')
     },
     /**
@@ -344,6 +352,7 @@ export default {
     value: {
       immediate: true,
       handler (value) {
+        this.NEW = value?.__new ?? false
         if (!this.fluent) {
           return
         }
