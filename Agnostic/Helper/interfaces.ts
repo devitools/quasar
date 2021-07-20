@@ -329,6 +329,7 @@ export interface Component extends Vue {
 export interface SchemaForm extends Component {
   showPlaceholderContent: boolean
   useFormReadonly: boolean
+  components: Record<string, unknown>
   fetchRecord(id: string | number): Promise<Record<string, unknown>>
 
   $groupType (type: string): this

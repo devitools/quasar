@@ -3,70 +3,90 @@
     class="Printable"
     style="margin: 0 auto; max-width: 810px;"
   >
-    <img
-      :src="$static('/logo/horizontal.svg')"
-      alt="logo"
-      style="height: 50px"
-      class="float-left"
-    >
-    <QIcon
-      name="close"
-      size="2rem"
-      class="float-right cursor-pointer"
-      @click="close"
-    />
-    <br style="clear: both">
-    <h6>{{ $lang(`domains.${domain}.print.title`) }}</h6>
-    <div
-      class="form form-grid no-break"
-    >
-      <div
-        v-for="(component, key) in components"
-        :key="key"
-        :class="`field width-${component.$layout.formWidth}`"
+    <div class="flex justify-between">
+      <img
+        :src="$static('/logo/horizontal-white-100x40.png')"
+        alt="logo"
+        style="height: 40px; margin: 5px 0;"
+        class="float-left"
       >
-        <label>{{ label(key) }}:</label> &nbsp; {{ value(record, key) }}
-      </div>
-    </div>
-
-    <div
-      v-for="(component, key) in arrays"
-      :key="key"
-      style="margin: 15px 0; border-top: 1px solid #333"
-    >
-      <label>{{ label(key) }}</label>
-      <PrintableArray
-        :component="component"
-        :items="value(record, key)"
+      <QIcon
+        name="close"
+        size="2rem"
+        class="cursor-pointer"
+        @click="close"
       />
     </div>
-    <div
-      class="flex"
-      style="justify-content: space-between; margin: 15px 0; border-top: 1px solid #333"
-    >
-      <small><strong>{{ $lang('app.print.user') }}:</strong> &nbsp; {{ name }}</small>
-      <small><strong>{{ $lang('app.print.date') }}:</strong> &nbsp; {{ now }}</small>
-    </div>
-    <div
-      v-if="signatures.length"
-      class="flex"
-      style="justify-content: space-around; margin-top: 40px;"
-    >
-      <div
-        v-for="(signature, index) in signatures"
-        :key="index"
-        class="text-center"
-      >
-        <div>_______________________________________</div>
-        <div>{{ signature }}</div>
+
+    <template v-if="printing.header">
+      <component :is="printing.header" />
+    </template>
+    <template v-else>
+      <div>
+        <h6>{{ $lang(`domains.${domain}.print.title`) }}</h6>
       </div>
-    </div>
-    <QIcon
-      name="print"
-      size="1.8rem"
-      class="float-right cursor-pointer"
-      @click="print"
-    />
+    </template>
+
+    <template v-if="printing.body">
+      <component :is="printing.body" />
+    </template>
+    <template v-else>
+      <div class="form form-grid no-break">
+        <div
+          v-for="(component, key) in components"
+          :key="key"
+          :class="`field width-${component.$layout.formWidth}`"
+        >
+          <label>{{ label(key) }}:</label> &nbsp; {{ value(record, key) }}
+        </div>
+      </div>
+      <div
+        v-for="(component, key) in arrays"
+        :key="key"
+        style="margin: 15px 0; border-top: 1px solid #333"
+      >
+        <label>{{ label(key) }}</label>
+        <PrintableArray
+          :component="component"
+          :items="value(record, key)"
+        />
+      </div>
+    </template>
+
+    <template v-if="printing.footer">
+      <component :is="printing.footer" />
+    </template>
+    <template v-else>
+      <div
+        class="flex"
+        style="justify-content: space-between; margin: 15px 0; border-top: 1px solid #333"
+      >
+        <small><strong>{{ $lang('app.print.user') }}:</strong> &nbsp; {{ name }}</small>
+        <small><strong>{{ $lang('app.print.date') }}:</strong> &nbsp; {{ now }}</small>
+      </div>
+
+      <div
+        v-if="signatures.length"
+        class="flex"
+        style="justify-content: space-around; margin-top: 40px;"
+      >
+        <div
+          v-for="(signature, index) in signatures"
+          :key="index"
+          class="text-center"
+        >
+          <div>_______________________________________</div>
+          <div>{{ signature }}</div>
+        </div>
+      </div>
+
+      <QIcon
+        name="print"
+        size="1.8rem"
+        class="float-right cursor-pointer"
+        @click="print"
+      />
+    </template>
   </div>
 </template>
 
@@ -84,13 +104,22 @@ export default {
   name: 'Printable',
   /**
    */
-  components: { PrintableArray, QIcon },
+  components: {
+    PrintableArray,
+    QIcon
+  },
   /**
    */
   mixins: [PrintableMixin],
   /**
    */
   computed: {
+    /**
+     * @returns {*}
+     */
+    printing () {
+      return $emporium.state.printing
+    },
     /**
      * @returns {string}
      */
