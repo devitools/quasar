@@ -1,7 +1,7 @@
 import { primaryKey } from 'src/settings/schema'
 
 import { SCOPES_BUILTIN } from '../../../Agnostic/enum'
-import { unique } from '../../../Util/general'
+import { get, unique } from '../../../Util/general'
 import Dialog from '../../Schema/Contracts/Dialog'
 
 /**
@@ -42,7 +42,18 @@ export default {
      */
     setItem (record, scope) {
       this.__currentItem = record.__id
-      this.item = record
+      const parseRecord = (record) => {
+        if (typeof this.fields !== 'function') {
+          return record
+        }
+        const keys = Object.keys(this.fields())
+        const item = {}
+        for (const key of keys) {
+          item[key] = get(record, key)
+        }
+        return item
+      }
+      this.item = parseRecord(record)
       this.scope = scope
       this.formActive = true
     },

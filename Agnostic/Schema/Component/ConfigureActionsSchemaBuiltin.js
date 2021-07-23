@@ -21,8 +21,8 @@ export default class ConfigureActionsSchemaBuiltin {
       .actionScopes([SCOPES_BUILTIN.SCOPE_BUILTIN_INDEX])
       .actionPositions([POSITIONS.POSITION_TABLE_CELL])
       .actionIcon('visibility')
-      .actionOn('click', function (paramaters) {
-        const { context: { record } } = paramaters
+      .actionOn('click', function (parameters) {
+        const { context: { record } } = parameters
         this.setItem(record, SCOPES_BUILTIN.SCOPE_BUILTIN_VIEW)
       })
 
