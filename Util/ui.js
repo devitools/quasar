@@ -106,7 +106,8 @@ export const disable = (value, disabled = false) => {
 
 /**
  * @param {string} value
- * @param {length} length
+ * @param {number} length
+ * @param {string} suffix
  * @return {string|*}
  */
 export const ellipsis = (value, length = 30, suffix = '...') => {
@@ -114,4 +115,33 @@ export const ellipsis = (value, length = 30, suffix = '...') => {
     return value
   }
   return value.substring(0, length) + suffix
+}
+
+/**
+ * @param {string, string[]} value
+ * @return {string}
+ */
+export function classify (value) {
+  if (typeof value === 'string') {
+    return value
+  }
+  if (Array.isArray(value)) {
+    return value.join(' ')
+  }
+  return ''
+}
+
+/**
+ * @param {string, Record<string, string>} value
+ * @return {string}
+ */
+export function stylize (value) {
+  if (typeof value === 'string') {
+    return value
+  }
+  if (typeof value === 'object') {
+    const convertObjectToString = (styles, [selector, style]) => `${styles}${selector}: ${style};`
+    return Object.entries(value).reduce(convertObjectToString, '')
+  }
+  return ''
 }

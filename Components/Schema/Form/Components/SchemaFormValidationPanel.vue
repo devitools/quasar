@@ -136,7 +136,10 @@ export default {
       }
       const messages = error.map((item) => {
         const { domain, type } = item
-        const validation = type
+        let { validation } = item
+        if (!validation && type) {
+          validation = type
+        }
         const replaces = Object.assign(item, { domain, key, validation })
         const preference = `domains.${domain}.validations.${key}.${validation}`
         const paths = [

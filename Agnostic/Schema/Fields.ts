@@ -36,11 +36,14 @@ export default abstract class Fields extends Base {
   }
 
   /**
-   * @param {string} name
+   * @param {string} $key
    * @return {this}
    */
-  getField (name: string): this {
-    this.__currentField = name
+  getField ($key: string): this {
+    if (!this.__fields[$key]) {
+      throw new Error(`Field '${$key}' not exists`)
+    }
+    this.__currentField = $key
     return this
   }
 

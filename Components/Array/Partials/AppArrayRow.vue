@@ -44,6 +44,7 @@
           <div class="AppArrayForm__td_value">
             <AppArrayValue
               :field="field"
+              :row="value"
               :value="value[field.$key]"
             />
           </div>
@@ -118,7 +119,11 @@ export default {
   INTERNAL_ATTRS,
   /**
    */
-  components: { AppArrayValue, AppForm, QBtn },
+  components: {
+    AppArrayValue,
+    AppForm,
+    QBtn
+  },
   /**
    */
   props: {
@@ -176,6 +181,10 @@ export default {
         fields: () => undefined,
         actions: () => undefined
       })
+    },
+    properties: {
+      type: Object,
+      default: () => ({})
     }
   },
   /**
@@ -183,7 +192,8 @@ export default {
   data: () => ({
     components: {},
     record: {},
-    visible: false
+    visible: false,
+    NEW: false
   }),
   /**
    */
@@ -193,6 +203,7 @@ export default {
      */
     bind () {
       return {
+        ...this.properties,
         builtin: true,
         'debugger-allowed': false,
         domain: this.domain,
@@ -223,9 +234,15 @@ export default {
      */
     resetRow () {
       this.$emit('edit', false)
-      if (this.record.__new) {
+      if (this.NEW) {
         this.cancelRow()
       }
+      this.clearRow()
+    },
+    /**
+     */
+    clearRow () {
+      $emporium.commit('updatePending', '')
       this.record = {}
     },
     /**
@@ -246,6 +263,7 @@ export default {
     /**
      */
     cancelRow () {
+      $emporium.commit('updatePending', '')
       this.$emit('cancel')
     },
     /**
@@ -321,7 +339,10 @@ export default {
         })
         .map((component) => {
           const $class = this.generateClassNames(component, true)
-          return { ...component, $class }
+          return {
+            ...component,
+            $class
+          }
         })
     }
   },
@@ -331,6 +352,7 @@ export default {
     value: {
       immediate: true,
       handler (value) {
+        this.NEW = value?.__new ?? false
         if (!this.fluent) {
           return
         }
@@ -394,10 +416,11 @@ export default {
 
   > .AppArrayForm__form__inline {
     padding: 0 !important;
+
     > .AppForm > .AppForm__wrapper > .AppForm__body > .form {
       padding: 0 !important;
     }
-}
+  }
 
   @extend .AppArray__element--color
   border-width: 1px 0 0 0;

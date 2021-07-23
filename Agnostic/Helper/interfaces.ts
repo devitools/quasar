@@ -187,6 +187,26 @@ export type Context = {
 }
 
 /**
+ * @typedef {Option}
+ */
+export type Option = { value: unknown, label: string }
+
+/**
+ * @typedef {Keys}
+ */
+export type Keys = string | number
+
+/**
+ * @typedef {Styles}
+ */
+export type Styles = string | Record<string, string>
+
+/**
+ * @typedef {ClassNames}
+ */
+export type ClassNames = string | string[]
+
+/**
  * @interface {Message}
  */
 export interface Message {
@@ -309,6 +329,7 @@ export interface Component extends Vue {
 export interface SchemaForm extends Component {
   showPlaceholderContent: boolean
   useFormReadonly: boolean
+  components: Record<string, unknown>
   fetchRecord(id: string | number): Promise<Record<string, unknown>>
 
   $groupType (type: string): this

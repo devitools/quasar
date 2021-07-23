@@ -66,7 +66,7 @@ abstract class Skeleton extends Base {
   }
 
   /**
-   * @param {Object} record
+   * @param {Record<string, unknown>} record
    * @param {boolean} creating
    * @return {Record<string, unknown>}
    */
@@ -117,29 +117,33 @@ abstract class Skeleton extends Base {
    * @returns {Record<string, unknown>}
    */
   static provideRemote (options: Record<string, unknown> = {}): Record<string, unknown> {
-    let { widget, path, query } = options
+    let { widget, path, query, operator, component, format } = options
     if (widget === undefined) {
       widget = false
     }
     if (path === undefined) {
       path = ''
     }
+    if (operator === undefined) {
+      operator = OPERATORS.LIKE
+    }
 
     return {
       widget: widget,
       path: path,
       query: query,
+      format: format,
+      component: component,
       keyValue: this.primaryKey,
       keyLabel: this.displayKey,
       domain: this.domain,
-      format: undefined,
       remote: (filter = '', pagination = undefined, query: Record<string, unknown> = {}) => {
         const where = { ...query }
 
         if (this.remoteKey) {
           where[remoteKey] = withSeparator(filter, this.remoteKey)
         } else if (filter) {
-          where[this.displayKey] = withSeparator(filter, OPERATORS.LIKE)
+          where[this.displayKey] = operator ? withSeparator(filter, String(operator)) : filter
         }
 
         const parameters = { [searchKey]: where }

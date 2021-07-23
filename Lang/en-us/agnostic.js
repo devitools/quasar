@@ -26,6 +26,12 @@ export default {
     validation: {
       title: 'Validation Messages'
     },
+    remote: {
+      confirm: 'Confirm',
+      clear: 'Clear',
+      cancel: 'Cancel',
+      search: 'Search'
+    },
     array: {
       empty: 'Use the button {button} to add items',
       remove: 'Remove this element from the list',

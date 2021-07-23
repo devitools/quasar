@@ -41,8 +41,6 @@ export default {
      * @param {Object} record
      */
     successFetchRecord (record) {
-      this.loadingHide()
-
       this.fetching = true
       this.$payload = this.$util.clone(record)
       const recordName = this.$options.recordName || 'record'
@@ -61,8 +59,12 @@ export default {
 
         this[recordName][key] = value
       })
-      const handler = () => (this.fetching = false)
-      window.setTimeout(handler, 500)
+      const handler = () => {
+        this.fetching = false
+      }
+      window.setTimeout(handler, 100)
+      this.loadingHide()
+
 
       if (!this.triggerHook) {
         return

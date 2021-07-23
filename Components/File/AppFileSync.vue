@@ -11,7 +11,7 @@
     @input="updateValue"
   >
     <template
-      v-slot:prepend
+      #prepend
       v-if="!readonly"
     >
       <QBtn
@@ -25,10 +25,19 @@
       </QBtn>
     </template>
     <template
-      v-slot:append
+      #append
       v-if="typeof value === 'string' && value"
     >
       <div class="q-mr-sm">
+        <QBtn
+          round
+          dense
+          flat
+          icon="wysiwyg"
+          @click="preview"
+        >
+          <AppTooltip>{{ $lang('agnostic.components.file.preview') }}</AppTooltip>
+        </QBtn>
         <QBtn
           round
           dense
@@ -38,14 +47,21 @@
         >
           <AppTooltip>{{ $lang('agnostic.components.file.download') }}</AppTooltip>
         </QBtn>
+        <QDialog v-model="previewing">
+          <AppFilePreview
+            :value="previewURL"
+            @close="previewing = false"
+          />
+        </QDialog>
       </div>
     </template>
   </QFile>
 </template>
 
 <script>
-import { QBtn, QFile } from 'quasar'
+import { QBtn, QDialog, QFile } from 'quasar'
 import AppTooltip from '../Tooltip/AppTooltip'
+import AppFilePreview from './AppFilePreview'
 
 export default {
   /**
@@ -54,8 +70,10 @@ export default {
   /**
    */
   components: {
-    QFile,
+    AppFilePreview,
     QBtn,
+    QDialog,
+    QFile,
     AppTooltip
   },
   /**
@@ -106,7 +124,7 @@ export default {
    */
   computed: {
     /**
-     * @return {Record<string,unknown>}
+     * @return {*}
      */
     bind () {
       let label = ''
@@ -153,7 +171,9 @@ export default {
   /**
    */
   data: () => ({
-    model: null
+    model: null,
+    previewing: false,
+    previewURL: ''
   }),
   /**
    */
@@ -182,6 +202,15 @@ export default {
       $event.preventDefault()
       // noinspection JSCheckFunctionSignatures
       this.downloadFile(this.value, this.model)
+    },
+    /**
+     * @param {Event} $event
+     */
+    preview ($event) {
+      $event.stopPropagation()
+      $event.preventDefault()
+      this.previewing = true
+      this.previewURL = this.$static(this.value, true)
     }
   }
 }

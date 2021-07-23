@@ -95,7 +95,7 @@ export default {
   },
   search: {
     label: 'Search',
-    tooltip: 'Search for values ​​entered in form'
+    tooltip: 'Search for values entered in form'
   },
   searchClear: {
     label: 'Clear',
@@ -104,5 +104,15 @@ export default {
   validationClear: {
     label: 'Clear',
     tooltip: 'Clear all validation messages'
+  },
+  duplicate: {
+    label: 'Duplicate',
+    tooltip: 'Opens the new record creation screen filled with these data'
+  },
+  copy: {
+    label: 'Copy',
+    tooltip: 'Copy the data from the record(s) to the clipboard',
+    success: '',
+    empty: ''
   }
 }

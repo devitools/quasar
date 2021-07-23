@@ -28,6 +28,12 @@ export default {
     validation: {
       title: 'Mensagens de Validação'
     },
+    remote: {
+      confirm: 'Confirmar',
+      clear: 'Limpar',
+      cancel: 'Cancelar',
+      search: 'Pesquisar'
+    },
     array: {
       empty: 'Use o botão {button} abaixo para adicionar elementos',
       remove: 'Remove este elemento da lista',
@@ -68,6 +74,7 @@ export default {
     },
     file: {
       upload: 'Clique aqui para importar o arquivo',
+      preview: 'Clique aqui para visualizar o arquivo',
       download: 'Clique aqui para baixar o arquivo',
       downloadName: 'arquivo'
     },

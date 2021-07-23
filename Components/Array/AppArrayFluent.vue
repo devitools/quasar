@@ -29,6 +29,7 @@
           :readonly="readonly"
           :static="static"
           :fluent="true"
+          :properties="properties"
           @input="updateItem(index, $event)"
           @remove="removeItem(index)"
         />
@@ -64,7 +65,17 @@ export default {
   mixins: [AppArrayBasic, AppArrayProps, AppArrayAdd, AppArrayFluent],
   /**
    */
-  components: { AppArray, AppArrayRow, QBtn }
+  components: { AppArray, AppArrayRow, QBtn },
+  /**
+   */
+  computed: {
+    /**
+     * @return {*}
+     */
+    properties () {
+      return { ...this.$attrs, ...this.$props }
+    }
+  }
 }
 </script>
 

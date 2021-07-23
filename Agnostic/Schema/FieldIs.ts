@@ -5,9 +5,11 @@ import { OPERATORS } from '../../Agnostic/enum'
 import Schema from '../../Agnostic/Schema'
 import { format } from '../../Util/currency'
 import { booleanFormatter, dateFormatter, optionFormatter, optionsFormatter } from '../../Util/formatter'
+import { classify, stylize } from '../../Util/ui'
+
 import { fieldIsSelectFilter, fieldIsSelectNewValue, fieldIsSelectWatch } from './Component/select'
 import { fieldIsEmbedWatch } from './Component/embed'
-import { Component, Payload } from '../../Agnostic/Helper/interfaces'
+import { ClassNames, Component, Keys, Option, Payload, Styles } from '../../Agnostic/Helper/interfaces'
 import Skeleton from '../Skeleton'
 
 /**
@@ -102,21 +104,27 @@ export default abstract class FieldIs extends Base {
   }
 
   /**
-   * @param {Record<string, unknown>[]} options
+   * @param {Record<string, unknown>[] | Record<string, unknown>} options
    * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
-  fieldIsRadio (options: Record<string, unknown>[] = [], attrs: Record<string, unknown> = {}) {
-    const self = this.$self()
-    if (!options.length) {
-      // @ts-ignore
-      options = this.$lang(`domains.${self.domain}.fields.${this.__currentField}.options`, [])
-    }
+  fieldIsRadio (options: Record<string, unknown>[] | Record<string, unknown> = [], attrs: Record<string, unknown> = {}) {
+    const currentField = this.__currentField
+
     if (!Array.isArray(options)) {
+      attrs = options
+      options = []
+    }
+    if (options.length === 0) {
+      options = this.$lang(`fields.${currentField}.options`, []) as Record<string, unknown>[]
+    }
+    if (options.length === 0) {
       options = yesNo
     }
+
     this.setComponent('radio', { ...attrs, options }, 'options')
-    this.setLayout({ tableWhere: OPERATORS.EQUAL, tableFormat: optionsFormatter(options) })
+    const tableFormat = this.generateOptionsTableFormat(attrs)
+    this.setLayout({ tableFormat })
     return this
   }
 
@@ -125,13 +133,15 @@ export default abstract class FieldIs extends Base {
    * @param {Record<string, unknown>} attrs
    * @returns {Schema}
    */
-  fieldIsSelect (options: Record<string, unknown>[] = [], attrs: Record<string, unknown> = {}) {
+  fieldIsSelect (options: Record<string, unknown>[] | Record<string, unknown> = [], attrs: Record<string, unknown> = {}) {
     const currentField = this.__currentField
 
-    if (!options.length) {
-      const self = this.$self()
-      // @ts-ignore
-      options = this.$lang(`domains.${self.domain}.fields.${currentField}.options`, [])
+    if (!Array.isArray(options)) {
+      attrs = options
+      options = []
+    }
+    if (options.length === 0) {
+      options = this.$lang(`fields.${currentField}.options`, []) as Record<string, unknown>[]
     }
 
     attrs = {
@@ -157,8 +167,71 @@ export default abstract class FieldIs extends Base {
       this.setOn('new-value', fieldIsSelectNewValue())
     }
 
-    this.setLayout({ tableFormat: optionsFormatter(options), tableWhere: OPERATORS.EQUAL })
+    const tableFormat = this.generateOptionsTableFormat(attrs)
+    this.setLayout({ tableFormat })
     return this
+  }
+
+  /**
+   * @param {Record<string, unknown>} attrs
+   * @private
+   */
+  private generateOptionsTableFormat(attrs: Record<string, unknown>) {
+    const currentField = this.__currentField
+
+    if (typeof attrs !== 'object') {
+      attrs = {}
+    }
+
+    let formatStyle: Styles
+    let formatStyles: Record<Keys, Styles>
+    let formatClass: ClassNames
+    let formatClasses: Record<Keys, ClassNames>
+
+    if (attrs?.formatStyle) {
+      formatStyle = attrs.formatStyle as Styles
+    }
+    if (attrs?.formatStyles) {
+      formatStyles = attrs.formatStyles as Record<Keys, Styles>
+    }
+    if (attrs?.formatClass) {
+      formatClass = attrs.formatClass as ClassNames
+    }
+    if (attrs?.formatClasses) {
+      formatClasses = attrs.formatClasses as Record<Keys, ClassNames>
+    }
+
+    const label = (candidates: Option[], value: unknown) => {
+      const element = candidates.find((option) => {
+        return option.value === value
+      })
+      if (element && element.label) {
+        return element.label
+      }
+      return value
+    }
+
+    return function (value: Keys, row: Record<string, unknown>, col: { options: Option[] }) {
+      if (!formatClass && !formatClasses && !formatStyle && !formatStyles) {
+        const formatter = optionsFormatter(col.options)
+        return formatter(value)
+      }
+
+      const classNameValue = [
+        'q-td-highlight',
+        `${currentField}--${value}`,
+        classify(formatClass ?? ''),
+        classify(formatClasses ? formatClasses[value] : ''),
+      ]
+      const className = classNameValue.join(' ').trim()
+      const styleValue = [
+        stylize(formatStyle),
+        stylize(formatStyles ? formatStyles[value] : '')
+      ]
+      const style = styleValue.join(';').trim()
+      const content = label(col.options, value)
+      return `<div class="${className}" style="${style}">${content}</div>`
+    }
   }
 
   /**
@@ -197,6 +270,14 @@ export default abstract class FieldIs extends Base {
    */
   fieldIsDate (attrs = {}) {
     this.setComponent('date', attrs, 'date')
+    this.configureDateTableFormat()
+    return this
+  }
+
+  fieldIsDateRange (attrs = {}) {
+    this.setComponent('dateRange')
+    this.setAttrs({ ...attrs })
+    this.setType('string')
     this.configureDateTableFormat()
     return this
   }

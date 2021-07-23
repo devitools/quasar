@@ -58,6 +58,14 @@
         height: 40px;
       }
 
+      & > tbody td > .q-td-highlight {
+        padding: 5px 10px;
+        border-radius: 4px;
+        text-align: center;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+        user-select: none;
+      }
+
       & > thead > tr:nth-child(1) > th {
         position: sticky;
         zoom: 1;
@@ -319,7 +327,7 @@
 
 .DashboardLayout--modal {
   .SchemaTable {
-    height: calc(100vh - 80px);
+    height: calc(100vh - 70px);
 
     & > .q-table__middle {
       height: calc(100vh - 190px);

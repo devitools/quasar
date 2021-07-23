@@ -97,5 +97,15 @@ export default {
   validationClear: {
     label: 'Limpar',
     tooltip: 'Remove todas as mensagens de validação'
+  },
+  duplicate: {
+    label: 'Duplicar',
+    tooltip: 'Abre a tela de criação de um novo registro preenchida com estes dados'
+  },
+  copy: {
+    label: 'Copiar',
+    tooltip: 'Copia os dados do(s) registro(s) para a área de transferência',
+    success: 'Registro(s) copiado(s) com sucesso',
+    empty: 'Não há nada para copiar'
   }
 }

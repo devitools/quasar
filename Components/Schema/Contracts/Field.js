@@ -184,6 +184,9 @@ export default {
      */
     $setValue (value) {
       this.record[this.__currentField] = value
+      if (this.builtin) {
+        this.$emit('input', this.record)
+      }
       return this
     },
     /**

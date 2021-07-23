@@ -49,7 +49,7 @@ export const get = (element, path, fallback = undefined) => {
 }
 
 /**
- * @param {Object|Array} element
+ * @param {Record<string, unknown>|Object|Array} element
  * @param {string|Array} path
  * @param {*} value
  * @returns {Record<string, unknown>}
@@ -70,15 +70,15 @@ export const set = (element, path, value) => {
    * @param {*} key
    */
   const reducer = (accumulator, current, key) => {
-    const value = Object(
+    // No: assign a new plain object
+    return Object(
       accumulator[current]) === accumulator[current] // Does the key exist and is its value an object?
       // Yes: then follow that path
       ? accumulator[current]
       // No: create the key. Is the next key a potential array-index?
       : accumulator[current] = Math.abs(path[key + 1]) >> 0 === +path[key + 1]
         ? [] // Yes: assign a new array object
-        : {} // No: assign a new plain object
-    return value
+        : {}
   }
 
   path.slice(0, -1).reduce(reducer, element)[path[path.length - 1]] = value // Finally assign the value to the last key
@@ -105,7 +105,10 @@ export const browse = (target, options = undefined) => {
   }
 
   if (typeof target === 'string') {
-    target = { path: target, query: {} }
+    target = {
+      path: target,
+      query: {}
+    }
   }
 
   if (options === true || (options && typeof options === 'object' && options.keep)) {
@@ -443,7 +446,7 @@ export const objectToFormData = (object, formData = undefined, prefix = '', opti
     ? false
     : options.nullsAsUndefineds
   options.booleansAsIntegers = isUndefined(options.booleansAsIntegers)
-    ? false
+    ? true
     : options.booleansAsIntegers
 
   formData = formData || new FormData()
@@ -564,6 +567,52 @@ export const copyContent = (element, i18n = 'app.clipboard.copy') => {
     document.execCommand('copy')
     toast($lang(i18n))
   } catch (e) {
-    // silent is gold
+    // silence is gold
   }
+}
+
+/**
+ * @param {string} input
+ * @return {Record<string, string>|null}
+ */
+export const styleStringToObject = (input) => {
+  if (typeof input !== 'string') {
+    return null
+  }
+  const result = {}
+  const attributes = input.split(';')
+
+  for (let counter = 0; counter < attributes.length; counter++) {
+    const entry = attributes[counter].split(':')
+    result[entry.splice(0, 1)[0]] = entry.join(':')
+  }
+  return result
+}
+
+/**
+ * @param {*} input
+ * @return {*}
+ */
+export const flattenObject = (input) => {
+  const toReturn = {}
+
+  for (let i in input) {
+    if (!input.hasOwnProperty(i)) {
+      continue
+    }
+
+    if ((typeof input[i]) == 'object') {
+      const flatObject = flattenObject(input[i])
+      for (let x in flatObject) {
+        if (!flatObject.hasOwnProperty(x)) {
+          continue
+        }
+
+        toReturn[i + '.' + x] = flatObject[x]
+      }
+    } else {
+      toReturn[i] = input[i]
+    }
+  }
+  return toReturn
 }

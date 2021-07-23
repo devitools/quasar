@@ -205,10 +205,10 @@ export default {
       }
 
       if (this.errors.hasOwnProperty(field)) {
-        delete this.errors[field]
+        this.errors[field] = undefined
       }
 
-      if (this.inheritErrors[field]) {
+      if (this.inheritErrors.hasOwnProperty(field)) {
         this.inheritErrors[field] = undefined
       }
 

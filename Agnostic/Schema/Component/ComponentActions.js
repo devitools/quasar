@@ -1,8 +1,12 @@
+import { copyToClipboard } from 'quasar'
+
 import { primaryKey } from 'src/settings/schema'
 import { createAction, destroyAction, updateAction } from 'src/settings/executors'
+
 import { SCOPES } from '../../enum'
 import { reject } from '../../../Util/general'
 import $emporium from '../../../emporium'
+import { toast } from '../../../message'
 
 /**
  * @class {ComponentActions}
@@ -22,7 +26,8 @@ export default class ComponentActions {
     if (name !== 'SchemaForm') {
       return
     }
-    return this.$store.dispatch('app/setPrint', {
+    return $emporium.commit('updatePrinting', {
+      user: this.$util.get(this.$store.getters['auth/getUser'], 'name'),
       domain: this.domain,
       components: this.components,
       record: this.record
@@ -50,7 +55,12 @@ export default class ComponentActions {
    * @param {function(string)} after
    * @returns {Object}
    */
-  actionCreate ({ schema, record, executor, after }) {
+  actionCreate ({
+    schema,
+    record,
+    executor,
+    after
+  }) {
     if (!schema.service) {
       return reject({ error: 'destroy.invalid-service' })
     }
@@ -105,7 +115,13 @@ export default class ComponentActions {
    * @param {string} alias
    * @returns {Object}
    */
-  actionUpdate ({ schema, record, executor, after, alias }) {
+  actionUpdate ({
+    schema,
+    record,
+    executor,
+    after,
+    alias
+  }) {
     if (!schema.service) {
       return reject({ error: 'destroy.invalid-service' })
     }
@@ -155,7 +171,14 @@ export default class ComponentActions {
    * @param {boolean} erase
    * @returns {Promise<any>|undefined}
    */
-  actionDestroy ({ schema, record, records, executor, after, erase }) {
+  actionDestroy ({
+    schema,
+    record,
+    records,
+    executor,
+    after,
+    erase
+  }) {
     if (!schema.service) {
       return reject({ error: 'destroy.invalid-service' })
     }
@@ -212,6 +235,42 @@ export default class ComponentActions {
   /**
    * @param {Object} payload
    */
+  actionDuplicate (payload) {
+    const duplicate = (record) => {
+      const duplicate = { ...(record ?? {}) }
+      delete duplicate[primaryKey]
+      this.$store.dispatch('app/setClipboard', { duplicate })
+      this.$browse(`${this.getActionPath()}/add`, true)
+    }
+    this.withRecord(payload, duplicate)
+  }
+
+  /**
+   * @param {Object} payload
+   */
+  actionCopy (payload) {
+    const { records, record } = payload
+    const data = record ?? records
+
+    if (data === null || records?.length === 0) {
+      const paths = [
+        `domains.${this.domain}.actions.copy.empty`,
+        'agnostic.actions.copy.empty'
+      ]
+      toast(this.$lang(paths))
+      return
+    }
+    copyToClipboard(JSON.stringify(data, null, 2))
+    const paths = [
+      `domains.${this.domain}.actions.copy.success`,
+      'agnostic.actions.copy.success'
+    ]
+    toast(this.$lang(paths))
+  }
+
+  /**
+   * @param {Object} payload
+   */
   actionEdit (payload) {
     const edit = (record) => this.$browse(`${this.getActionPath()}/${record[this.primaryKey]}/edit`, true)
     this.withRecord(payload, edit)
@@ -227,8 +286,15 @@ export default class ComponentActions {
   }
 
   /**
+   * @param {EventContext} payload
    */
-  actionRefresh () {
+  actionRefresh (payload) {
+    const { schema } = payload
+    try {
+      schema.$service().invalidate()
+    } catch (e) {
+      // silence is gold
+    }
     this.fetchRecords()
   }
 

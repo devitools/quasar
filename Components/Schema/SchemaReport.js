@@ -7,6 +7,7 @@ import { POSITIONS } from '../../Agnostic/enum'
 import Dynamic from './Contracts/Dynamic'
 import Form from './Contracts/Form'
 import SchemaBody from './Form/Mixins/SchemaFormBody'
+import SchemaFormValidationPanel from './Form/Components/SchemaFormValidationPanel'
 
 /**
  * @component {SchemaReport}
@@ -38,6 +39,26 @@ export default {
   /**
    */
   methods: {
+    /**
+     * @param creator
+     * @return {*}
+     */
+    renderFormValidationPanel (creator) {
+      const domain = this.domain
+
+      const errors = this.getErrors()
+
+      const operations = {
+        component: this,
+        scope: this.scope,
+        buttons: this.buttons,
+        context: { record: this.record },
+        position: POSITIONS.POSITION_FORM_VALIDATION
+      }
+      const attrs = { domain, errors, operations }
+      const data = { attrs }
+      return creator(SchemaFormValidationPanel, data)
+    },
     /**
      * @param {function} h
      */
@@ -147,7 +168,7 @@ export default {
     reportSubmit ({ schema }, printing = false) {
       this.$v.$touch()
       if (this.$v.$error || this.hasErrors()) {
-        this.$message.error(this.$lang('agnostic.actions.create.validation'))
+        this.$message.warning(this.$lang('agnostic.actions.create.validation'))
         return
       }
       this.printing = printing
@@ -213,9 +234,9 @@ export default {
     }
   },
   /**
-   * @param {function} h
+   * @param {function} createElement
    */
-  render (h) {
+  render (createElement) {
     const data = {
       class: ['SchemaForm', 'SchemaReport', this.submitting ? 'submitting' : ''],
       attrs: {
@@ -223,9 +244,10 @@ export default {
       }
     }
     const children = [
-      this.renderReport(h)
+      this.renderFormValidationPanel(createElement),
+      this.renderReport(createElement)
     ]
 
-    return h('div', data, children)
+    return createElement('div', data, children)
   }
 }

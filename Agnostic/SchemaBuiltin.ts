@@ -1,5 +1,7 @@
 import Schema from './Schema'
 
+import { Platform } from 'quasar'
+
 import { Provide, SchemaForm, SchemaTable } from './Helper/interfaces'
 import mixin from './Helper/mixin'
 import ConfigureActionsSchemaBuiltin from './Schema/Component/ConfigureActionsSchemaBuiltin'
@@ -32,13 +34,21 @@ abstract class SchemaBuiltin extends Schema {
    * @return {ProvideBuiltin}
    */
   static provideBuiltin (attrs: Record<string, unknown> = {}): ProvideBuiltin {
+    let size = attrs?.size ? Number(attrs.size) : undefined
+    const { sizeAdjustment } = attrs
+    if (sizeAdjustment) {
+      const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+      const rowsPerPage = Math.ceil((height - Number(sizeAdjustment)) / (Platform.is.desktop ? 40 : 55))
+      size = rowsPerPage > 5 ? rowsPerPage : 5
+    }
+
     return {
       providing: () => this.build().provide(),
       defaults: {},
       debuggerAllowed: attrs?.debuggerAllowed ? Boolean(attrs.debuggerAllowed) : undefined,
       disable: attrs?.disable ? Boolean(attrs.disable) : undefined,
       height: attrs?.height ? String(attrs.height) : undefined,
-      size: attrs?.size ? Number(attrs.size) : undefined,
+      size,
       ...attrs
     }
   }

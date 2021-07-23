@@ -75,7 +75,8 @@ export const classNameFormatter = (options, classNames) => {
 }
 
 /**
- * @param options
+ * @param {{value: unknown, label: string}[]} options
+ * @return (value: unknown) => string
  */
 export const optionsFormatter = (options) => {
   return (value) => {
@@ -90,7 +91,8 @@ export const optionsFormatter = (options) => {
 }
 
 /**
- * @param keyLabel
+ * @param {string|unknown} keyLabel
+ * @return (value: Record<string, unknown>) => string
  */
 export const optionFormatter = (keyLabel) => {
   return (value) => {

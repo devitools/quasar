@@ -5,6 +5,7 @@ import Fields from './Schema/Fields'
 import FieldTable from './Schema/FieldTable'
 import FieldForm from './Schema/FieldForm'
 import FieldIs from './Schema/FieldIs'
+import FieldAs from './Schema/FieldAs'
 import FieldValidation from './Schema/FieldValidation'
 import Actions from './Schema/Actions'
 import Hooks from './Schema/Hooks'
@@ -66,6 +67,7 @@ interface Report extends Groups,
   FieldTable,
   FieldForm,
   FieldIs,
+  FieldAs,
   FieldValidation,
   Actions,
   Hooks,
@@ -80,6 +82,7 @@ mixin(Report, [
   FieldTable,
   FieldForm,
   FieldIs,
+  FieldAs,
   FieldValidation,
   Actions,
   Hooks,
