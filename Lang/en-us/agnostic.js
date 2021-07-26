@@ -34,6 +34,7 @@ export default {
     },
     array: {
       empty: 'Use the button {button} to add items',
+      noData: 'There is no items available',
       remove: 'Remove this element from the list',
       confirm: 'Do you really want to remove this item from the list?',
       edit: 'Allows you to edit this element',

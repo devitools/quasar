@@ -36,6 +36,7 @@ export default {
     },
     array: {
       empty: 'Use o botão {button} abaixo para adicionar elementos',
+      noData: 'A lista de itens está vazia',
       remove: 'Remove este elemento da lista',
       confirm: 'Deseja realmente remover este elemento da lista?',
       edit: 'Permite editar este elemento',
