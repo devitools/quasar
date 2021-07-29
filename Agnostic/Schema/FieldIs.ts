@@ -176,7 +176,7 @@ export default abstract class FieldIs extends Base {
    * @param {Record<string, unknown>} attrs
    * @private
    */
-  private generateOptionsTableFormat(attrs: Record<string, unknown>) {
+  private generateOptionsTableFormat (attrs: Record<string, unknown>) {
     const currentField = this.__currentField
 
     if (typeof attrs !== 'object') {
@@ -221,7 +221,7 @@ export default abstract class FieldIs extends Base {
         'q-td-highlight',
         `${currentField}--${value}`,
         classify(formatClass ?? ''),
-        classify(formatClasses ? formatClasses[value] : ''),
+        classify(formatClasses ? formatClasses[value] : '')
       ]
       const className = classNameValue.join(' ').trim()
       const styleValue = [

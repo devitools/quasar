@@ -1,5 +1,5 @@
 import SchemaForm from '../../Schema/SchemaForm'
-import { APP_BUILT_IN_DEFAULT_TABLE_HEIGHT, } from '../settings'
+import { APP_BUILT_IN_DEFAULT_TABLE_HEIGHT } from '../settings'
 
 /**
  * @component {AppBuiltinForm}

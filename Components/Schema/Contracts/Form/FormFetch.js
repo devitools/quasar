@@ -65,7 +65,6 @@ export default {
       window.setTimeout(handler, 100)
       this.loadingHide()
 
-
       if (!this.triggerHook) {
         return
       }

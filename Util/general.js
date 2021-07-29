@@ -70,15 +70,14 @@ export const set = (element, path, value) => {
    * @param {*} key
    */
   const reducer = (accumulator, current, key) => {
-    // No: assign a new plain object
-    return Object(
-      accumulator[current]) === accumulator[current] // Does the key exist and is its value an object?
-      // Yes: then follow that path
-      ? accumulator[current]
-      // No: create the key. Is the next key a potential array-index?
-      : accumulator[current] = Math.abs(path[key + 1]) >> 0 === +path[key + 1]
-        ? [] // Yes: assign a new array object
-        : {}
+    if (Object(accumulator[current]) === accumulator[current]) {
+      return accumulator[current]
+    }
+    accumulator[current] = Math.abs(path[key + 1]) >> 0 === +path[key + 1]
+    if (accumulator[current]) {
+      return []
+    }
+    return {}
   }
 
   path.slice(0, -1).reduce(reducer, element)[path[path.length - 1]] = value // Finally assign the value to the last key
@@ -596,14 +595,14 @@ export const styleStringToObject = (input) => {
 export const flattenObject = (input) => {
   const toReturn = {}
 
-  for (let i in input) {
+  for (const i in input) {
     if (!input.hasOwnProperty(i)) {
       continue
     }
 
-    if ((typeof input[i]) == 'object') {
+    if ((typeof input[i]) === 'object') {
       const flatObject = flattenObject(input[i])
-      for (let x in flatObject) {
+      for (const x in flatObject) {
         if (!flatObject.hasOwnProperty(x)) {
           continue
         }
