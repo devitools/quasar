@@ -1,33 +1,33 @@
 <template>
   <table>
     <thead>
-    <tr>
-      <th style="width: 30px">
-        *
-      </th>
-      <th
-        v-for="(field, key) in components"
-        :key="key"
-      >
-        {{ label(field.$key) }}
-      </th>
-    </tr>
+      <tr>
+        <th style="width: 30px">
+          *
+        </th>
+        <th
+          v-for="(field, key) in components"
+          :key="key"
+        >
+          {{ label(field.$key) }}
+        </th>
+      </tr>
     </thead>
     <tbody>
-    <tr
-      v-for="(record, index) in items"
-      :key="record[component.attrs.keyValue]"
-    >
-      <td class="disabled">
-        <small>{{ index + 1 }}</small>
-      </td>
-      <td
-        v-for="(field, key) in components"
-        :key="key"
+      <tr
+        v-for="(record, index) in items"
+        :key="record[component.attrs.keyValue]"
       >
-        {{ value(record, field.$key) }}
-      </td>
-    </tr>
+        <td class="disabled">
+          <small>{{ index + 1 }}</small>
+        </td>
+        <td
+          v-for="(field, key) in components"
+          :key="key"
+        >
+          {{ value(record, field.$key) }}
+        </td>
+      </tr>
     </tbody>
   </table>
 </template>
@@ -77,7 +77,7 @@ export default {
      * @returns {string}
      */
     domain () {
-      return this.$util.get(component.attrs, 'domain')
+      return this.$util.get(this.component.attrs, 'domain')
     }
   }
 }
@@ -87,15 +87,18 @@ export default {
   lang="stylus"
   scoped
 >
-table, th, td
-  border 1px solid #333
-  border-collapse collapse
+table, th, td {
+  border: 1px solid #333;
+  border-collapse: collapse
+}
 
-table
-  width 100%
-  max-width 100%
-  overflow hidden
+table {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
 
-th, td
-  padding 4px 8px
+th, td {
+  padding: 4px 8px;
+}
 </style>
