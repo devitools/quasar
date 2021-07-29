@@ -132,8 +132,14 @@ export default {
      */
     message (key, error) {
       if (!Array.isArray(error)) {
-        return error.validation
+        const validation = error.validation
+        const domain = error?.domain ?? this.domain
+        const replaces = error?.parameters ?? {}
+        const preference = this.preference(domain, key, validation)
+        const paths = this.paths(domain, key, validation)
+        return replacement(this.$lang(paths, preference), replaces) || preference
       }
+
       const messages = error.map((item) => {
         const { domain, type } = item
         let { validation } = item
@@ -141,18 +147,30 @@ export default {
           validation = type
         }
         const replaces = Object.assign(item, { domain, key, validation })
-        const preference = `domains.${domain}.validations.${key}.${validation}`
-        const paths = [
-          preference,
-          `domains.${domain}.validation.${key}.${validation}`,
-          `domains.${domain}.validations.${key}.${validation}`,
-          `domains.${this.domain}.validation.${key}.${validation}`,
-          `domains.${this.domain}.validations.${key}.${validation}`,
-          `validation.${validation}`
-        ]
+        const preference = this.preference(domain, key, validation)
+        const paths = this.paths(domain, key, validation)
         return replacement(this.$lang(paths, preference), replaces) || preference
       })
       return messages.join('/')
+    },
+    preference (domain, key, validation) {
+      return `domains.${domain}.validations.${key}.${validation}`
+    },
+    /**
+     * @param {string} domain
+     * @param {string} key
+     * @param {string} validation
+     * @return {(*|string)[]}
+     */
+    paths (domain, key, validation) {
+      return [
+        this.preference(domain, key, validation),
+        `domains.${domain}.validation.${key}.${validation}`,
+        `domains.${domain}.validations.${key}.${validation}`,
+        `domains.${this.domain}.validation.${key}.${validation}`,
+        `domains.${this.domain}.validations.${key}.${validation}`,
+        `validation.${validation}`
+      ]
     }
   }
 }
