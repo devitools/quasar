@@ -10,11 +10,12 @@ export default {
      * @returns {String|Object}
      */
     label (key) {
-      return this.$lang([
+      const paths = [
         `domains.${this.domain}.fields.${key}.label`,
         `domains.${this.domain}.fields.${key}`,
         `agnostic.fields.${key}`
-      ])
+      ]
+      return this.$lang(paths)
     },
     /**
      * @param {*} record

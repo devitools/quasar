@@ -219,10 +219,11 @@ export default {
   lang="stylus"
   scoped
 >
-label
+label {
   font-weight bold
+}
 
-h6
+h6 {
   line-height normal
   letter-spacing normal
   padding 15px 0
@@ -230,8 +231,11 @@ h6
   border-color #333
   border-style solid
   margin 10px 0
+}
 
-@media print
-  .q-icon
+@media print {
+  .q-icon {
     display none
+  }
+}
 </style>

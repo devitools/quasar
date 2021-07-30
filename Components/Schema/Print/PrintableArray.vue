@@ -50,34 +50,65 @@ export default {
       required: true
     },
     items: {
-      type: Array,
+      type: [Array, String],
       required: true
     }
   },
   /**
    */
-  computed: {
+  data: () => ({
+    domain: '',
+    components: {}
+  }),
+  /**
+   */
+  methods: {
+    update () {
+      const providing = this.$util.get(this.component, 'attrs.providing', undefined)
+      if (typeof providing !== 'function') {
+        return
+      }
+      const provided = providing()
+
+     this.updateDomain(provided)
+     this.updateComponents(provided)
+    },
     /**
-     * @returns {*}
+     * @param {*} provided
      */
-    components () {
-      const fields = this.$util.get(this.component.attrs, 'fields', undefined)
+    updateDomain (provided) {
+      this.domain = provided.domain
+    },
+    /**
+     * @param {*} provided
+     */
+    updateComponents (provided) {
+      const fields = provided?.fields()
       if (!fields) {
         return
       }
-      return Object.keys(fields).reduce((accumulator, key) => {
+
+      this.components = Object.keys(fields).reduce((accumulator, key) => {
         if (fields[key].$layout.tableHidden || fields[key].$type === 'text') {
           return accumulator
         }
         accumulator[key] = fields[key]
         return accumulator
       }, {})
-    },
+    }
+  },
+  /**
+   */
+  watch: {
     /**
-     * @returns {string}
+     * @returns {*}
      */
-    domain () {
-      return this.$util.get(this.component.attrs, 'domain')
+    component: {
+      immediate: true,
+      deep: true,
+      handler () {
+        this.update()
+      }
     }
   }
 }

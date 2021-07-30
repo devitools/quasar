@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="Entrypoint">
     <slot name="printable">
       <div
         v-if="printing"
@@ -170,6 +170,12 @@ export default {
   lang="stylus"
   rel="stylesheet/stylus"
 >
+@media print {
+  #q-app > div:not(.Entrypoint) {
+    display: none;
+  }
+}
+
 .AppModal {
   > .SchemaForm,
   > div > .SchemaForm {
