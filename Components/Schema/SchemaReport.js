@@ -216,8 +216,8 @@ export default {
      */
     reportPrint () {
       try {
-        window.frames.report.focus()
-        window.frames.report.print()
+        const frame = document.getElementById('report-iframe');
+        frame.contentWindow.postMessage('print', process.env.VUE_APP_REPORT_BASE_URL);
       } catch (e) {
         window.alert(e.message)
       }
