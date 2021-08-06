@@ -317,7 +317,7 @@ export default {
       const classNames = [
         'field',
         field.$layout.formWidth ? `width-${field.$layout.formWidth}` : 'width-100',
-        `$key-${field.$key}`
+        `field-${field.$key}`
       ]
       if (field.attrs.uppercase) {
         classNames.push('text-uppercase')

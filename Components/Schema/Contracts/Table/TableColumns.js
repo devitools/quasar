@@ -81,7 +81,7 @@ export default {
         align: field.$layout.tableAlign || 'left',
         sortable: field.$layout.tableSortable,
         format: field.$layout.tableFormat ? field.$layout.tableFormat.bind(this) : undefined,
-        classes: [`$key-${field.$key}`, field.attrs.uppercase ? 'text-uppercase' : ''],
+        classes: [`field-${field.$key}`, field.attrs.uppercase ? 'text-uppercase' : ''],
         __order: field.$layout.tableOrder
       }
     },
