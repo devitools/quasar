@@ -57,7 +57,7 @@ export default {
       return [
         'field',
         field.$layout.formWidth ? `width-${field.$layout.formWidth}` : 'width-100',
-        `$key-${field.$key}`
+        `field-${field.$key}`
       ]
     },
     /**
