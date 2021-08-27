@@ -38,19 +38,26 @@ export const actionGroup = (settings, icon = '', children = [], separated = fals
 }
 
 /**
- * @param {string|Object} domain
+ * @param {string|Object} resource
  * @param {string} to
  * @param {string} icon
  * @param {string} namespace
  * @param {Record<string, unknown>} [options]
  * @returns {{path: *, label: string, namespace: string, separated: boolean}}
  */
-export const actionEntry = (domain, to, icon, namespace = undefined, options = {}) => {
+export const actionEntry = (resource, to = undefined, icon = undefined, namespace = undefined, options = {}) => {
   const { separated = false, i18n = '', meta = {} } = options
+  let domain = resource
+  if (typeof resource === 'object') {
+    to = resource.path
+    icon = resource.icon
+    namespace = resource.domain
+    domain = resource.domain
+  }
   const label = i18n ? `menu.${i18n}` : `menu.${domain}`
   return {
     label: $lang(label, label),
-    namespace: namespace || `${domain}.${RULES.LEVEL_AVAILABLE}`,
+    namespace: namespace || `${resource}.${RULES.LEVEL_AVAILABLE}`,
     path: to,
     icon: icon,
     separated: separated,
