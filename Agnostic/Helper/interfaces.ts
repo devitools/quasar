@@ -321,6 +321,8 @@ export interface Component extends Vue {
   $payload: Record<string, unknown>
 
   createdHook(schema: unknown): void
+
+  successFetchRecord (data: Record<string, unknown>): void
 }
 
 /**
