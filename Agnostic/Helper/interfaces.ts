@@ -211,9 +211,13 @@ export type ClassNames = string | string[]
  */
 export interface Message {
   notify (options: Record<string, unknown>, action?: Record<string, unknown>): void
+
   toast (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
+
   success (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
+
   error (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
+
   warning (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
 }
 
@@ -222,9 +226,13 @@ export interface Message {
  */
 export interface Util {
   clone (element: Record<string, unknown>, action?: Record<string, unknown>): unknown
+
   get (element: string | Record<string, unknown> | unknown, path: string, fallback?: Record<string, unknown>): unknown
-  set (element: string | Record<string, unknown>, path?: Record<string, unknown>, value?: Record<string, unknown>): Record<string, unknown>
+
+  set (element: string | Record<string, unknown>, path: string, value: unknown): Record<string, unknown>
+
   uuid (): string
+
   run (value: Function | unknown): Function
 }
 
@@ -233,8 +241,10 @@ export interface Util {
  */
 export interface Clipboard {
   register (index: string, value: unknown): void
-  recover(index: string): undefined | unknown
-  clear(): void
+
+  recover (index: string): undefined | unknown
+
+  clear (): void
 }
 
 /**
@@ -261,57 +271,98 @@ export interface Component extends Vue {
   settings: Record<string, unknown>
   value: Record<string, unknown>
 
-  getActionPath(): string
-  getRecord(): Record<string, unknown>
+  getActionPath (): string
+
+  getRecord (): Record<string, unknown>
+
   loadingShow (wait?: boolean): void
+
   loadingHide (): void
+
   withRecord (context: Context, success: Function, noItems?: Function, tooManySelected?: Function): void
+
   actionSchemaConfirm (payload: Record<string, unknown>, action: Function, alias: string): void
+
   getComponent (field: string): Promise<unknown>
 
-  $static(path: string, external?: boolean): string
-  $browse(target: undefined | number | string | Record<string, unknown>, options?: Record<string, unknown> | boolean): void
+  $static (path: string, external?: boolean): string
+
+  $browse (target: undefined | number | string | Record<string, unknown>, options?: Record<string, unknown> | boolean): void
 
   $setIs (is: string): Component
+
   $setLayout (property: string, value: number | string): Component
+
   $getLayout (property: string): Component
 
   $getField (name: string): Component
+
   $fieldFormHidden (formHidden?: boolean): Component
+
   $fieldFormWidth (formWidth: number): Component
+
   $fieldFormHeight (formHeight: number): Component
+
   $fieldAttr (property: string, value: unknown): Component
+
   $fieldFormDisabled (disable: boolean): Component
+
   $fieldFormOrder (formOrder: number, updateOthers?: boolean): Component
+
   $fieldTableHidden (tableHidden?: boolean): Component
+
   $fieldTableWhere (tableWhere?: string | null): Component
 
   $getAction (key: string): Component
+
   $actionOrder (order: number): Component
+
   $actionLabel (label: string): Component
+
   $actionIcon (icon?: string): Component
+
   $actionTooltip (tooltip?: string): Component
+
   $actionColor (color: string): Component
+
   $actionTextColor (textColor: string): Component
+
   $actionDisabled (disabled?: boolean): Component
+
   $actionFloatRight (): Component
+
   $actionFloatLeft (): Component
+
   $actionNoMinWidth (): Component
+
   $actionAddClassName (className: string): Component
+
   $actionHidden (hidden?: boolean): Component
+
   $actionDropdown (actions: Action[]): Component
+
   $actionValidate (validate: () => boolean): Component
+
   $actionConfigure (configure: () => boolean): Component
+
   $actionOn (event: string, handler: () => boolean): Component
 
   $setError (validation?: string, parameters?: Record<string, unknown>): Component
+
   $getValue (): unknown
+
   $setValue (value: unknown): Component
+
   $confirm (message: string | Record<string, unknown>, options?: Record<string, unknown>): Promise<Record<string, unknown>>
+
   $alert (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
+
   $lang (path: string, fallback?: string | string[]): string | Record<string, unknown>
+
   $can (namespace: string): boolean
+
   $user (property: string): string | number | boolean | Record<string, unknown> | undefined
+
   $setFocus (name: string): void
 
   $message: Message
@@ -320,7 +371,7 @@ export interface Component extends Vue {
   $util: Util
   $payload: Record<string, unknown>
 
-  createdHook(schema: unknown): void
+  createdHook (schema: unknown): void
 
   successFetchRecord (data: Record<string, unknown>): void
 }
@@ -332,7 +383,9 @@ export interface SchemaForm extends Component {
   showPlaceholderContent: boolean
   useFormReadonly: boolean
   components: Record<string, unknown>
-  fetchRecord(id: string | number): Promise<Record<string, unknown>>
+  buttons: Record<string, unknown>
+
+  fetchRecord (id: string | number): Promise<Record<string, unknown>>
 
   $groupType (type: string): this
 }
