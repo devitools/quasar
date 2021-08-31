@@ -111,6 +111,9 @@ export const disable = (value, disabled = false) => {
  * @return {string|*}
  */
 export const ellipsis = (value, length = 30, suffix = '...') => {
+  if (typeof value !== 'string') {
+    return value
+  }
   if (value.length < length) {
     return value
   }
