@@ -357,7 +357,7 @@ export interface Component extends Vue {
 
   $alert (message: string | Record<string, unknown>, options?: Record<string, unknown>): void
 
-  $lang (path: string, fallback?: string | string[]): string | Record<string, unknown>
+  $lang (path: string | string[], fallback?: string | string[]): string | Record<string, unknown>
 
   $can (namespace: string): boolean
 
