@@ -66,6 +66,9 @@ export default abstract class Basic extends Http {
     if (is(this.__resourceParams)) {
       base = replacement(this.resource, this.__resourceParams)
     }
+    if (!path) {
+      return base
+    }
     return `${base}/${path}`.replace(/([^:]\/)\/+/g, '$1')
   }
 
