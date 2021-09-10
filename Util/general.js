@@ -1,4 +1,5 @@
 import { v1 as uuidV1 } from 'uuid'
+import { set as setter } from 'lodash'
 
 import { $router } from 'src/router'
 import { SEPARATION_OPERATOR } from 'src/settings/schema'
@@ -55,33 +56,7 @@ export const get = (element, path, fallback = undefined) => {
  * @returns {Record<string, unknown>}
  */
 export const set = (element, path, value) => {
-  if (Object(element) !== element) {
-    // When obj is not an object
-    return element
-  }
-  // If not yet an array, get the keys from the string-path
-  if (!Array.isArray(path)) {
-    path = path.toString().match(/[^.[\]]+/g) || []
-  }
-
-  /*
-   * @param {*} accumulator
-   * @param {*} current
-   * @param {*} key
-   */
-  const reducer = (accumulator, current, key) => {
-    if (Object(accumulator[current]) === accumulator[current]) {
-      return accumulator[current]
-    }
-    accumulator[current] = Math.abs(path[key + 1]) >> 0 === +path[key + 1]
-    if (accumulator[current]) {
-      return []
-    }
-    return {}
-  }
-
-  path.slice(0, -1).reduce(reducer, element)[path[path.length - 1]] = value // Finally assign the value to the last key
-  return element // Return the top-level object to allow chaining
+  return setter(element, path, value)
 }
 
 /**
