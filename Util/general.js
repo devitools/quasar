@@ -1,5 +1,5 @@
 import { v1 as uuidV1 } from 'uuid'
-import { set as setter } from 'lodash'
+import { set as setter, get as getter } from 'lodash'
 
 import { $router } from 'src/router'
 import { SEPARATION_OPERATOR } from 'src/settings/schema'
@@ -14,39 +14,7 @@ import $lang from '../Lang'
  * @returns {*}
  */
 export const get = (element, path, fallback = undefined) => {
-  if (element === undefined || element === null) {
-    return fallback
-  }
-
-  // break the path in pieces bt dot
-  let search = path
-  if (!Array.isArray(path)) {
-    search = String(path).split('.').filter((pieces) => pieces && pieces.length)
-  }
-
-  // try to access a property that has a dot in its name
-  const alias = search.join('.')
-  // if the property exists...
-  if (element[alias]) {
-    // ...then the job is done
-    return element[alias]
-  }
-
-  // search is over...
-  if (!search.length) {
-    // return the element
-    return element
-  }
-
-  // remove a property of the list
-  let property = search.shift()
-  if (Array.isArray(element)) {
-    // configure the accessor
-    // eslint-disable-next-line no-useless-escape
-    property = String(property).replace(/[\[\]]+/g, '')
-  }
-  // try again
-  return get(element[property], search, fallback)
+  return getter(element, path, fallback)
 }
 
 /**
