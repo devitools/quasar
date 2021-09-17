@@ -297,6 +297,8 @@ export interface Component extends Vue {
 
   $getField (name: string): Component
 
+  $getSeparator (name: string): Component
+
   $fieldFormHidden (formHidden?: boolean): Component
 
   $fieldFormWidth (formWidth: number): Component

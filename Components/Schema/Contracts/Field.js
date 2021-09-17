@@ -179,6 +179,13 @@ export default {
       return this
     },
     /**
+     * @param {string} $key
+     * @return {this}
+     */
+    $getSeparator ($key) {
+      return this.$getField(`separators.${$key}`)
+    },
+    /**
      * @param {*} value
      * @return {Form}
      */

@@ -210,4 +210,13 @@ export default abstract class Fields extends Base {
 
     return this
   }
+
+  /**
+   * @param {string} field
+   * @return {this}
+   */
+  getSeparator (field: string): this {
+    const name = `separators.${field}`
+    return this.getField(name)
+  }
 }
