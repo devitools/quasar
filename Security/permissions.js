@@ -28,7 +28,7 @@ export const permissionGroup = (settings, icon = '', children = []) => {
  */
 export const permissionAvailable = (domain) => {
   return {
-    label: $lang(`permissions.${domain}.${RULES.LEVEL_AVAILABLE}`, `permissions.${domain}.${RULES.LEVEL_AVAILABLE}`),
+    label: $lang(`permissions["${domain}.${RULES.LEVEL_AVAILABLE}"]`, `permissions.${domain}.${RULES.LEVEL_AVAILABLE}`),
     namespace: `${domain}.${RULES.LEVEL_AVAILABLE}`,
     icon: 'done'
   }
@@ -55,7 +55,7 @@ export const permissionLevelNamespace = (namespace, icon) => {
  */
 export const permissionLevel = (domain, icon, level) => {
   return {
-    label: $lang(`permissions.${domain}.${level}`, `permissions.${domain}.${level}`),
+    label: $lang(`permissions["${domain}.${level}"]`, `permissions.${domain}.${level}`),
     namespace: `${domain}.${level}`,
     domain,
     level,
