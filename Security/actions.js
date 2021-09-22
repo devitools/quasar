@@ -54,10 +54,10 @@ export const actionEntry = (resource, to = undefined, icon = undefined, namespac
     namespace = resource.domain
     domain = resource.domain
   }
-  const label = i18n ? `menu.${i18n}` : `menu.${domain}`
+  const label = i18n ? `menu["${i18n}"]` : `menu["${domain}"]`
   return {
     label: $lang(label, label),
-    namespace: namespace || `${resource}.${RULES.LEVEL_AVAILABLE}`,
+    namespace: namespace || `${resource}["${RULES.LEVEL_AVAILABLE}"]`,
     path: to,
     icon: icon,
     separated: separated,
