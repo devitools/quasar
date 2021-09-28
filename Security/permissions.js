@@ -1,4 +1,4 @@
-import { RULES } from 'src/settings/schema'
+import { concatI18N, RULES } from 'src/settings/schema'
 import $lang from '../Lang'
 
 /**
@@ -27,8 +27,9 @@ export const permissionGroup = (settings, icon = '', children = []) => {
  * @return {{icon: string, namespace: string, label: string}}
  */
 export const permissionAvailable = (domain) => {
+  const label = $lang(concatI18N('permissions', `${domain}.${RULES.LEVEL_AVAILABLE}`), concatI18N('permissions', `${domain}.${RULES.LEVEL_AVAILABLE}`))
   return {
-    label: $lang(`permissions["${domain}.${RULES.LEVEL_AVAILABLE}"]`, `permissions.${domain}.${RULES.LEVEL_AVAILABLE}`),
+    label,
     namespace: `${domain}.${RULES.LEVEL_AVAILABLE}`,
     icon: 'done'
   }
