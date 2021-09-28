@@ -5,7 +5,7 @@ import Skeleton from './Skeleton'
 import ConfigureActionsSchema from './Schema/Component/ConfigureActionsSchema'
 import mixin from './Helper/mixin'
 
-import { Provide, Timestamp, SchemaForm, SchemaTable } from './Helper/interfaces'
+import { Provide, Provider, SchemaForm, SchemaTable, Timestamp } from './Helper/interfaces'
 import { SCOPES } from './enum'
 
 /**
@@ -99,9 +99,9 @@ abstract class Schema extends Skeleton {
 
   /**
    * @param {Record<string, unknown>} attrs
-   * @return {{providing: () => Provide}}
+   * @return {Provider}
    */
-  static provider (attrs: Record<string, unknown> = {}): { providing: () => Provide } {
+  static provider (attrs: Record<string, unknown> = {}): Provider {
     return {
       providing: () => this.build().provide(),
       ...attrs

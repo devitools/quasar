@@ -20,6 +20,13 @@ export interface Provide {
 }
 
 /**
+ * @typedef {Provider}
+ */
+export type Provider = {
+  providing: () => Provide
+}
+
+/**
  * @interface {ProvideReport}
  */
 export interface ProvideReport {
@@ -259,11 +266,22 @@ export type RouteRecord = {
 }
 
 /**
+ * @interface {View}
+ */
+export interface View extends Vue {
+  $q: QVueGlobals
+  $message: Message
+  $clipboard: Clipboard
+  $store: Store<unknown>
+  $util: Util
+
+  $browse (target: undefined | number | string | Record<string, unknown>, options?: Record<string, unknown> | boolean): void
+}
+
+/**
  * @interface {Component}
  */
-export interface Component extends Vue {
-  $q: QVueGlobals
-
+export interface Component extends View {
   scope: string
   domain: string
   primaryKey: string
@@ -286,8 +304,6 @@ export interface Component extends Vue {
   getComponent (field: string): Promise<unknown>
 
   $static (path: string, external?: boolean): string
-
-  $browse (target: undefined | number | string | Record<string, unknown>, options?: Record<string, unknown> | boolean): void
 
   $setIs (is: string): Component
 
@@ -367,10 +383,6 @@ export interface Component extends Vue {
 
   $setFocus (name: string): void
 
-  $message: Message
-  $clipboard: Clipboard
-  $store: Store<unknown>
-  $util: Util
   $payload: Record<string, unknown>
 
   createdHook (schema: unknown): void
@@ -406,4 +418,15 @@ export type UserEvent<T extends HTMLElement> = Event & {
   target: T
   // probably you might want to add the currentTarget as well
   currentTarget: T
+}
+
+/**
+ * @typedef {WizardStep}
+ */
+export type WizardStep = {
+  id: string | number
+  icon: string
+  provider: Provider
+  previous?: Function
+  next?: Function
 }

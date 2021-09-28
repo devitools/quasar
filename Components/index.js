@@ -1,6 +1,7 @@
 export const SchemaTable = () => import('./Schema/SchemaTable.js')
 export const SchemaForm = () => import('./Schema/SchemaForm.js')
 export const SchemaReport = () => import('./Schema/SchemaReport.js')
+export const SchemaWizard = () => import('./Schema/SchemaWizard.vue')
 
 export const AppArrayFluent = () => import('./Array/AppArrayFluent.vue')
 export const AppArrayLazy = () => import('./Array/AppArrayLazy.vue')
