@@ -58,17 +58,17 @@ export default {
         this.renderSchemaButtonsCompact(h, POSITIONS.POSITION_TABLE_TOP, { records: this.selected })
       ]
 
-      if (tableShowColumnsSelector) {
+      if (this.topSelector) {
         top.push(h(QSpace))
         top.push(this.renderTableColumnsSelector(h))
       }
 
-      if (tableShowFilters) {
+      if (this.topFilter) {
         top.push(h(QSpace))
         top.push(this.renderTableFilter(h))
       }
 
-      if (tableShowSearch) {
+      if (this.topSearch) {
         top.push(h(QSpace))
         top.push(this.renderTableSearch(h))
       }

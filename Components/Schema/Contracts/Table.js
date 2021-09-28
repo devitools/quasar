@@ -1,7 +1,14 @@
 import TableColumns from './Table/TableColumns'
 import TableFetch from './Table/TableFetch'
 import { filterKey, searchKey } from 'src/settings/schema'
-import { tableMinRowsPerPage, tableOuterHeight, tableSelection } from 'src/settings/table'
+import {
+  tableMinRowsPerPage,
+  tableOuterHeight,
+  tableSelection,
+  tableShowColumnsSelector,
+  tableShowFilters,
+  tableShowSearch
+} from 'src/settings/table'
 import { OPERATORS } from '../../../Agnostic/enum'
 
 /**
@@ -27,6 +34,18 @@ export default {
     selection: {
       type: String,
       default: tableSelection
+    },
+    topSelector: {
+      type: Boolean,
+      default: tableShowColumnsSelector
+    },
+    topFilter: {
+      type: Boolean,
+      default: tableShowFilters
+    },
+    topSearch: {
+      type: Boolean,
+      default: tableShowSearch
     }
   },
   /**
