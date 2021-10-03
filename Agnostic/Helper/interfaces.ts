@@ -430,3 +430,8 @@ export type WizardStep = {
   previous?: Function
   next?: Function
 }
+
+/**
+ * @typedef {WizardData}
+ */
+export type WizardData = Record<string, Record<string, unknown>>

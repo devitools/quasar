@@ -143,8 +143,7 @@ export default {
      */
     async finishStep () {
       try {
-        const payload = Object.values(this.data).reduce((payload, datum) => Object.assign(payload, datum))
-        await this.finish.call(this, payload)
+        await this.finish.call(this, this.data)
       } catch (e) {
         // silence is gold
       }
