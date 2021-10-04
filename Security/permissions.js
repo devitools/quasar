@@ -56,7 +56,7 @@ export const permissionLevelNamespace = (namespace, icon) => {
  */
 export const permissionLevel = (domain, icon, level) => {
   return {
-    label: $lang(`permissions["${domain}.${level}"]`, `permissions.${domain}.${level}`),
+    label: $lang(concatI18N('permissions', `${domain}.${level}`), `permissions.${domain}.${level}`),
     namespace: `${domain}.${level}`,
     domain,
     level,
@@ -80,7 +80,7 @@ export const permissionSingle = (view) => {
  */
 export const permissionEntry = (view) => {
   return {
-    label: $lang(`permissions.${view.domain}`, `permissions.${view.domain}`),
+    label: $lang(concatI18N('permissions', `${view.domain}`), `permissions.${view.domain}`),
     namespace: `${view.domain}`,
     icon: view.icon
   }
@@ -156,7 +156,7 @@ export const permission = (index, allowedLevels = [], extraLevels = [], addition
 
   return {
     namespace: index.domain,
-    label: $lang(`permissions.${index.domain}`, `permissions.${index.domain}`),
+    label: $lang(concatI18N('permissions', `${index.domain}`), `permissions.${index.domain}`),
     icon: index.icon,
     meta: index.meta,
     children
