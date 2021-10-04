@@ -398,6 +398,7 @@ export interface SchemaForm extends Component {
   useFormReadonly: boolean
   components: Record<string, unknown>
   buttons: Record<string, unknown>
+  errors: Record<string, unknown>
 
   fetchRecord (id: string | number): Promise<Record<string, unknown>>
 

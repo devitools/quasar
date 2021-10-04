@@ -19,7 +19,7 @@
       :done="current >= (index + 1)"
     >
       <AppForm
-        :ref="`step-${index}`"
+        :ref="step.id"
         v-bind="step.provide"
         v-model="data[step.id]"
         :builtin="true"
@@ -92,13 +92,24 @@ export default {
    */
   methods: {
     /**
+     * @return {Vue | Element | Vue[] | Element[]}
      */
-    previousStep () {
-      let ref = this.$refs[`step-${this.current}`]
+    getRef () {
+      const step = this.steps[this.current]
+      const id = step.id
+      let ref = this.$refs[id]
       if (Array.isArray(ref)) {
         ref = ref[0]
       }
-
+      return ref
+    },
+    /**
+     */
+    previousStep () {
+      const ref = this.getRef()
+      if (!ref) {
+        return
+      }
       const step = this.steps[this.current]
       if (typeof step.previous === 'function') {
         step.previous.call(ref)
@@ -113,10 +124,11 @@ export default {
     /**
      */
     nextStep () {
-      let ref = this.$refs[`step-${this.current}`]
-      if (Array.isArray(ref)) {
-        ref = ref[0]
+      const ref = this.getRef()
+      if (!ref) {
+        return
       }
+
       try {
         ref.$v.$touch()
         if (ref.$v.$error || ref.hasErrors()) {
