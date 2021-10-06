@@ -199,10 +199,13 @@ export default {
       attrs: this.renderFormAttributes()
     }
     const children = [
-      this.renderFormValidationPanel(creator),
       this.renderForm(creator)
     ]
 
+    if (this.validation) {
+      this.renderFormValidationPanel(creator)
+    }
+    
     if (this.filling) {
       children.push(this.renderFormFiller(creator))
     }
