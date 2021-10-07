@@ -203,9 +203,9 @@ export default {
     ]
 
     if (this.validation) {
-      this.renderFormValidationPanel(creator)
+      children.push(this.renderFormValidationPanel(creator))
     }
-    
+
     if (this.filling) {
       children.push(this.renderFormFiller(creator))
     }
