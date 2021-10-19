@@ -1,4 +1,4 @@
-import { concatI18N, RULES } from 'src/settings/schema'
+import { RULES } from 'src/settings/schema'
 import $lang from '../Lang'
 
 /**
@@ -27,7 +27,10 @@ export const permissionGroup = (settings, icon = '', children = []) => {
  * @return {{icon: string, namespace: string, label: string}}
  */
 export const permissionAvailable = (domain) => {
-  const label = $lang(concatI18N('permissions', `${domain}.${RULES.LEVEL_AVAILABLE}`), concatI18N('permissions', `${domain}.${RULES.LEVEL_AVAILABLE}`))
+  const label = $lang(
+    `permissions.${domain}.${RULES.LEVEL_AVAILABLE}`,
+    `permissions.${domain}.${RULES.LEVEL_AVAILABLE}`
+  )
   return {
     label,
     namespace: `${domain}.${RULES.LEVEL_AVAILABLE}`,
@@ -56,7 +59,7 @@ export const permissionLevelNamespace = (namespace, icon) => {
  */
 export const permissionLevel = (domain, icon, level) => {
   return {
-    label: $lang(concatI18N('permissions', `${domain}.${level}`), `permissions.${domain}.${level}`),
+    label: $lang(`permissions.${domain}.${level}`, `permissions.${domain}.${level}`),
     namespace: `${domain}.${level}`,
     domain,
     level,
@@ -80,7 +83,7 @@ export const permissionSingle = (view) => {
  */
 export const permissionEntry = (view) => {
   return {
-    label: $lang(concatI18N('permissions', `${view.domain}`), `permissions.${view.domain}`),
+    label: $lang(`permissions.${view.domain}`, `permissions.${view.domain}`),
     namespace: `${view.domain}`,
     icon: view.icon
   }
@@ -143,7 +146,14 @@ export const permissionActions = (domain, allowed = [], levels = []) => {
  * @param {string[]} allowedLevels
  * @param {[]} extraLevels
  * @param {[]} additional
- * @return {{children: [{icon: string, namespace: string, label: string}, {children: {namespace: string, label: string}[], icon: string, namespace: string, label: string}], namespace: *, icon: *, label: *}}
+ * @return {{
+ *    children: [
+ *      {icon: string, namespace: string, label: string}
+ *    ],
+ *    namespace: string,
+ *    icon: string,
+ *    label: string
+ *  }}
  */
 export const permission = (index, allowedLevels = [], extraLevels = [], additional = []) => {
   const children = [
@@ -156,7 +166,7 @@ export const permission = (index, allowedLevels = [], extraLevels = [], addition
 
   return {
     namespace: index.domain,
-    label: $lang(concatI18N('permissions', `${index.domain}`), `permissions.${index.domain}`),
+    label: $lang(`permissions.${index.domain}`, `permissions.${index.domain}`),
     icon: index.icon,
     meta: index.meta,
     children

@@ -30,6 +30,14 @@ export default (path, fallback = '') => {
   const locale = i18n.locale
   const messages = i18n.messages[locale]
 
+  if (typeof path === 'string' && path.includes('.')) {
+    const pieces = path.split('.')
+    const first = pieces.shift()
+    const end = pieces.join('.')
+    const bracket = `${first}["${end}"]`
+    path = [path, bracket]
+  }
+
   if (Array.isArray(path)) {
     for (const candidate of path) {
       const answer = get(messages, candidate)
@@ -39,5 +47,6 @@ export default (path, fallback = '') => {
     }
     return fallback
   }
+
   return get(messages, path, fallback)
 }
