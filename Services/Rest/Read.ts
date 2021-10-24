@@ -19,12 +19,13 @@ export default abstract class Read extends Basic {
       queryString = '?trash=true'
     }
 
-    if ($store.getters['app/getOffline'] || this.offline) {
-      return this.readOffline(record, trash)
-    }
-    const url = `${this.getResource()}/${this.getId(record)}${queryString}`
     // @ts-ignore
     const parse = parseRestRecord()
+    if ($store.getters['app/getOffline'] || this.offline) {
+      return this.readOffline(record, trash)
+        .then((response) => parse(response))
+    }
+    const url = `${this.getResource()}/${this.getId(record)}${queryString}`
     return this
       .get(url, config)
       .then((response) => parse(response))
