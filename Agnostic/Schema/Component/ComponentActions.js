@@ -84,6 +84,10 @@ export default class ComponentActions {
         this.$browse(`${path}/${id}/edit`, true)
         return
       }
+      if (typeof path === 'function') {
+        path.call(this, path, id)
+        return
+      }
       this.$browse(path, true)
     }
     if (!after) {
