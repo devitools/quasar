@@ -84,8 +84,8 @@ export default class ComponentActions {
         this.$browse(`${path}/${id}/edit`, true)
         return
       }
-      if (typeof path === 'function') {
-        path.call(this, path, id)
+      if (typeof schema.afterCreate === 'function') {
+        schema.afterCreate.call(this, path, id)
         return
       }
       this.$browse(path, true)
@@ -138,9 +138,13 @@ export default class ComponentActions {
       return
     }
 
-    const afterUpdateDefault = (path) => {
+    const afterUpdateDefault = (path, id) => {
       $emporium.commit('updateModified', false)
 
+      if (typeof schema.afterUpdate === 'function') {
+        schema.afterUpdate.call(this, path, id)
+        return
+      }
       if (schema.afterUpdate !== 'index') {
         return
       }
