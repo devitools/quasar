@@ -54,7 +54,7 @@ export default {
     /**
      */
     filling () {
-      return this.fillerAllowed && $emporium.state.filling
+      return this.fillerAllowed && !this.useFormReadonly && $emporium.state.filling
     }
   },
   /**

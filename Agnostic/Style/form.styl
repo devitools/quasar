@@ -1,6 +1,8 @@
 @import '~src/css/quasar.variables.styl'
 
 .SchemaForm {
+  position: relative;
+
   & > .app-form-wrapper {
     overflow: auto;
     background: #ffffff;
@@ -167,19 +169,17 @@
 
 .SchemaForm__Filler {
   position: absolute;
-  z-index: 10000;
-  top: 16px;
+  z-index: 100;
+  top: 0;
   right: 0;
   background: #fff;
-  border-radius: 30px;
+  border-radius: 34px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
 
   .q-btn {
-    padding: 6px;
 
     .q-icon {
-      font-size: 3rem;
-      color: #4c80c9;
+      font-size: 1.4rem;
     }
   }
 }

@@ -98,12 +98,17 @@ export default {
       const data = {
         class: 'SchemaForm__Filler'
       }
-      const children = [
-        h(QBtn, {
-          attrs: { icon: 'code', flat: true, round: true, dense: true },
-          on: { click: this.fillComponentsValue }
-        })
-      ]
+      const attrs = {
+        icon: 'precision_manufacturing',
+        color: 'negative',
+        round: true,
+        unelevated: true,
+        dense: true
+      }
+      const on = {
+        click: this.fillComponentsValue
+      }
+      const children = [h(QBtn, { attrs, on })]
       return h('div', data, children)
     },
     /**
