@@ -22,7 +22,10 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsInput (maxlength = 255, attrs = {}) {
-    this.setComponent('input', { ...attrs, maxlength }, 'string')
+    this.setComponent('input', {
+      ...attrs,
+      maxlength
+    }, 'string')
     return this
   }
 
@@ -80,7 +83,10 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsText (rows = 6, attrs = {}) {
-    this.setComponent('text', { ...attrs, rows }, 'text')
+    this.setComponent('text', {
+      ...attrs,
+      rows
+    }, 'text')
     return this
   }
 
@@ -122,7 +128,10 @@ export default abstract class FieldIs extends Base {
       options = yesNo
     }
 
-    this.setComponent('radio', { ...attrs, options }, 'options')
+    this.setComponent('radio', {
+      ...attrs,
+      options
+    }, 'options')
     const tableFormat = this.generateOptionsTableFormat(attrs)
     this.setLayout({ tableFormat })
     return this
@@ -241,7 +250,10 @@ export default abstract class FieldIs extends Base {
   fieldIsSelectRemote (attrs: Record<string, unknown> = {}) {
     this.setComponent('remote', attrs, 'select')
     const { format } = attrs
-    this.setLayout({ tableFormat: format || optionFormatter(attrs.keyLabel), tableWhere: OPERATORS.EQUAL })
+    this.setLayout({
+      tableFormat: format || optionFormatter(attrs.keyLabel),
+      tableWhere: OPERATORS.EQUAL
+    })
     return this
   }
 
@@ -300,7 +312,10 @@ export default abstract class FieldIs extends Base {
    */
   private configureDateTableFormat () {
     const name = this.__currentField
-    const { display, format } = this.__fields[name].attrs
+    const {
+      display,
+      format
+    } = this.__fields[name].attrs
     this.setLayout({
       tableFormat: (value: string) => dateFormatter(value, String(display), String(format)) || '-'
     })
@@ -312,7 +327,10 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsInputPlan (maxlength = 255, attrs = {}) {
-    this.setComponent('plan', { ...attrs, maxlength }, 'string')
+    this.setComponent('plan', {
+      ...attrs,
+      maxlength
+    }, 'string')
     return this
   }
 
@@ -322,7 +340,10 @@ export default abstract class FieldIs extends Base {
    * @returns {Schema}
    */
   fieldIsUrl (maxlength = 255, attrs = {}) {
-    this.setComponent('plan', { ...attrs, maxlength }, 'string')
+    this.setComponent('plan', {
+      ...attrs,
+      maxlength
+    }, 'string')
     return this
   }
 
@@ -348,7 +369,10 @@ export default abstract class FieldIs extends Base {
    */
   fieldIsBuiltin (attrs = {}) {
     this.setIs('AppBuiltin')
-    this.setAttrs({ ...attrs, uppercase: false })
+    this.setAttrs({
+      ...attrs,
+      uppercase: false
+    })
     this.setType('array')
     return this
   }
@@ -395,7 +419,10 @@ export default abstract class FieldIs extends Base {
     if (!options.label) {
       options.label = this.$lang(`fields.${this.__currentField}.caption`)
     }
-    const attrs = { ...options, click }
+    const attrs = {
+      ...options,
+      click
+    }
     this.setAttrs(attrs)
     return this
   }
@@ -429,7 +456,10 @@ export default abstract class FieldIs extends Base {
       attrs['default-expand-all'] = true
     }
     this.setIs('AppTree')
-    this.setAttrs({ nodeKey: 'id', tickStrategy: 'leaf', ...attrs })
+    this.setAttrs({
+      nodeKey: 'id',
+      tickStrategy: 'leaf', ...attrs
+    })
     this.setType('array')
     return this
   }
@@ -516,6 +546,21 @@ export default abstract class FieldIs extends Base {
    */
   fieldIsTable (attrs = {}) {
     this.setComponent('table', { value: [], ...attrs }, 'array')
+    return this
+  }
+
+  /**
+   * @param {number} width
+   * @param {number} height
+   * @param {Record<string, unknown>} attrs
+   * @return {this}
+   */
+  fieldIsImageCrop (width: number, height: number, attrs = {}): this {
+    const options = {
+      width,
+      height, ...attrs
+    }
+    this.setComponent('crop', options, 'file')
     return this
   }
 }
