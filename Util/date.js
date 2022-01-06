@@ -186,3 +186,13 @@ export const dateCompareGreaterThen = (base, compare, format) => {
 export const dateCompareLessThen = (base, compare, format) => {
   return DateTime.compareLessThen(base, compare, format)
 }
+
+/**
+ *
+ * @param {number} days
+ * @param {string} format
+ * @returns {Date}
+ */
+export const nextDays = (days, format = 'YYYY-MM-DD') => {
+  return DateTime.fromFormat(dateCurrent(format), format).addDays(days).format(format)
+}
