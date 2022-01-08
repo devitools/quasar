@@ -18,8 +18,9 @@ import $performance from './Plugins/$performance'
 
 /**
  * @param {Vue} Vue
+ * @param {*} schema
  */
-export default ({ Vue }) => {
+export default ({ Vue, schema }) => {
   // install general colors
   window.chartColors = {
     red: 'rgba(252, 106, 137, 0.8)',
@@ -156,6 +157,15 @@ export default ({ Vue }) => {
   Object.defineProperty(Vue.prototype, '$performance', {
     get () {
       return $performance
+    }
+  })
+
+  /**
+   */
+  Object.defineProperty(Vue.prototype, '$schema', {
+    get () {
+      const { displayKey, primaryKey } = schema
+      return { displayKey, primaryKey }
     }
   })
 
