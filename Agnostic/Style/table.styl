@@ -26,6 +26,16 @@
         width: 35%;
       }
     }
+    @media (max-width: 1040px) {
+      & > #search.q-field {
+        width: 20%;
+        transition: width 0.3s;
+
+        &.q-field--focused {
+          width: 25%;
+        }
+      }
+    }
   }
 
   @media (max-width 768px) {
@@ -377,4 +387,3 @@
 .SchemaTable__selector__popup {
   min-width: 200px !important;
 }
-
