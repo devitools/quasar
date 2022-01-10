@@ -23,14 +23,15 @@ export default {
     },
     /**
      * @param {Number|String} id
+     * @param {boolean} wait
      * @returns {Promise}
      */
-    fetchRecord (id) {
+    fetchRecord (id, wait = true) {
       if (this.builtin) {
         return new Promise((resolve) => resolve(false))
       }
 
-      this.loadingShow()
+      this.loadingShow(wait)
 
       this.triggerHook('request:record', { id })
         .then(this.successFetchRecord)

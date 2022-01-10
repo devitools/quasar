@@ -19,6 +19,24 @@ export default class ComponentActions {
   }
 
   /**
+   */
+  async actionReload () {
+    const id = this.$route.params[this.primaryKey]
+    if (!id) {
+      return
+    }
+    if ($emporium.state.modified) {
+      try {
+        await this.$confirm('agnostic.modified')
+        $emporium.commit('updateModified', false)
+      } catch (e) {
+        return
+      }
+    }
+    this.fetchRecord(id, false)
+  }
+
+  /**
    * @return {Promise|undefined}
    */
   actionPrint () {

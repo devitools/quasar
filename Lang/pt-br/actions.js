@@ -70,6 +70,10 @@ export default {
     label: 'Voltar',
     tooltip: 'Volta para a tela anterior'
   },
+  reload: {
+    label: 'Recarregar',
+    tooltip: 'Tenta carregar novamente o registro visualizado'
+  },
   print: {
     label: 'Impressão',
     tooltip: 'Visualiza a impressão do conteúdo desta página'

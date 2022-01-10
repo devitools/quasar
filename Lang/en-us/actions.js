@@ -77,6 +77,10 @@ export default {
     label: 'Back',
     tooltip: 'Return to previous screen'
   },
+  reload: {
+    label: 'Reload',
+    tooltip: 'Try to reload the current record'
+  },
   print: {
     label: 'Print',
     tooltip: 'Print the printout of this page\'s content'
