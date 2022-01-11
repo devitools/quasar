@@ -372,7 +372,9 @@ export interface Component extends View {
   $setValue (value: unknown): Component
 
   $setAttr (property: string, value: unknown): Component
-  
+
+  $clearError (): Component
+
   $confirm (message: string | Record<string, unknown>, options?: Record<string, unknown>): Promise<Record<string, unknown>>
 
   $alert (message: string | Record<string, unknown>, options?: Record<string, unknown>): void

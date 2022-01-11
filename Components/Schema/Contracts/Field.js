@@ -275,6 +275,20 @@ export default {
           window.setTimeout(component[method], 300)
         }
       })
+    },
+    /**
+     * @return {this}
+     */
+    $clearError () {
+      if (this.errors[this.__currentField]) {
+        delete this.errors[this.__currentField]
+      }
+      const validator = this?.$v?.record
+      const field = this.__currentField
+      if (validator && validator[field]) {
+        this.$nextTick(() => validator[field].$reset())
+      }
+      return this
     }
   }
 }
