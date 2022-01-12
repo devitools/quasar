@@ -2,14 +2,15 @@
   <div class="AppArrayCheckbox">
     <div class="AppArrayCheckbox__container">
       <div class="AppArrayCheckbox__header">
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between q-pa-sm">
           <QCheckbox
+            dense
             :disabled="readonly"
             :label="$lang('agnostic.components.array.all')"
             :value="all"
             @input="select"
           />
-          <div class="q-pr-sm">
+          <div class="q-pr-xs">
             <QToggle
               :label="$lang('agnostic.components.array.checked')"
               v-model="checked"
@@ -45,9 +46,10 @@
           <div
             v-for="(item) in items"
             :key="item.value"
-            class="q-pr-sm q-mb-sm"
+            class="q-pl-sm q-pr-sm q-mt-sm q-mb-sm"
           >
             <QCheckbox
+              dense
               :val="item.value"
               :label="item.label"
               :value="ids"
@@ -62,10 +64,10 @@
         <QPagination
           v-model="current"
           direction-links
-          boundary-links
+          :boundary-links="$q.platform.is.desktop"
+          :boundary-numbers="$q.platform.is.desktop"
           :max="pages"
           :max-pages="maxPages"
-          :boundary-numbers="false"
         />
       </div>
     </div>
@@ -84,6 +86,8 @@
 import { QCheckbox, QInput, QPagination, QSpinner, QToggle } from 'quasar'
 
 import { attrs } from 'src/settings/components'
+
+const LINE_HEIGHT = 30
 
 export default {
   /**
@@ -120,15 +124,15 @@ export default {
     },
     rowsPerPage: {
       type: Number,
-      default: () => 10
+      default: () => undefined
+    },
+    adjustment: {
+      type: Number,
+      default: () => 400
     },
     maxPages: {
       type: Number,
       default: () => 5
-    },
-    lineHeight: {
-      type: Number,
-      default: () => 50
     },
     primaryKey: {
       type: String,
@@ -168,14 +172,34 @@ export default {
      * @return {Record<string, unknown>}>}
      */
     style () {
-      return { height: `${this.rowsPerPage * this.lineHeight}px` }
+      if (this.$q.screen.width < 768) {
+        return { height: 'auto' }
+      }
+      let height = this.$q.screen.height - this.adjustment
+      if (height < 200) {
+        height = 200
+      }
+      return { height: `${height}px` }
+    },
+    /**
+     * @return {number}
+     */
+    size () {
+      if (this.rowsPerPage) {
+        return this.rowsPerPage
+      }
+      let height = this.$q.screen.height - this.adjustment
+      if (height < 200) {
+        height = 200
+      }
+      return Math.floor(height / LINE_HEIGHT)
     },
     /**
      * @return {{value: string, label: string}[]}
      */
     items () {
-      const offset = (this.current - 1) * this.rowsPerPage
-      const limit = this.rowsPerPage
+      const offset = (this.current - 1) * this.size
+      const limit = this.size
       return this.options
         .filter(this.filter)
         .slice(offset, offset + limit)
@@ -362,7 +386,7 @@ export default {
         return
       }
       const total = this.options.filter(this.filter)
-      this.pages = Math.ceil(total.length / this.rowsPerPage)
+      this.pages = Math.ceil(total.length / this.size)
     },
     /**
      */
@@ -446,6 +470,10 @@ export default {
     border-color: #e1e1e1;
     border-width: 1px;
     border-radius: 4px;
+
+    .AppArrayCheckbox__options {
+      overflow: auto;
+    }
   }
 
   .q-field__bottom {
