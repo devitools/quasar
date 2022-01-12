@@ -2,7 +2,7 @@ import { displayKey, primaryKey } from 'src/settings/schema'
 import components from 'src/settings/components'
 
 import { Action, Component, Field, Fill, Group, SchemaForm, SchemaTable, Watch } from './Helper/interfaces'
-import { scopes } from './enum'
+import { scopes, tables } from './enum'
 import { clone } from '../Util/general'
 import $lang from '../Lang'
 import $performance from '../Plugins/$performance'
@@ -128,6 +128,13 @@ export default abstract class Base {
    */
   initScopes (): string[] {
     return scopes()
+  }
+
+  /**
+   * @return {string[]}
+   */
+  tableScopes (): string[] {
+    return tables()
   }
 
   /**
@@ -264,6 +271,9 @@ export default abstract class Base {
    * @returns {this}
    */
   setType (type: string): this {
+    if (type === 'array') {
+      this.fieldTableRemove()
+    }
     this.__fields[this.__currentField].$type = type
     return this
   }
@@ -360,6 +370,22 @@ export default abstract class Base {
     this.__fields[name].$parseOutput = properties.parseOutput
     Object.assign(this.__fields[name].attrs, inherit, attrs)
     Object.assign(this.__fields[name].on, properties.listeners)
+    return this
+  }
+
+  /**
+   * @return {this}
+   */
+  protected fieldTableRemove () {
+    const tables = this.tableScopes()
+    const field = this.__fields[this.__currentField]
+    const scopes = field.scopes
+    const hasTable = scopes.some((scope) => tables.includes(scope))
+    if (!hasTable) {
+      return this
+    }
+    const filter = (scope: string) => !tables.includes(scope)
+    field.scopes = scopes.filter(filter)
     return this
   }
 }

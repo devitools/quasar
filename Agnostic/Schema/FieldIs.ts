@@ -1,7 +1,7 @@
 import Base from '../Base'
 
 import { yesNo } from '../options'
-import { OPERATORS } from '../../Agnostic/enum'
+import { OPERATORS, tables } from '../../Agnostic/enum'
 import Schema from '../../Agnostic/Schema'
 import { format } from '../../Util/currency'
 import { booleanFormatter, dateFormatter, optionFormatter, optionsFormatter } from '../../Util/formatter'
@@ -374,9 +374,9 @@ export default abstract class FieldIs extends Base {
     this.setType('array')
     const field = this.__currentField
     this.setOn('update:options', function (this: SchemaForm, payload: Payload) {
-        const options = payload.$event
-        this.$getField(field).$setAttr('options', options)
-      })
+      const options = payload.$event
+      this.$getField(field).$setAttr('options', options)
+    })
     return this
   }
 

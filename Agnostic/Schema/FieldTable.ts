@@ -9,7 +9,7 @@ import { OPERATORS } from '../../Agnostic/enum'
 export default abstract class FieldTable extends Base {
   /**
    * @param {number | string} tableWidth
-   * @returns {Schema}
+   * @return {Schema}
    */
   fieldTableWidth (tableWidth: number | string): this {
     return this.setLayout({ tableWidth })
@@ -17,7 +17,7 @@ export default abstract class FieldTable extends Base {
 
   /**
    * @param {Boolean} show
-   * @returns {Schema}
+   * @return {Schema}
    */
   fieldTableShow (show = true): this {
     return this.setLayout({ tableHidden: !show })
@@ -26,7 +26,7 @@ export default abstract class FieldTable extends Base {
   /**
    * @param {string|null} tableWhere
    * @param {string} tableWhereComponent
-   * @returns {Schema}
+   * @return {Schema}
    */
   fieldTableWhere (tableWhere: string | null = OPERATORS.AUTOMATIC, tableWhereComponent?: unknown): this {
     return this.setLayout({ tableWhere, tableWhereComponent })
@@ -34,7 +34,7 @@ export default abstract class FieldTable extends Base {
 
   /**
    * @param {string} fieldTableWhereOperator
-   * @returns {Schema}
+   * @return {Schema}
    */
   fieldTableWhereOperator (fieldTableWhereOperator: string): this {
     return this.setLayout({ fieldTableWhereOperator })
@@ -42,7 +42,7 @@ export default abstract class FieldTable extends Base {
 
   /**
    * @param {Function} tableFilter
-   * @returns {Schema}
+   * @return {Schema}
    */
   fieldTableFilter (tableFilter: Function): this {
     return this.setLayout({ tableFilter })
@@ -50,7 +50,7 @@ export default abstract class FieldTable extends Base {
 
   /**
    * @param {boolean} tableRequired
-   * @returns {Schema}
+   * @return {Schema}
    */
   fieldTableRequired (tableRequired: boolean): this {
     return this.setLayout({ tableRequired })
@@ -58,7 +58,7 @@ export default abstract class FieldTable extends Base {
 
   /**
    * @param {string} tableName
-   * @returns {Schema}
+   * @return {Schema}
    */
   fieldTableName (tableName: string): this {
     return this.setLayout({ tableName })
@@ -66,7 +66,7 @@ export default abstract class FieldTable extends Base {
 
   /**
    * @param {string} tableAlign
-   * @returns {Schema}
+   * @return {Schema}
    */
   fieldTableAlign (tableAlign: string): this {
     return this.setLayout({ tableAlign })
@@ -74,7 +74,7 @@ export default abstract class FieldTable extends Base {
 
   /**
    * @param {boolean} tableSortable
-   * @returns {Schema}
+   * @return {Schema}
    */
   fieldTableSortable (tableSortable: boolean): this {
     return this.setLayout({ tableSortable })
@@ -82,7 +82,7 @@ export default abstract class FieldTable extends Base {
 
   /**
    * @param {Function} tableFormat
-   * @returns {Schema}
+   * @return {Schema}
    */
   fieldTableFormat (tableFormat: Function): this {
     return this.setLayout({ tableFormat })
@@ -91,7 +91,7 @@ export default abstract class FieldTable extends Base {
   /**
    * @param {number} order
    * @param {boolean} updateOthers
-   * @returns {Schema}
+   * @return {Schema}
    */
   fieldTableOrder (order: number, updateOthers = false): this {
     this.setLayout({ tableOrder: order })

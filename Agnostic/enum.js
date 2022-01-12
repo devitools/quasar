@@ -23,6 +23,16 @@ export const SCOPES = Object.freeze({
 export const scopes = () => Object.values(SCOPES)
 
 /**
+ * @return {Array}
+ */
+export const tables = () => Object.freeze([SCOPES.SCOPE_INDEX, SCOPES.SCOPE_TRASH])
+
+/**
+ * @return {Array}
+ */
+export const forms = () => Object.freeze([SCOPES.SCOPE_INDEX, SCOPES.SCOPE_TRASH])
+
+/**
  * @type {{
  * SCOPE_EMBED_VIEW: string,
  * SCOPE_EMBED_TRASH: string,
