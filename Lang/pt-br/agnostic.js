@@ -46,7 +46,7 @@ export default {
       options: 'Opções',
       all: 'Todos',
       search: 'Digite para Pesquisar...',
-      checked: 'Exibir apenas os itens marcados'
+      checked: 'Apenas os marcados'
     },
     appSelectRemote: {
       notFound: '-',

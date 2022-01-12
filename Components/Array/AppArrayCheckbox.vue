@@ -43,8 +43,9 @@
           :style="style"
         >
           <div
-            v-for="(item, index) in items"
-            :key="index"
+            v-for="(item) in items"
+            :key="item.value"
+            class="q-pr-sm q-mb-sm"
           >
             <QCheckbox
               :val="item.value"
@@ -63,7 +64,7 @@
           direction-links
           boundary-links
           :max="pages"
-          :max-pages="7"
+          :max-pages="maxPages"
           :boundary-numbers="false"
         />
       </div>
@@ -121,6 +122,14 @@ export default {
       type: Number,
       default: () => 10
     },
+    maxPages: {
+      type: Number,
+      default: () => 5
+    },
+    lineHeight: {
+      type: Number,
+      default: () => 50
+    },
     primaryKey: {
       type: String,
       default: () => 'value'
@@ -149,7 +158,8 @@ export default {
     current: 1,
     pages: 1,
     loading: false,
-    checked: false
+    checked: false,
+    toggle: false
   }),
   /**
    */
@@ -158,7 +168,7 @@ export default {
      * @return {Record<string, unknown>}>}
      */
     style () {
-      return { height: `${this.rowsPerPage * 40}px` }
+      return { height: `${this.rowsPerPage * this.lineHeight}px` }
     },
     /**
      * @return {{value: string, label: string}[]}
@@ -168,19 +178,6 @@ export default {
       const limit = this.rowsPerPage
       return this.options
         .filter(this.filter)
-        .filter((item) => {
-          if (!this.checked) {
-            return true
-          }
-          try {
-            return this.value
-              .map((item) => item[this.field][this.primaryKey])
-              .includes(item[this.primaryKey])
-          } catch (e) {
-            // silence is gold
-          }
-          return false
-        })
         .slice(offset, offset + limit)
         .map(this.map)
     },
@@ -238,20 +235,19 @@ export default {
       this.$emit('input', selected)
     },
     /**
-     * @param {boolean} $event
      */
-    select ($event) {
+    select () {
       if (this.readonly) {
         return
       }
 
-      if ($event === true) {
-        const all = this.options.filter(this.filter).map(this.optionToModel)
-        console.log(all)
-        this.$emit('input', all)
+      this.toggle = !this.toggle
+      if (this.toggle) {
+        this.$emit('input', [])
         return
       }
-      this.$emit('input', [])
+      const all = this.options.filter(this.filter).map(this.optionToModel)
+      this.$emit('input', all)
     },
     /**
      * @param {string|number} value
@@ -292,7 +288,7 @@ export default {
         }
         return false
       })
-      if (!previous) {
+      if (!previous || !previous[this.primaryKey]) {
         previous = {}
       }
       try {
@@ -310,20 +306,32 @@ export default {
      * @return {boolean}
      */
     filter (item) {
-      if (!this.search) {
+      if (!this.search && !this.checked) {
         return true
       }
 
-      let label = ''
-      try {
-        label = item[this.displayKey]
-      } catch (e) {
-        // silence is gold
+      let search = true
+      if (search) {
+        try {
+          const label = item[this.displayKey]
+          search = label.toLowerCase().includes(this.search.toLowerCase())
+        } catch (e) {
+          // silence is gold
+        }
       }
-      if (!label) {
-        return false
+
+      let checked = true
+      if (this.checked) {
+        try {
+          checked = this.value
+            .map((item) => item[this.field][this.primaryKey])
+            .includes(item[this.primaryKey])
+        } catch (e) {
+          // silence is gold
+        }
       }
-      return label.toLowerCase().includes(this.search.toLowerCase())
+
+      return search && checked
     },
     /**
      * @param {Record<string, unknown>} item
@@ -397,6 +405,14 @@ export default {
     },
     /**
      */
+    checked: {
+      immediate: true,
+      handler () {
+        this.updatePages()
+      }
+    },
+    /**
+     */
     rowsPerPage: {
       immediate: true,
       handler () {
@@ -413,6 +429,15 @@ export default {
 >
 .SchemaForm .field .AppArrayCheckbox div[role="checkbox"], .SchemaTable .field .AppArrayCheckbox div[role="checkbox"] {
   padding: 0;
+}
+
+@media (max-width: 768px) {
+  .SchemaForm .AppArrayCheckbox .q-pagination .q-btn,
+  .SchemaTable .AppArrayCheckbox .q-pagination .q-btn,
+  .SchemaForm .AppArrayCheckbox .q-pagination .q-btn-section,
+  .SchemaTable .AppArrayCheckbox .q-pagination .q-btn-section {
+    min-width: 2em !important;
+  }
 }
 
 .AppArrayCheckbox {

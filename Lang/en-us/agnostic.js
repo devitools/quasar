@@ -44,7 +44,7 @@ export default {
       options: 'Options',
       all: 'All',
       search: 'Type to search...',
-      checked: 'Show just checked items'
+      checked: 'Just checked'
     },
     appSelectRemote: {
       noResults: 'The collection is empty',
