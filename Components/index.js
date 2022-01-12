@@ -5,6 +5,7 @@ export const SchemaWizard = () => import('./Schema/SchemaWizard.vue')
 
 export const AppArrayFluent = () => import('./Array/AppArrayFluent.vue')
 export const AppArrayLazy = () => import('./Array/AppArrayLazy.vue')
+export const AppArrayCheckbox = () => import('./Array/AppArrayCheckbox.vue')
 export const AppBuiltin = () => import('./Builtin/AppBuiltin.vue')
 export const AppBreadcrumb = () => import('./Breadcrumb/AppBreadcrumb.js')
 export const AppButton = () => import('./Button/AppButton.vue')

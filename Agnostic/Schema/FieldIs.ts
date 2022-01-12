@@ -9,7 +9,7 @@ import { classify, stylize } from '../../Util/ui'
 
 import { fieldIsSelectFilter, fieldIsSelectNewValue, fieldIsSelectWatch } from './Component/select'
 import { fieldIsEmbedWatch } from './Component/embed'
-import { ClassNames, Component, Keys, Option, Payload, Styles } from '../../Agnostic/Helper/interfaces'
+import { ClassNames, Component, Keys, Option, Payload, SchemaForm, Styles } from '../../Agnostic/Helper/interfaces'
 import Skeleton from '../Skeleton'
 
 /**
@@ -360,6 +360,23 @@ export default abstract class FieldIs extends Base {
     this.setIs(is)
     this.setAttrs(attrs)
     this.setType('array')
+    return this
+  }
+
+  /**
+   * @param {Record<string, unknown>} attrs
+   * @param {boolean} lazy
+   * @returns {Schema}
+   */
+  fieldIsArrayCheckBox (attrs = {}, lazy = false) {
+    this.setIs('AppArrayCheckbox')
+    this.appendAttrs(attrs)
+    this.setType('array')
+    const field = this.__currentField
+    this.setOn('update:options', function (this: SchemaForm, payload: Payload) {
+        const options = payload.$event
+        this.$getField(field).$setAttr('options', options)
+      })
     return this
   }
 

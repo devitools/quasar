@@ -440,3 +440,5 @@ export type WizardStep = {
  * @typedef {WizardData}
  */
 export type WizardData = Record<string, Record<string, unknown>>
+
+export type Remote = (filter: string, pagination: Record<string, unknown>, query: Record<string, unknown>) => Promise<unknown>
