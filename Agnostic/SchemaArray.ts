@@ -62,7 +62,10 @@ abstract class SchemaArray extends Base {
       'field',
       'primaryKey',
       'displayKey',
-      'remote'
+      'remote',
+      'placeholder',
+      'tooltip',
+      'hint'
     ]
     for (const attr of attrReserved) {
       if (attrs.hasOwnProperty(attr)) {

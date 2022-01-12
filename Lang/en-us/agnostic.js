@@ -41,7 +41,10 @@ export default {
       reset: 'Cancel changes made',
       add: 'Add a new element to the list',
       apply: 'Apply changes made to the element',
-      options: 'Options'
+      options: 'Options',
+      all: 'All',
+      search: 'Type to search...',
+      checked: 'Show just checked items'
     },
     appSelectRemote: {
       noResults: 'The collection is empty',

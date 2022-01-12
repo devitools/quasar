@@ -1,68 +1,86 @@
 <template>
   <div class="AppArrayCheckbox">
-    <div>
-      <QCheckbox
-        v-if="!readonly"
-        :value="all"
-        @input="select"
-        label="Selecionar todos"
-      />
-      <div class="q-pa-sm">
-        <QInput
-          v-bind="$options.bind"
-          v-model="search"
-          :placeholder="placeholder"
-        />
-      </div>
-    </div>
-
-    <template v-if="loading">
-      <div
-        class="AppArrayCheckbox__options flex items-center justify-center"
-        :style="style"
-      >
-        <QSpinner
-          color="primary"
-          size="5em"
-          :thickness="2"
-        />
-      </div>
-    </template>
-    <template v-else>
-      <div
-        class="AppArrayCheckbox__options"
-        :style="style"
-      >
-        <div
-          v-for="(item, index) in items"
-          :key="index"
-        >
+    <div class="AppArrayCheckbox__container">
+      <div class="AppArrayCheckbox__header">
+        <div class="flex items-center justify-between">
           <QCheckbox
-            :val="item.value"
-            :label="item.label"
-            :value="ids"
             :disabled="readonly"
-            @input="input"
+            :label="$lang('agnostic.components.array.all')"
+            :value="all"
+            @input="select"
+          />
+          <div class="q-pr-sm">
+            <QToggle
+              :label="$lang('agnostic.components.array.checked')"
+              v-model="checked"
+            />
+          </div>
+        </div>
+        <div class="q-pl-sm q-pr-sm">
+          <QInput
+            v-bind="$options.bind"
+            v-model="search"
+            :placeholder="placeholder || $lang('agnostic.components.array.search')"
           />
         </div>
       </div>
-    </template>
 
-    <div class="row justify-center q-pa-sm">
-      <QPagination
-        v-model="current"
-        direction-links
-        boundary-links
-        :max="pages"
-        :max-pages="7"
-        :boundary-numbers="false"
-      />
+      <template v-if="loading">
+        <div
+          class="AppArrayCheckbox__options flex items-center justify-center"
+          :style="style"
+        >
+          <QSpinner
+            color="primary"
+            size="5em"
+            :thickness="2"
+          />
+        </div>
+      </template>
+      <template v-else>
+        <div
+          class="AppArrayCheckbox__options"
+          :style="style"
+        >
+          <div
+            v-for="(item, index) in items"
+            :key="index"
+          >
+            <QCheckbox
+              :val="item.value"
+              :label="item.label"
+              :value="ids"
+              :disabled="readonly"
+              @input="input"
+            />
+          </div>
+        </div>
+      </template>
+
+      <div class="row justify-center q-pa-sm">
+        <QPagination
+          v-model="current"
+          direction-links
+          boundary-links
+          :max="pages"
+          :max-pages="7"
+          :boundary-numbers="false"
+        />
+      </div>
     </div>
+
+    <template v-if="hint">
+      <div class="q-field__bottom">
+        <div class="q-field__messages">
+          <div>{{ hint }}</div>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 
 <script>
-import { QCheckbox, QInput, QPagination, QSpinner } from 'quasar'
+import { QCheckbox, QInput, QPagination, QSpinner, QToggle } from 'quasar'
 
 import { attrs } from 'src/settings/components'
 
@@ -75,7 +93,7 @@ export default {
   bind: attrs,
   /**
    */
-  components: { QCheckbox, QInput, QPagination, QSpinner },
+  components: { QCheckbox, QInput, QPagination, QSpinner, QToggle },
   /**
    */
   props: {
@@ -94,14 +112,6 @@ export default {
     options: {
       type: Array,
       default: () => ([])
-    },
-    error: {
-      type: Boolean,
-      default: () => false
-    },
-    errorMessage: {
-      type: String,
-      default: () => undefined
     },
     readonly: {
       type: Boolean,
@@ -123,6 +133,10 @@ export default {
       type: String,
       default: () => ''
     },
+    hint: {
+      type: String,
+      default: () => ''
+    },
     query: {
       type: Object,
       default: () => ({})
@@ -134,7 +148,8 @@ export default {
     search: '',
     current: 1,
     pages: 1,
-    loading: false
+    loading: false,
+    checked: false
   }),
   /**
    */
@@ -153,6 +168,19 @@ export default {
       const limit = this.rowsPerPage
       return this.options
         .filter(this.filter)
+        .filter((item) => {
+          if (!this.checked) {
+            return true
+          }
+          try {
+            return this.value
+              .map((item) => item[this.field][this.primaryKey])
+              .includes(item[this.primaryKey])
+          } catch (e) {
+            // silence is gold
+          }
+          return false
+        })
         .slice(offset, offset + limit)
         .map(this.map)
     },
@@ -218,7 +246,8 @@ export default {
       }
 
       if ($event === true) {
-        const all = this.options.filter(this.filter)
+        const all = this.options.filter(this.filter).map(this.optionToModel)
+        console.log(all)
         this.$emit('input', all)
         return
       }
@@ -244,11 +273,37 @@ export default {
         const element = this.options.find((option) => {
           return option[this.primaryKey] === value
         })
-        return { [this.field]: element, ...previous }
+        return { [this.field]: { ...element }, ...previous }
       } catch (e) {
         // silence is gold
       }
       return { [this.field]: { [this.primaryKey]: value }, ...previous }
+    },
+    /**
+     * @param {Record<string, unknown>} option
+     * @return {Record<string, unknown>}
+     */
+    optionToModel (option) {
+      let previous = this.value.find((item) => {
+        try {
+          return item[this.field][this.primaryKey] === option[this.primaryKey]
+        } catch (e) {
+          // silence is gold
+        }
+        return false
+      })
+      if (!previous) {
+        previous = {}
+      }
+      try {
+        const element = this.options.find((item) => {
+          return item[this.primaryKey] === option[this.primaryKey]
+        })
+        return { [this.field]: { ...element }, ...previous }
+      } catch (e) {
+        // silence is gold
+      }
+      return { [this.field]: { [this.primaryKey]: option }, ...previous }
     },
     /**
      * @param {{label: string, value: string}} item
@@ -361,12 +416,15 @@ export default {
 }
 
 .AppArrayCheckbox {
-  border-style: solid;
-  border-color: #e1e1e1;
-  border-width: 1px;
-  border-radius: 4px;
+  .AppArrayCheckbox__container {
+    border-style: solid;
+    border-color: #e1e1e1;
+    border-width: 1px;
+    border-radius: 4px;
+  }
 
-  .AppArrayCheckbox__options {
+  .q-field__bottom {
+    padding: 8px 0 0 0;
   }
 }
 </style>

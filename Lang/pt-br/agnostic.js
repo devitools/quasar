@@ -43,7 +43,10 @@ export default {
       reset: 'Cancela as alterações feitas',
       add: 'Adiciona um novo elemento na lista',
       apply: 'Aplica as alterações feitas no elemento',
-      options: 'Opções'
+      options: 'Opções',
+      all: 'Todos',
+      search: 'Digite para Pesquisar...',
+      checked: 'Exibir apenas os itens marcados'
     },
     appSelectRemote: {
       notFound: '-',
