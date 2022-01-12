@@ -10,7 +10,7 @@ import FieldValidation from './Schema/FieldValidation'
 import Watches from './Schema/Watches'
 import Hooks from './Schema/Hooks'
 import mixin from './Helper/mixin'
-import { Component, SchemaForm, SchemaTable } from './Helper/interfaces'
+import { Component, Remote, SchemaForm, SchemaTable } from './Helper/interfaces'
 import ConfigureComponent from './Schema/Component/ConfigureComponent'
 
 /**
@@ -21,6 +21,11 @@ abstract class SchemaArray extends Base {
    * @type {SchemaArray}
    */
   protected static __instance: SchemaArray
+
+  /**
+   * @type {string}
+   */
+  protected static checkbox: string
 
   /**
    * @param {Component} $component
@@ -40,6 +45,40 @@ abstract class SchemaArray extends Base {
    */
   bootstrap ($component?: SchemaForm | SchemaTable) {
     this.configureComponentInitialization()
+  }
+
+  /**
+   * @param {Object} options
+   * @returns {Object}
+   */
+  static provideArrayCheckbox (options = {}) {
+    const instance = this.$instance()
+    const fields = instance.getFields()
+    const field = fields[this.checkbox] ?? {}
+    const attrs = field.attrs
+    const remote = attrs.remote as Remote
+    const attrReserved = [
+      'domain',
+      'field',
+      'primaryKey',
+      'displayKey',
+      'remote'
+    ]
+    for (const attr of attrReserved) {
+      if (attrs.hasOwnProperty(attr)) {
+        delete attrs[attr]
+      }
+    }
+    return {
+      domain: this.domain,
+      field: field.$key,
+      primaryKey: String(attrs.keyValue),
+      displayKey: String(attrs.keyLabel),
+      remote: (query: Record<string, unknown>) => remote('', { rowsPerPage: 200 }, query),
+      options: [],
+      ...attrs,
+      ...options
+    }
   }
 
   /**

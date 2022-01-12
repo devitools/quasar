@@ -16,23 +16,37 @@
       </div>
     </div>
 
-    <div
-      class="AppArrayCheckbox__options"
-      :style="{ height: `${rowsPerPage * 40}px` }"
-    >
+    <template v-if="loading">
       <div
-        v-for="(item, index) in items"
-        :key="index"
+        class="AppArrayCheckbox__options flex items-center justify-center"
+        :style="style"
       >
-        <QCheckbox
-          :val="item.value"
-          :label="item.label"
-          :value="ids"
-          :disabled="readonly"
-          @input="input"
+        <QSpinner
+          color="primary"
+          size="5em"
+          :thickness="2"
         />
       </div>
-    </div>
+    </template>
+    <template v-else>
+      <div
+        class="AppArrayCheckbox__options"
+        :style="style"
+      >
+        <div
+          v-for="(item, index) in items"
+          :key="index"
+        >
+          <QCheckbox
+            :val="item.value"
+            :label="item.label"
+            :value="ids"
+            :disabled="readonly"
+            @input="input"
+          />
+        </div>
+      </div>
+    </template>
 
     <div class="row justify-center q-pa-sm">
       <QPagination
@@ -48,10 +62,9 @@
 </template>
 
 <script>
-import { QCheckbox, QInput, QPagination } from 'quasar'
+import { QCheckbox, QInput, QPagination, QSpinner } from 'quasar'
 
 import { attrs } from 'src/settings/components'
-import { parseRestRecords } from 'src/settings/rest'
 
 export default {
   /**
@@ -62,7 +75,7 @@ export default {
   bind: attrs,
   /**
    */
-  components: { QCheckbox, QInput, QPagination },
+  components: { QCheckbox, QInput, QPagination, QSpinner },
   /**
    */
   props: {
@@ -120,11 +133,18 @@ export default {
   data: () => ({
     search: '',
     current: 1,
-    pages: 1
+    pages: 1,
+    loading: false
   }),
   /**
    */
   computed: {
+    /**
+     * @return {Record<string, unknown>}>}
+     */
+    style () {
+      return { height: `${this.rowsPerPage * 40}px` }
+    },
     /**
      * @return {{value: string, label: string}[]}
      */
@@ -209,15 +229,26 @@ export default {
      * @return {Record<string, unknown>}>}
      */
     valueToModel (value) {
+      let previous = this.value.find((item) => {
+        try {
+          return item[this.field][this.primaryKey] === value
+        } catch (e) {
+          // silence is gold
+        }
+        return false
+      })
+      if (!previous) {
+        previous = {}
+      }
       try {
         const element = this.options.find((option) => {
           return option[this.primaryKey] === value
         })
-        return { [this.field]: element }
+        return { [this.field]: element, ...previous }
       } catch (e) {
         // silence is gold
       }
-      return { [this.field]: { [this.primaryKey]: value } }
+      return { [this.field]: { [this.primaryKey]: value }, ...previous }
     },
     /**
      * @param {{label: string, value: string}} item
@@ -273,21 +304,21 @@ export default {
     /**
      */
     async updateOptions () {
+      if (typeof this.remote !== 'function') {
+        return
+      }
+      this.loading = true
       try {
-        if (typeof this.remote !== 'function') {
-          return
-        }
         const response = await this.remote(this.query)
         let options = response?.rows ?? []
-        console.log(options)
         if (!Array.isArray(options)) {
           options = []
         }
         this.$emit('update:options', options)
       } catch (e) {
         // silence is gold
-        console.error(e)
       }
+      this.loading = false
     }
   },
   /**
