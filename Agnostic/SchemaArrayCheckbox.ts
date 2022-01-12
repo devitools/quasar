@@ -32,17 +32,17 @@ abstract class SchemaArrayCheckbox extends Schema {
   /**
    * @return {string}
    */
-  abstract field (): string
+  abstract exposed (): string
 
   /**
    * @return {Record<string, unknown>}
    */
-  abstract properties (): Record<string, unknown>
+  abstract remote (): Record<string, unknown>
 
   /**
    */
   construct () {
-    this.addRemote(this.field(), this.properties())
+    this.addRemote(this.exposed(), this.remote())
   }
 
   /**
