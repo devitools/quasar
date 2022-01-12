@@ -404,7 +404,7 @@ export interface SchemaForm extends Component {
   buttons: Record<string, unknown>
   errors: Record<string, unknown>
 
-  fetchRecord (id: string | number): Promise<Record<string, unknown>>
+  fetchRecord (id: string | number, wait?: boolean): Promise<Record<string, unknown>>
 
   $groupType (type: string): this
 }
