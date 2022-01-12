@@ -241,7 +241,7 @@ export default {
         return
       }
 
-      this.toggle = !this.toggle
+      this.toggle = this.value?.length === 0 ? false : !this.toggle
       if (this.toggle) {
         this.$emit('input', [])
         return
