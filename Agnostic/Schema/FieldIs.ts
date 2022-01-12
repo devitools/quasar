@@ -365,10 +365,9 @@ export default abstract class FieldIs extends Base {
 
   /**
    * @param {Record<string, unknown>} attrs
-   * @param {boolean} lazy
    * @returns {Schema}
    */
-  fieldIsArrayCheckBox (attrs = {}, lazy = false) {
+  fieldIsArrayCheckbox (attrs = {}) {
     this.setIs('AppArrayCheckbox')
     this.appendAttrs(attrs)
     this.setType('array')
