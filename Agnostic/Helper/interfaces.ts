@@ -1,5 +1,5 @@
 import { Store } from 'vuex'
-import { QDialog, QVueGlobals } from 'quasar'
+import { QDialogOptions, QVueGlobals } from 'quasar'
 import Schema from '../Schema'
 
 /**
@@ -397,7 +397,12 @@ export interface Component extends View {
 }
 
 export interface Dialog {
-  show (component: unknown, modal?: Record<string, Function>, props?: Record<string, unknown>, container?: Record<string, unknown>, dialog?: QDialog): void;
+  show (component: unknown,
+    modal?: Record<string, Function>,
+    props?: Record<string, unknown>,
+    container?: Record<string, unknown>,
+    dialog?: QDialogOptions
+  ): void;
 
   hide (): void;
 }
