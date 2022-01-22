@@ -30,6 +30,7 @@
     >
       <div class="q-mr-sm">
         <QBtn
+          v-if="showPreview"
           round
           dense
           flat
@@ -118,6 +119,10 @@ export default {
     downloadFile: {
       type: Function,
       required: true
+    },
+    showPreview: {
+      type: Boolean,
+      default: true
     }
   },
   /**
