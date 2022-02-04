@@ -142,6 +142,10 @@ export default {
       type: String,
       default: () => 'label'
     },
+    format: {
+      type: Function,
+      default: undefined
+    },
     placeholder: {
       type: String,
       default: () => ''
@@ -342,6 +346,7 @@ export default {
         } catch (e) {
           // silence is gold
         }
+        const label = this.format ? this.format(item) : item[this.displayKey]
       }
 
       let checked = true
@@ -370,7 +375,7 @@ export default {
       }
       let label = ''
       try {
-        label = item[this.displayKey]
+        label = this.format ? this.format(item) : item[this.displayKey]
       } catch (e) {
         // silence is gold
       }
