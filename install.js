@@ -147,7 +147,11 @@ export default ({ Vue, schema }) => {
         if (!property) {
           return this.$store.getters['auth/getUser']
         }
-        return this.$util.get(this.$store.getters['auth/getUser'], property)
+        let user = this?.$payload?.$USER
+        if (!user) {
+          user = this.$store.getters['auth/getUser']
+        }
+        return this.$util.get(user, property)
       }
     }
   })
