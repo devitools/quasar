@@ -10,6 +10,7 @@
   >
     <QStep
       v-for="(step, index) in steps"
+      v-if="!hidden[step.id]"
       :key="index"
       :name="index"
       :title="step.title"
@@ -21,11 +22,14 @@
       <AppForm
         :ref="step.id"
         v-bind="step.provide"
-        v-model="data[step.id]"
+        :value="data[step.id]"
+        @input="updateData(step.id, $event)"
         :builtin="true"
         :debugger-allowed="false"
         :scope="scope"
         :data="data"
+        @hide="setHidden($event)"
+        @show="setShown($event)"
       />
 
       <QStepperNavigation>
@@ -43,13 +47,17 @@
 
 <script>
 import { QStep, QStepper, QStepperNavigation } from 'quasar'
-import AppForm from '@devitools/Components/Form/AppForm'
+import AppForm from '../Form/AppForm'
+import SchemaForm from './SchemaForm'
 import SchemaWizardWizardNavigation from './Wizard/SchemaWizardWizardNavigation'
 
 export default {
   /**
    */
   name: 'SchemaWizard',
+  /**
+   */
+  extends: SchemaForm,
   /**
    */
   props: {
@@ -86,7 +94,8 @@ export default {
   data: () => ({
     current: 0,
     steps: [],
-    data: {}
+    data: {},
+    hidden: {}
   }),
   /**
    */
@@ -159,6 +168,25 @@ export default {
       } catch (e) {
         // silence is gold
       }
+    },
+    /**
+     * @param {string} id
+     */
+    setHidden (id) {
+      this.$set(this.hidden, id, true)
+    },
+    /**
+     * @param {string} id
+     */
+    setShown (id) {
+      this.$set(this.hidden, id, false)
+    },
+    /**
+     * @param {string} id
+     * @param {Record<string,unknown>} data
+     */
+    updateData (id, data) {
+      this.$set(this.data, id, data)
     }
   },
   /**
@@ -187,7 +215,7 @@ export default {
           }
           steps.push(step)
 
-          this.data[id] = {}
+          this.updateData(id, {})
         }
         this.steps = steps
       }

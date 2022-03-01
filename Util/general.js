@@ -29,7 +29,7 @@ export const set = (element, path, value) => {
 
 /**
  * @param target
- * @param options
+ * @param {unknown} options
  */
 export const browse = (target, options = undefined) => {
   if (typeof target === 'undefined') {

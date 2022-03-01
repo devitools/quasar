@@ -389,6 +389,8 @@ export interface Component extends View {
 
   $payload: Record<string, unknown>
 
+  $session: Record<string, unknown> | undefined
+
   createdHook (schema: unknown): void
 
   successFetchRecord (data: Record<string, unknown>): void

@@ -147,7 +147,7 @@ export default ({ Vue, schema }) => {
         if (!property) {
           return this.$store.getters['auth/getUser']
         }
-        let user = this?.$payload?.$USER
+        let user = this?.$session
         if (!user) {
           user = this.$store.getters['auth/getUser']
         }
