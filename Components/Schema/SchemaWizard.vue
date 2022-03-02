@@ -1,6 +1,6 @@
 <template>
   <QStepper
-    v-model="current"
+    v-model="stage"
     :vertical="$q.screen.lt.md"
     class="SchemaWizard"
     alternative-labels
@@ -10,14 +10,13 @@
   >
     <QStep
       v-for="(step, index) in steps"
-      v-if="!hidden[step.id]"
-      :key="index"
-      :name="index"
+      :key="step.id"
+      :name="step.id"
       :title="step.title"
       :icon="step.icon"
       :active-icon="step.icon"
       done-color="positive"
-      :done="current >= (index + 1)"
+      :done="stage >= (index + 1)"
     >
       <AppForm
         :ref="step.id"
@@ -93,10 +92,18 @@ export default {
    */
   data: () => ({
     current: 0,
-    steps: [],
+    stage: '',
+    stages: [],
     data: {},
     hidden: {}
   }),
+  /**
+   */
+  computed: {
+    steps () {
+      return this.stages.filter((step) => !this.hidden[step.id])
+    }
+  },
   /**
    */
   methods: {
@@ -197,7 +204,7 @@ export default {
     schemata: {
       immediate: true,
       handler (schemata) {
-        const steps = []
+        const stages = []
         for (const schema of schemata) {
           const id = schema.id
           const icon = schema.icon || id
@@ -205,7 +212,7 @@ export default {
           const previous = schema.previous
           const title = this.$t(`domains.${this.domain}.steps.${id}`)
           const provide = schema.provider.providing()
-          const step = {
+          const stage = {
             id,
             title,
             icon,
@@ -213,11 +220,33 @@ export default {
             next,
             provide
           }
-          steps.push(step)
+          stages.push(stage)
 
           this.updateData(id, {})
         }
-        this.steps = steps
+        this.stages = stages
+      }
+    },
+    stages: {
+      immediate: true,
+      handler (stages) {
+        if (this.stage) {
+          return
+        }
+        if (stages.length <= 0) {
+          return
+        }
+        this.current = 0
+      }
+    },
+    current: {
+      immediate: true,
+      handler (current) {
+        const stage = this.steps[current]
+        if (!stage) {
+          return
+        }
+        this.stage = stage.id
       }
     }
   }
