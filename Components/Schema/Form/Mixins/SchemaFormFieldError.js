@@ -66,7 +66,6 @@ export default {
         }
       }
 
-      debugger
 
       if (this.externalErrors[field]) {
         const error = this.externalErrors[field]
