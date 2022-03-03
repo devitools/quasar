@@ -11,6 +11,10 @@ export default {
     errors: {
       type: Object,
       default: () => ({})
+    },
+    externalErrors: {
+      type: Object,
+      default: () => ({})
     }
   },
   /**
@@ -60,6 +64,22 @@ export default {
           const message = replacement(this.$lang(paths, preference), replaces) || preference
           errorMessages.push(message)
         }
+      }
+
+      debugger
+
+      if (this.externalErrors[field]) {
+        const error = this.externalErrors[field]
+        const validation = error.validation
+        const paths = [
+          `domains.${domain}.validation.${field}.${validation}`,
+          `domains.${domain}.validations.${field}.${validation}`,
+          `domains.${this.domain}.validation.${field}.${validation}`,
+          `domains.${this.domain}.validations.${field}.${validation}`,
+          `validation.${validation}`
+        ]
+        const message = this.$lang(paths, validation)
+        errorMessages.push(replacement(message, error.parameters))
       }
 
       if (this.errors[field]) {

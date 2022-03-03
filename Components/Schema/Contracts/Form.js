@@ -26,6 +26,10 @@ export default {
     value: {
       type: Object,
       default: () => ({})
+    },
+    externalErrors: {
+      type: Object,
+      default: () => ({})
     }
   },
   /**

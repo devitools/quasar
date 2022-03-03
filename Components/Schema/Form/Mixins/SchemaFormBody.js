@@ -27,7 +27,7 @@ export default {
           useFormReadonly: this.useFormReadonly,
           schema: this.schema
         },
-        attrs: { fields: fields, errors: this.errors, validations: this.$v },
+        attrs: { fields: fields, errors: this.errors, externalErrors: this.externalErrors, validations: this.$v },
         on: { input: this.receiveInput }
       }
 
