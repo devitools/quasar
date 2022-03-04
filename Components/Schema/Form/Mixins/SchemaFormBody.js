@@ -212,6 +212,10 @@ export default {
         this.inheritErrors[field] = undefined
       }
 
+      if (this.externalErrors.hasOwnProperty(field)) {
+        this.$emit('clear:external-error', field)
+      }
+
       this.$emit('input', this.record)
     }
   }

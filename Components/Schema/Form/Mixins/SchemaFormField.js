@@ -71,7 +71,7 @@ export default {
      * @param {string} key
      */
     fieldHasError (key) {
-      if (this.errors[key]) {
+      if (this.errors[key] || this.externalErrors[key]) {
         return true
       }
       const record = this.$util.get(this.validations, 'record', {})

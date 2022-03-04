@@ -12,7 +12,11 @@ export default {
      * @returns {boolean}
      */
     hasErrors () {
-      return Object.keys(this.errors).filter((key) => this.errors[key]).length > 0
+      const l = { ...this.errors }
+      const e = { ...this.externalErrors }
+      const local = Object.keys(l).filter((key) => l[key])
+      const external = Object.keys(e).filter((key) => e[key])
+      return local.length > 0 || external.length > 0
     },
     /**
      * @returns {boolean}

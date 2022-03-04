@@ -66,9 +66,7 @@ export default {
         }
       }
 
-
-      if (this.externalErrors[field]) {
-        const error = this.externalErrors[field]
+      const push = (error) => {
         const validation = error.validation
         const paths = [
           `domains.${domain}.validation.${field}.${validation}`,
@@ -81,18 +79,14 @@ export default {
         errorMessages.push(replacement(message, error.parameters))
       }
 
+      if (this.externalErrors[field]) {
+        const error = { ...this.externalErrors[field] }
+        push(error)
+      }
+
       if (this.errors[field]) {
-        const error = this.errors[field]
-        const validation = error.validation
-        const paths = [
-          `domains.${domain}.validation.${field}.${validation}`,
-          `domains.${domain}.validations.${field}.${validation}`,
-          `domains.${this.domain}.validation.${field}.${validation}`,
-          `domains.${this.domain}.validations.${field}.${validation}`,
-          `validation.${validation}`
-        ]
-        const message = this.$lang(paths, validation)
-        errorMessages.push(replacement(message, error.parameters))
+        const error = { ...this.errors[field] }
+        push(error)
       }
 
       return errorMessages.join(' / ')
