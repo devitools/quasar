@@ -447,6 +447,13 @@ export default {
       handler () {
         this.updatePages()
       }
+    },
+    /**
+     */
+    query: {
+      handler () {
+        this.updateOptions()
+      }
     }
   }
 }
