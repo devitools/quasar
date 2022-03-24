@@ -341,12 +341,12 @@ export default {
       let search = true
       if (search) {
         try {
-          const label = item[this.displayKey]
+          const text = this.format ? this.format(item) : item[this.displayKey]
+          const label = typeof text === 'string' ? text : ''
           search = label.toLowerCase().includes(this.search.toLowerCase())
         } catch (e) {
           // silence is gold
         }
-        const label = this.format ? this.format(item) : item[this.displayKey]
       }
 
       let checked = true
