@@ -55,6 +55,10 @@ export default {
     max: {
       type: Number,
       default: undefined
+    },
+    step: {
+      type: Number,
+      default: 1
     }
   },
   /**
@@ -87,12 +91,12 @@ export default {
     /**
      */
     minus () {
-      this.updateValue(Number(this.value) - 1)
+      this.updateValue(Number(this.value) - this.step)
     },
     /**
      */
     plus () {
-      this.updateValue(Number(this.value) + 1)
+      this.updateValue(Number(this.value) + this.step)
     },
     /**
      * @param value
