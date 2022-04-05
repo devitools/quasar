@@ -47,6 +47,15 @@ String.prototype.toDashCase = function (first = false) {
 }
 
 // eslint-disable-next-line no-extend-native
+String.prototype.ellipsis = function (size, suffix = '...') {
+  const value = String(this)
+  if (value.length < size) {
+    return value
+  }
+  return value.substring(0, size) + suffix
+}
+
+// eslint-disable-next-line no-extend-native
 Number.prototype.pad = function (size) {
   let padded = String(this)
   while (padded.length < (size || 2)) {
