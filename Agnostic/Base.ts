@@ -353,6 +353,7 @@ export default abstract class Base {
     const name = this.__currentField
     const field = this.__fields[name]
 
+    // @ts-ignore
     const properties = components[component] as Record<string, unknown>
     if (!properties) {
       field.is = component
