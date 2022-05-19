@@ -47,6 +47,13 @@
 
         .field {
           padding: 2px 5px;
+
+          .app-form__label label {
+            color: #3c3c3c;
+            font-size: 0.8rem;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            cursor: help;
+          }
         }
       }
 
@@ -186,13 +193,6 @@
 
 .form {
   .field {
-
-    label {
-      color: #3c3c3c;
-      font-size: 0.8rem;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-      cursor: help;
-    }
 
     &.has-error {
       animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
