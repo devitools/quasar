@@ -299,6 +299,8 @@ export interface Component extends View {
 
   withRecord (context: Context, success: Function, noItems?: Function, tooManySelected?: Function): void
 
+  withRecords (context: Context, success: Function, noItems?: Function, tooManySelected?: Function): void
+
   actionSchemaConfirm (payload: Record<string, unknown>, action: Function, alias: string): void
 
   getComponent (field: string): Promise<unknown>
@@ -429,6 +431,7 @@ export interface SchemaForm extends Component {
  */
 export interface SchemaTable extends Component {
   fetchRecords (): Promise<Record<string, unknown>>
+  setSelected (selected: Record<string, unknown>[]): void
 }
 
 /**

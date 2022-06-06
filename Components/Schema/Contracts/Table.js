@@ -143,6 +143,16 @@ export default {
       return this.selected[0]
     },
     /**
+     *
+     * @param {Record<string, unknown>[]} values
+     */
+    setSelected (values) {
+      if (!Array.isArray(this.selected)) {
+        return
+      }
+      this.selected = values
+    },
+    /**
      * @param {string} property
      * @param {*} value
      * @return {this}
