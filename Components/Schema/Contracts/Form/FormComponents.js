@@ -182,15 +182,20 @@ export default {
     /**
      */
     fillComponentsValue () {
-      return Object.entries(this.components).forEach((entry) => {
-        const [key, field] = entry
-
-        const value = filler.call(this, field, this.record[key])
+      const components = Object.entries(this.components).map(([field, component]) => ({field, component}))
+      for (const entry of components) {
+        const { field, component } = entry
+        const value = filler.call(this, component, this.record[field])
         if (value === undefined) {
-          return
+          continue
         }
-        this.record[key] = value
-      })
+        this.receiveInput({ field, value })
+        const trigger = component?.listeners?.input
+        if (typeof trigger !== 'function') {
+          continue
+        }
+        trigger.call(this, value)
+      }
     }
   }
 }

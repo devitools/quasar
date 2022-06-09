@@ -96,7 +96,7 @@ export interface Field {
   scopes: string[]
   $visible?: Function
   $created?: Configure[]
-  $fill?: Fill | Function
+  $fill?: Fill | Function | unknown[]
   group?: string
   $configure?: Function
   chars?: string

@@ -230,10 +230,10 @@ export default abstract class Base {
   }
 
   /**
-   * @param {Fill| Function} fill
+   * @param {Fill| Function | unknown[]} fill
    * @returns {this}
    */
-  setFill (fill: Fill | Function): this {
+  setFill (fill: Fill | Function | unknown[]): this {
     this.__fields[this.__currentField].$fill = fill
     return this
   }

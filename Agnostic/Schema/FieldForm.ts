@@ -185,7 +185,7 @@ export default abstract class FieldForm extends Base {
    * @returns {this}
    */
   fieldFormFill (filler?: string | Function | unknown[], parameters?: Record<string, unknown>): this {
-    if (typeof filler === 'function') {
+    if (typeof filler === 'function' || Array.isArray(filler)) {
       this.setFill(filler)
       return this
     }
