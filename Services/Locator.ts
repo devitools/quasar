@@ -1,32 +1,6 @@
 import { replacement } from '../Util/string'
-
-/**
- * @interface {Payload}
- */
-interface Payload {
-  cep: string
-  uf: string
-  localidade: string
-  bairro: string
-  logradouro: string
-  complemento: string
-  ibge?: string
-  unidade?: string
-  gia?: string
-  erro?: boolean
-}
-
-export type Localization = {
-  zip: string
-  state: string
-  city: string
-  neighborhood: string
-  address: string
-  complement?: string
-  number?: string
-  ibge?: string
-  gia?: string
-}
+import { Localization, Payload, Provider } from '@devitools/Services/Locator/contracts'
+import providers from './Locator/providers'
 
 /**
  * @link https://viacep.com.br
@@ -34,32 +8,31 @@ export type Localization = {
  * @type {Locator}
  */
 export default class Locator {
-  /**
-   * @var {string}
-   */
-  uri = 'https://opencep.com/v1/{zip}.json'
-  // uri = 'https://viazip.com.br/ws/{zip}/json?callback=callback'
+  provider: string
 
-  /**
-   * @var {string}
-   */
-  strategy = 'xhr'
-  // strategy: string = 'jsonp'
+  constructor (provider = 'open') {
+    this.provider = provider
+  }
 
   /**
    * @returns {Locator}
    */
-  static build () {
-    return new this()
+  static build (provider?: string): Locator {
+    return new this(provider)
   }
 
   /**
    * @param {string} zip
    */
   query (zip: string): Promise<Localization> {
-    const uri = replacement(this.uri, { zip })
+    const provider: Provider = providers[this.provider]
+    if (!provider) {
+      throw new Error(`Provider ${this.provider} not found`)
+    }
 
-    if (this.strategy === 'jsonp') {
+    const uri = replacement(provider.uri, { zip })
+
+    if (provider.strategy === 'jsonp') {
       return new Promise((resolve, reject) => {
         const callback = function (response: Payload) {
           if (response.erro) {
