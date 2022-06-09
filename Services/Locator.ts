@@ -3,9 +3,7 @@ import { Localization, Payload, Provider } from '@devitools/Services/Locator/con
 import providers from './Locator/providers'
 
 /**
- * @link https://viacep.com.br
- *
- * @type {Locator}
+ * @class {Locator}
  */
 export default class Locator {
   provider: string
