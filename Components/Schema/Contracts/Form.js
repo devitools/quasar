@@ -123,6 +123,12 @@ export default {
         fieldsReorder(this.components, this.__currentField, 'formOrder', formOrder)
       }
       return this
+    },
+    /**
+     * @return {this}
+     */
+    $fieldFormFocus () {
+      this.$setFocus(this.__currentField)
     }
   }
 }

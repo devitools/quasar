@@ -323,6 +323,8 @@ export interface Component extends View {
 
   $fieldFormHeight (formHeight: number): Component
 
+  $fieldFormFocus (): Component
+
   $fieldAttr (property: string, value: unknown): Component
 
   $fieldFormDisabled (disable: boolean): Component
