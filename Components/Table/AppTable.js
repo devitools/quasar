@@ -63,7 +63,7 @@ export default {
           }
           const data = {
             staticClass,
-            style: col.style,
+            style: col.__tdStyle(row),
             class: classes,
             domProps
           }
