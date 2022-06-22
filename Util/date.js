@@ -81,6 +81,15 @@ export const oneWeekAgo = () => {
 /**
  * @returns {string}
  */
+export const twoWeeksAgo = () => {
+  const now = new Date()
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  return new DateTime(today.setDate(today.getDate() - 14)).format('YYYY-MM-DD')
+}
+
+/**
+ * @returns {string}
+ */
 export const oneMonthAgo = () => {
   const now = new Date()
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
