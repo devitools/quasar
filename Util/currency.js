@@ -65,7 +65,7 @@ function toString (value) {
 }
 
 /**
- * @param {number} input
+ * @param {number|string} input
  * @param {Record<string, unknown>} options
  * @return {*}
  */
