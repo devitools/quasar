@@ -17,6 +17,7 @@
       >
         <template v-for="(action, key) in actions">
           <QBtn
+            v-if="isExecutable(props)"
             :key="key"
             flat
             dense
@@ -101,6 +102,10 @@ export default {
       type: Function,
       default: () => undefined
     },
+    executable: {
+      type: Function,
+      default: () => undefined
+    },
     hideRemove: {
       type: Boolean,
       default: () => false
@@ -175,6 +180,20 @@ export default {
       const rows = [...this.rows]
       rows.push(row)
       this.$emit('input', rows)
+    },
+    /**
+     *
+     * @param {Record<string, unknown>} row
+     */
+    isExecutable({ row }) {
+      if (typeof this.executable !== 'function') {
+        return true
+      }
+      const isExecutable = this.executable(row)
+      if (isExecutable === undefined) {
+        return true
+      }
+      return isExecutable
     },
     /**
      * @param {Record<string, unknown>} row
