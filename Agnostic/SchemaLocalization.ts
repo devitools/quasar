@@ -54,16 +54,20 @@ export default abstract class SchemaLocalization extends Schema {
             .filter(([key]) => fill?.includes(key) ?? false)
             .map(([from, to]) => ({ from, to }))
 
-          let focus = localization?.number ?? localization?.complement ?? ''
+          let focus
           for (const { from, to } of map) {
             if (typeof to !== 'string') {
               continue
             }
             const value = response[from] ?? ''
-            if (!value) {
+            if (!value && !focus) {
               focus = to
             }
             this.$getField(to).$setValue(value)
+          }
+
+          if (!focus) {
+            focus = localization?.number ?? localization?.complement ?? ''
           }
 
           if (focus) {
