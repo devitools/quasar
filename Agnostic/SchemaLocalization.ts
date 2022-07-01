@@ -38,24 +38,30 @@ export default abstract class SchemaLocalization extends Schema {
       .fieldAsZip()
       .fieldOn('input', async function (this: SchemaForm, payload: Payload) {
         const { $event } = payload
+
+        const fields = Object.entries(localization as Record<string, string>)
+          .filter(([key]) => fill?.includes(key) ?? false)
+          .map(([from, to]) => ({ from, to }))
+
         if (typeof $event !== 'string') {
+          for (const { to } of fields) {
+            this.$getField(to).$setValue(undefined)
+          }
           return
         }
+
         const value = $event.replace(/\D/g, '')
         if (value.length !== 8) {
           return
         }
+
         try {
           this.$q.loading.show({ delay: 0 })
 
           const response = await Locator.build().query(value) as Record<string, string>
 
-          const map = Object.entries(localization as Record<string, string>)
-            .filter(([key]) => fill?.includes(key) ?? false)
-            .map(([from, to]) => ({ from, to }))
-
           let focus
-          for (const { from, to } of map) {
+          for (const { from, to } of fields) {
             if (typeof to !== 'string') {
               continue
             }
