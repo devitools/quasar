@@ -1,13 +1,20 @@
 export default {
   create: {
-    label: 'Salvar',
+    label: 'Criar',
     success: 'Registro criado com sucesso',
     fail: 'Opa, não foi possível realizar a operação',
     validation: 'Verifique os campos destacados',
     tooltip: 'Cria um novo registro'
   },
+  createAndAdd: {
+    label: 'Criar & Novo',
+    success: 'Registro criado com sucesso',
+    fail: 'Opa, não foi possível realizar a operação',
+    validation: 'Verifique os campos destacados',
+    tooltip: 'Cria um novo registro e abre a tela para adicionar outro'
+  },
   update: {
-    label: 'Salvar',
+    label: 'Atualizar',
     success: 'Registro atualizado com sucesso',
     fail: 'Opa, não foi possível realizar a operação',
     validation: 'Verifique os campos destacados',
