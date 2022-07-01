@@ -2,7 +2,7 @@ import Schema from './Schema'
 
 import { Platform } from 'quasar'
 
-import { Provide, SchemaForm, SchemaTable } from './Helper/interfaces'
+import { ProvideBuiltin, SchemaForm, SchemaTable } from './Helper/interfaces'
 import mixin from './Helper/mixin'
 import ConfigureActionsSchemaBuiltin from './Schema/Component/ConfigureActionsSchemaBuiltin'
 import { scopesBuiltin } from './enum'
@@ -52,18 +52,6 @@ abstract class SchemaBuiltin extends Schema {
       ...attrs
     }
   }
-}
-
-/**
- * @type: ProvideBuiltin
- */
-type ProvideBuiltin = {
-  providing(): Provide
-  defaults: Record<string, unknown>
-  debuggerAllowed?: boolean
-  disable?: boolean
-  height?: string
-  size?: number
 }
 
 /**

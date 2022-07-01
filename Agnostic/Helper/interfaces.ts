@@ -433,6 +433,7 @@ export interface SchemaForm extends Component {
  */
 export interface SchemaTable extends Component {
   fetchRecords (): Promise<Record<string, unknown>>
+
   setSelected (selected: Record<string, unknown>[]): void
 }
 
@@ -457,8 +458,34 @@ export type WizardStep = {
 }
 
 /**
+ * @type: ProvideBuiltin
+ */
+export type ProvideBuiltin = {
+  providing (): Provide
+  defaults: Record<string, unknown>
+  debuggerAllowed?: boolean
+  disable?: boolean
+  height?: string
+  size?: number
+}
+
+/**
  * @typedef {WizardData}
  */
 export type WizardData = Record<string, Record<string, unknown>>
 
+/**
+ * @typedef {Remote}
+ */
 export type Remote = (filter: string, pagination: Record<string, unknown>, query: Record<string, unknown>) => Promise<unknown>
+
+/**
+ * @typedef {ErrorValidation}
+ */
+export type ErrorValidation = {
+  property_path: string
+  message: string
+  domain?: string | undefined
+  parameters?: unknown | undefined
+  value?: unknown | undefined
+}
