@@ -120,9 +120,11 @@ export default {
      * @return {*}
      */
     label (key, error) {
+      const domain = error?.domain ?? this.domain
       const paths = [
-        `domains.${this.domain}.fields.${key}.label`,
-        `domains.${this.domain}.fields.${key}`
+        `domains.${domain}.validations.${key}.label`,
+        `domains.${domain}.fields.${key}.label`,
+        `domains.${domain}.fields.${key}`
       ]
       return this.$lang(paths, error?.label ?? key)
     },
@@ -153,8 +155,14 @@ export default {
       })
       return messages.join('/')
     },
+    /**
+     * @param {string} domain
+     * @param {string} key
+     * @param {string} validation
+     * @return {string}
+     */
     preference (domain, key, validation) {
-      return `domains.${domain}.validations.${key}.${validation}`
+      return `domains.${domain}.validations.${key}.${validation}.message`
     },
     /**
      * @param {string} domain
@@ -167,6 +175,7 @@ export default {
         this.preference(domain, key, validation),
         `domains.${domain}.validation.${key}.${validation}`,
         `domains.${domain}.validations.${key}.${validation}`,
+        `domains.${domain}.validations.${key}.rules.${validation}`,
         `domains.${this.domain}.validation.${key}.${validation}`,
         `domains.${this.domain}.validations.${key}.${validation}`,
         `validation.${validation}`

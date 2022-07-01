@@ -57,8 +57,10 @@ export default {
             preference,
             `domains.${domain}.validation.${field}.${validation}`,
             `domains.${domain}.validations.${field}.${validation}`,
+            `domains.${domain}.validations.${field}.rules.${validation}`,
             `domains.${this.domain}.validation.${field}.${validation}`,
             `domains.${this.domain}.validations.${field}.${validation}`,
+            `domains.${this.domain}.validations.${field}.rules.${validation}`,
             `validation.${validation}`
           ]
           const message = replacement(this.$lang(paths, preference), replaces) || preference
@@ -71,8 +73,10 @@ export default {
         const paths = [
           `domains.${domain}.validation.${field}.${validation}`,
           `domains.${domain}.validations.${field}.${validation}`,
+          `domains.${domain}.validations.${field}.rules.${validation}`,
           `domains.${this.domain}.validation.${field}.${validation}`,
           `domains.${this.domain}.validations.${field}.${validation}`,
+          `domains.${this.domain}.validations.${field}.rules.${validation}`,
           `validation.${validation}`
         ]
         const message = this.$lang(paths, validation)
