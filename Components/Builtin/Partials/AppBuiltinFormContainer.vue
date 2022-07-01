@@ -147,6 +147,7 @@ export default {
         overflow: auto;
         min-height: 190px;
         padding: 10px;
+        max-height: 80vh;
       }
 
       > .app-form-buttons {
