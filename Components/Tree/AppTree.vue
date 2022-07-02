@@ -81,21 +81,28 @@ export default {
      * @return {Array}
      */
     parseNodes () {
-      if (!this.readonly) {
-        return this.nodes
-      }
       const reducer = (accumulator, node) => {
         const newest = { ...node }
         if (!newest.children || (Array.isArray(newest.children) && !newest.children.length)) {
-          newest.disabled = true
-          accumulator.push(newest)
+          if (this.readonly) {
+            newest.disabled = true
+          }
+          accumulator.push(this.parseNodeLabel(newest))
           return accumulator
         }
         newest.children = newest.children.reduce(reducer, [])
-        accumulator.push(newest)
+        accumulator.push(this.parseNodeLabel(newest))
         return accumulator
       }
       return this.nodes.reduce(reducer, [])
+    },
+    /**
+     * @param node
+     * @returns {*}
+     */
+    parseNodeLabel (node) {
+      const label = this.$t(node.label)
+      return { ...node, label }
     }
   },
   /**

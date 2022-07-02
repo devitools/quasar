@@ -1,5 +1,4 @@
 import { RULES } from 'src/settings/schema'
-import $lang from '../Lang'
 
 /**
  * @param {string|{icon?: string, domain?: string, children?: *[]}} settings
@@ -15,7 +14,7 @@ export const permissionGroup = (settings, icon = '', children = []) => {
     children = settings?.children
   }
   return {
-    label: $lang(`permissions.${namespace}`, `permissions.${namespace}`),
+    label: `permissions.${namespace}`,
     namespace,
     icon,
     children
@@ -27,12 +26,8 @@ export const permissionGroup = (settings, icon = '', children = []) => {
  * @return {{icon: string, namespace: string, label: string}}
  */
 export const permissionAvailable = (domain) => {
-  const label = $lang(
-    `permissions.${domain}.${RULES.LEVEL_AVAILABLE}`,
-    `permissions.${domain}.${RULES.LEVEL_AVAILABLE}`
-  )
   return {
-    label,
+    label: `permissions.${domain}.${RULES.LEVEL_AVAILABLE}`,
     namespace: `${domain}.${RULES.LEVEL_AVAILABLE}`,
     icon: 'done'
   }
@@ -45,7 +40,7 @@ export const permissionAvailable = (domain) => {
  */
 export const permissionLevelNamespace = (namespace, icon) => {
   return {
-    label: $lang(`permissions.${namespace}`, `permissions.${namespace}`),
+    label: `permissions.${namespace}`,
     namespace,
     icon
   }
@@ -59,7 +54,7 @@ export const permissionLevelNamespace = (namespace, icon) => {
  */
 export const permissionLevel = (domain, icon, level) => {
   return {
-    label: $lang(`permissions.${domain}.${level}`, `permissions.${domain}.${level}`),
+    label: `permissions.${domain}.${level}`,
     namespace: `${domain}.${level}`,
     domain,
     level,
@@ -83,7 +78,7 @@ export const permissionSingle = (view) => {
  */
 export const permissionEntry = (view) => {
   return {
-    label: $lang(`permissions.${view.domain}`, `permissions.${view.domain}`),
+    label: `permissions.${view.domain}`,
     namespace: `${view.domain}`,
     icon: view.icon
   }
@@ -134,7 +129,7 @@ export const permissionActions = (domain, allowed = [], levels = []) => {
     actions.push(...levels)
   }
   return {
-    label: $lang('permissions.actions', 'permissions.actions'),
+    label: 'permissions.actions',
     icon: 'lock_open',
     namespace: `${domain}.actions`,
     children: actions
@@ -166,7 +161,7 @@ export const permission = (index, allowedLevels = [], extraLevels = [], addition
 
   return {
     namespace: index.domain,
-    label: $lang(`permissions.${index.domain}`, `permissions.${index.domain}`),
+    label: `permissions.${index.domain}`,
     icon: index.icon,
     meta: index.meta,
     children
