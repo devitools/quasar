@@ -1,5 +1,4 @@
 import { RULES } from 'src/settings/schema'
-import $lang from '../Lang'
 
 /**
  * @deprecated
@@ -30,7 +29,7 @@ export const actionGroup = (settings, icon = '', children = [], separated = fals
     separated = settings?.separated
   }
   return {
-    label: $lang(`menu.${domain}`, `menu.${domain}`),
+    label: `menu.${domain}`,
     icon,
     separated,
     children
@@ -54,9 +53,8 @@ export const actionEntry = (resource, to = undefined, icon = undefined, namespac
     namespace = resource.domain
     domain = resource.domain
   }
-  const label = i18n ? `menu.${i18n}` : `menu.${domain}`
   return {
-    label: $lang(label, label),
+    label: i18n ? `menu.${i18n}` : `menu.${domain}`,
     namespace: namespace || `${resource}.${RULES.LEVEL_AVAILABLE}`,
     path: to,
     icon: icon,
