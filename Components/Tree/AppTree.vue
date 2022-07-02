@@ -4,11 +4,13 @@
     :ticked.sync="ticked"
     :expanded.sync="expanded"
     v-bind="bind"
+    :nodes="parsedNodes"
   />
 </template>
 
 <script>
 import { QTree } from 'quasar'
+import { get, set } from '@devitools/Plugins/$cache'
 
 export default {
   /**
@@ -34,6 +36,10 @@ export default {
       type: String,
       default: ''
     },
+    cacheKey: {
+      type: String,
+      default: ''
+    },
     open: {
       type: Array,
       default: () => []
@@ -46,14 +52,32 @@ export default {
   /**
    */
   computed: {
+    /**
+     * @return {Record<string,unknown>}
+     */
     bind () {
       return {
         ...this.$attrs,
         ...this.$props,
         ticked: this.ticked,
-        expanded: this.expanded,
-        nodes: this.parseNodes()
+        expanded: this.expanded
       }
+    },
+    /**
+     * @return {Record<string,unknown>[]}
+     */
+    parsedNodes () {
+      if (!this.cacheKey) {
+        return this.parseNodes(this.nodes)
+      }
+
+      const cached = get(this.cacheKey)
+      if (cached) {
+        return cached
+      }
+      const nodes = this.parseNodes(this.nodes)
+      set(this.cacheKey, nodes)
+      return nodes
     }
   },
   /**
@@ -78,9 +102,10 @@ export default {
       this.$emit('input', ticked)
     },
     /**
-     * @return {Array}
+     * @param {*[]} nodes
+     * @returns {*}
      */
-    parseNodes () {
+    parseNodes (nodes) {
       const reducer = (accumulator, node) => {
         const newest = { ...node }
         if (!newest.children || (Array.isArray(newest.children) && !newest.children.length)) {
@@ -94,7 +119,7 @@ export default {
         accumulator.push(this.parseNodeLabel(newest))
         return accumulator
       }
-      return this.nodes.reduce(reducer, [])
+      return nodes.reduce(reducer, [])
     },
     /**
      * @param node

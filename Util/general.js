@@ -506,6 +506,7 @@ export const copyContent = (element, i18n = 'app.clipboard.copy') => {
 
   try {
     element.select()
+    // noinspection JSDeprecatedSymbols
     document.execCommand('copy')
     toast($lang(i18n))
   } catch (e) {
