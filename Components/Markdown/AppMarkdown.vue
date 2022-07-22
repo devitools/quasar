@@ -89,6 +89,9 @@ export default {
     /**
      */
     output () {
+      if (typeof this.value !== 'string') {
+        return ''
+      }
       return marked(this.value, { breaks: true })
     }
   },
