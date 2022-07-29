@@ -3,11 +3,6 @@
     ref="file"
     v-bind="bind"
     :value="input"
-    :accept="acceptable"
-    :multiple="multiple"
-    :max-files="maxFiles"
-    :max-file-size="maxFileSize"
-    :max-total-size="maxTotalSize"
     @input="updateValue"
   >
     <template
@@ -137,8 +132,19 @@ export default {
         label = this.placeholder
       }
       return {
-        ...this.$attrs,
-        ...this.$props,
+        clearable: this.$attrs.clearable,
+        dense: this.$attrs.dense,
+        disable: this.$attrs.disable,
+        hint: this.$attrs.hint,
+        name: this.$attrs.name,
+        outlined: this.$attrs.outlined,
+
+        acceptable: this.acceptable,
+        maxFiles: this.maxFiles,
+        maxFileSize: this.maxFileSize,
+        maxTotalSize: this.maxTotalSize,
+        multiple: this.multiple,
+
         label
       }
     },
