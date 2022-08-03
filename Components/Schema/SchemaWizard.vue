@@ -119,6 +119,23 @@ export default {
       }
       return ref
     },
+    validateStep () {
+      const ref = this.getRef()
+      if (!ref) {
+        return
+      }
+
+      try {
+        ref.$v.$touch()
+        if (ref.$v.$error || ref.hasErrors()) {
+          return
+        }
+      } catch (e) {
+        // silence is gold
+      }
+
+      return ref
+    },
     /**
      */
     previousStep () {
@@ -140,18 +157,9 @@ export default {
     /**
      */
     nextStep () {
-      const ref = this.getRef()
+      const ref = this.validateStep()
       if (!ref) {
         return
-      }
-
-      try {
-        ref.$v.$touch()
-        if (ref.$v.$error || ref.hasErrors()) {
-          return
-        }
-      } catch (e) {
-        // silence is gold
       }
 
       const step = this.steps[this.current]

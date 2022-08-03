@@ -429,6 +429,13 @@ export interface SchemaForm extends Component {
 }
 
 /**
+ * @typedef {SchemaForm}
+ */
+export interface SchemaWizard extends Component {
+  validateStep (): View
+}
+
+/**
  * @typedef {SchemaTable}
  */
 export interface SchemaTable extends Component {
