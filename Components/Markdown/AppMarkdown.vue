@@ -5,6 +5,7 @@
   >
     <div class="q-field__toolbar">
       <QBtnToggle
+        v-if="!readonly"
         v-model="selected"
         color="default"
         toggle-color="primary"
@@ -18,14 +19,14 @@
             />
           </div>
         </template>
-        <template v-slot:both>
-          <div class="row items-center no-wrap">
-            <QIcon
-              name="vertical_split"
-              size="xs"
-            />
-          </div>
-        </template>
+        <!--<template v-slot:both>-->
+        <!--  <div class="row items-center no-wrap">-->
+        <!--    <QIcon-->
+        <!--      name="vertical_split"-->
+        <!--      size="xs"-->
+        <!--    />-->
+        <!--  </div>-->
+        <!--</template>-->
         <template v-slot:editor>
           <div class="row items-center no-wrap">
             <QIcon
@@ -71,6 +72,14 @@ export default {
     value: {
       type: String,
       default: ''
+    },
+    mode: {
+      type: String,
+      default: 'editor'
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   /**
@@ -79,7 +88,7 @@ export default {
     selected: 'preview',
     options: [
       { slot: 'editor', value: 'editor' },
-      { slot: 'both', value: 'both' },
+      /*{ slot: 'both', value: 'both' },*/
       { slot: 'preview', value: 'preview' }
     ]
   }),
@@ -97,10 +106,36 @@ export default {
   },
   /**
    */
+  watch: {
+    /**
+     */
+    mode: {
+      immediate: true,
+      handler (selected) {
+        this.selected = selected
+      }
+    },
+    /**
+     */
+    readonly: {
+      immediate: true,
+      handler (readonly) {
+        if (!readonly) {
+          return
+        }
+        this.selected = 'preview'
+      }
+    }
+  },
+  /**
+   */
   methods: {
     /**
      */
     update: debounce(function (e) {
+      if (this.readonly) {
+        return
+      }
       this.$emit('input', e.target.value)
     }, 300)
   }
