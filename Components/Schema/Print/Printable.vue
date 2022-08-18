@@ -5,7 +5,7 @@
   >
     <div class="flex justify-between">
       <img
-        :src="$static('/logo/horizontal-white-100x40.png')"
+        :src="$static('/logo/app-logo-128x128.png')"
         alt="logo"
         style="height: 40px; margin: 5px 0;"
         class="float-left"
