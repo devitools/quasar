@@ -211,6 +211,7 @@ export default class ComponentActions {
 
     const afterDestroyDefault = (path) => {
       if (this.fetchRecords) {
+        this.selected = []
         this.fetchRecords()
         return
       }
@@ -351,6 +352,7 @@ export default class ComponentActions {
       const success = (response) => {
         this.actionSchemaSuccess(response, 'agnostic.actions.restore.success')
         if (this.fetchRecords) {
+          this.selected = []
           this.fetchRecords()
         }
       }
