@@ -58,6 +58,7 @@
 import { QBtn, QDialog, QFile } from 'quasar'
 import AppTooltip from '../Tooltip/AppTooltip'
 import AppFilePreview from './AppFilePreview'
+import { attrs } from 'src/settings/components'
 
 export default {
   /**
@@ -132,9 +133,11 @@ export default {
         label = this.placeholder
       }
       return {
+        ...attrs,
         clearable: this.$attrs.clearable,
         dense: this.$attrs.dense,
         disable: this.$attrs.disable,
+        readonly: this.readonly,
         hint: this.$attrs.hint,
         name: this.$attrs.name,
         outlined: this.$attrs.outlined,
