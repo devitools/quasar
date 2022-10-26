@@ -27,7 +27,6 @@ export default {
   /**
    */
   data () {
-    // :value="inputValue"
     return {
       localValue: undefined
     }
@@ -81,20 +80,23 @@ export default {
   watch: {
     /**
      */
-    value (value) {
-      if (typeof value !== 'string') {
-        this.localValue = undefined
-        return
+    value: {
+      immediate: true,
+      handler (value) {
+        if (typeof value !== 'string') {
+          this.localValue = undefined
+          return
+        }
+        if (String(value).length < String(this.format).length) {
+          return
+        }
+        const localValue = dateFormatter(value, this.display, this.format)
+        if (!localValue) {
+          this.localValue = undefined
+          return
+        }
+        this.localValue = localValue
       }
-      if (String(value).length < String(this.format).length) {
-        return
-      }
-      const localValue = dateFormatter(value, this.display, this.format)
-      if (!localValue) {
-        this.localValue = undefined
-        return
-      }
-      this.localValue = localValue
     }
   }
 }
