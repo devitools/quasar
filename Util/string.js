@@ -2,7 +2,7 @@
  * @param {string} template
  * @param {Array|Object} replaces
  * @param regex
- * @returns {string}
+ * @returns {*}
  */
 export const replacement = (
   template,
@@ -17,7 +17,7 @@ export const replacement = (
     keyFy = regex
   }
   const replace = (replacing, key, value) => {
-    return replacing.replace(keyFy(key), value)
+    return replacing?.replace(keyFy(key), value)
   }
 
   if (Array.isArray(replaces)) {
