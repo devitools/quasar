@@ -1,8 +1,9 @@
 <template>
   <q-input
     :mask="mask"
-    :value="inputValue"
+    v-model="localValue"
     @input="inputUpdateValue($event)"
+    @blur="blurUpdateValue($event.target.value)"
     v-bind="bind"
   >
     <template v-slot:append>
@@ -35,7 +36,3 @@ export default {
   mixins: [MixinPropsDate, MixinBehaviour]
 }
 </script>
-
-<style scoped>
-
-</style>

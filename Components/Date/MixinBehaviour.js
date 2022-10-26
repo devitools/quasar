@@ -16,16 +16,6 @@ export default {
     /**
      * @returns {string}
      */
-    inputValue () {
-      const value = dateFormatter(this.value, this.display, this.format)
-      if (!value) {
-        return ''
-      }
-      return value
-    },
-    /**
-     * @returns {string}
-     */
     widgetValue () {
       const value = dateFormatter(this.value, this.format, this.format)
       if (!value) {
@@ -36,23 +26,75 @@ export default {
   },
   /**
    */
+  data () {
+    // :value="inputValue"
+    return {
+      localValue: undefined
+    }
+  },
+  /**
+   */
   methods: {
     /**
-     * @param {string} value
+     * @param {string|null} value
      */
     inputUpdateValue (value) {
+      if (value === null) {
+        this.$emit('input', undefined)
+      }
+      if (String(value).length < String(this.display).length) {
+        this.$emit('input', undefined)
+        return
+      }
       const input = dateFormatter(value, this.format, this.display)
       if (input) {
         this.$emit('input', input)
         return
       }
-      this.$emit('input', '')
+      this.$emit('input', undefined)
+    },
+    /**
+     * @param {string|null} value
+     */
+    blurUpdateValue (value) {
+      if (typeof value !== 'string' || value === '') {
+        return
+      }
+      if (String(value).length < String(this.display).length) {
+        this.localValue = undefined
+        return
+      }
+      const localValue = dateFormatter(this.value, this.display, this.format)
+      if (!localValue) {
+        this.localValue = undefined
+      }
     },
     /**
      * @param {string} value
      */
     widgetUpdateValue (value) {
       this.$emit('input', value)
+    }
+  },
+  /**
+   */
+  watch: {
+    /**
+     */
+    value (value) {
+      if (typeof value !== 'string') {
+        this.localValue = undefined
+        return
+      }
+      if (String(value).length < String(this.format).length) {
+        return
+      }
+      const localValue = dateFormatter(value, this.display, this.format)
+      if (!localValue) {
+        this.localValue = undefined
+        return
+      }
+      this.localValue = localValue
     }
   }
 }
