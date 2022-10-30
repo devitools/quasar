@@ -50,7 +50,7 @@ export default {
           }
           const value = this.getCellValue(col, row)
           const domProps = {}
-          if (col.format) {
+          if (col.format && typeof value !== 'function') {
             domProps.innerHTML = value
           }
           let staticClass = col.__tdClass
@@ -67,7 +67,10 @@ export default {
             class: classes,
             domProps
           }
-          return h('td', data, value)
+          if (typeof value !== 'function') {
+            return h('td', data, value)
+          }
+          return h('td', data, value(h))
         })
 
       if (this.hasSelectionMode === true) {
