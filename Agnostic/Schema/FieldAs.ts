@@ -3,7 +3,7 @@ import { primaryKey } from 'src/settings/schema'
 import Base from '../Base'
 import Skeleton from '../Skeleton'
 import Schema from '../../Agnostic/Schema'
-import { Payload, UserEvent } from '../../Agnostic/Helper/interfaces'
+import { Component, Payload, UserEvent } from '../../Agnostic/Helper/interfaces'
 
 import { format } from '../../Util/formatter'
 
@@ -72,6 +72,7 @@ export default abstract class FieldAs extends Base {
    * @returns {this}
    */
   fieldAsPhoneMultiMask (this: Schema, attrs = {}) {
+    const field = this.__currentField
     this.fieldAsMasked('(##) #####-####', { placeholder: '(44) 98956-3049' })
       .fieldOn('keypress', function (payload: Payload) {
         const $event = payload.$event as UserEvent<HTMLInputElement>
@@ -89,6 +90,13 @@ export default abstract class FieldAs extends Base {
           return
         }
         payload.field.attrs.mask = '(##) ####-####'
+      })
+      .fieldWatch( function (this: Component, value: string) {
+        if (value.length >= 11) {
+          this.$getField(field).$fieldAttr('mask', '(##) #####-####')
+          return
+        }
+        this.$getField(field).$fieldAttr('mask', '(##) ####-####')
       })
     this.setType('string')
     return this
