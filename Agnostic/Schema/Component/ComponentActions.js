@@ -53,7 +53,6 @@ export default class ComponentActions {
   }
 
   /**
-   * @returns {Object}
    */
   actionHome () {
     if (this.$route.meta.scope === SCOPES.SCOPE_VIEW && this.$route.query.trash) {
