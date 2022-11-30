@@ -46,6 +46,10 @@ export const browse = (target, options = undefined) => {
     return
   }
 
+  if (typeof target === 'object' && !target.path) {
+    target.path = $router.currentRoute.path
+  }
+
   if (typeof target === 'string') {
     target = {
       path: target,
