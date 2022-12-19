@@ -47,9 +47,13 @@ export default abstract class Search extends Basic {
   protected paginateParser (parameters: Record<string, number | string | boolean | unknown>) {
     const { page, size, sortBy, descending, sort, filter, where, raw, headers, trash } = parameters ?? {}
 
+    const config: Record<string, unknown> = {}
+    if (headers) {
+      config.headers = headers
+    }
     const parse = parseRestRecords({ rowsPerPage: size, sortBy, descending, page })
     return this
-      .search({ page, size, sort, filter, where, raw, trash }, { headers })
+      .search({ page, size, sort, filter, where, raw, trash }, config)
       .then((response) => parse(response))
   }
 
