@@ -19,7 +19,7 @@ export default abstract class Search extends Basic {
    * @return {Promise<Pagination>}
    */
   paginate (parameters: Record<string, unknown>, filters?: string[], trash?: boolean): Promise<Pagination> {
-    const { pagination, [filterKey]: filter, [searchKey]: where, raw } = parameters ?? {}
+    const { pagination, [filterKey]: filter, [searchKey]: where, raw, headers } = parameters ?? {}
 
     const size = get(pagination, 'rowsPerPage', this.size)
     const sortBy = get(pagination, 'sortBy')
@@ -33,10 +33,10 @@ export default abstract class Search extends Basic {
     }
 
     if ($store.getters['app/getOffline'] || this.offline) {
-      return this.searchOffline({ page, size, sort, filter, where, raw, trash })
+      return this.searchOffline({ page, size, sort, filter, where, raw, headers, trash })
     }
 
-    return this.paginateParser({ page, size, sortBy, descending, sort, filter, where, raw, trash })
+    return this.paginateParser({ page, size, sortBy, descending, sort, filter, where, raw, headers, trash })
   }
 
   /**
@@ -45,11 +45,11 @@ export default abstract class Search extends Basic {
    * @return {Promise<Pagination>}
    */
   protected paginateParser (parameters: Record<string, number | string | boolean | unknown>) {
-    const { page, size, sortBy, descending, sort, filter, where, raw, trash } = parameters ?? {}
+    const { page, size, sortBy, descending, sort, filter, where, raw, headers, trash } = parameters ?? {}
 
     const parse = parseRestRecords({ rowsPerPage: size, sortBy, descending, page })
     return this
-      .search({ page, size, sort, filter, where, raw, trash })
+      .search({ page, size, sort, filter, where, raw, trash }, { headers })
       .then((response) => parse(response))
   }
 
