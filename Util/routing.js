@@ -110,13 +110,13 @@ export const provide = (settings, children = []) => {
   const icon = settings.icon
   const table = settings.table
   const form = settings.form
-  const parent = settings.parent ?? {}
+  const up = settings.up ?? {}
 
   const options = settings.options || {}
 
   const component = () => import('../Components/Group/Group.vue')
   const kids = crud(domain, path, table, form, { ...options, icon })
-  const meta = { domain, icon: parent.icon, ...options }
+  const meta = { domain, icon: up.icon, ...options }
 
   return group(path, component, [...children, ...kids], meta)
 }
