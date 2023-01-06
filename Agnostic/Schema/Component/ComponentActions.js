@@ -93,6 +93,11 @@ export default class ComponentActions {
     const afterCreateDefault = (path, id) => {
       $emporium.commit('updateModified', false)
 
+      if (this.$route.query.afterCreate) {
+        this.$browse(this.$route.query.afterCreate)
+        return
+      }
+
       if (schema.afterCreate === 'view') {
         this.$browse(`${path}/${id}`, true)
         return
