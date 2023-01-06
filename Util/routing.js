@@ -79,13 +79,13 @@ export const crud = (
     delete options.domain
   }
 
-  const creator = (resource, component, name, level, scope) => {
+  const creator = (resource, component, name, level, scope, options) => {
     const namespace = `${domain}.${level}`
     const meta = { ...options, scope, domain, level, namespace }
     return route(`${path}/${resource}`, component, `${domain}.${name}`, meta, { path })
   }
 
-  return resourceRoutes(creator, table, form, key, options)
+  return resourceRoutes(creator, table, form, key, { ...options, path })
 }
 
 /**
@@ -107,14 +107,16 @@ export const resource = (settings, children = []) => {
 export const provide = (settings, children = []) => {
   const path = settings.path
   const domain = settings.domain
+  const icon = settings.icon
   const table = settings.table
   const form = settings.form
+  const parent = settings.parent ?? {}
 
   const options = settings.options || {}
 
   const component = () => import('../Components/Group/Group.vue')
-  const kids = crud(domain, path, table, form, options)
-  const meta = { domain, ...options }
+  const kids = crud(domain, path, table, form, { ...options, icon })
+  const meta = { domain, icon: parent.icon, ...options }
 
   return group(path, component, [...children, ...kids], meta)
 }
