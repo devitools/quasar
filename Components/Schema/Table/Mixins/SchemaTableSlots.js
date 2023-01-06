@@ -73,7 +73,21 @@ export default {
         top.push(this.renderTableSearch(h))
       }
 
-      return top
+      const topSlot = this.$scopedSlots['table-top']
+      if (!topSlot) {
+        return top
+      }
+      const tableTop = topSlot({
+        fields: this.fields,
+        actions: this.actions,
+        domain: this.domain,
+        scope: this.scope,
+        components: this.columns,
+        records: this.data,
+        buttons: this.buttons,
+        payload: this.payload
+      })
+      return [h('div', { staticClass: 'q-table__top--default flex items-center full-width' }, top), h('div', tableTop)]
     },
     /**
      * @param {function} h
