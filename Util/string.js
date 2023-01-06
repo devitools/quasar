@@ -1,7 +1,7 @@
 /**
  * @param {string} template
  * @param {Array|Object} replaces
- * @param regex
+ * @param {Function} regex
  * @returns {*}
  */
 export const replacement = (
