@@ -15,7 +15,8 @@ const $emporium = $store({
     modal: {},
     pending: '',
     printing: undefined,
-    version: window.localStorage.getItem('version') ?? ''
+    version: window.localStorage.getItem('version') ?? '',
+    breadcrumb: []
   },
   // the mutations to call with commit
   // ex.: $store.commit('updateVersion')
@@ -93,6 +94,13 @@ const $emporium = $store({
     updateVersion (state, version) {
       state.version = version
       window.localStorage.setItem('version', version)
+    },
+    /**
+     * @param {Object} state
+     * @param {{label: string, path: string}[]} breadcrumb
+     */
+    updateBreadcrumb (state, breadcrumb) {
+      state.breadcrumb = breadcrumb
     }
   }
 })
