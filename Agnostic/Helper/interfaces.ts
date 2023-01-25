@@ -387,7 +387,7 @@ export interface Component extends View {
 
   $can (namespace: string): boolean
 
-  $user (property?: string): string | number | boolean | Record<string, unknown> | undefined
+  $user (property?: string): string | number | boolean | Record<string, unknown> | unknown | undefined
 
   $setFocus (name: string): void
 
