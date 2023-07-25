@@ -232,8 +232,12 @@ export default {
           vertical-align: top;
         }
 
-        tbody > tr:nth-child(2n) {
+        tbody > tr:nth-child(1n) {
           background-color: #ededed;
+        }
+
+        tbody > tr:nth-child(2n) {
+          background-color: #f7f7f7;
         }
       }
     }
