@@ -10,7 +10,6 @@ export const continents = [
 
 /**
  * https://datahub.io/core/country-list
- * @type {Object}
  */
 export const countries = [
   { value: 'AF', label: 'Afghanistan' },

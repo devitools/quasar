@@ -1,6 +1,3 @@
-/**
- * @type {Object}
- */
 export default {
   alphaNum: 'The field must be a numeric alpha',
   decimal: 'The field must be a decimal number',

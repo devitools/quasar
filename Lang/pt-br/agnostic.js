@@ -3,9 +3,6 @@ import { primaryKey } from 'src/settings/schema'
 import { agnostic } from '../en-us'
 import actions from './actions'
 
-/**
- * @type {Object}
- */
 export default {
   ...agnostic,
   table: {

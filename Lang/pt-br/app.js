@@ -1,8 +1,5 @@
 import { app } from '../en-us'
 
-/**
- * @type {Object}
- */
 export default {
   ...app,
   version: {

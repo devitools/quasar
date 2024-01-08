@@ -1,6 +1,3 @@
-/**
- * @type {Object}
- */
 export default {
   create: {
     label: 'Save',

@@ -1,6 +1,3 @@
-/**
- * @type {Object}
- */
 export default {
   version: {
     notify: 'A new version is available!' +

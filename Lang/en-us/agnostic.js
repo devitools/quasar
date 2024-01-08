@@ -2,9 +2,6 @@ import { primaryKey } from 'src/settings/schema'
 
 import actions from './actions'
 
-/**
- * @type {Object}
- */
 export default {
   table: {
     search: 'Search...',
