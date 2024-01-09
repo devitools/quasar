@@ -218,7 +218,7 @@ export default {
     reportPrint () {
       try {
         const frame = document.getElementById('report-iframe')
-        frame.contentWindow.postMessage('print', process.env.VUE_APP_REPORT_BASE_URL)
+        frame.contentWindow.postMessage('print', '*')
       } catch (e) {
         window.alert(e.message)
       }
