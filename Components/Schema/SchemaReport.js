@@ -89,6 +89,7 @@ export default {
       }
       const fields = this.getComponents()
       const children = [
+        h('input', { domProps: { type: 'hidden', name: 'Authorization', value: token } }),
         this.renderFormBodyComponents(h, fields),
         this.renderFormBodyHidden(h, fields),
         this.renderFormBodyInfo(h, fields)
@@ -216,8 +217,8 @@ export default {
      */
     reportPrint () {
       try {
-        const frame = document.getElementById('report-iframe');
-        frame.contentWindow.postMessage('print', process.env.VUE_APP_REPORT_BASE_URL);
+        const frame = document.getElementById('report-iframe')
+        frame.contentWindow.postMessage('print', process.env.VUE_APP_REPORT_BASE_URL)
       } catch (e) {
         window.alert(e.message)
       }
